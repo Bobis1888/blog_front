@@ -1,0 +1,31 @@
+<div class="after-registration">
+
+  <ng-container [ngSwitch]="state">
+    <ng-container *ngSwitchCase="'success'" [ngTemplateOutlet]="success"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="loading"></ng-container>
+  </ng-container>
+
+</div>
+
+<ng-template #success>
+  <mat-card>
+    <mat-card-header>
+      <h1>Готово!</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Регистрация прошла успешно, теперь вы можете авторизоваться используя свою почту в качестве логина,
+        на вашу почту направлено письмо со ссылкой для подтверждения регистрации.
+      </p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+
+<ng-template #loading>
+  <mat-card>
+    <div class="spinner">
+      <mat-spinner color="accent"></mat-spinner>
+    </div>
+  </mat-card>
+</ng-template>
