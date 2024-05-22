@@ -1,26 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
+import {Router} from '@angular/router';
 import {RootModule} from "app/root.module";
-import {AuthService} from "app/core/service/auth/auth.service";
 import {UnSubscriber} from "app/abstract/un-subscriber";
-import {takeUntil} from "rxjs";
+import {AuthService} from "app/core/service/auth/auth.service";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @Component({
-  selector: 'app-root',
+  selector: 'summary',
   standalone: true,
-  imports: [RootModule, RouterOutlet],
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.less'
+  imports: [RootModule, FormsModule, ReactiveFormsModule],
+  templateUrl: './summary.component.html',
+  styleUrl: './summary.component.less'
 })
-export class MainComponent extends UnSubscriber implements OnInit {
+export class SummaryComponent extends UnSubscriber implements OnInit {
   constructor(private router: Router, private authService: AuthService) {
     super();
   }
 
   ngOnInit(): void {
-    this.authService.state()
-      .pipe(takeUntil(this.unSubscriber))
-      .subscribe();
+
   }
 }

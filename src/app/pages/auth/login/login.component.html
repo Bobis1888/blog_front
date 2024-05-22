@@ -1,50 +1,35 @@
-<div class="registration">
+<div class="login">
 
   <mat-card>
     <mat-card-header>
-      <h1>Регистрация</h1>
+      <h1>Авторизация</h1>
     </mat-card-header>
     <mat-card-content>
-      <mat-divider></mat-divider>
       <form [formGroup]="formGroup">
         <div>
           <mat-form-field appearance="outline">
             <mat-label>E-mail</mat-label>
             <input matInput [type]="'email'" placeholder="example@domain.com" formControlName="emailCtrl" required>
+            <mat-icon matSuffix>alternate_email</mat-icon>
           </mat-form-field>
         </div>
 
         <div>
           <mat-form-field appearance="outline">
             <mat-label>Введите пароль</mat-label>
-            <input matInput [type]="'password'" placeholder="123@#$5hg" formControlName="passwordCtrl" required>
-            <mat-hint *ngIf="formGroup.get('passwordCtrl')?.value != ''">
-              <span class="hint-{{passwordIndicator.color}}">
-                Ваш пароль {{ passwordIndicator.state }}
-              </span>
-            </mat-hint>
-          </mat-form-field>
-        </div>
-
-        <div>
-          <mat-form-field appearance="outline">
-            <mat-label>Повторите пароль</mat-label>
-            <input matInput [type]="'password'" placeholder="123@#$5hg" formControlName="passwordRepeatCtrl" required>
-            <mat-hint *ngIf="passNotEqual">
-              <span class="hint-red">
-                Пароли не совпадают
-              </span>
-            </mat-hint>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="123@#$5hg" formControlName="passwordCtrl" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-hint class="restore-link" align="end" (click)="goToRestorePassword()">Забыли пароль?</mat-hint>
           </mat-form-field>
         </div>
 
         <div class="buttons">
-          <button mat-stroked-button type="submit" color="warn" (click)="goTo()">Вперед!</button>
+          <button mat-stroked-button type="submit" color="warn" (click)="login()">Авторизоваться!</button>
+          <button mat-stroked-button type="submit" color="primary" (click)="goToReg()">Регистрация</button>
         </div>
       </form>
-
-      <mat-divider></mat-divider>
-
       <div class="social"></div>
 
     </mat-card-content>

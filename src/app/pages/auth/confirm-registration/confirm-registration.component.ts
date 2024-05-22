@@ -3,13 +3,13 @@ import {Router} from "@angular/router";
 import {RootModule} from "src/app/root.module";
 
 @Component({
-  selector: 'after-registration',
+  selector: 'confirm-registration',
   standalone: true,
   imports: [RootModule],
-  templateUrl: './after-registration.component.html',
-  styleUrl: './after-registration.component.less'
+  templateUrl: './confirm-registration.component.html',
+  styleUrl: './confirm-registration.component.less'
 })
-export class AfterRegistrationComponent {
+export class ConfirmRegistrationComponent {
 
   state: string = "loading";
 

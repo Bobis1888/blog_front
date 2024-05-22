@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {RootModule} from "app/root.module";
-import {RegistrationService} from "app/core/service/registration.service";
-import {SuccessDto} from "app/core/dto/success-dto";
+import {RootModule} from "src/app/root.module";
+import {SuccessDto} from "src/app/core/dto/success-dto";
+import {takeUntil} from "rxjs";
+import {UnSubscriber} from "app/abstract/un-subscriber";
+import {AuthService} from "app/core/service/auth/auth.service";
 
 export class PasswordIndicator {
   color: string;
@@ -23,9 +25,10 @@ export class PasswordIndicator {
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.less'
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent extends UnSubscriber implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private registrationService: RegistrationService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
+    super();
   }
 
   hide: boolean = true;
@@ -66,12 +69,13 @@ export class RegistrationComponent implements OnInit {
       let email = this.formGroup.get("emailCtrl")?.value;
       let password = this.formGroup.get("passwordCtrl")?.value;
 
-      this.registrationService
-        .register(email, password)
+      this.authService
+        .registration(email, password)
+        .pipe(takeUntil(this.unSubscriber))
         .subscribe((res: SuccessDto) => {
 
           if (res.success) {
-            this.router.navigate(['/after-registration']);
+            this.router.navigate(['/confirm-registration']);
           }
         });
     }

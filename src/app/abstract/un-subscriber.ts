@@ -1,7 +1,8 @@
 import {Subject} from "rxjs";
-import {OnDestroy} from "@angular/core";
+import {Component, OnDestroy} from "@angular/core";
 
-export abstract class Unsubscribe implements OnDestroy {
+@Component({template: ''})
+export abstract class UnSubscriber implements OnDestroy {
 
   protected unSubscriber: Subject<any> = new Subject();
 

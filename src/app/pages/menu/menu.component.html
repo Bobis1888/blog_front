@@ -1,3 +1,22 @@
-<div>
-  Summary page
-</div>
+<section>
+  <div class="top-menu">
+    <button mat-stroked-button routerLink="/">Главная</button>
+    <button mat-stroked-button color="primary">Форум</button>
+    <button mat-stroked-button>Статьи</button>
+
+    <button *ngIf="!authService.isAuthorized" mat-stroked-button color="accent"
+            routerLink="/login">Вход
+    </button>
+    <button *ngIf="authService.isAuthorized" mat-stroked-button color="accent"
+            routerLink="/profile">Профиль
+    </button>
+
+    <button *ngIf="authService.isAuthorized" mat-stroked-button color="warn"
+            (click)="logout()">Выйти
+    </button>
+
+  </div>
+</section>
+<section>
+  <div></div>
+</section>
