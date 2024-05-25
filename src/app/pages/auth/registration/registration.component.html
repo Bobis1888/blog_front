@@ -1,51 +1,88 @@
-<div class="registration">
+<div class="registration" [ngClass]="{'registration-mobile' : isMobile}">
 
+  <ng-container [ngSwitch]="state">
+    <ng-container *ngSwitchCase="'message'" [ngTemplateOutlet]="message"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="form"></ng-container>
+  </ng-container>
+
+</div>
+
+<ng-template #message>
+  <mat-card class="success-message">
+    <mat-card-header>
+      <h1>{{ 'registrationPage.afterSignUpTitle' | translate }}</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ 'registrationPage.afterSignUpMessage' | translate }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+
+<ng-template #form>
   <mat-card>
     <mat-card-header>
-      <h1>Регистрация</h1>
+      <h1>{{ 'registrationPage.title' | translate }}</h1>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="formGroup">
         <div>
           <mat-form-field appearance="outline">
             <mat-label>E-mail</mat-label>
-            <input matInput [type]="'email'" placeholder="example@domain.com" formControlName="emailCtrl" required>
+            <input matInput [type]="'email'" placeholder="example@domain.com" formControlName="email" required>
+            <mat-icon matSuffix>alternate_email</mat-icon>
+            <mat-error *ngIf="hasErrors && formGroup.get('email')?.valid == false">
+              {{ getErrors("email") }}
+            </mat-error>
           </mat-form-field>
         </div>
 
         <div>
           <mat-form-field appearance="outline">
-            <mat-label>Введите пароль</mat-label>
-            <input matInput [type]="'password'" placeholder="123@#$5hg" formControlName="passwordCtrl" required>
-            <mat-hint *ngIf="formGroup.get('passwordCtrl')?.value != ''">
+            <mat-label>{{ 'registrationPage.password' | translate }}</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="123@#$5hg" formControlName="password"
+                   required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-hint *ngIf="formGroup.get('password')?.value != ''">
               <span class="hint-{{passwordIndicator.color}}">
-                Ваш пароль {{ passwordIndicator.state }}
+                {{ 'registrationPage.passwordWeak' | translate: {value: ('registrationPage.passwordStrong.' + passwordIndicator.state | translate)} }}
               </span>
             </mat-hint>
+            <mat-error *ngIf="hasErrors && formGroup.get('password')?.valid == false">
+              {{ getErrors("password") }}
+            </mat-error>
           </mat-form-field>
         </div>
 
         <div>
           <mat-form-field appearance="outline">
-            <mat-label>Повторите пароль</mat-label>
-            <input matInput [type]="'password'" placeholder="123@#$5hg" formControlName="passwordRepeatCtrl" required>
-            <mat-hint *ngIf="passNotEqual">
-              <span class="hint-red">
-                Пароли не совпадают
-              </span>
-            </mat-hint>
+            <mat-label>{{ 'registrationPage.repeatPassword' | translate }}</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="123@#$5hg" formControlName="passwordRepeat"
+                   required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="hasErrors && formGroup.get('passwordRepeat')?.valid == false">
+              {{ getErrors("passwordRepeat") }}
+            </mat-error>
           </mat-form-field>
         </div>
 
-        <div class="buttons">
-          <button mat-stroked-button type="submit" color="warn" (click)="goTo()">Вперед!</button>
+        <div class="buttons" [ngClass]="{'buttons-mobile' : isMobile}">
+          <button mat-stroked-button type="submit" color="warn"
+                  (click)="signUp()">{{ 'registrationPage.signUp' | translate }}
+          </button>
         </div>
       </form>
-
-      <div class="social"></div>
-
+      <mat-card-footer *ngIf="loading">
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </mat-card-footer>
     </mat-card-content>
-
   </mat-card>
-</div>
-
+</ng-template>

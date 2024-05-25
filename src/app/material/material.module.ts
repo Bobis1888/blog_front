@@ -16,9 +16,12 @@ import {
   MatStepperNext,
   MatStepperPrevious
 } from "@angular/material/stepper";
-import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
+import {MatFormField, MatFormFieldModule, MatHint, MatLabel} from "@angular/material/form-field";
+import {MatInput, MatInputModule} from "@angular/material/input";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatProgressBar} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [],
@@ -39,7 +42,12 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     MatLabel,
     MatHint,
     MatIcon,
-    MatProgressSpinner
+    MatProgressSpinner,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressBar
   ],
   exports: [
     MatSidenavModule,
@@ -64,7 +72,13 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     MatHint,
     MatIcon,
     MatIconModule,
-    MatProgressSpinner
+    MatProgressSpinner,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatProgressBar
   ]
 })
 export class MaterialModule {

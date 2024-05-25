@@ -1,0 +1,41 @@
+{
+  "topMenu": {
+    "home": "Home",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "forum": "Forum",
+    "articles": "Articles"
+  },
+  "loginPage": {
+    "title": "Authorization",
+    "login": "E-mail",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "password": "Password",
+    "forgotPassword": "Forgot password?"
+  },
+  "registrationPage": {
+    "title": "Registration",
+    "signUp": "Lets go!",
+    "password": "Enter password",
+    "repeatPassword": "Repeat password",
+    "passwordWeak": "Password is {{value}}",
+    "passwordNotEqual": "Passwords are not equal",
+    "afterSignUpTitle": "Congratulations you are registered!",
+    "afterSignUpMessage": "Check your email for confirmation registration",
+    "passwordStrong": {
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong"
+    }
+  },
+  "errors": {
+    "email.alreadyRegistered": "E-mail already registered",
+    "emailHelp": "Forgot password? Go to link for reset password",
+    "emailHelpAction": "Reset",
+    "login.invalid": "Invalid login",
+    "login.blocked": "Login is blocked for {{time}} minutes",
+    "password.invalid": "Invalid password",
+    "passwordHelp": "Password must contain at least 1 digit, 1 lowercase letter, 1 uppercase letter, 1 special symbol (#@%&+) and be longer than 8 characters"
+  }
+}

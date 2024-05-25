@@ -1,11 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {
+  AbstractControl,
+  FormControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from "@angular/forms";
 import {RootModule} from "src/app/root.module";
 import {SuccessDto} from "src/app/core/dto/success-dto";
 import {takeUntil} from "rxjs";
-import {UnSubscriber} from "app/abstract/un-subscriber";
 import {AuthService} from "app/core/service/auth/auth.service";
+import {HasErrors} from "app/abstract/has-errors";
+import {TranslateService} from "@ngx-translate/core";
+import {DeviceDetectorService} from "ngx-device-detector";
+import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 export class PasswordIndicator {
   color: string;
@@ -25,57 +34,92 @@ export class PasswordIndicator {
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.less'
 })
-export class RegistrationComponent extends UnSubscriber implements OnInit {
+export class RegistrationComponent extends HasErrors implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
-    super();
+  constructor(translate: TranslateService,
+              private authService: AuthService,
+              private router: Router,
+              private deviceService: DeviceDetectorService,
+              private matSnackBar: MatSnackBar) {
+    super(translate);
+  }
+
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
   }
 
   hide: boolean = true;
-
-  formGroup: FormGroup = this.formBuilder.group({
-    emailCtrl: new FormControl('', [Validators.required, Validators.email]),
-    passwordCtrl: new FormControl('', [
-      Validators.minLength(8)]),
-    passwordRepeatCtrl: new FormControl('', [
-      Validators.minLength(8),
-      control => control.value === this.formGroup?.get("passwordCtrl")?.value ? null : {notEqual: true}])
-  });
+  loading: boolean = false;
+  state: 'form' | 'message' = 'form';
 
   get passwordIndicator(): PasswordIndicator {
     let color = "red";
-    let state = "слабый";
+    let state = "weak";
 
-    if (this.formGroup != null && this.formGroup?.get("passwordCtrl")?.value?.length >= 8) {
+    if (this.formGroup != null && this.formGroup?.get("password")?.value?.length >= 8) {
       color = "green";
-      state = "сильный";
+      state = "strong";
     }
 
     return new PasswordIndicator(color, state);
   }
 
-  get passNotEqual(): boolean {
-    let formControl = this.formGroup.get('passwordRepeatCtrl');
-    return formControl?.valid == false && formControl?.value != '';
-  }
-
   ngOnInit(): void {
+    this.formGroup.addControl('email', new FormControl('', [Validators.required, Validators.email]));
+    this.formGroup.addControl('password', new FormControl('', [Validators.minLength(8)]));
+    this.formGroup.addControl('passwordRepeat', new FormControl('', [
+        Validators.minLength(8),
+        (control: AbstractControl): ValidationErrors | null => {
+          return control.value != this.formGroup?.get("password")?.value ? {notEqual: true} : null;
+        }
+      ]
+    ));
   }
 
-  goTo(): void {
+  signUp(): void {
+
+    if (this.loading) {
+      return;
+    }
+
+    this.clearErrors();
 
     if (this.formGroup.valid) {
-
-      let email = this.formGroup.get("emailCtrl")?.value;
-      let password = this.formGroup.get("passwordCtrl")?.value;
+      this.loading = true;
+      let email = this.formGroup.get("email")?.value;
+      let password = this.formGroup.get("password")?.value;
 
       this.authService
         .registration(email, password)
-        .pipe(takeUntil(this.unSubscriber))
-        .subscribe((res: SuccessDto) => {
+        .pipe(
+          takeUntil(this.unSubscriber),
+        )
+        .subscribe({
+          next: (res: SuccessDto) => {
+            this.loading = false;
 
-          if (res.success) {
-            this.router.navigate(['/confirm-registration']);
+            if (res.success) {
+              this.state = 'message';
+              return;
+            }
+          },
+          error: (err) => {
+            this.loading = false;
+            this.rejectErrors(...err.errors)
+
+            if (this.getErrors("password")) {
+              this.matSnackBar.open(this.translate.instant("errors.passwordHelp"), "OK");
+            }
+
+            if (this.getErrorCodes("email")?.includes("alreadyRegistered")) {
+              let ref: MatSnackBarRef<any> = this.matSnackBar.open(this.translate.instant("errors.emailHelp"), this.translate.instant("errors.emailHelpAction"));
+
+              ref.onAction()
+                .pipe(takeUntil(this.unSubscriber))
+                .subscribe(() => {
+                this.router.navigate(['/reset-password']);
+              });
+            }
           }
         });
     }

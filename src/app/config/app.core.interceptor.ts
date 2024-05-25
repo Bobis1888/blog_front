@@ -1,16 +1,38 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Injectable} from "@angular/core";
+import {
+  HttpErrorResponse,
+  HttpInterceptorFn,
+} from "@angular/common/http";
+import {catchError, throwError} from "rxjs";
 
-@Injectable()
-export class AppCoreInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    req = req.clone({
-      withCredentials: true,
-    });
+export const appCoreInterceptor: HttpInterceptorFn = (req, next) => {
 
-    return next.handle(req);
-  }
+  req = req.clone({
+    withCredentials: true,
+  });
 
-}
+  return next(req).pipe(
+    catchError((err: any) => {
+      let resError = err;
+
+      if (err instanceof HttpErrorResponse) {
+        resError = err.error;
+
+        // Handle HTTP errors
+        if (err.status === 401) {
+          console.error('Unauthorized request:', err);
+          // You might trigger a re-authentication flow or redirect the user here
+        } else {
+          // Handle other HTTP error codes
+          console.error('HTTP error:', err);
+        }
+      } else {
+        // Handle non-HTTP errors
+        console.error('An error occurred:', err);
+      }
+
+      // Re-throw the error to propagate it further
+      return throwError(() => resError);
+    })
+  );
+};

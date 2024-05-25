@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
 import {RootModule} from "src/app/root.module";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {SuccessDto} from "app/core/dto/success-dto";
@@ -8,25 +7,25 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {HasErrors} from "app/abstract/has-errors";
 import {takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'login',
+  selector: 'reset-password',
   standalone: true,
   imports: [RootModule, ReactiveFormsModule, TranslateModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.less'
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.less'
 })
-export class LoginComponent extends HasErrors implements OnInit {
+export class ResetPasswordComponent extends HasErrors implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router,
               translate: TranslateService,
+              private router: Router,
               private authService: AuthService,
               private deviceService: DeviceDetectorService) {
     super(translate);
   }
 
-  protected hide: boolean = true;
   protected loading: boolean = false;
 
   get isMobile(): boolean {
@@ -35,12 +34,11 @@ export class LoginComponent extends HasErrors implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      login: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required])
+      email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
-  login(): void {
+  reset(): void {
 
     if (this.loading) {
       return;
@@ -50,11 +48,10 @@ export class LoginComponent extends HasErrors implements OnInit {
 
     if (this.formGroup.valid) {
       this.loading = true;
-      let email = this.formGroup.get("login")?.value;
-      let password = this.formGroup.get("password")?.value;
+      let email = this.formGroup.get("email")?.value;
 
       this.authService
-        .login(email, password)
+        .resetPassword(email)
         .pipe(
           takeUntil(this.unSubscriber),
         ).subscribe({
@@ -62,7 +59,7 @@ export class LoginComponent extends HasErrors implements OnInit {
           this.loading = false;
 
           if (res.success) {
-            this.router.navigate(["/"]);
+            this.router.navigate(["/login"]);
             return;
           }
         },
@@ -72,15 +69,5 @@ export class LoginComponent extends HasErrors implements OnInit {
         }
       })
     }
-  }
-
-  registration() {
-    this.router.navigate(['/registration']);
-    return;
-  }
-
-  resetPassword() {
-    this.router.navigate(['/reset-password']);
-    return;
   }
 }

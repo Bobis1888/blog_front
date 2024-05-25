@@ -1,0 +1,41 @@
+{
+  "topMenu": {
+    "home": "Главная",
+    "login": "Войти",
+    "logout": "Выйти",
+    "forum": "Форум",
+    "articles": "Статьи"
+  },
+  "loginPage": {
+    "title": "Вход",
+    "login": "E-mail",
+    "signIn": "Авторизоваться",
+    "signUp": "Регистрация",
+    "password": "Пароль",
+    "forgotPassword": "Забыли пароль?"
+  },
+  "registrationPage": {
+    "title": "Регистрация",
+    "afterSignUpTitle": "Ура вы зарегистрировались!",
+    "afterSignUpMessage": "На вашу почту направлено письмо для подтверждения регистрации",
+    "signUp": "Вперед!",
+    "password": "Введите пароль",
+    "passwordWeak": "Ваш пароль {{value}}",
+    "repeatPassword": "Повторите пароль",
+    "passwordNotEqual": "Пароли не совпадают",
+    "passwordStrong": {
+      "weak": "Слабый",
+      "medium": "Средний",
+      "strong": "Сильный"
+    }
+  },
+  "errors": {
+    "email.alreadyRegistered": "E-mail уже зарегистрирован",
+    "emailHelp": "Забыли пароль? Перейдите по ссылке для сброса пароля",
+    "emailHelpAction": "Сбросить",
+    "login.invalid": "Неверный логин",
+    "login.blocked": "Вход заблокирован на {{time}} минут",
+    "password.invalid": "Неверный пароль",
+    "passwordHelp": "Пароль должен содержать как минимум 1 цифру, 1 строчную букву, 1 заглавную букву, 1 спец символ (#@%&+) и быть длиннее 8 символов"
+  }
+}

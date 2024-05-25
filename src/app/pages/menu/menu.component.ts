@@ -1,9 +1,11 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {RootModule} from "app/root.module";
-import {UnSubscriber} from "app/abstract/un-subscriber";
-import {AuthService, AuthState} from "app/core/service/auth/auth.service";
-import {takeUntil} from "rxjs";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { RootModule } from 'app/root.module';
+import { UnSubscriber } from 'app/abstract/un-subscriber';
+import { AuthService } from 'app/core/service/auth/auth.service';
+import { takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'top-menu',
@@ -13,34 +15,37 @@ import {Router} from "@angular/router";
   styleUrl: './menu.component.less',
 })
 export class MenuComponent extends UnSubscriber implements OnInit {
+  public currentLanguage: string = 'en';
 
-  protected readonly AuthState = AuthState;
-  protected authState: AuthState = AuthState.unauthorized;
-
-  constructor(protected authService: AuthService, protected router: Router) {
+  constructor(
+    protected authService: AuthService,
+    protected router: Router,
+    protected translate: TranslateService,
+    protected deviceService: DeviceDetectorService
+  ) {
     super();
   }
 
-  ngOnInit(): void {
-    // this.checkState();
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
   }
 
-  checkState() {
-    this.authService.getState()
-      .pipe(takeUntil(this.unSubscriber))
-      .subscribe((res) => {
-      });
+  ngOnInit(): void {
+    this.currentLanguage = this.translate.getDefaultLang();
   }
 
   logout() {
-    this.authService.logout()
+    this.authService
+      .logout()
       .pipe(takeUntil(this.unSubscriber))
-      .subscribe(it => {
-
-        this.router.navigate(["/"]);
+      .subscribe((it) => {
+        this.router.navigate(['/']);
         return;
       });
   }
 
-  protected readonly AuthService = AuthService;
+  changeLanguage() {
+    this.currentLanguage = this.currentLanguage === 'en' ? 'ru' : 'en';
+    this.translate.setDefaultLang(this.currentLanguage);
+  }
 }

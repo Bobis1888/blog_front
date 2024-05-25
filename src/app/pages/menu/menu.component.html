@@ -1,22 +1,22 @@
 <section>
-  <div class="top-menu">
-    <button mat-stroked-button routerLink="/">Главная</button>
-    <button mat-stroked-button color="primary">Форум</button>
-    <button mat-stroked-button>Статьи</button>
+  <div class="top-menu" [ngClass]="{'mobile' : isMobile}">
+    <button mat-stroked-button routerLink="/">{{'topMenu.home' | translate}}</button>
+<!--    <button mat-stroked-button color="primary">{{'topMenu.forum' | translate}}</button>-->
+<!--    <button mat-stroked-button>{{'topMenu.articles' | translate}}</button>-->
 
     <button *ngIf="!authService.isAuthorized" mat-stroked-button color="accent"
-            routerLink="/login">Вход
+            routerLink="/login">{{'topMenu.login' | translate}}
     </button>
     <button *ngIf="authService.isAuthorized" mat-stroked-button color="accent"
-            routerLink="/profile">Профиль
+            routerLink="/profile">{{'topMenu.profile' | translate}}
     </button>
 
     <button *ngIf="authService.isAuthorized" mat-stroked-button color="warn"
-            (click)="logout()">Выйти
+            (click)="logout()">{{'topMenu.logout' | translate}}
+    </button>
+
+    <button mat-stroked-button (click)="changeLanguage()">{{currentLanguage}}
     </button>
 
   </div>
-</section>
-<section>
-  <div></div>
 </section>

@@ -59,12 +59,16 @@ export class AuthService {
       );
   }
 
-  logout(): Observable<SuccessDto> {
+  public logout(): Observable<SuccessDto> {
     return this.httpSender.send(HttpMethod.GET, '/auth/logout')
       .pipe(map(res => {
         this.changeAuthState(AuthState.unauthorized);
         return {success: true} as SuccessDto;
       }));
+  }
+
+  public resetPassword(email: string): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.GET, '/auth/reset-password?email=' + email);
   }
 
   private changeAuthState(authState: AuthState) {
