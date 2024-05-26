@@ -44,17 +44,20 @@ export class RegistrationComponent extends HasErrors implements OnInit {
     super(translate);
   }
 
-  get isMobile(): boolean {
-    return this.deviceService.isMobile();
-  }
 
+  ref?: MatSnackBarRef<any>;
   hide: boolean = true;
   loading: boolean = false;
   state: 'form' | 'message' = 'form';
 
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
+  }
+
   get passwordIndicator(): PasswordIndicator {
     let color = "red";
     let state = "weak";
+
 
     if (this.formGroup != null && this.formGroup?.get("password")?.value?.length >= 8) {
       color = "green";
@@ -74,6 +77,11 @@ export class RegistrationComponent extends HasErrors implements OnInit {
         }
       ]
     ));
+  }
+
+  override ngOnDestroy() {
+    this.ref?.dismiss();
+    super.ngOnDestroy();
   }
 
   signUp(): void {
@@ -108,13 +116,12 @@ export class RegistrationComponent extends HasErrors implements OnInit {
             this.rejectErrors(...err.errors)
 
             if (this.getErrors("password")) {
-              this.matSnackBar.open(this.translate.instant("errors.passwordHelp"), "OK");
+              this.ref = this.matSnackBar.open(this.translate.instant("errors.passwordHelp"), "OK", {duration: 20000});
             }
 
             if (this.getErrorCodes("email")?.includes("alreadyRegistered")) {
-              let ref: MatSnackBarRef<any> = this.matSnackBar.open(this.translate.instant("errors.emailHelp"), this.translate.instant("errors.emailHelpAction"));
-
-              ref.onAction()
+              this.ref = this.matSnackBar.open(this.translate.instant("errors.emailHelp"), this.translate.instant("errors.emailHelpAction"));
+              this.ref.onAction()
                 .pipe(takeUntil(this.unSubscriber))
                 .subscribe(() => {
                 this.router.navigate(['/reset-password']);

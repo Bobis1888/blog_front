@@ -1,7 +1,8 @@
 {
   "topMenu": {
     "home": "Home",
-    "login": "Sign in",
+    "login": "Log in",
+    "signUp" : "Sign up",
     "logout": "Sign out",
     "forum": "Forum",
     "articles": "Articles"
@@ -28,6 +29,19 @@
       "medium": "Medium",
       "strong": "Strong"
     }
+  },
+  "confirmRegistrationPage" : {
+    "title" : "Your registration is completed",
+    "content" : "Your account is enabled. You can sign in by your email and password"
+  },
+  "resetPasswordPage" : {
+    "title" : "Reset password",
+    "content" : "Enter your email and we will send you a link to reset your password",
+    "email" : "E-mail",
+    "reset" : "Reset"
+  },
+  "summaryPage" : {
+    "mostTopics": "Recomended topics"
   },
   "errors": {
     "email.alreadyRegistered": "E-mail already registered",

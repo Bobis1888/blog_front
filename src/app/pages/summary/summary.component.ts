@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {RootModule} from "app/root.module";
 import {UnSubscriber} from "app/abstract/un-subscriber";
-import {AuthService} from "app/core/service/auth/auth.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 
 @Component({
@@ -14,8 +14,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   styleUrl: './summary.component.less'
 })
 export class SummaryComponent extends UnSubscriber implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private deviceService: DeviceDetectorService) {
     super();
+  }
+
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
   }
 
   ngOnInit(): void {

@@ -20,8 +20,10 @@ import {MatFormField, MatFormFieldModule, MatHint, MatLabel} from "@angular/mate
 import {MatInput, MatInputModule} from "@angular/material/input";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressBar} from "@angular/material/progress-bar";
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [],
@@ -78,7 +80,9 @@ import {MatProgressBar} from "@angular/material/progress-bar";
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatProgressBar
+    MatProgressBar,
+    MatGridListModule,
+    MatChipsModule
   ]
 })
 export class MaterialModule {

@@ -1,58 +1,75 @@
-<div class="login" [ngClass]="{'login-mobile' : isMobile}">
-
+<div class="login" [ngClass]="{ 'login-mobile': isMobile }">
   <mat-card>
     <mat-card-header>
-      <h1>{{ 'loginPage.title' | translate }}</h1>
+      <h1>{{ "loginPage.title" | translate }}</h1>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="formGroup">
         <div>
           <mat-form-field appearance="outline">
-            <mat-label>{{ 'loginPage.login' | translate }}</mat-label>
-            <input matInput [type]="'email'" placeholder="example@domain.com" formControlName="login" required>
+            <mat-label>{{ "loginPage.login" | translate }}</mat-label>
+            <input
+              matInput
+              [type]="'email'"
+              placeholder="example@domain.com"
+              formControlName="login"
+              required
+            />
             <mat-icon matSuffix>alternate_email</mat-icon>
-            <mat-error *ngIf="hasErrors && formGroup.get('login')?.valid == false">
-              {{getErrors('login')}}
+            <mat-error
+              *ngIf="hasErrors && formGroup.get('login')?.valid == false"
+            >
+              {{ getErrors("login") }}
             </mat-error>
           </mat-form-field>
         </div>
 
         <div>
           <mat-form-field appearance="outline">
-            <mat-label>{{ 'loginPage.password' | translate }}</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" placeholder="123@#$5hg" formControlName="password"
-                   required>
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            <mat-label>{{ "loginPage.password" | translate }}</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              placeholder="123@#$5hg"
+              formControlName="password"
+              required
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
-            <mat-hint class="restore-link" align="end"
-                      (click)="resetPassword()">{{ 'loginPage.forgotPassword' | translate }}
+            <mat-hint class="restore-link" align="end" (click)="resetPassword()"
+              >{{ "loginPage.forgotPassword" | translate }}
             </mat-hint>
-            <mat-error *ngIf="hasErrors && formGroup.get('password')?.valid == false">
-              {{getErrors('password')}}
+            <mat-error
+              *ngIf="hasErrors && formGroup.get('password')?.valid == false"
+            >
+              {{ getErrors("password") }}
             </mat-error>
-
-
           </mat-form-field>
         </div>
 
-        <div class="buttons" [ngClass]="{'buttons-mobile' : isMobile}">
-          <button mat-stroked-button type="submit" color="warn" (click)="login()">{{ 'loginPage.signIn' | translate }}
-          </button>
-          <button mat-stroked-button type="submit" color="primary"
-                  (click)="registration()">{{ 'loginPage.signUp' | translate }}
+        <div class="buttons" [ngClass]="{ 'buttons-mobile': isMobile }">
+          <button
+            mat-flat-button
+            type="submit"
+            (click)="login()"
+          >
+            {{ "loginPage.signIn" | translate }}
           </button>
         </div>
       </form>
       <div class="social">
-      <!--todo-->
+        <!--todo-->
       </div>
       <mat-card-footer *ngIf="loading">
         <mat-progress-bar mode="buffer"></mat-progress-bar>
       </mat-card-footer>
     </mat-card-content>
-
   </mat-card>
 </div>
-

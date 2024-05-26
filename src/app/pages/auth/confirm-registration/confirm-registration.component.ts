@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Router} from "@angular/router";
 import {RootModule} from "src/app/root.module";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'confirm-registration',
@@ -10,8 +10,9 @@ import {RootModule} from "src/app/root.module";
   styleUrl: './confirm-registration.component.less'
 })
 export class ConfirmRegistrationComponent {
+  constructor(protected deviceService: DeviceDetectorService) {}
 
-  state: string = "loading";
-
-  constructor(private router: Router) {}
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
+  }
 }

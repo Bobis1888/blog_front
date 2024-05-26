@@ -1,21 +1,15 @@
-<div class="confirm-registration">
+<div class="confirm-registration" [ngClass]="{'mobile': isMobile}">
+  <mat-card class="success-message">
+    <mat-card-header>
+      <h1>
+        {{ 'confirmRegistrationPage.title' | translate }}
+      </h1>
 
-  <ng-container [ngSwitch]="state">
-    <ng-container *ngSwitchCase="'success'" [ngTemplateOutlet]="success"></ng-container>
-    <ng-container *ngSwitchDefault [ngTemplateOutlet]="loading"></ng-container>
-  </ng-container>
-
-</div>
-
-<ng-template #success>
-
-</ng-template>
-
-
-<ng-template #loading>
-  <mat-card>
-    <div class="spinner">
-      <mat-spinner color="accent"></mat-spinner>
-    </div>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ 'confirmRegistrationPage.content' | translate }}
+      </p>
+    </mat-card-content>
   </mat-card>
-</ng-template>
+</div>

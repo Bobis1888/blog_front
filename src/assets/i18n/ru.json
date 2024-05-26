@@ -2,6 +2,7 @@
   "topMenu": {
     "home": "Главная",
     "login": "Войти",
+    "signUp": "Регистрация",
     "logout": "Выйти",
     "forum": "Форум",
     "articles": "Статьи"
@@ -9,8 +10,7 @@
   "loginPage": {
     "title": "Вход",
     "login": "E-mail",
-    "signIn": "Авторизоваться",
-    "signUp": "Регистрация",
+    "signIn": "Войти",
     "password": "Пароль",
     "forgotPassword": "Забыли пароль?"
   },
@@ -28,6 +28,19 @@
       "medium": "Средний",
       "strong": "Сильный"
     }
+  },
+  "confirmRegistrationPage": {
+    "title": "Адрес электронной почты подтвержден",
+    "content": "Ваша учетная запись активирована теперь вы можете войти используя свой E-mail и пароль"
+  },
+  "resetPasswordPage": {
+    "title": "Сброс пароля",
+    "content": "Введите ваш E-mail для сброса пароля, мы отправим ссылку для сброса на вашу почту",
+    "email": "E-mail",
+    "reset": "Сбросить"
+  },
+  "summaryPage": {
+    "mostTopics": "Интересные темы"
   },
   "errors": {
     "email.alreadyRegistered": "E-mail уже зарегистрирован",

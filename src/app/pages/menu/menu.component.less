@@ -1,13 +1,36 @@
 .top-menu {
   display: flex;
-  justify-content: end;
-  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 
-  button {
-    margin: 5px;
+  .image {
+    width: 150px;
+    height: 100%;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      width: auto;
+    }
+  }
+  .buttons {
+    display: flex;
+    justify-content: end;
+    padding: 20px;
+
+    button {
+      margin: 5px;
+    }
   }
 }
 
 .mobile {
   flex-wrap: wrap;
+  justify-content: end;
+
+  .buttons {
+    padding: 5px;
+    flex-wrap: wrap;
+  }
 }
