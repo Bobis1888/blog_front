@@ -5,6 +5,7 @@
     "signUp" : "Sign up",
     "logout": "Sign out",
     "forum": "Forum",
+    "profile": "Account",
     "articles": "Articles"
   },
   "loginPage": {
@@ -30,6 +31,14 @@
       "strong": "Strong"
     }
   },
+  "changePasswordPage" : {
+    "title" : "Change password",
+    "password" : "Password",
+    "repeatPassword" : "Repeat password",
+    "change" : "Change",
+    "afterChangeTitle" : "Password changed",
+    "afterChangeMessage" : "Now you can sign in with new password"
+  },
   "confirmRegistrationPage" : {
     "title" : "Your registration is completed",
     "content" : "Your account is enabled. You can sign in by your email and password"
@@ -44,6 +53,7 @@
     "mostTopics": "Recomended topics"
   },
   "errors": {
+    "email.invalid": "Invalid e-mail",
     "email.alreadyRegistered": "E-mail already registered",
     "emailHelp": "Forgot password? Go to link for reset password",
     "emailHelpAction": "Reset",

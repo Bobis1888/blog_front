@@ -1,6 +1,6 @@
 import {CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MaterialModule} from "app/material/material.module";
+import {MaterialModule} from "app/theme/material/material.module";
 import {ActivatedRoute, Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {HttpSenderService} from "app/core/service/base/http-sender.service";
@@ -34,8 +34,14 @@ export class RootModule {
       translate.setDefaultLang('ru');
     }
 
+    //todo handle service
     if (aRouter.snapshot.queryParamMap.get("confirm-email-result") === "true") {
       router.navigate(['/confirm-registration']);
+      return;
+    }
+
+    if (aRouter.snapshot.queryParamMap.get("reset-password-result") === "true") {
+      router.navigate(['/change-password'], {queryParams: {uuid: aRouter.snapshot.queryParamMap.get("uuid")}});
       return;
     }
   }

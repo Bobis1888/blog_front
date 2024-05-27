@@ -10,7 +10,7 @@ import {RootModule} from "src/app/root.module";
 import {SuccessDto} from "src/app/core/dto/success-dto";
 import {takeUntil} from "rxjs";
 import {AuthService} from "app/core/service/auth/auth.service";
-import {HasErrors} from "app/abstract/has-errors";
+import {HasErrors} from "app/core/abstract/has-errors";
 import {TranslateService} from "@ngx-translate/core";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
@@ -37,10 +37,10 @@ export class PasswordIndicator {
 export class RegistrationComponent extends HasErrors implements OnInit {
 
   constructor(translate: TranslateService,
-              private authService: AuthService,
-              private router: Router,
-              private deviceService: DeviceDetectorService,
-              private matSnackBar: MatSnackBar) {
+              protected authService: AuthService,
+              protected router: Router,
+              protected deviceService: DeviceDetectorService,
+              protected matSnackBar: MatSnackBar) {
     super(translate);
   }
 
@@ -84,7 +84,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
     super.ngOnDestroy();
   }
 
-  signUp(): void {
+  submit(): void {
 
     if (this.loading) {
       return;

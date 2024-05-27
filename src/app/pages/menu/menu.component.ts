@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RootModule } from 'app/root.module';
-import { UnSubscriber } from 'app/abstract/un-subscriber';
+import { UnSubscriber } from 'app/core/abstract/un-subscriber';
 import { AuthService } from 'app/core/service/auth/auth.service';
 import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';

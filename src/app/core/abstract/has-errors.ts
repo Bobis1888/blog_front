@@ -1,4 +1,4 @@
-import {UnSubscriber} from "app/abstract/un-subscriber";
+import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 

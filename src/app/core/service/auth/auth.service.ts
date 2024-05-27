@@ -24,7 +24,8 @@ export class AuthService {
   constructor(private httpSender: HttpSenderService) {
     try {
       this.getState().subscribe();
-    } catch (ignore) {}
+    } catch (ignore) {
+    }
   }
 
   public login(login: string, password: string): Observable<SuccessDto> {
@@ -69,6 +70,10 @@ export class AuthService {
 
   public resetPassword(email: string): Observable<SuccessDto> {
     return this.httpSender.send(HttpMethod.GET, '/auth/reset-password?email=' + email);
+  }
+
+  public changePassword(password: string, uuid: string): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.POST, '/auth/change-password', {uuid,password});
   }
 
   private changeAuthState(authState: AuthState) {

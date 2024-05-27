@@ -43,9 +43,6 @@
             >
               <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
-            <mat-hint class="restore-link" align="end" (click)="resetPassword()"
-              >{{ "loginPage.forgotPassword" | translate }}
-            </mat-hint>
             <mat-error
               *ngIf="hasErrors && formGroup.get('password')?.valid == false"
             >
@@ -55,11 +52,11 @@
         </div>
 
         <div class="buttons" [ngClass]="{ 'buttons-mobile': isMobile }">
-          <button
-            mat-flat-button
-            type="submit"
-            (click)="login()"
-          >
+          <button mat-flat-button type="submit" (click)="resetPassword()">
+            {{ "loginPage.forgotPassword" | translate }}
+          </button>
+
+          <button mat-flat-button type="submit" (click)="login()">
             {{ "loginPage.signIn" | translate }}
           </button>
         </div>

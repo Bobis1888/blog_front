@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {RootModule} from "app/root.module";
-import {UnSubscriber} from "app/abstract/un-subscriber";
+import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DeviceDetectorService } from 'ngx-device-detector';
 

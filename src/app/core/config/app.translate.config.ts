@@ -5,7 +5,7 @@ import {TranslateModuleConfig} from "@ngx-translate/core/dist/public-api";
 
 // https://github.com/ngx-translate/core
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return  new  TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+  return  new  TranslateHttpLoader(httpClient, './assets/l10n/', '.json');
 }
 
 export const provideTranslation = (): TranslateModuleConfig => ({

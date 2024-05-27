@@ -5,6 +5,7 @@
     "signUp": "Регистрация",
     "logout": "Выйти",
     "forum": "Форум",
+    "profile": "Аккаунт",
     "articles": "Статьи"
   },
   "loginPage": {
@@ -29,6 +30,14 @@
       "strong": "Сильный"
     }
   },
+  "changePasswordPage" : {
+    "title" : "Изменение пароля",
+    "password" : "Пароль",
+    "repeatPassword" : "Повторите пароль",
+    "change" : "Изменить",
+    "afterChangeTitle" : "Пароль изменен",
+    "afterChangeMessage" : "Вы можете войти используя новый пароль"
+  },
   "confirmRegistrationPage": {
     "title": "Адрес электронной почты подтвержден",
     "content": "Ваша учетная запись активирована теперь вы можете войти используя свой E-mail и пароль"
@@ -43,6 +52,7 @@
     "mostTopics": "Интересные темы"
   },
   "errors": {
+    "email.invalid" : "Неверный E-mail",
     "email.alreadyRegistered": "E-mail уже зарегистрирован",
     "emailHelp": "Забыли пароль? Перейдите по ссылке для сброса пароля",
     "emailHelpAction": "Сбросить",

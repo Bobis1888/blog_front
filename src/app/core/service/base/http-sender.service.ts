@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {Sender} from "app/abstract/sender";
+import {Sender} from "app/core/abstract/sender";
 
 export enum HttpMethod {
   GET = "GET",
