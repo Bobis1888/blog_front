@@ -1,10 +1,17 @@
 <section>
   <div class="top-menu" [ngClass]="{ mobile: isMobile }">
-    <div class="image" *ngIf="isMobile == false">
+    <div class="image" *ngIf="!isMobile">
       <img src="assets/images/logo.png" alt="logo" />
     </div>
 
     <div class="buttons">
+
+      <button mat-icon-button aria-label="Search"
+        routerLink="/search"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+
       <button mat-stroked-button routerLink="/">
         {{ "topMenu.home" | translate }}
       </button>

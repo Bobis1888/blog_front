@@ -49,7 +49,11 @@
     "reset": "Сбросить"
   },
   "summaryPage": {
-    "mostTopics": "Интересные темы"
+    "trends" : "Обсуждаемое",
+    "mostTopics": "Рекомендованные темы"
+  },
+  "searchPage" : {
+    "search" : "Поиск"
   },
   "errors": {
     "email.invalid" : "Неверный E-mail",

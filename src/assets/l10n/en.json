@@ -50,7 +50,11 @@
     "reset" : "Reset"
   },
   "summaryPage" : {
-    "mostTopics": "Recomended topics"
+    "trends" : "Trends",
+    "mostTopics": "Recommended topics"
+  },
+  "searchPage" : {
+    "search" : "Search"
   },
   "errors": {
     "email.invalid": "Invalid e-mail",

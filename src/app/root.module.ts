@@ -5,6 +5,7 @@ import {ActivatedRoute, Router, RouterLink, RouterOutlet} from "@angular/router"
 import {AuthService} from "app/core/service/auth/auth.service";
 import {HttpSenderService} from "app/core/service/base/http-sender.service";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {ArticleService} from "app/core/service/article/article.service";
 
 @NgModule({
   declarations: [],
@@ -21,8 +22,9 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
     TranslateModule,
   ],
   providers: [
+    HttpSenderService,
     AuthService,
-    HttpSenderService
+    ArticleService
   ]
 })
 export class RootModule {

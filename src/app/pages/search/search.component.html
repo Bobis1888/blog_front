@@ -1,0 +1,11 @@
+<div class="search" [ngClass]="{ 'mobile': isMobile }">
+  <form [formGroup]="formGroup">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "searchPage.search" | translate }}</mat-label>
+        <input matInput formControlName="search"/>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </form>
+</div>

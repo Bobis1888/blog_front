@@ -1,35 +1,43 @@
 <div class="summary" [ngClass]="{ mobile: isMobile }">
-  <mat-grid-list cols="4">
-    <mat-grid-tile colspan="{{ isMobile ? 4 : 3 }}">
+  <div class="flex">
+    <div class="articles">
+      <div class="trends-header">
+        <h1>{{ "summaryPage.trends" | translate }}</h1>
+      </div>
+      <div *ngFor="let item of items" class="article">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ item.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              {{ item.preView }}
+            </p>
+          </mat-card-content>
+          <mat-card-footer>
+            <div class="footer">
+              <div class="icons"></div>
+              <div class="author">
+                <span (click)="goToUser(item.author)">{{ item.author }}</span>
+              </div>
+            </div>
+          </mat-card-footer>
+        </mat-card>
+      </div>
+    </div>
+    <div *ngIf="!isMobile" class="topics">
+      <div class="topics-header">
+        <h1>{{ "summaryPage.mostTopics" | translate }}</h1>
+      </div>
       <mat-card>
-        <mat-card-header>
-          <mat-card-title>{{ "title" }}</mat-card-title>
-        </mat-card-header>
         <mat-card-content>
-          <p>
-            {{ "content" }}
-          </p>
-        </mat-card-content>
-        <mat-card-footer>
-          <div>{{ "@authorNameLink" }}</div>
-        </mat-card-footer>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="1" *ngIf="!isMobile">
-      <mat-card>
-        <mat-card-header>
-          <h1>{{ "summaryPage.mostTopics" | translate }}</h1>
-        </mat-card-header>
-        <mat-card-content>
-          <ng-container *ngTemplateOutlet="topics"></ng-container>
+          <mat-chip-listbox>
+            <div *ngFor="let topic of topics" class="topic">
+              <mat-chip (click)="goToTopic(topic)">{{ topic }}</mat-chip>
+            </div>
+          </mat-chip-listbox>
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+    </div>
+  </div>
 </div>
-
-<ng-template #topics>
-  <mat-chip-listbox>
-    <mat-chip>{{ "name" | translate }}</mat-chip>
-  </mat-chip-listbox>
-</ng-template>

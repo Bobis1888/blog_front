@@ -26,6 +26,10 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     super();
   }
 
+  get hideSearchButton() : boolean {
+    return this.router.url.includes('/search');
+  }
+
   get isMobile(): boolean {
     return this.deviceService.isMobile();
   }

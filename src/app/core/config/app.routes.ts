@@ -1,8 +1,7 @@
 import {Routes} from '@angular/router';
-import {authRoutes} from "src/app/pages/auth/auth.routes";
-import {SummaryComponent} from "src/app/pages/summary/summary.component";
-import {ResetPasswordComponent} from "src/app/pages/auth/reset-password/reset-password.component";
-import {ChangePasswordComponent} from "app/pages/auth/change-password/change-password.component";
+import {authRoutes} from "app/pages/auth/auth.routes";
+import {SummaryComponent} from "app/pages/summary/summary.component";
+import { SearchComponent } from 'app/pages/search/search.component';
 
 export const routes: Routes = [
   ...authRoutes,
@@ -11,11 +10,7 @@ export const routes: Routes = [
     component: SummaryComponent,
   },
   {
-    path: 'reset-password',
-    component: ResetPasswordComponent
-  },
-  {
-    path: 'change-password',
-    component: ChangePasswordComponent
+    path: 'search',
+    component: SearchComponent
   }
 ];
