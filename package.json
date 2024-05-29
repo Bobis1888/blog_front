@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --port=4200 --host=0.0.0.0",
     "build": "ng build",
+    "build github" : "ng build --configuration-production --base-href https://bobis1888.github.io/blog_front/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:front": "node dist/front/server/server.mjs"
