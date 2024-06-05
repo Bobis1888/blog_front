@@ -9,7 +9,7 @@
     "articles": "Articles"
   },
   "loginPage": {
-    "title": "Authorization",
+    "title": "Login",
     "login": "E-mail",
     "signIn": "Sign in",
     "signUp": "Sign up",
@@ -54,8 +54,14 @@
     "mostTopics": "Recommended topics"
   },
   "searchPage" : {
-    "search" : "Search"
+    "search" : "Search",
+    "notFound" : "Not found",
+    "message" : "Try to search something"
   },
+  "articlePage": {
+    "publishedDate": "Published on {{date}}"
+  },
+
   "errors": {
     "email.invalid": "Invalid e-mail",
     "email.alreadyRegistered": "E-mail already registered",

@@ -1,0 +1,43 @@
+@import "src/app/theme/utils";
+
+.topics {
+  margin: auto;
+
+  h1 {
+    margin: 10px auto;
+  }
+
+  mat-card {
+    margin: 20px;
+  }
+
+  .topics-header {
+    text-align: left;
+    padding: 0 25px;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .topic {
+
+    span {
+      font-weight: 500;
+      cursor: pointer;
+      color: @secondColor;
+      display: inline-block;
+      background-color: lightgrey;
+      border-radius: 20px;
+      margin: 5px;
+      padding: 5px 10px;
+    }
+
+    span:hover {
+      background-color: @secondColor;
+      color: @firstColor;
+    }
+
+  }
+}

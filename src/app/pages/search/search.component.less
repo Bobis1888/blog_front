@@ -1,18 +1,42 @@
+@import "src/app/theme/utils";
+
 .search {
   display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 
-  form {
-    margin: auto;
-    width: 30%;
-    min-width: 300px;
-    max-width: 500px;
+  .search-block {
+    display: flex;
 
-    div {
-      width: 100%;
+    form {
+      margin: auto;
+      width: 30%;
+      min-width: 300px;
+      max-width: 500px;
 
-      mat-form-field {
-        display: flex;
+      div {
+        width: 100%;
+
+        mat-form-field {
+          display: flex;
+        }
       }
+    }
+  }
+
+  .result-block {
+
+    width: 100%;
+    max-width: 600px;
+
+    mat-card {
+      margin: 20px;
+      transition: transform 250ms, opacity 400ms;
+    }
+
+    mat-card:hover {
+      transform: scale(1.02);
     }
   }
 }
@@ -22,4 +46,36 @@
   form {
     width: 90%;
   }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.author {
+  color: @secondColor;
+  font-weight: bold;
+  display: flex;
+  justify-content: end;
+
+  span {
+    display: block;
+    padding: 5px 15px;
+  }
+}
+
+.date {
+  color: @fifthColor;
+  display: flex;
+  justify-content: end;
+
+  span {
+    display: block;
+    padding: 5px 15px;
+  }
+}
+
+.empty {
+  text-align: center;
 }

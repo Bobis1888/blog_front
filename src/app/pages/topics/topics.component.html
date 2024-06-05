@@ -1,0 +1,26 @@
+<div class="topics">
+  <div class="topics-header" *ngIf="state == 'data'">
+    <h1>{{ "summaryPage.mostTopics" | translate }}</h1>
+  </div>
+  <mat-card>
+    <mat-card-content>
+      <ng-container [ngSwitch]="state">
+        <ng-container
+          *ngSwitchCase="'data'"
+          [ngTemplateOutlet]="data"
+        ></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #data>
+  <div class="topic">
+    <span *ngFor="let topic of topics" (click)="goToTopic(topic)">{{ topic }}</span>
+  </div>
+</ng-template>
+
+<ng-template #load>
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</ng-template>

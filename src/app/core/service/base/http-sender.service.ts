@@ -5,7 +5,8 @@ import {Sender} from "app/core/abstract/sender";
 
 export enum HttpMethod {
   GET = "GET",
-  POST = "POST"
+  POST = "POST",
+  DELETE = "DELETE"
 }
 
 @Injectable()
@@ -22,6 +23,7 @@ export class HttpSenderService implements OnInit, Sender {
     this.options = {headers: defaultHeaders};
   }
 
+  // TODO
   send(httpMethod: HttpMethod, url: string, body?: any) : Observable<any> {
 
     if (httpMethod == HttpMethod.GET) {
@@ -30,6 +32,10 @@ export class HttpSenderService implements OnInit, Sender {
 
     if (httpMethod == HttpMethod.POST) {
       return this.post(url, body);
+    }
+
+    if (httpMethod == HttpMethod.DELETE) {
+      return this.delete(url);
     }
 
     return of({});
@@ -41,5 +47,9 @@ export class HttpSenderService implements OnInit, Sender {
 
   private get(url: string): Observable<any> {
     return this.httpClient.get('/api' + url, this.options);
+  }
+
+  private delete(url: string): Observable<any> {
+    return this.httpClient.delete('/api' + url, this.options);
   }
 }

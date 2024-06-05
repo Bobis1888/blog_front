@@ -1,11 +1,83 @@
 <div class="search" [ngClass]="{ 'mobile': isMobile }">
-  <form [formGroup]="formGroup">
-    <div>
-      <mat-form-field appearance="outline">
-        <mat-label>{{ "searchPage.search" | translate }}</mat-label>
-        <input matInput formControlName="search"/>
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-    </div>
-  </form>
+
+  <div class="search-block">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()">
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "searchPage.search" | translate }}</mat-label>
+          <input matInput formControlName="search"/>
+          <mat-icon (click)="submit()" matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+  <div class="result-block">
+    <ng-container [ngSwitch]="state">
+      <ng-container
+        *ngSwitchCase="'data'"
+        [ngTemplateOutlet]="data"
+      ></ng-container>
+
+      <ng-container
+        *ngSwitchCase="'empty'"
+        [ngTemplateOutlet]="empty"
+      ></ng-container>
+
+      <ng-container
+        *ngSwitchCase="'loading'"
+        [ngTemplateOutlet]="load"
+      ></ng-container>
+
+      <ng-container *ngSwitchDefault [ngTemplateOutlet]="init"></ng-container>
+    </ng-container>
+  </div>
 </div>
+
+
+<ng-template #load>
+  <mat-card>
+    <mat-card-content>
+      <mat-progress-bar mode="buffer"></mat-progress-bar>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #empty>
+  <div class="empty">
+    <h4>{{ 'searchPage.notFound' | translate }}</h4>
+  </div>
+</ng-template>
+
+<ng-template #init>
+  <div class="empty">
+    <h5>{{ 'searchPage.message' | translate }}</h5>
+  </div>
+</ng-template>
+
+<ng-template #data>
+  <div>
+    <div *ngFor="let item of items" class="article">
+      <mat-card (click)="goToView(item)">
+        <mat-card-header>
+          <mat-card-title>{{ item.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{ item.preView }}
+          </p>
+        </mat-card-content>
+        <mat-card-footer>
+          <div class="footer">
+            <div class="date">
+              <span>{{ item.publishedDate | date }}</span>
+            </div>
+            <div class="author">
+              <span>{{ item.authorName }}</span>
+            </div>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

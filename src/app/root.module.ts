@@ -5,7 +5,9 @@ import {ActivatedRoute, Router, RouterLink, RouterOutlet} from "@angular/router"
 import {AuthService} from "app/core/service/auth/auth.service";
 import {HttpSenderService} from "app/core/service/base/http-sender.service";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {ArticleService} from "app/core/service/article/article.service";
+import {ContentService} from "app/core/service/content/content.service";
+import {TrendsComponent} from "app/pages/trends/trends.component";
+import {TopicsComponent} from "app/pages/topics/topics.component";
 
 @NgModule({
   declarations: [],
@@ -24,7 +26,7 @@ import {ArticleService} from "app/core/service/article/article.service";
   providers: [
     HttpSenderService,
     AuthService,
-    ArticleService
+    ContentService
   ]
 })
 export class RootModule {

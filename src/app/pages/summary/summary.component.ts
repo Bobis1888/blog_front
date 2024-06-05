@@ -2,16 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {RootModule} from 'app/root.module';
 import {UnSubscriber} from 'app/core/abstract/un-subscriber';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {DeviceDetectorService} from 'ngx-device-detector';
-import {Article} from "app/core/service/article/article.service";
-import {MatBadge} from "@angular/material/badge";
-
+import {TrendsComponent} from "app/pages/trends/trends.component";
+import {TopicsComponent} from "app/pages/topics/topics.component";
 
 @Component({
   selector: 'summary',
   standalone: true,
-  imports: [RootModule, FormsModule, ReactiveFormsModule],
+  imports: [RootModule, FormsModule, TrendsComponent, TopicsComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.less',
 })
@@ -23,100 +22,13 @@ export class SummaryComponent extends UnSubscriber implements OnInit {
     super();
   }
 
-  public topics: Array<string> = ["#lifeStyle", "#engineering", "#holidays", "#money", "#workLifeBalance"];
 
-  public items: Array<Article> = [
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-    new Article(
-      "123",
-      'Example title',
-      'Example pre view text',
-      'assets/favicon.ico',
-      '@authorUserName',
-    ),
-  ];
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  public goToTopic(topic: string): void {
 
-    if (!topic) {
-      return;
-    }
-
-    topic = topic.replace('#', '');
-
-    this.router.navigate(['/search'], {queryParams: {q: topic, tag: true}});
-  }
-
-  public goToUser(userName: string): void {
-    this.router.navigate(['/profile'], {queryParams: {userName: userName}});
-  }
 }

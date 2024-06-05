@@ -1,0 +1,49 @@
+<div class="trends">
+
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'data'"
+      [ngTemplateOutlet]="data"
+    ></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+  </ng-container>
+</div>
+
+
+<ng-template #load>
+  <mat-card>
+    <mat-card-content>
+      <mat-progress-bar mode="buffer"></mat-progress-bar>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #data>
+  <div>
+    <div class="trends-header">
+      <h1>{{ "summaryPage.trends" | translate }}</h1>
+    </div>
+    <div *ngFor="let item of items" class="article">
+      <mat-card (click)="goToView(item)">
+        <mat-card-header>
+          <mat-card-title>{{ item.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{ item.preView }}
+          </p>
+        </mat-card-content>
+        <mat-card-footer>
+          <div class="footer">
+            <div class="date">
+              <span>{{item.publishedDate | date}}</span>
+            </div>
+            <div class="author">
+              <span (click)="goToUser(item.authorName)">{{ item.authorName }}</span>
+            </div>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

@@ -1,15 +1,15 @@
 export class CookieService {
   static getCookie(name: string) {
-    let _document: any;
+    let document: any;
 
     try {
-      _document = document || {cookie: ''};
+      document = document || {cookie: ''};
     } catch (e) {
       console.error(e);
-      _document = {cookie: ''};
+      document = {cookie: ''};
     }
 
-    const ca: Array<string> = _document.cookie.split(';');
+    const ca: Array<string> = document.cookie.split(';');
     const caLen: number = ca.length;
     const cookieName = `${name}=`;
     let c: string;
