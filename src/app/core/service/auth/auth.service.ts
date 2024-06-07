@@ -78,6 +78,10 @@ export class AuthService {
     return this.httpSender.send(HttpMethod.POST, '/auth/change-password', {uuid,password});
   }
 
+  public saveInfo(nickName: string, password: any): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.POST, '/auth/change-info', {nickName, password});
+  }
+
   private changeAuthState(authState: AuthState) {
     AuthService.authState = authState;
   }

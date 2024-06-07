@@ -6,14 +6,24 @@ import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-regis
 import {LoginComponent} from "./login/login.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
+import {ProfileComponent} from "app/pages/auth/profile/profile.component";
 
-export const authGuard: CanActivateFn = (
+export const nonAuthGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
   let authService = inject(AuthService);
   return !authService.isAuthorized;
 };
+
+export const authGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  let authService = inject(AuthService);
+  return authService.isAuthorized;
+};
+
 export const authRoutes: Routes = [
   {
     path: '',
@@ -23,28 +33,33 @@ export const authRoutes: Routes = [
   {
     path: 'registration',
     component: RegistrationComponent,
-    canActivate: [authGuard],
+    canActivate: [nonAuthGuard],
   },
   {
     path: 'confirm-registration',
     component: ConfirmRegistrationComponent,
-    canActivate: [authGuard],
+    canActivate: [nonAuthGuard],
   },
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [authGuard],
+    canActivate: [nonAuthGuard],
   },
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
-    canActivate: [authGuard],
+    canActivate: [nonAuthGuard],
   },
   {
     path: 'change-password',
     component: ChangePasswordComponent,
-    canActivate: [authGuard],
+    canActivate: [nonAuthGuard],
   },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [authGuard],
+  }
 ];
 
 @NgModule({

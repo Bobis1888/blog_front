@@ -50,9 +50,15 @@
     "email" : "E-mail",
     "reset" : "Reset"
   },
+  "profilePage": {
+    "title" : "Profile",
+    "changePassword" : "Change password",
+    "nickName" : "Nick name",
+    "save": "Save"
+  },
   "summaryPage" : {
     "trends" : "Trends",
-    "mostTopics": "Recommended topics"
+    "mostTopics": "Popular topics"
   },
   "searchPage" : {
     "search" : "Search",

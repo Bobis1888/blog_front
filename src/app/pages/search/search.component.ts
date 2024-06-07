@@ -87,6 +87,6 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   public goToView(item: Article) {
-    this.router.navigate(['/article'], {queryParams: {id: item.id}});
+    this.router.navigate(['/article/view', item.id]);
   }
 }

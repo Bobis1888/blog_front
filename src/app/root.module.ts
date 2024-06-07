@@ -33,15 +33,20 @@ import {NgxEditorModule} from "ngx-editor";
   ]
 })
 export class RootModule {
+
+  private languages: Array<string> = ['ru', 'en'];
+
   constructor(translate: TranslateService, aRouter: ActivatedRoute, router: Router ) {
 
     if (localStorage.getItem('currentLanguage') != null) {
-      translate.setDefaultLang(localStorage.getItem('currentLanguage') ?? 'ru');
+      translate.setDefaultLang(localStorage.getItem('currentLanguage') ?? 'en');
     } else {
       let browserLang = translate.getBrowserLang();
 
-      if (browserLang) {
+      if (browserLang && this.languages.includes(browserLang)) {
         translate.setDefaultLang(browserLang);
+      } else {
+        translate.setDefaultLang('ru');
       }
     }
 

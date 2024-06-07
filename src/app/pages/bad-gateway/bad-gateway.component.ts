@@ -33,7 +33,12 @@ export class BadGatewayComponent extends UnSubscriber implements OnInit {
         retry({
           count: 60,
           delay: (err: any, number: number) => {
-            return of(true).pipe(delay(2500),);
+
+            if (err) {
+              return of(true).pipe(delay(2500),);
+            }
+
+            return of(undefined);
           }
         } as RetryConfig),
       )

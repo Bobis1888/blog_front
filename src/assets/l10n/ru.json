@@ -49,9 +49,15 @@
     "email": "E-mail",
     "reset": "Сбросить"
   },
+  "profilePage": {
+    "title" : "Профиль",
+    "changePassword" : "Сменить пароль",
+    "nickName" : "Никнейм",
+    "save": "Сохранить"
+  },
   "summaryPage": {
-    "trends" : "Обсуждаемое",
-    "mostTopics": "Рекомендованные темы"
+    "trends" : "Тренды",
+    "mostTopics": "Популярные темы"
   },
   "searchPage" : {
     "search" : "Поиск",
