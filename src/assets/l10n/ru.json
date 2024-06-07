@@ -6,7 +6,8 @@
     "logout": "Выйти",
     "forum": "Форум",
     "profile": "Аккаунт",
-    "articles": "Статьи"
+    "articles": "Статьи",
+    "createArticle" : "Написать"
   },
   "loginPage": {
     "title": "Вход",
@@ -53,7 +54,23 @@
     "mostTopics": "Рекомендованные темы"
   },
   "searchPage" : {
-    "search" : "Поиск"
+    "search" : "Поиск",
+    "notFound" : "Ничего не найдено",
+    "message" : "Попробуйте ввести что-то"
+  },
+  "viewArticlePage": {
+    "publishedDate": "Дата публикации {{date}}",
+    "empty": "Статья не найдена"
+  },
+  "editArticlePage": {
+    "title": "Редактирование статьи",
+    "articleTitle": "Заголовок статьи",
+    "articleTitlePlaceholder": "Ваш заголовок статьи",
+    "placeholder" : "Начните писать здесь",
+    "submit": "Сохранить"
+  },
+  "badGatewayPage": {
+    "title" : "Мы работаем над обновлением, просим прощения за доставленные неудобства."
   },
   "errors": {
     "email.invalid" : "Неверный E-mail",

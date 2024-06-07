@@ -1,26 +1,30 @@
 <div class="topics">
-  <div class="topics-header" *ngIf="state == 'data'">
-    <h1>{{ "summaryPage.mostTopics" | translate }}</h1>
-  </div>
-  <mat-card>
-    <mat-card-content>
-      <ng-container [ngSwitch]="state">
-        <ng-container
-          *ngSwitchCase="'data'"
-          [ngTemplateOutlet]="data"
-        ></ng-container>
-        <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
-      </ng-container>
-    </mat-card-content>
-  </mat-card>
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'data'"
+      [ngTemplateOutlet]="data"
+    ></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+  </ng-container>
 </div>
 
 <ng-template #data>
-  <div class="topic">
-    <span *ngFor="let topic of topics" (click)="goToTopic(topic)">{{ topic }}</span>
+  <div class="topics-header" *ngIf="state == 'data'">
+    <h1>{{ "summaryPage.mostTopics" | translate }}</h1>
   </div>
+  <mat-card *ngIf="topics.length > 0">
+    <mat-card-content>
+      <div class="topic">
+        <span *ngFor="let topic of topics" (click)="goToTopic(topic)">{{ topic }}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </ng-template>
 
 <ng-template #load>
-  <mat-progress-bar mode="buffer"></mat-progress-bar>
+  <mat-card>
+    <mat-card-content>
+      <mat-progress-bar mode="buffer"></mat-progress-bar>
+    </mat-card-content>
+  </mat-card>
 </ng-template>

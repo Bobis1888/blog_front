@@ -4,7 +4,7 @@
       <h1>{{ "loginPage.title" | translate }}</h1>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="formGroup">
+      <form [formGroup]="formGroup" (ngSubmit)="login()">
         <div>
           <mat-form-field appearance="outline">
             <mat-label>{{ "loginPage.login" | translate }}</mat-label>

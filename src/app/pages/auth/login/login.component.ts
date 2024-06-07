@@ -75,7 +75,7 @@ export class LoginComponent extends HasErrors implements OnInit {
   }
 
   resetPassword() {
-    this.router.navigate(['/reset-password']);
+    this.router.navigate(['/auth/reset-password']);
     return;
   }
 }

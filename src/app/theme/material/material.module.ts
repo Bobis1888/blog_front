@@ -6,7 +6,7 @@ import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {MatDrawer, MatDrawerContainer, MatSidenavModule} from "@angular/material/sidenav";
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {MatListModule} from "@angular/material/list";
-import {MatLine} from "@angular/material/core";
+import {MatLine, MatRipple} from "@angular/material/core";
 import {MatCardModule} from "@angular/material/card";
 import {
   MatStep,
@@ -25,6 +25,7 @@ import {MatProgressBar} from "@angular/material/progress-bar";
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatBadge} from "@angular/material/badge";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [],
@@ -51,7 +52,8 @@ import {MatBadge} from "@angular/material/badge";
     MatButtonModule,
     MatIconModule,
     MatProgressBar,
-    MatBadge
+    MatBadge,
+    MatRipple
   ],
   exports: [
     MatSidenavModule,
@@ -85,7 +87,9 @@ import {MatBadge} from "@angular/material/badge";
     MatProgressBar,
     MatGridListModule,
     MatChipsModule,
-    MatBadge
+    MatBadge,
+    MatRipple,
+    MatMenuModule
   ]
 })
 export class MaterialModule {

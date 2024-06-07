@@ -6,7 +6,8 @@
     "logout": "Sign out",
     "forum": "Forum",
     "profile": "Account",
-    "articles": "Articles"
+    "articles": "Articles",
+    "createArticle" : "Write"
   },
   "loginPage": {
     "title": "Login",
@@ -58,10 +59,20 @@
     "notFound" : "Not found",
     "message" : "Try to search something"
   },
-  "articlePage": {
-    "publishedDate": "Published on {{date}}"
+  "viewArticlePage": {
+    "publishedDate": "Published on {{date}}",
+    "empty": "Article not found"
   },
-
+  "editArticlePage": {
+    "title": "Edit article",
+    "articleTitle": "Article title",
+    "articleTitlePlaceholder": "Your article title",
+    "placeholder" : "Start writing here",
+    "submit" : "Save"
+  },
+  "badGatewayPage": {
+    "title" : "We are working on the update, we apologize for the inconvenience."
+  },
   "errors": {
     "email.invalid": "Invalid e-mail",
     "email.alreadyRegistered": "E-mail already registered",

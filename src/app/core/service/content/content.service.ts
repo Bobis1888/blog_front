@@ -44,7 +44,7 @@ export class ContentService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.GET, '/content/get/' + id);
   }
 
-  save(article: Article): Observable<SuccessDto> {
+  save(article: Article): Observable<{success: true, id: number}> {
     return this.httpSender.send(HttpMethod.POST, '/content/save', article);
   }
 

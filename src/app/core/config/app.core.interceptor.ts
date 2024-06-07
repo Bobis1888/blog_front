@@ -2,7 +2,9 @@ import {
   HttpErrorResponse,
   HttpInterceptorFn,
 } from "@angular/common/http";
-import {catchError, throwError} from "rxjs";
+import {catchError, of, throwError} from "rxjs";
+import {inject} from "@angular/core";
+import {Router} from "@angular/router";
 
 
 export const appCoreInterceptor: HttpInterceptorFn = (req, next) => {
@@ -11,12 +13,21 @@ export const appCoreInterceptor: HttpInterceptorFn = (req, next) => {
     withCredentials: true,
   });
 
+  let router = inject(Router);
+
   return next(req).pipe(
     catchError((err: any) => {
       let resError = err;
 
       if (err instanceof HttpErrorResponse) {
         resError = err.error;
+
+        if (err.status == 502 && err.statusText == "Bad Gateway") {
+          setTimeout(() => {
+            router.navigate(['update-process']).then();
+          }, 100);
+          return throwError(() => resError);
+        }
 
         // Handle HTTP errors
         if (err.status === 401) {

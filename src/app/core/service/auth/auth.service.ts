@@ -12,7 +12,9 @@ export enum AuthState {
   error = 'error'
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'any'
+})
 export class AuthService {
 
   private static authState: AuthState = AuthState.unauthorized;

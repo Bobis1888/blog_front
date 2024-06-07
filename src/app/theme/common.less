@@ -1,3 +1,5 @@
+@import "src/app/theme/utils";
+
 body {
   padding: 0;
 }
@@ -23,8 +25,34 @@ html {
   --mdc-filled-button-label-text-color: @backgroundColor;
   --mdc-filled-button-container-shape: 20px;
   --mdc-circular-progress-active-indicator-color: @fifthColor;
+  --mdc-fab-small-container-shape: 10px;
+  --mat-menu-container-shape: 10px;
+
   color: @thirdColor;
   font-size: 16px;
+
+  .mat-mdc-mini-fab.mat-accent {
+    --mdc-fab-small-container-color: @secondColor;
+  }
+
+  .mat-mdc-fab.mat-accent {
+    --mdc-fab-container-color: @secondColor;
+  }
+
+  .cdk-overlay-connected-position-bounding-box {
+    padding: 10px;
+  }
+}
+
+:root {
+  --ngx-editor-border-radius: 20px !important;
+  --ngx-editor-border-color: @secondColor !important;
+  --ngx-editor-text-color: @secondColor !important;
+  --ngx-editor-menubar-bg-color: @backgroundColor !important;
+  --ngx-editor-icon-size: 35px !important;
+  --ngx-editor-popup-border-radius: 20px !important;
+  --ngx-editor-bubble-bg-color: @secondColor !important;
+  //--ngx-editor-bubble-text-color: @secondColor !important;
 }
 
 

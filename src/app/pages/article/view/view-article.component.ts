@@ -1,19 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {Article, ContentService} from "app/core/service/content/content.service";
+import {Article, ContentService} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {RootModule} from "app/root.module";
-import {delay, takeUntil} from "rxjs";
-import {UnSubscriber} from "app/core/abstract/un-subscriber";
+import {RootModule} from "src/app/root.module";
+import {takeUntil} from "rxjs";
+import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
-  selector: 'article',
+  selector: 'view-article',
   standalone: true,
   imports: [RootModule],
-  templateUrl: './article.component.html',
-  styleUrl: './article.component.less'
+  templateUrl: './view-article.component.html',
+  styleUrl: './view-article.component.less'
 })
-export class ArticleComponent extends UnSubscriber implements OnInit {
+export class ViewArticleComponent extends UnSubscriber implements OnInit {
 
   protected content: Article = {} as Article;
   protected state: 'data' | 'loading' | 'empty' = 'loading';
@@ -32,7 +32,12 @@ export class ArticleComponent extends UnSubscriber implements OnInit {
   ngOnInit(): void {
     let id = this.aRouter.snapshot.queryParamMap?.get("id");
 
+    if (!id) {
+      id = this.aRouter.snapshot.params['id'];
+    }
+
     if (id == null || id == '') {
+      this.state = 'empty';
       return;
     }
 

@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {TrendsComponent} from "app/pages/trends/trends.component";
 import {TopicsComponent} from "app/pages/topics/topics.component";
+import {AuthService} from "app/core/service/auth/auth.service";
 
 @Component({
   selector: 'summary',
@@ -17,6 +18,7 @@ import {TopicsComponent} from "app/pages/topics/topics.component";
 export class SummaryComponent extends UnSubscriber implements OnInit {
   constructor(
     private router: Router,
+    protected authService: AuthService,
     private deviceService: DeviceDetectorService,
   ) {
     super();

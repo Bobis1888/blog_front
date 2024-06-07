@@ -27,7 +27,7 @@
 
   <h1>{{ content.title }}</h1>
 
-  <span class="date">{{ 'articlePage.publishedDate' | translate : {date: (content.publishedDate | date)} }}</span>
+  <span *ngIf="content.publishedDate" class="date">{{ 'viewArticlePage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
 
   <p [innerHTML]="content.content"></p>
 
@@ -35,7 +35,7 @@
 </ng-template>
 
 <ng-template #empty>
-  {{ 'articlePage.empty' | translate }}
+  {{ 'viewArticlePage.empty' | translate }}
 </ng-template>
 
 <ng-template #load>

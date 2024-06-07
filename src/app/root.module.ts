@@ -8,6 +8,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ContentService} from "app/core/service/content/content.service";
 import {TrendsComponent} from "app/pages/trends/trends.component";
 import {TopicsComponent} from "app/pages/topics/topics.component";
+import {NgxEditorModule} from "ngx-editor";
 
 @NgModule({
   declarations: [],
@@ -16,12 +17,14 @@ import {TopicsComponent} from "app/pages/topics/topics.component";
     MaterialModule,
     RouterLink,
     RouterOutlet,
+    NgxEditorModule,
   ],
   exports: [
     CommonModule,
     MaterialModule,
     RouterLink,
     TranslateModule,
+    NgxEditorModule,
   ],
   providers: [
     HttpSenderService,
@@ -31,21 +34,25 @@ import {TopicsComponent} from "app/pages/topics/topics.component";
 })
 export class RootModule {
   constructor(translate: TranslateService, aRouter: ActivatedRoute, router: Router ) {
-//TODO browser language
+
     if (localStorage.getItem('currentLanguage') != null) {
       translate.setDefaultLang(localStorage.getItem('currentLanguage') ?? 'ru');
     } else {
-      translate.setDefaultLang('ru');
+      let browserLang = translate.getBrowserLang();
+
+      if (browserLang) {
+        translate.setDefaultLang(browserLang);
+      }
     }
 
     //todo handle service
     if (aRouter.snapshot.queryParamMap.get("confirm-email-result") === "true") {
-      router.navigate(['/confirm-registration']);
+      router.navigate(['/auth/confirm-registration']);
       return;
     }
 
     if (aRouter.snapshot.queryParamMap.get("reset-password-result") === "true") {
-      router.navigate(['/change-password'], {queryParams: {uuid: aRouter.snapshot.queryParamMap.get("uuid")}});
+      router.navigate(['/auth/change-password'], {queryParams: {uuid: aRouter.snapshot.queryParamMap.get("uuid")}});
       return;
     }
   }

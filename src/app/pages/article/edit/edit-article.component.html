@@ -1,0 +1,58 @@
+<div *ngIf="content" class="content" [ngClass]="{ mobile: isMobile }">
+  <ng-container [ngSwitch]="state">
+    <ng-container *ngSwitchCase="'data'" [ngTemplateOutlet]="data"></ng-container>
+
+    <ng-container *ngSwitchCase="'loading'" [ngTemplateOutlet]="load"></ng-container>
+
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="data"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #data>
+  <h1>{{ "editArticlePage.title" | translate }}</h1>
+
+  <div class="editor" *ngIf="editor != undefined">
+
+    <form [formGroup]="formGroup">
+      <div class="title">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "editArticlePage.articleTitle" | translate }}</mat-label>
+          <input
+            matInput
+            formControlName="title"
+            required
+            [placeholder]="'editArticlePage.articleTitlePlaceholder' | translate"
+          />
+          <mat-error
+            *ngIf="hasErrors && formGroup.get('title')?.valid == false"
+          >
+            {{ getErrors("title") }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="menu">
+        <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+      </div>
+      <br/>
+
+      <ngx-editor [editor]="editor"
+                  [outputFormat]="'html'"
+                  formControlName="content"
+                  [placeholder]="'editArticlePage.placeholder' | translate">
+
+      </ngx-editor>
+      <ngx-editor-floating-menu [editor]="editor"></ngx-editor-floating-menu>
+    </form>
+    <div class="buttons">
+      <button mat-flat-button type="submit" (click)="submit()">
+        {{ "editArticlePage.submit" | translate }}
+      </button>
+    </div>
+  </div>
+
+
+</ng-template>
+
+<ng-template #load>
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</ng-template>

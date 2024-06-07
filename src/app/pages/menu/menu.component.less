@@ -30,10 +30,25 @@
 
 .mobile {
   flex-wrap: wrap;
-  justify-content: end;
+  justify-content: space-between;
+
+  .image {
+    width: 100px;
+  }
 
   .buttons {
     padding: 5px;
     flex-wrap: wrap;
+  }
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column !important;
+
+  button {
+    margin: 5px 30px;
+    border: none;
+    font-size: 18px;
   }
 }

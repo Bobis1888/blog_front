@@ -24,7 +24,7 @@
       <h1>{{ "summaryPage.trends" | translate }}</h1>
     </div>
     <div *ngFor="let item of items" class="article">
-      <mat-card (click)="goToView(item)">
+      <mat-card (click)="goToView(item)" matRipple>
         <mat-card-header>
           <mat-card-title>{{ item.title }}</mat-card-title>
         </mat-card-header>
@@ -36,7 +36,7 @@
         <mat-card-footer>
           <div class="footer">
             <div class="date">
-              <span>{{item.publishedDate | date}}</span>
+              <span>{{item.publishedDate | date : "YYYY.MM.dd"}}</span>
             </div>
             <div class="author">
               <span (click)="goToUser(item.authorName)">{{ item.authorName }}</span>

@@ -1,11 +1,9 @@
 import {Routes} from '@angular/router';
-import {authRoutes} from "app/pages/auth/auth.routes";
 import {SummaryComponent} from "app/pages/summary/summary.component";
-import { SearchComponent } from 'app/pages/search/search.component';
-import {ArticleComponent} from "app/pages/article/article.component";
+import {SearchComponent} from 'app/pages/search/search.component';
+import {BadGatewayComponent} from "app/pages/bad-gateway/bad-gateway.component";
 
 export const routes: Routes = [
-  ...authRoutes,
   {
     path: '',
     component: SummaryComponent,
@@ -15,7 +13,19 @@ export const routes: Routes = [
     component: SearchComponent
   },
   {
+    path: 'update-process',
+    component: BadGatewayComponent
+  },
+  {
     path: 'article',
-    component: ArticleComponent
+    loadChildren: () => import('app/pages/article/article.module').then(m => m.ArticleModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('app/pages/auth/auth.module').then(m => m.AuthModule),
+  },
+  {
+    path: '**',
+    component: SummaryComponent
   }
 ];

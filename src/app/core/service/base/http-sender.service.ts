@@ -9,7 +9,9 @@ export enum HttpMethod {
   DELETE = "DELETE"
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'any'
+})
 export class HttpSenderService implements OnInit, Sender {
 
   protected options: any = {};

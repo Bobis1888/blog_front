@@ -4,3 +4,8 @@
     <topics *ngIf="!isMobile"></topics>
   </div>
 </div>
+<div class="floating-button" *ngIf="isMobile && authService.isAuthorized">
+  <button mat-fab class="float" routerLink="/article/edit">
+    <mat-icon>library_books</mat-icon>
+  </button>
+</div>
