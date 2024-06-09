@@ -78,6 +78,8 @@
   "badGatewayPage": {
     "title" : "Мы работаем над обновлением, просим прощения за доставленные неудобства."
   },
+  "firstLaunchTitle" : "Мы рады приветствовать вас!\nМы используем Cookies для хранения данных.",
+  "firstLaunchAction" : "Ок",
   "errors": {
     "email.invalid" : "Неверный E-mail",
     "email.alreadyRegistered": "E-mail уже зарегистрирован",

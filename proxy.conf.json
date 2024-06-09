@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://my-log.ru",
+    "target": "https://my-log.ru",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"

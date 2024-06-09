@@ -11,10 +11,11 @@ export class Article {
   preView: string;
   preViewImg: string;
   content: string;
+  tags: Array<string>;
   authorName: string;
   publishedDate: Date;
 
-  constructor(id: string, title: string, preView: string, preViewImg: string, content: string, author: string, date: Date) {
+  constructor(id: string, title: string, preView: string, preViewImg: string, content: string, author: string, date: Date, tags: Array<string>) {
     this.id = id;
     this.title = title;
     this.preView = preView;
@@ -22,6 +23,7 @@ export class Article {
     this.content = content;
     this.authorName = author;
     this.publishedDate = date;
+    this.tags = tags;
   }
 }
 

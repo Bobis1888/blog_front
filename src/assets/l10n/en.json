@@ -2,12 +2,12 @@
   "topMenu": {
     "home": "Home",
     "login": "Log in",
-    "signUp" : "Sign up",
+    "signUp": "Sign up",
     "logout": "Sign out",
     "forum": "Forum",
     "profile": "Account",
     "articles": "Articles",
-    "createArticle" : "Write"
+    "createArticle": "Write"
   },
   "loginPage": {
     "title": "Login",
@@ -32,38 +32,38 @@
       "strong": "Strong"
     }
   },
-  "changePasswordPage" : {
-    "title" : "Change password",
-    "password" : "Password",
-    "repeatPassword" : "Repeat password",
-    "change" : "Change",
-    "afterChangeTitle" : "Password changed",
-    "afterChangeMessage" : "Now you can sign in with new password"
+  "changePasswordPage": {
+    "title": "Change password",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "change": "Change",
+    "afterChangeTitle": "Password changed",
+    "afterChangeMessage": "Now you can sign in with new password"
   },
-  "confirmRegistrationPage" : {
-    "title" : "Your registration is completed",
-    "content" : "Your account is enabled. You can sign in by your email and password"
+  "confirmRegistrationPage": {
+    "title": "Your registration is completed",
+    "content": "Your account is enabled. You can sign in by your email and password"
   },
-  "resetPasswordPage" : {
-    "title" : "Reset password",
-    "content" : "Enter your email and we will send you a link to reset your password",
-    "email" : "E-mail",
-    "reset" : "Reset"
+  "resetPasswordPage": {
+    "title": "Reset password",
+    "content": "Enter your email and we will send you a link to reset your password",
+    "email": "E-mail",
+    "reset": "Reset"
   },
   "profilePage": {
-    "title" : "Profile",
-    "changePassword" : "Change password",
-    "nickName" : "Nick name",
+    "title": "Profile",
+    "changePassword": "Change password",
+    "nickName": "Nick name",
     "save": "Save"
   },
-  "summaryPage" : {
-    "trends" : "Trends",
+  "summaryPage": {
+    "trends": "Trends",
     "mostTopics": "Popular topics"
   },
-  "searchPage" : {
-    "search" : "Search",
-    "notFound" : "Not found",
-    "message" : "Try to search something"
+  "searchPage": {
+    "search": "Search",
+    "notFound": "Not found",
+    "message": "Try to search something"
   },
   "viewArticlePage": {
     "publishedDate": "Published on {{date}}",
@@ -73,12 +73,14 @@
     "title": "Edit article",
     "articleTitle": "Article title",
     "articleTitlePlaceholder": "Your article title",
-    "placeholder" : "Start writing here",
-    "submit" : "Save"
+    "placeholder": "Start writing here",
+    "submit": "Save"
   },
   "badGatewayPage": {
-    "title" : "We are working on the update, we apologize for the inconvenience."
+    "title": "We are working on the update, we apologize for the inconvenience."
   },
+  "firstLaunchTitle" : "We're glad you are here!\nWe use cookies for better experience.",
+  "firstLaunchAction" : "Ok",
   "errors": {
     "email.invalid": "Invalid e-mail",
     "email.alreadyRegistered": "E-mail already registered",
