@@ -125,6 +125,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     if (this.formGroup.valid) {
       this.state = 'load';
       this.contentService.save({
+        id: this.content.id,
         title: this.formGroup.get('title')?.value,
         preView: 'auto',
         content: this.formGroup.get('content')?.value,
