@@ -104,11 +104,12 @@ export class RootModule implements OnDestroy {
           this.translate.instant('firstLaunchTitle'),
           this.translate.instant('firstLaunchAction'),
           {panelClass: 'snack-bar'});
+        this.ref?.onAction()
+          .subscribe({
+            next: value => localStorage.setItem('firstLaunch', 'false')
+          });
       }, 500);
-      this.ref?.onAction()
-        .subscribe({
-          next: value => localStorage.setItem('firstLaunch', 'false')
-        });
+
     }
   }
 }
