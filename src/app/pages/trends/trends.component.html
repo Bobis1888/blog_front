@@ -1,5 +1,7 @@
 <div class="trends">
-
+  <div class="trends-header">
+    <h1>{{ "summaryPage.trends" | translate }}</h1>
+  </div>
   <ng-container [ngSwitch]="state">
     <ng-container
       *ngSwitchCase="'data'"
@@ -11,18 +13,19 @@
 
 
 <ng-template #load>
-  <mat-card>
+
+  <mat-card *ngFor="let i of [1, 2, 3]">
     <mat-card-content>
-      <mat-progress-bar mode="buffer"></mat-progress-bar>
+      <br/>
+      <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader>
+      <ngx-skeleton-loader></ngx-skeleton-loader>
+      <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
     </mat-card-content>
   </mat-card>
 </ng-template>
 
 <ng-template #data>
   <div>
-    <div class="trends-header">
-      <h1>{{ "summaryPage.trends" | translate }}</h1>
-    </div>
     <div *ngFor="let item of items" class="article">
       <mat-card (click)="goToView(item)" matRipple>
         <mat-card-header>
@@ -36,7 +39,7 @@
         <mat-card-footer>
           <div class="footer">
             <div class="date">
-              <span>{{item.publishedDate | date : "YYYY.MM.dd"}}</span>
+              <span>{{ item.publishedDate | date : "YYYY.MM.dd" }}</span>
             </div>
             <div class="author">
               <span (click)="goToUser(item.authorName)">{{ item.authorName }}</span>

@@ -1,33 +1,41 @@
 import {Injectable} from "@angular/core";
-import {map, Observable, Subject} from "rxjs";
+import {map, Observable, takeUntil} from "rxjs";
 import {SuccessDto} from "src/app/core/dto/success-dto";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
-
-// TODO catch errors
+import {UnSubscriber} from "app/core/abstract/un-subscriber";
+import {Router} from "@angular/router";
 
 export enum AuthState {
   authorized = 'authorized',
   unauthorized = 'unauthorized',
-  not_confirmed = 'not_confirmed',
-  error = 'error'
 }
 
 @Injectable({
   providedIn: 'any'
 })
-export class AuthService {
-
-  private static authState: AuthState = AuthState.unauthorized;
+export class AuthService extends UnSubscriber {
 
   get isAuthorized(): boolean {
-    return AuthService.authState == AuthState.authorized;
+    let state = AuthState.unauthorized;
+
+    if (localStorage.getItem('authState')) {
+      state = localStorage.getItem('authState') as AuthState
+    }
+
+    return state == AuthState.authorized;
   }
 
-  constructor(private httpSender: HttpSenderService) {
+  get authState(): AuthState {
+    return this.isAuthorized ? AuthState.authorized : AuthState.unauthorized
+  }
+
+  constructor(private httpSender: HttpSenderService, private router: Router) {
+    super();
     try {
-      this.getState().subscribe();
-    } catch (ignore) {
-    }
+      this.getState()
+        .pipe(takeUntil(this.unSubscriber))
+        .subscribe();
+    } catch (ignore) {}
   }
 
   public login(login: string, password: string): Observable<SuccessDto> {
@@ -55,6 +63,14 @@ export class AuthService {
 
           if (res.logged) {
             this.changeAuthState(AuthState.authorized);
+          } else {
+
+            if (this.isAuthorized) {
+              this.changeAuthState(AuthState.unauthorized);
+              this.router.navigate(['/'], {
+                queryParams: {expired: true}
+              }).then();
+            }
           }
 
           return res;
@@ -66,7 +82,7 @@ export class AuthService {
     return this.httpSender.send(HttpMethod.GET, '/auth/logout')
       .pipe(map(res => {
         this.changeAuthState(AuthState.unauthorized);
-        return {success: true} as SuccessDto;
+        return {success: res.success} as SuccessDto;
       }));
   }
 
@@ -75,7 +91,7 @@ export class AuthService {
   }
 
   public changePassword(password: string, uuid: string): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.POST, '/auth/change-password', {uuid,password});
+    return this.httpSender.send(HttpMethod.POST, '/auth/change-password', {uuid, password});
   }
 
   public saveInfo(nickName: string, password: any): Observable<SuccessDto> {
@@ -83,6 +99,6 @@ export class AuthService {
   }
 
   private changeAuthState(authState: AuthState) {
-    AuthService.authState = authState;
+    localStorage.setItem('authState', authState);
   }
 }

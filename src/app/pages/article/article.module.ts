@@ -8,7 +8,6 @@ export const articleGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-
   let authService = inject(AuthService);
   return authService.isAuthorized;
 };

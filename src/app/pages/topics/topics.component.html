@@ -1,4 +1,7 @@
 <div class="topics">
+  <div class="topics-header">
+    <h1>{{ "summaryPage.mostTopics" | translate }}</h1>
+  </div>
   <ng-container [ngSwitch]="state">
     <ng-container
       *ngSwitchCase="'data'"
@@ -9,9 +12,7 @@
 </div>
 
 <ng-template #data>
-  <div class="topics-header" *ngIf="state == 'data'">
-    <h1>{{ "summaryPage.mostTopics" | translate }}</h1>
-  </div>
+
   <mat-card *ngIf="topics.length > 0">
     <mat-card-content>
       <div class="topic">
@@ -24,7 +25,7 @@
 <ng-template #load>
   <mat-card>
     <mat-card-content>
-      <mat-progress-bar mode="buffer"></mat-progress-bar>
+      <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
     </mat-card-content>
   </mat-card>
 </ng-template>

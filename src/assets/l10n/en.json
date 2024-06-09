@@ -87,6 +87,7 @@
     "login.invalid": "Invalid login",
     "login.blocked": "Login is blocked for {{time}} minutes",
     "password.invalid": "Invalid password",
+    "sessionExpired": "Session expired, please sign in again",
     "passwordHelp": "Password must contain at least 1 digit, 1 lowercase letter, 1 uppercase letter, 1 special symbol (#@%&+) and be longer than 8 characters"
   }
 }

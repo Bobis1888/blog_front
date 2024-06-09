@@ -27,7 +27,8 @@
 
   <h1>{{ content.title }}</h1>
 
-  <span *ngIf="content.publishedDate" class="date">{{ 'viewArticlePage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
+  <span *ngIf="content.publishedDate"
+        class="date">{{ 'viewArticlePage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
 
   <p [innerHTML]="content.content"></p>
 
@@ -39,5 +40,13 @@
 </ng-template>
 
 <ng-template #load>
-  <mat-progress-bar mode="buffer"></mat-progress-bar>
+  <br>
+  <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader count="7"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader count="1" [theme]="{width: '25%'}"></ngx-skeleton-loader>
+  <br>
 </ng-template>

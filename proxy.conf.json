@@ -1,11 +1,8 @@
 {
   "/api": {
-    "target": "http://127.0.0.1",
+    "target": "http://my-log.ru",
     "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/api/": ""
-    }
+    "logLevel": "debug"
   }
 }

@@ -28,6 +28,7 @@
     "express": "^4.18.2",
     "ngx-device-detector": "^7.0.0",
     "ngx-editor": "^17.5.4",
+    "ngx-skeleton-loader": "^9.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
