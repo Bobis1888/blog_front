@@ -58,7 +58,8 @@
   },
   "summaryPage": {
     "trends": "Trends",
-    "mostTopics": "Popular topics"
+    "mostTopics": "Popular topics",
+    "noData" : "Nothing found, try again later!"
   },
   "searchPage": {
     "search": "Search",
@@ -67,14 +68,21 @@
   },
   "viewArticlePage": {
     "publishedDate": "Published on {{date}}",
-    "empty": "Article not found"
+    "empty": "Article not found",
+    "tags": "Tags:",
+    "sharedSuccess" : "Link copied to clipboard"
   },
   "editArticlePage": {
     "title": "Edit article",
     "articleTitle": "Article title",
     "articleTitlePlaceholder": "Your article title",
     "placeholder": "Start writing here",
-    "submit": "Save"
+    "submit": "Save",
+    "preView": "Preview",
+    "publish" : "Publish",
+    "unpublish" : "Unpublish",
+    "tags": "Tags",
+    "tagHint": "Tags will help to find your article. Tags added by one, press Enter to add tag"
   },
   "badGatewayPage": {
     "title": "We are working on the update, we apologize for the inconvenience."

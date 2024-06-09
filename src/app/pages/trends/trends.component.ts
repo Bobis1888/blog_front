@@ -14,7 +14,7 @@ import {takeUntil} from "rxjs";
 })
 export class TrendsComponent extends UnSubscriber implements OnInit {
 
-  protected state: 'loading' | 'data' = 'loading';
+  protected state: 'loading' | 'data' | 'empty' = 'loading';
 
   constructor(
     private router: Router,
@@ -35,7 +35,7 @@ export class TrendsComponent extends UnSubscriber implements OnInit {
           this.state = 'data';
         },
         error: err => {
-          this.state = 'data';
+          this.state = 'empty';
         }
       });
   }

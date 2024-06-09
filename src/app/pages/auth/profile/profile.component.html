@@ -12,7 +12,7 @@
               matInput
               formControlName="nickName"
             />
-            <mat-icon matPrefix>alternate_email</mat-icon>
+            <mat-icon matSuffix>alternate_email</mat-icon>
             <mat-error
               *ngIf="hasErrors && formGroup.get('nickName')?.valid == false"
             >
@@ -32,7 +32,7 @@
             />
             <button
               mat-icon-button
-              matPrefix
+              matSuffix
               (click)="hide = !hide"
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide"

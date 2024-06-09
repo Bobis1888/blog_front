@@ -16,7 +16,7 @@
   <mat-card *ngIf="topics.length > 0">
     <mat-card-content>
       <div class="topic">
-        <span *ngFor="let topic of topics" (click)="goToTopic(topic)">{{ topic }}</span>
+        <span *ngFor="let topic of topics" (click)="goToSearch(topic)">{{ topic }}</span>
       </div>
     </mat-card-content>
   </mat-card>
@@ -25,6 +25,7 @@
 <ng-template #load>
   <mat-card>
     <mat-card-content>
+      <br>
       <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
     </mat-card-content>
   </mat-card>

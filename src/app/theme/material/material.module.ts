@@ -26,6 +26,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatBadge} from "@angular/material/badge";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [],
@@ -53,7 +55,9 @@ import {MatMenuModule} from "@angular/material/menu";
     MatIconModule,
     MatProgressBar,
     MatBadge,
-    MatRipple
+    MatRipple,
+    MatAutocompleteModule,
+    MatTooltip,
   ],
   exports: [
     MatSidenavModule,
@@ -89,7 +93,9 @@ import {MatMenuModule} from "@angular/material/menu";
     MatChipsModule,
     MatBadge,
     MatRipple,
-    MatMenuModule
+    MatMenuModule,
+    MatAutocompleteModule,
+    MatTooltip,
   ]
 })
 export class MaterialModule {

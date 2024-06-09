@@ -30,9 +30,41 @@
   <span *ngIf="content.publishedDate"
         class="date">{{ 'viewArticlePage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
 
+  <div class="tags">
+    <span class="tags-title">{{ 'viewArticlePage.tags' | translate }}</span>
+    <span>&nbsp;</span>
+    <span class="tag" (click)="goToSearch(tag)" *ngFor="let tag of ['#english', '#shortStory']">{{ tag }}</span>
+  </div>
+
+  <br>
+
   <p [innerHTML]="content.content"></p>
 
-  <span class="author" (click)="goToUser(content.authorName)">{{ content.authorName }}</span>
+
+  <div class="footer">
+    <div class="buttons">
+      <button mat-icon-button (click)="share()">
+        <mat-icon>share</mat-icon>
+      </button>
+      <button mat-icon-button (click)="like()">
+        <mat-icon>{{ content.isLiked ? 'favorite' : 'favorite_border' }}</mat-icon>
+      </button>
+      <button mat-icon-button (click)="bookmark()">
+        <mat-icon>{{ content.isFavorite ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+      </button>
+      <button
+        *ngIf="content.status == Status.draft && authService.isAuthorized"
+        mat-icon-button
+        routerLink="/article/edit/{{ content.id }}"
+      >
+        <mat-icon>{{ 'edit' }}</mat-icon>
+      </button>
+
+    </div>
+    <div class="author">
+      <span (click)="goToUser(content.authorName)">{{ content.authorName }}</span>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #empty>

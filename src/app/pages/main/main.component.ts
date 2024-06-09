@@ -5,7 +5,7 @@ import {MenuComponent} from "app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {TranslateService} from "@ngx-translate/core";
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
-import {skip} from "rxjs";
+import {skip, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -48,24 +48,31 @@ export class MainComponent extends UnSubscriber implements OnInit {
       });
 
     //todo handle service
-    if (this.aRouter.snapshot.queryParamMap.get("confirm-email-result") === "true") {
-      this.router.navigate(['/auth/confirm-registration']).then();
-      return;
-    }
+    this.aRouter.queryParams
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: (it) => {
 
-    if (this.aRouter.snapshot.queryParamMap.get("reset-password-result") === "true") {
-      this.router.navigate(['/auth/change-password'], {queryParams: {uuid: this.aRouter.snapshot.queryParamMap.get("uuid")}}).then();
-      return;
-    }
+          if (it["confirm-email-result"] === "true") {
+            this.router.navigate(['/auth/confirm-registration']).then();
+            return;
+          }
 
-    if (this.aRouter.snapshot.queryParamMap.get("expired") === "true") {
-      setTimeout(() => {
-        this.ref = this.matSnackBar.open(
-          this.translate.instant('errors.sessionExpired'),
-          undefined,
-          {duration: 5000, panelClass: 'snack-bar'});
-      }, 500)
-    }
+          if (it["reset-password"]) {
+            this.router.navigate(['/auth/change-password'], {queryParams: {uuid: it["reset-password"]}}).then();
+            return;
+          }
+
+          if (it["expired"] === "true") {
+            setTimeout(() => {
+              this.ref = this.matSnackBar.open(
+                this.translate.instant('errors.sessionExpired'),
+                undefined,
+                {duration: 5000, panelClass: 'snack-bar'});
+            }, 500)
+          }
+        }
+      });
 
     this.firstLaunch();
   }

@@ -7,6 +7,10 @@
       *ngSwitchCase="'data'"
       [ngTemplateOutlet]="data"
     ></ng-container>
+    <ng-container
+      *ngSwitchCase="'empty'"
+      [ngTemplateOutlet]="empty"
+    ></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
   </ng-container>
 </div>
@@ -22,6 +26,10 @@
       <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
     </mat-card-content>
   </mat-card>
+</ng-template>
+
+<ng-template #empty>
+  <h1>{{ "summaryPage.noData" | translate }}</h1>
 </ng-template>
 
 <ng-template #data>

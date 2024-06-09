@@ -1,8 +1,14 @@
+@import 'src/app/theme/utils';
+
 .content {
   padding: 20px;
   margin: auto;
   max-width: 600px;
   font-size: 16px;
+
+  h1 {
+    color: @secondColor;
+  }
 }
 
 ::ng-deep {
@@ -18,7 +24,10 @@
 }
 
 .buttons {
-  padding: 20px;
+
+  button {
+    margin: 15px 5px;
+  }
 }
 
 .menu {
@@ -30,6 +39,12 @@
 }
 
 .title {
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.tags {
   mat-form-field {
     width: 100%;
   }

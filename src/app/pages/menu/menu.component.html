@@ -5,11 +5,11 @@
     </div>
 
     <div class="buttons">
-      <button mat-icon-button aria-label="Search" routerLink="/search">
+      <button mat-icon-button aria-label="Search" routerLink="/search" *ngIf="!hideSearchButton">
         <mat-icon>search</mat-icon>
       </button>
 
-      <div *ngIf="isMobile">
+      <div *ngIf="isMobile" class="menu-button">
         <button
           mat-mini-fab
           aria-label="Search"
@@ -30,7 +30,7 @@
 </section>
 
 <ng-template #buttons>
-  <div [ngClass]="{vertical: isMobile}">
+  <div class="menu-button" [ngClass]="{vertical: isMobile}">
     <button mat-stroked-button routerLink="/">
       {{ "topMenu.home" | translate }}
     </button>

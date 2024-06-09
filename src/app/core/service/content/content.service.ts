@@ -1,9 +1,13 @@
-import { Injectable } from "@angular/core";
-import { UnSubscriber } from "app/core/abstract/un-subscriber";
+import {Injectable} from "@angular/core";
+import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
-import {map, Observable} from "rxjs";
+import {map, Observable, of} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
 
+export enum Status {
+  published = 'published',
+  draft = 'draft'
+}
 
 export class Article {
   id: string;
@@ -11,11 +15,24 @@ export class Article {
   preView: string;
   preViewImg: string;
   content: string;
-  tags: Array<string>;
+  tags: Array<string> = [];
   authorName: string;
+  status: Status = Status.draft;
   publishedDate: Date;
+  isFavorite: boolean = false;
+  isLiked: boolean = false;
 
-  constructor(id: string, title: string, preView: string, preViewImg: string, content: string, author: string, date: Date, tags: Array<string>) {
+  constructor(id: string,
+              title: string,
+              preView: string,
+              preViewImg: string,
+              content: string,
+              author: string,
+              date: Date,
+              tags: Array<string>,
+              status: Status,
+              isFavorite: boolean,
+              isLiked: boolean) {
     this.id = id;
     this.title = title;
     this.preView = preView;
@@ -23,7 +40,10 @@ export class Article {
     this.content = content;
     this.authorName = author;
     this.publishedDate = date;
-    this.tags = tags;
+    this.tags = tags ?? [];
+    this.isFavorite = isFavorite;
+    this.isLiked = isLiked;
+    this.status = status;
   }
 }
 
@@ -46,7 +66,7 @@ export class ContentService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.GET, '/content/get/' + id);
   }
 
-  save(article: Article): Observable<{success: true, id: number}> {
+  save(article: Article): Observable<{ success: true, id: number }> {
     return this.httpSender.send(HttpMethod.POST, '/content/save', article);
   }
 
@@ -71,5 +91,22 @@ export class ContentService extends UnSubscriber {
       page: 0,
     } as Filter)
       .pipe(map(it => it.list));
+  }
+
+  saveToBookmark(id: string) {
+    return this.httpSender.send(HttpMethod.POST, '/content/save-to-bookmark', {id});
+  }
+
+  like(id: string) {
+    return this.httpSender.send(HttpMethod.POST, '/content/like', {id});
+  }
+
+  changeStatus(id: string, status: Status): Observable<SuccessDto> {
+
+    if (!id || !status) {
+      return of({success: false});
+    }
+
+    return this.httpSender.send(HttpMethod.POST, '/content/change-status/' + id, {status});
   }
 }

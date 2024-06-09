@@ -38,7 +38,7 @@
               formControlName="email"
               required
             />
-            <mat-icon matPrefix>alternate_email</mat-icon>
+            <mat-icon matSuffix>alternate_email</mat-icon>
             <mat-error
               *ngIf="hasErrors && formGroup.get('email')?.valid == false"
             >
@@ -59,7 +59,7 @@
             />
             <button
               mat-icon-button
-              matPrefix
+              matSuffix
               (click)="hide = !hide"
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide"
@@ -101,7 +101,7 @@
             />
             <button
               mat-icon-button
-              matPrefix
+              matSuffix
               (click)="hide = !hide"
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide"

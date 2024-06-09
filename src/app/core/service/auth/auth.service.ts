@@ -78,11 +78,10 @@ export class AuthService extends UnSubscriber {
       );
   }
 
-  public logout(): Observable<SuccessDto> {
+  public logout(): Observable<void> {
     return this.httpSender.send(HttpMethod.GET, '/auth/logout')
-      .pipe(map(res => {
+      .pipe(map(()=> {
         this.changeAuthState(AuthState.unauthorized);
-        return {success: res.success} as SuccessDto;
       }));
   }
 

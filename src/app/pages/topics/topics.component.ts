@@ -57,7 +57,7 @@ export class TopicsComponent extends UnSubscriber implements OnInit {
       });
   }
 
-  public goToTopic(topic: string): void {
+  public goToSearch(topic: string): void {
 
     if (!topic) {
       return;
@@ -65,6 +65,6 @@ export class TopicsComponent extends UnSubscriber implements OnInit {
 
     topic = topic.replace('#', '');
 
-    this.router.navigate(['/search'], {queryParams: {q: topic, tag: true}});
+    this.router.navigate(['/search'], {queryParams: {q: topic, tag: true}}).then();
   }
 }

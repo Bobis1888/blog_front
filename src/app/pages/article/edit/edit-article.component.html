@@ -1,6 +1,24 @@
-<div *ngIf="content" class="content" [ngClass]="{ mobile: isMobile }">
+<div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}">
   <h1>{{ "editArticlePage.title" | translate }}</h1>
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'form'"
+      [ngTemplateOutlet]="form"
+    ></ng-container>
 
+    <ng-container
+      *ngSwitchCase="'load'"
+      [ngTemplateOutlet]="load"
+    ></ng-container>
+
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="form"></ng-container>
+  </ng-container>
+
+
+</div>
+
+<ng-template #form>
+  <br>
   <div class="editor" *ngIf="editor != undefined">
 
     <form [formGroup]="formGroup">
@@ -10,7 +28,6 @@
           <input
             matInput
             formControlName="title"
-            required
             [placeholder]="'editArticlePage.articleTitlePlaceholder' | translate"
           />
           <mat-error
@@ -19,9 +36,45 @@
             {{ getErrors("title") }}
           </mat-error>
         </mat-form-field>
+
+
+      </div>
+      <div class="tags">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'editArticlePage.tags' | translate }}</mat-label>
+          <mat-chip-grid #chipGrid>
+            <mat-chip-row *ngFor="let tag of content.tags" (removed)="remove(tag)">
+              {{ tag }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+
+          <input #tagsInput
+                 matInput
+                 [placeholder]="'#'"
+                 [formControl]="tagCtrl"
+                 [matChipInputFor]="chipGrid"
+                 [maskito]="maskitoOpt"
+                 [matAutocomplete]="auto"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 (matChipInputTokenEnd)="add()"
+          />
+          <mat-icon
+            matSuffix
+            [matTooltip]="'editArticlePage.tagHint' | translate"
+            [matTooltipPosition]="'left'"
+          >
+            help_outline
+          </mat-icon>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let tag of filteredTags">{{ tag }}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
       </div>
       <div class="menu">
-        <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
       </div>
       <br/>
 
@@ -31,17 +84,42 @@
                   [placeholder]="'editArticlePage.placeholder' | translate">
 
       </ngx-editor>
-      <ngx-editor-floating-menu [editor]="editor"></ngx-editor-floating-menu>
     </form>
     <div class="buttons">
       <button mat-flat-button type="submit" (click)="submit()">
         {{ "editArticlePage.submit" | translate }}
       </button>
+
+      <button
+        *ngIf="content.id"
+        mat-stroked-button
+        routerLink="/article/view/{{content.id}}"
+      >
+        {{ "editArticlePage.preView" | translate }}
+      </button>
+
+      <button mat-flat-button *ngIf="content.status == Status.draft" (click)="changeStatus(Status.published)">
+        {{ "editArticlePage.publish" | translate }}
+      </button>
+
+      <button mat-flat-button *ngIf="content.status == Status.published" (click)="changeStatus(Status.draft)">
+        {{ "editArticlePage.unpublish" | translate }}
+      </button>
     </div>
   </div>
+</ng-template>
 
-  <div *ngIf="state == 'loading'">
-    <mat-progress-bar mode="buffer"></mat-progress-bar>
-  </div>
-
-</div>
+<ng-template #load>
+  <br>
+  <ngx-skeleton-loader count="1"
+                       [theme]="{'width': '100%', 'height.px': '50', 'border-radius.px': '30'}"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader count="1"
+                       [theme]="{'height.px': '50', 'border-radius.px': '30'}"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader count="1" [theme]="{'height.px': '400', 'border-radius.px': '30'}"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader count="1"
+                       [theme]="{'height.px': '30', width : '20%', 'border-radius.px' : '30'}"></ngx-skeleton-loader>
+  <br>
+</ng-template>
