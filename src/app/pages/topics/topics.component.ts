@@ -39,7 +39,16 @@ export class TopicsComponent extends UnSubscriber implements OnInit {
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: it => {
-          this.topics = it;
+
+          it.forEach((it) => {
+
+            if (it.includes(',')) {
+              this.topics.push(...it.split(','));
+            } else {
+              this.topics.push(it);
+            }
+          });
+
           this.state = 'data';
         },
         error: err => {

@@ -59,7 +59,7 @@ export class ContentService extends UnSubscriber {
       .pipe(map(it => it.list));
   }
 
-  tags(filter: Filter): Observable<string[]> {
+  tags(filter: Filter): Observable<Array<string>> {
     return this.httpSender.send(HttpMethod.POST, '/content/tags', filter)
       .pipe(map(it => it.list));
   }

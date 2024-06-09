@@ -1,7 +1,11 @@
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {RootModule} from "app/root.module";
 import {MenuComponent} from "app/pages/menu/menu.component";
+import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
+import {TranslateService} from "@ngx-translate/core";
+import {UnSubscriber} from "app/core/abstract/un-subscriber";
+import {skip} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -9,4 +13,81 @@ import {MenuComponent} from "app/pages/menu/menu.component";
   imports: [RootModule, RouterOutlet, MenuComponent],
   templateUrl: 'main.component.html',
 })
-export class MainComponent {}
+export class MainComponent extends UnSubscriber implements OnInit {
+
+  // todo config
+  private languages: Array<string> = ['ru', 'en'];
+  private ref: MatSnackBarRef<any> | null = null;
+
+  constructor(protected translate: TranslateService,
+              protected aRouter: ActivatedRoute,
+              protected router: Router,
+              protected matSnackBar: MatSnackBar) {
+    super();
+  }
+
+  ngOnInit(): void {
+
+    // TODO do in bootstrap
+    if (localStorage.getItem('currentLanguage') == null) {
+      let browserLang = this.translate.getBrowserLang() ?? '';
+
+      if (!this.languages.includes(browserLang)) {
+        browserLang = 'ru';
+      }
+
+      this.translate.setDefaultLang(browserLang);
+      localStorage.setItem('currentLanguage', browserLang);
+    }
+
+    this.translate.onDefaultLangChange
+      .pipe(skip(1))
+      .subscribe(() => {
+        this.ref?.dismiss();
+        this.firstLaunch();
+      });
+
+    //todo handle service
+    if (this.aRouter.snapshot.queryParamMap.get("confirm-email-result") === "true") {
+      this.router.navigate(['/auth/confirm-registration']).then();
+      return;
+    }
+
+    if (this.aRouter.snapshot.queryParamMap.get("reset-password-result") === "true") {
+      this.router.navigate(['/auth/change-password'], {queryParams: {uuid: this.aRouter.snapshot.queryParamMap.get("uuid")}}).then();
+      return;
+    }
+
+    if (this.aRouter.snapshot.queryParamMap.get("expired") === "true") {
+      setTimeout(() => {
+        this.ref = this.matSnackBar.open(
+          this.translate.instant('errors.sessionExpired'),
+          undefined,
+          {duration: 5000, panelClass: 'snack-bar'});
+      }, 500)
+    }
+
+    this.firstLaunch();
+  }
+
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.ref?.dismiss();
+  }
+
+  private firstLaunch(): void {
+    if (localStorage.getItem('firstLaunch') == null) {
+      setTimeout(() => {
+        this.ref = this.matSnackBar.open(
+          this.translate.instant('firstLaunchTitle'),
+          this.translate.instant('firstLaunchAction'),
+          {panelClass: 'snack-bar'});
+        this.ref?.onAction()
+          .subscribe({
+            next: value => localStorage.setItem('firstLaunch', 'false')
+          });
+      }, 500);
+    }
+  }
+
+}
