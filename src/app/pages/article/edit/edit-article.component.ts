@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Article, ContentService, Filter, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RootModule} from "src/app/root.module";
-import {debounceTime, mergeMap, publish, skipWhile, takeUntil} from "rxjs";
+import {debounceTime, mergeMap, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {Editor, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
@@ -63,7 +63,6 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     this.formGroup.addControl('content', new FormControl(null, Validators.required()));
     this.formGroup.addControl('title', new FormControl(null, Validators.required()));
     this.editor = new Editor();
-    this.tagCtrl.setValue('#');
     let id: string = this.aRouter.snapshot.params['id'];
 
     if (id) {
@@ -169,7 +168,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     const value = event.option.viewValue;
 
     if (!this.content.tags.includes(value)) {
-      this.content.tags.push('#' + value);
+      this.content.tags.push(value);
     }
 
     if (this.tagsInput?.nativeElement.value) {

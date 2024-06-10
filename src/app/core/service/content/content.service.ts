@@ -66,7 +66,7 @@ export class ContentService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.GET, '/content/get/' + id);
   }
 
-  save(article: Article): Observable<{ success: true, id: number }> {
+  save(article: Article): Observable<{ success: true, id: string }> {
     return this.httpSender.send(HttpMethod.POST, '/content/save', article);
   }
 
@@ -107,6 +107,6 @@ export class ContentService extends UnSubscriber {
       return of({success: false});
     }
 
-    return this.httpSender.send(HttpMethod.POST, '/content/change-status/' + id, {status});
+    return this.httpSender.send(HttpMethod.POST, '/content/change-status/' + id, {status: status.toUpperCase()});
   }
 }

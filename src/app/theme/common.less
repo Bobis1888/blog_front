@@ -43,9 +43,15 @@ html {
   --mdc-plain-tooltip-supporting-text-weight: 500px;
   --mdc-plain-tooltip-supporting-text-color: @firstColor;
   --mdc-plain-tooltip-supporting-text-line-height: 20px;
+  --mat-autocomplete-container-shape: 20px;
 
   color: @thirdColor;
   font-size: 16px;
+
+  .cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel {
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+  }
 
   .mat-mdc-mini-fab.mat-accent {
     --mdc-fab-small-container-color: @secondColor;
