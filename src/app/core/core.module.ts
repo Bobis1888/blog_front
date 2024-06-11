@@ -1,20 +1,20 @@
 import {AsyncPipe, CommonModule} from "@angular/common";
 import {NgModule} from "@angular/core";
-import {MaterialModule} from "app/theme/material/material.module";
+import {MaterialModule} from "src/app/theme/material/material.module";
 import {RouterLink, RouterOutlet} from "@angular/router";
-import {AuthService} from "app/core/service/auth/auth.service";
-import {HttpSenderService} from "app/core/service/base/http-sender.service";
+import {AuthService} from "src/app/core/service/auth/auth.service";
+import {HttpSenderService} from "src/app/core/service/base/http-sender.service";
 import {TranslateModule} from "@ngx-translate/core";
-import {ContentService} from "app/core/service/content/content.service";
+import {ContentService} from "src/app/core/service/content/content.service";
 import {NgxEditorModule} from "ngx-editor";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {ClipboardModule} from "ngx-clipboard";
 import {MaskitoDirective} from "@maskito/angular";
+import {SafeHtmlPipe} from "src/app/core/pipe/safe-html";
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
     MaterialModule,
     RouterLink,
     RouterOutlet,
@@ -22,6 +22,7 @@ import {MaskitoDirective} from "@maskito/angular";
     AsyncPipe,
     NgxEditorModule,
     MaskitoDirective,
+    SafeHtmlPipe,
     NgxSkeletonLoaderModule.forRoot({
       count: 3,
       theme: {
@@ -34,6 +35,7 @@ import {MaskitoDirective} from "@maskito/angular";
     CommonModule,
     MaterialModule,
     RouterLink,
+    SafeHtmlPipe,
     TranslateModule,
     NgxEditorModule,
     NgxSkeletonLoaderModule,
@@ -47,4 +49,4 @@ import {MaskitoDirective} from "@maskito/angular";
     ContentService
   ]
 })
-export class RootModule {}
+export class CoreModule {}

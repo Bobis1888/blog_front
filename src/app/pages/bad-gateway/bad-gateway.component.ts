@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RootModule} from 'app/root.module';
+import {CoreModule} from 'app/core/core.module';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {AuthService} from "app/core/service/auth/auth.service";
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'bad-gateway',
   standalone: true,
-  imports: [RootModule],
+  imports: [CoreModule],
   templateUrl: './bad-gateway.component.html',
   styleUrl: './bad-gateway.component.less',
 })

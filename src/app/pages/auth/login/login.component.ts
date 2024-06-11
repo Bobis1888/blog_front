@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {RootModule} from "src/app/root.module";
+import {CoreModule} from "app/core/core.module";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -12,7 +12,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [RootModule, ReactiveFormsModule, TranslateModule],
+  imports: [CoreModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less'
 })
@@ -62,7 +62,7 @@ export class LoginComponent extends HasErrors implements OnInit {
           this.loading = false;
 
           if (res.success) {
-            this.router.navigate(["/"]);
+            this.router.navigate(["/"]).then();
             return;
           }
         },
@@ -75,7 +75,6 @@ export class LoginComponent extends HasErrors implements OnInit {
   }
 
   resetPassword() {
-    this.router.navigate(['/auth/reset-password']);
-    return;
+    this.router.navigate(['/auth/forgot-password']).then();
   }
 }

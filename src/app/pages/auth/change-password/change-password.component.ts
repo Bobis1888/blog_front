@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
-import {RootModule} from "src/app/root.module";
+import {CoreModule} from "app/core/core.module";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -13,7 +13,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 @Component({
   selector: 'change-password',
   standalone: true,
-  imports: [RootModule, ReactiveFormsModule, TranslateModule],
+  imports: [CoreModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.less'
 })

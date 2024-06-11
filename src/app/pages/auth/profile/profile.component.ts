@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {RootModule} from "src/app/root.module";
+import {CoreModule} from "app/core/core.module";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -12,7 +12,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
 @Component({
   selector: 'profile',
   standalone: true,
-  imports: [RootModule, ReactiveFormsModule, TranslateModule],
+  imports: [CoreModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.less'
 })

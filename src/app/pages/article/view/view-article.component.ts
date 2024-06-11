@@ -1,19 +1,33 @@
 import {Component, OnInit} from '@angular/core';
 import {Article, ContentService, Status} from "src/app/core/service/content/content.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {RootModule} from "src/app/root.module";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {takeUntil} from "rxjs";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ClipboardService} from "ngx-clipboard";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {AuthService} from "app/core/service/auth/auth.service";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {MaterialModule} from "app/theme/material/material.module";
+import {
+  CommonModule,
+} from "@angular/common";
+import {SafeHtmlPipe} from "app/core/pipe/safe-html";
+import {animations} from "app/core/config/app.animations";
 
 @Component({
   selector: 'view-article',
   standalone: true,
-  imports: [RootModule],
+  imports: [
+    NgxSkeletonLoaderModule,
+    TranslateModule,
+    MaterialModule,
+    RouterLink,
+    SafeHtmlPipe,
+    CommonModule,
+  ],
+  animations: animations,
   templateUrl: './view-article.component.html',
   styleUrl: './view-article.component.less'
 })
@@ -39,7 +53,7 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    let  id = this.aRouter.snapshot.params['id'];
+    let id = this.aRouter.snapshot.params['id'];
 
     if (id == null) {
       this.state = 'empty';

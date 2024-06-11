@@ -1,14 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {RootModule} from 'app/root.module';
 import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {Article, ContentService} from "app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
+import {animations} from "app/core/config/app.animations";
+import {MaterialModule} from "app/theme/material/material.module";
+import {CommonModule} from "@angular/common";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'trends',
   standalone: true,
-  imports: [RootModule],
+  imports: [MaterialModule, CommonModule, NgxSkeletonLoaderModule, TranslateModule],
+  animations: animations,
   templateUrl: './trends.component.html',
   styleUrl: './trends.component.less',
 })

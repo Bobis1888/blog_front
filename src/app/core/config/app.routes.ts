@@ -7,21 +7,26 @@ export const routes: Routes = [
   {
     path: '',
     component: SummaryComponent,
+    data: {animation: 'SummaryComponent'}
   },
   {
     path: 'search',
-    component: SearchComponent
+    component: SearchComponent,
+    data: {animation: 'SearchComponent'}
   },
   {
     path: 'update-process',
-    component: BadGatewayComponent
+    component: BadGatewayComponent,
+    data: {animation: 'BadGatewayComponent'}
   },
   {
     path: 'article',
-    loadChildren: () => import('app/pages/article/article.module').then(m => m.ArticleModule),
+    loadChildren: () => import('app/pages/article/article.routing')
+      .then(r => r.articleRoutes)
   },
   {
     path: 'auth',
-    loadChildren: () => import('app/pages/auth/auth.module').then(m => m.AuthModule),
+    loadChildren: () => import('app/pages/auth/auth.routing')
+      .then(r => r.authRoutes),
   }
 ];

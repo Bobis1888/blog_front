@@ -62,7 +62,7 @@
     </button>
 
     <button
-      *ngIf="authService.isAuthorized && !isMobile"
+      *ngIf="authService.isAuthorized"
       mat-stroked-button
       routerLink="/article/edit"
     >

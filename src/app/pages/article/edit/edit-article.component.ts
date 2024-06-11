@@ -1,21 +1,26 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Article, ContentService, Filter, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {RootModule} from "src/app/root.module";
-import {debounceTime, mergeMap, skipWhile, takeUntil} from "rxjs";
+import {debounceTime, mergeMap, Observable, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {Editor, Toolbar, Validators} from "ngx-editor";
+import {Editor, NgxEditorModule, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {HasErrors} from "app/core/abstract/has-errors";
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MaskitoOptions} from "@maskito/core";
+import {MaterialModule} from "app/theme/material/material.module";
+import {MaskitoDirective} from "@maskito/angular";
+import {CommonModule} from "@angular/common";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {animations} from "app/core/config/app.animations";
 
 @Component({
   selector: 'edit-article',
   standalone: true,
-  imports: [RootModule, ReactiveFormsModule],
+  animations: animations,
+  imports: [CommonModule, TranslateModule, MaterialModule, NgxEditorModule, MaskitoDirective, NgxSkeletonLoaderModule, ReactiveFormsModule],
   templateUrl: './edit-article.component.html',
   styleUrl: './edit-article.component.less'
 })
@@ -24,7 +29,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
   protected content: Article = {
     tags: new Array<string>()
   } as Article;
-  protected state: 'form' | 'load'  = 'form';
+  protected state: 'form' | 'load' = 'form';
   protected editor: Editor | undefined;
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
@@ -57,6 +62,14 @@ export class EditArticleComponent extends HasErrors implements OnInit {
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
+  }
+
+  get canPublish(): boolean {
+    return this.content.status === Status.draft && this.formGroup?.valid;
+  }
+
+  get canUnpublish(): boolean {
+    return ([Status.published, Status.pending].includes(this.content.status)) && this.formGroup.valid;
   }
 
   ngOnInit(): void {
@@ -123,18 +136,11 @@ export class EditArticleComponent extends HasErrors implements OnInit {
 
     if (this.formGroup.valid) {
       this.state = 'load';
-      this.contentService.save({
-        id: this.content.id,
-        title: this.formGroup.get('title')?.value,
-        preView: 'auto',
-        content: this.formGroup.get('content')?.value,
-        tags: this.content.tags
-      } as Article)
-        .pipe(takeUntil(this.unSubscriber))
+      this.save()
         .subscribe({
           next: it => {
             this.state = 'form';
-            this.router.navigate(['/article/edit', it.id], {replaceUrl: true}).then();
+            this.router.navigate(['/article/edit', it.id]).then();
           },
           error: err => {
             this.state = 'form';
@@ -194,6 +200,33 @@ export class EditArticleComponent extends HasErrors implements OnInit {
           this.content.status = status;
         }
       });
+  }
+
+  protected preview() {
+
+    if (this.formGroup.valid) {
+      this.save().subscribe(it => {
+        if (it.success) {
+          this.router.navigate(['/article/view', it.id]).then();
+        }
+      });
+    }
+  }
+
+  private save(): Observable<{ success: true, id: string }> {
+    return this.contentService.save({
+      id: this.content.id,
+      title: this.formGroup.get('title')?.value,
+      preView: this.getPreviewContent(),
+      content: this.formGroup.get('content')?.value,
+      tags: this.content.tags
+    } as Article)
+      .pipe(takeUntil(this.unSubscriber));
+  }
+
+  // TODO
+  private getPreviewContent(): string {
+    return "auto";
   }
 
   protected readonly Status = Status;

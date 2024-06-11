@@ -1,7 +1,7 @@
 <div class="summary" [ngClass]="{ mobile: isMobile }">
   <div class="flex">
     <trends></trends>
-    <topics *ngIf="!isMobile"></topics>
+    <topics *ngIf="!isMobile" [@opacity-1]></topics>
   </div>
 </div>
 <div class="floating-button" *ngIf="isMobile && authService.isAuthorized">

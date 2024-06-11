@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {RootModule} from "src/app/root.module";
+import {CoreModule} from "app/core/core.module";
 import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'confirm-registration',
   standalone: true,
-  imports: [RootModule],
+  imports: [CoreModule],
   templateUrl: './confirm-registration.component.html',
   styleUrl: './confirm-registration.component.less'
 })

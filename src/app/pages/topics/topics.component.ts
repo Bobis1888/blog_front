@@ -1,15 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {RootModule} from 'app/root.module';
+import {CoreModule} from 'app/core/core.module';
 import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {ContentService, Filter} from "app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
+import {animations} from "app/core/config/app.animations";
 
 @Component({
   selector: 'topics',
   standalone: true,
-  imports: [RootModule],
+  animations: animations,
+  imports: [CoreModule],
   templateUrl: './topics.component.html',
   styleUrl: './topics.component.less',
 })

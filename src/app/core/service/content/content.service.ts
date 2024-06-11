@@ -6,7 +6,8 @@ import {SuccessDto} from "app/core/dto/success-dto";
 
 export enum Status {
   published = 'published',
-  draft = 'draft'
+  draft = 'draft',
+  pending = 'pending'
 }
 
 export class Article {
@@ -55,7 +56,9 @@ export interface Filter {
   direction: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'any'
+})
 export class ContentService extends UnSubscriber {
 
   constructor(private httpSender: HttpSenderService) {

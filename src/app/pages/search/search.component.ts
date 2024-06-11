@@ -1,17 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {RootModule} from 'app/root.module';
+import {CoreModule} from 'app/core/core.module';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Article, ContentService, Filter} from "app/core/service/content/content.service";
-import {delay, takeUntil} from "rxjs";
+import {takeUntil} from "rxjs";
+import {animations} from "app/core/config/app.animations";
 
 @Component({
   selector: 'search',
   standalone: true,
-  imports: [RootModule, FormsModule, ReactiveFormsModule],
+  animations: animations,
+  imports: [CoreModule, FormsModule, ReactiveFormsModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
 })
@@ -87,6 +89,6 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   public goToView(item: Article) {
-    this.router.navigate(['/article/view', item.id]);
+    this.router.navigate(['/article/view', item.id]).then();
   }
 }

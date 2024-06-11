@@ -53,7 +53,7 @@
 </ng-template>
 
 <ng-template #data>
-  <div>
+  <div [@opacity-1]>
     <div *ngFor="let item of items" class="article">
       <mat-card (click)="goToView(item)" matRipple>
         <mat-card-header>
@@ -68,7 +68,7 @@
         <mat-card-footer>
           <div class="footer">
             <div class="date">
-              <span>{{ item.publishedDate | date : "YYYY.MM.dd"}}</span>
+              <span>{{ item.publishedDate | date : "YYYY.MM.dd" }}</span>
             </div>
             <div class="author">
               <span>{{ item.authorName }}</span>

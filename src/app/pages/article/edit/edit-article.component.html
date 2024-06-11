@@ -13,13 +13,11 @@
 
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="form"></ng-container>
   </ng-container>
-
-
 </div>
 
 <ng-template #form>
   <br>
-  <div class="editor" *ngIf="editor != undefined">
+  <div class="editor" *ngIf="editor != undefined" [@opacity-1]>
 
     <form [formGroup]="formGroup">
       <div class="title">
@@ -91,18 +89,28 @@
       </button>
 
       <button
-        *ngIf="content.id"
+        [@opacity-1]
+        *ngIf="content.id && formGroup.valid"
         mat-stroked-button
-        routerLink="/article/view/{{content.id}}"
+        (click)="preview()"
       >
         {{ "editArticlePage.preView" | translate }}
       </button>
 
-      <button mat-flat-button *ngIf="content.status == Status.draft" (click)="changeStatus(Status.published)">
+      <button
+        mat-flat-button
+        [@opacity-1]
+        *ngIf="canPublish"
+        (click)="changeStatus(Status.published)"
+      >
         {{ "editArticlePage.publish" | translate }}
       </button>
 
-      <button mat-flat-button *ngIf="content.status == Status.published" (click)="changeStatus(Status.draft)">
+      <button
+        mat-flat-button
+        [@opacity-1] *ngIf="canUnpublish"
+        (click)="changeStatus(Status.draft)"
+      >
         {{ "editArticlePage.unpublish" | translate }}
       </button>
     </div>

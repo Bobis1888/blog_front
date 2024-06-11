@@ -35,7 +35,7 @@
 <ng-template #data>
   <div>
     <div *ngFor="let item of items" class="article">
-      <mat-card (click)="goToView(item)" matRipple>
+      <mat-card (click)="goToView(item)" [@opacity-1] matRipple>
         <mat-card-header>
           <mat-card-title>{{ item.title }}</mat-card-title>
           <mat-card-subtitle class="tags">{{ item.tags.join(' ') }}</mat-card-subtitle>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RootModule } from 'app/root.module';
+import { CoreModule } from 'app/core/core.module';
 import { UnSubscriber } from 'app/core/abstract/un-subscriber';
 import { AuthService } from 'app/core/service/auth/auth.service';
 import { takeUntil } from 'rxjs';
@@ -10,7 +10,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
 @Component({
   selector: 'top-menu',
   standalone: true,
-  imports: [RootModule],
+  imports: [CoreModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less',
 })
@@ -43,7 +43,7 @@ export class MenuComponent extends UnSubscriber implements OnInit {
       .logout()
       .pipe(takeUntil(this.unSubscriber))
       .subscribe((it) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/']).then();
         return;
       });
   }

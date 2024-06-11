@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
-import {RootModule} from "app/root.module";
-import {MenuComponent} from "app/pages/menu/menu.component";
+import {ActivatedRoute, ChildrenOutletContexts, Router, RouterOutlet} from '@angular/router';
+import {MenuComponent} from "src/app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {TranslateService} from "@ngx-translate/core";
-import {UnSubscriber} from "app/core/abstract/un-subscriber";
+import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {skip, takeUntil} from "rxjs";
+import {animations} from "src/app/core/config/app.animations";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RootModule, RouterOutlet, MenuComponent],
+  animations: animations,
+  imports: [RouterOutlet, MenuComponent],
   templateUrl: 'main.component.html',
 })
 export class MainComponent extends UnSubscriber implements OnInit {
@@ -22,6 +23,7 @@ export class MainComponent extends UnSubscriber implements OnInit {
   constructor(protected translate: TranslateService,
               protected aRouter: ActivatedRoute,
               protected router: Router,
+              protected outletContexts: ChildrenOutletContexts,
               protected matSnackBar: MatSnackBar) {
     super();
   }
@@ -95,6 +97,10 @@ export class MainComponent extends UnSubscriber implements OnInit {
           });
       }, 500);
     }
+  }
+
+  getRouteAnimationData() {
+    return this.outletContexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
   }
 
 }

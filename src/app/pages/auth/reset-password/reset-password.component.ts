@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {RootModule} from "src/app/root.module";
+import {CoreModule} from "app/core/core.module";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
@@ -10,9 +10,9 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'reset-password',
+  selector: 'forgot-password',
   standalone: true,
-  imports: [RootModule, ReactiveFormsModule, TranslateModule],
+  imports: [CoreModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.less'
 })

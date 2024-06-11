@@ -18,19 +18,17 @@
 
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="data"></ng-container>
   </ng-container>
-
-
 </div>
 
 
 <ng-template #data>
 
-  <h1>{{ content.title }}</h1>
+  <h1 [@opacity-1]>{{ content.title }}</h1>
 
-  <span *ngIf="content.publishedDate"
+  <span *ngIf="content.publishedDate" [@opacity-1]
         class="date">{{ 'viewArticlePage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
 
-  <div class="tags">
+  <div class="tags" [@opacity-15]>
     <span class="tags-title">{{ 'viewArticlePage.tags' | translate }}</span>
     <span>&nbsp;</span>
     <span class="tag" (click)="goToSearch(tag)" *ngFor="let tag of ['#english', '#shortStory']">{{ tag }}</span>
@@ -38,10 +36,10 @@
 
   <br>
 
-  <p [innerHTML]="content.content"></p>
+  <p [innerHTML]="content.content" [@opacity-2]></p>
 
 
-  <div class="footer">
+  <div class="footer" [@opacity-2]>
     <div class="buttons">
       <button mat-icon-button (click)="share()">
         <mat-icon>share</mat-icon>
@@ -77,7 +75,8 @@
   <br>
   <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
   <br>
-  <ngx-skeleton-loader count="7"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader [count]="14"></ngx-skeleton-loader>
   <br>
   <ngx-skeleton-loader count="1" [theme]="{width: '25%'}"></ngx-skeleton-loader>
   <br>

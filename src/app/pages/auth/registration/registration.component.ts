@@ -6,7 +6,7 @@ import {
   ValidationErrors,
   Validators
 } from "@angular/forms";
-import {RootModule} from "src/app/root.module";
+import {CoreModule} from "app/core/core.module";
 import {SuccessDto} from "src/app/core/dto/success-dto";
 import {takeUntil} from "rxjs";
 import {AuthService} from "app/core/service/auth/auth.service";
@@ -30,7 +30,7 @@ export class PasswordIndicator {
 @Component({
   selector: 'registration',
   standalone: true,
-  imports: [RootModule, ReactiveFormsModule],
+  imports: [CoreModule, ReactiveFormsModule],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.less'
 })
@@ -124,7 +124,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
               this.ref.onAction()
                 .pipe(takeUntil(this.unSubscriber))
                 .subscribe(() => {
-                this.router.navigate(['/auth/reset-password']);
+                this.router.navigate(['/auth/forgot-password']);
               });
             }
           }
