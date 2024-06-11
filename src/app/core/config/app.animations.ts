@@ -81,10 +81,10 @@ export const animations = [
       query(':leave', animateChild(), {optional: true}),
       group([
         query(':leave', [
-          animate('500ms ease-out', style({opacity: 0}))
+          animate('200ms ease-out', style({opacity: 0}))
         ], {optional: true}),
         query(':enter', [
-          animate('500ms ease-out', style({opacity: 1}))
+          animate('300ms ease-out', style({opacity: 1}))
         ], {optional: true}),
         query('@*', animateChild(), {optional: true})
       ]),
