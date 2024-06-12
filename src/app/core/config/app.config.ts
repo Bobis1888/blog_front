@@ -1,5 +1,5 @@
 import {ApplicationConfig, importProvidersFrom} from '@angular/core';
-import {provideRouter, RouterPreloader, withDebugTracing, withPreloading} from '@angular/router';
+import {provideRouter, withDebugTracing} from '@angular/router';
 
 import {routes} from './app.routes';
 import {TranslateModule} from "@ngx-translate/core";
@@ -12,7 +12,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
     provideRouter(routes,
-      withPreloading(RouterPreloader),
       withDebugTracing()),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),
