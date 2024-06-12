@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 import {CoreModule} from 'app/core/core.module';
 import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {FormsModule} from '@angular/forms';
@@ -29,13 +28,5 @@ export class SummaryComponent extends UnSubscriber implements OnInit {
     return this.deviceService.isMobile();
   }
 
-  ngOnInit(): void {
-
-    setTimeout(() => {
-      this.title.setTitle(this.translate.instant('summaryPage.title'));
-    }, 300);
-
-  }
-
-
+  ngOnInit(): void {}
 }

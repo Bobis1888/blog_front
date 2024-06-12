@@ -43,6 +43,7 @@ export class MainComponent extends UnSubscriber implements OnInit {
 
         localStorage.setItem('currentLanguage', lang);
         this.document.documentElement.lang = lang;
+        this.title.setTitle(this.translate.instant('meta.title'));
         this.meta.updateTag({name: 'lang', content: lang});
         this.meta.updateTag({name: 'description', content: this.translate.instant('meta.description')});
         this.meta.updateTag({name: 'keywords', content: this.translate.instant('meta.keywords')});
