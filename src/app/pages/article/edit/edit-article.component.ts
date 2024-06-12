@@ -1,12 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Actions, Article, ContentService, Status, TagsFilter} from "src/app/core/service/content/content.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {debounceTime, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {Editor, NgxEditorModule, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {HasErrors} from "app/core/abstract/has-errors";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MaskitoOptions} from "@maskito/core";
@@ -20,7 +20,7 @@ import {animations} from "app/core/config/app.animations";
   selector: 'edit-article',
   standalone: true,
   animations: animations,
-  imports: [CommonModule, TranslateModule, MaterialModule, NgxEditorModule, MaskitoDirective, NgxSkeletonLoaderModule, ReactiveFormsModule],
+  imports: [CommonModule, TranslateModule, MaterialModule, NgxEditorModule, MaskitoDirective, NgxSkeletonLoaderModule, ReactiveFormsModule, RouterLink],
   templateUrl: './edit-article.component.html',
   styleUrl: './edit-article.component.less'
 })
@@ -179,7 +179,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
         takeUntil(this.unSubscriber)
       )
       .subscribe({
-        next: (it) => this.init(this.content.id),
+        next: () => this.init(this.content.id),
         error: (err) => {
           this.state = 'form';
           this.rejectErrors(...err.errors);
@@ -220,10 +220,6 @@ export class EditArticleComponent extends HasErrors implements OnInit {
           this.rejectErrors(...err.errors);
         }
       });
-  }
-
-  protected preview() {
-    this.router.navigate(['/article/view', this.content.id]).then();
   }
 
   private save(): Observable<{ success: true, id: string }> {

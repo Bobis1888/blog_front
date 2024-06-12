@@ -107,7 +107,7 @@
       <button
         *ngIf="content.id"
         mat-stroked-button
-        (click)="preview()"
+        routerLink="/article/view/{{ content.id }}"
       >
         {{ "editArticlePage.preView" | translate }}
       </button>

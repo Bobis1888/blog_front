@@ -32,7 +32,12 @@
   <div class="tags" [@opacity-15]>
     <span class="tags-title">{{ 'viewArticlePage.tags' | translate }}</span>
     <span>&nbsp;</span>
-    <span class="tag" (click)="goToSearch(tag)" *ngFor="let tag of ['#english', '#shortStory']">{{ tag }}</span>
+    <span class="tag"
+          *ngFor="let tag of content.tags"
+          [routerLink]="'/search'"
+          [queryParams]="{q: tag.replace('#', ''), tag: true}">
+      {{ tag }}
+    </span>
   </div>
 
   <br>
@@ -61,7 +66,7 @@
 
     </div>
     <div class="author">
-      <span (click)="goToUser(content.authorName)">{{ content.authorName }}</span>
+      <span [routerLink]="'/search'" [queryParams]="{q: content.authorName, author: true}">{{ content.authorName }}</span>
     </div>
   </div>
 </ng-template>

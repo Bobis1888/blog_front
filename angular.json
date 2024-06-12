@@ -27,7 +27,9 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/robots.txt",
+              "src/sitemap.xml"
             ],
             "styles": [
               "src/styles.less"
@@ -65,7 +67,7 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "front:build:production",
+              "buildTarget": "front:build:production"
             },
             "development": {
               "buildTarget": "front:build:development",

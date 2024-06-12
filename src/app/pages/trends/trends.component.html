@@ -35,7 +35,7 @@
 <ng-template #data>
   <div>
     <div *ngFor="let item of items" class="article">
-      <mat-card (click)="goToView(item)" [@opacity-1] matRipple>
+      <mat-card routerLink="/article/view/{{ item.id }}" [@opacity-1] matRipple>
         <mat-card-header>
           <mat-card-title>{{ item.title }}</mat-card-title>
           <mat-card-subtitle class="tags">{{ item.tags.join(' ') }}</mat-card-subtitle>
@@ -51,7 +51,7 @@
               <span>{{ item.publishedDate | date : "YYYY.MM.dd" }}</span>
             </div>
             <div class="author">
-              <span (click)="goToUser(item.authorName)">{{ item.authorName }}</span>
+              <span  [routerLink]="'/search'" [queryParams]="{q: item.authorName, author: true}">{{ item.authorName }}</span>
             </div>
           </div>
         </mat-card-footer>

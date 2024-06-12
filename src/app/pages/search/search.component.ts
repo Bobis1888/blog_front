@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 import {CoreModule} from 'app/core/core.module';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -8,7 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Article, ContentService, Filter} from "app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
 import {animations} from "app/core/config/app.animations";
-import {Meta, Title} from "@angular/platform-browser";
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'search',
@@ -20,8 +19,7 @@ import {Meta, Title} from "@angular/platform-browser";
 })
 export class SearchComponent extends HasErrors implements OnInit {
 
-  constructor(translate: TranslateService,
-              private aRouter: ActivatedRoute,
+  constructor(private aRouter: ActivatedRoute,
               private router: Router,
               private meta: Meta,
               private contentService: ContentService,
@@ -64,11 +62,11 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   public submit(): void {
-    let query = this.formGroup.get("search")?.value;
+    let query = this.formGroup.get("search")?.value?.replace('#', '')?.replace('@', '');
     this.router.navigate([], {
       queryParams: {q: query || null},
       queryParamsHandling: 'merge',
-    });
+    }).then();
 
     if (!query || this.state == 'loading' || query.length < 3) {
       return;
@@ -97,13 +95,9 @@ export class SearchComponent extends HasErrors implements OnInit {
             this.state = 'data';
           }
         },
-        error: err => {
+        error: () => {
           this.state = 'empty';
         }
       });
-  }
-
-  public goToView(item: Article) {
-    this.router.navigate(['/article/view', item.id]).then();
   }
 }

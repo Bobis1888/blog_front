@@ -1,7 +1,6 @@
 import {Routes} from '@angular/router';
 import {SummaryComponent} from "app/pages/summary/summary.component";
 import {SearchComponent} from 'app/pages/search/search.component';
-import {BadGatewayComponent} from "app/pages/bad-gateway/bad-gateway.component";
 
 export const routes: Routes = [
   {
@@ -16,8 +15,8 @@ export const routes: Routes = [
   },
   {
     path: 'update-process',
-    component: BadGatewayComponent,
-    data: {animation: 'BadGatewayComponent'}
+    data: {animation: 'BadGatewayComponent'},
+    loadChildren: () => import('app/pages/bad-gateway/bad-gateway.component').then(m => m.BadGatewayComponent),
   },
   {
     path: 'article',

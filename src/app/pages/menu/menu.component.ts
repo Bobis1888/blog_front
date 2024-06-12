@@ -40,7 +40,7 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     this.authService
       .logout()
       .pipe(takeUntil(this.unSubscriber))
-      .subscribe((it) => {
+      .subscribe(() => {
         this.router.navigate(['/']).then();
         return;
       });

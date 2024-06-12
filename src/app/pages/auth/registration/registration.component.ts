@@ -123,7 +123,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
               this.ref.onAction()
                 .pipe(takeUntil(this.unSubscriber))
                 .subscribe(() => {
-                this.router.navigate(['/auth/forgot-password']);
+                this.router.navigate(['/auth/forgot-password']).then();
               });
             }
           }

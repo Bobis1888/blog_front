@@ -55,7 +55,7 @@
 <ng-template #data>
   <div [@opacity-1]>
     <div *ngFor="let item of items" class="article">
-      <mat-card (click)="goToView(item)" matRipple>
+      <mat-card routerLink="/article/view/{{ item.id }}" matRipple>
         <mat-card-header>
           <mat-card-title>{{ item.title }}</mat-card-title>
           <mat-card-subtitle> {{ item.tags.join(' ') }}</mat-card-subtitle>

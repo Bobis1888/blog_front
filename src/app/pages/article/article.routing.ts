@@ -1,5 +1,5 @@
 import {inject} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivateFn, RouterModule, RouterStateSnapshot, Routes} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, Routes} from "@angular/router";
 import {ViewArticleComponent} from "app/pages/article/view/view-article.component";
 import {EditArticleComponent} from "app/pages/article/edit/edit-article.component";
 import {AuthService} from "app/core/service/auth/auth.service";

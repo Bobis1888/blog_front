@@ -6,7 +6,7 @@ import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ClipboardService} from "ngx-clipboard";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {MaterialModule} from "app/theme/material/material.module";
@@ -15,7 +15,7 @@ import {
 } from "@angular/common";
 import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {animations} from "app/core/config/app.animations";
-import {Meta, Title} from "@angular/platform-browser";
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'view-article',
@@ -95,17 +95,6 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
     }
 
     this.router.navigate(['/search'], {queryParams: {q: userName, author: true}}).then();
-  }
-
-  public goToSearch(topic: string): void {
-
-    if (!topic) {
-      return;
-    }
-
-    topic = topic.replace('#', '');
-
-    this.router.navigate(['/search'], {queryParams: {q: topic, tag: true}}).then();
   }
 
   share() {

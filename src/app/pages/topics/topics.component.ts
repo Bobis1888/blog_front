@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 import {CoreModule} from 'app/core/core.module';
 import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
@@ -20,7 +19,6 @@ export class TopicsComponent extends UnSubscriber implements OnInit {
   protected state: 'data' | 'loading' = 'loading';
 
   constructor(
-    private router: Router,
     private contentService: ContentService,
     private deviceService: DeviceDetectorService,
   ) {
@@ -57,16 +55,5 @@ export class TopicsComponent extends UnSubscriber implements OnInit {
           this.state = 'data';
         }
       });
-  }
-
-  public goToSearch(topic: string): void {
-
-    if (!topic) {
-      return;
-    }
-
-    topic = topic.replace('#', '');
-
-    this.router.navigate(['/search'], {queryParams: {q: topic, tag: true}}).then();
   }
 }

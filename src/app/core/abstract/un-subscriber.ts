@@ -17,8 +17,7 @@ export abstract class UnSubscriber implements OnDestroy {
   protected unSubscriber: Subject<any> = new Subject();
 
   ngOnDestroy(): void {
-    console.log('!!!!!!!!!!!');
-    this.title.setTitle(this.translate.instant('meta.title'))
+    this.title.setTitle(this.translate.instant('meta.title'));
     this.unSubscriber.next(null);
     this.unSubscriber.complete();
   }

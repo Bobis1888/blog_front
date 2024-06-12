@@ -35,7 +35,7 @@ export class BadGatewayComponent extends UnSubscriber implements OnInit {
         takeUntil(this.unSubscriber),
         retry({
           count: 60,
-          delay: (err: any, number: number) => {
+          delay: (err: any) => {
 
             if (err) {
               return of(true).pipe(delay(2500),);
@@ -45,7 +45,7 @@ export class BadGatewayComponent extends UnSubscriber implements OnInit {
           }
         } as RetryConfig),
       )
-      .subscribe(it => this.router.navigate(['/']));
+      .subscribe(() => this.router.navigate(['/']));
   }
 
 
