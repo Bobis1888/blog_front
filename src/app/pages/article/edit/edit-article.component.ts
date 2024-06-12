@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Article, ContentService, Filter, Status} from "src/app/core/service/content/content.service";
+import {Actions, Article, ContentService, Status, TagsFilter} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {debounceTime, mergeMap, Observable, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
@@ -27,10 +27,14 @@ import {animations} from "app/core/config/app.animations";
 export class EditArticleComponent extends HasErrors implements OnInit {
 
   protected content: Article = {
-    tags: new Array<string>()
+    tags: new Array<string>(),
+    actions: {
+      canEdit: true
+    } as Actions
   } as Article;
   protected state: 'form' | 'load' = 'form';
   protected editor: Editor | undefined;
+
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
     [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
@@ -41,7 +45,6 @@ export class EditArticleComponent extends HasErrors implements OnInit {
   ];
 
   protected separatorKeysCodes: number[] = [ENTER, COMMA];
-  protected tagCtrl: FormControl = new FormControl('');
   protected filteredTags: string[] = [];
   readonly maskitoOpt: MaskitoOptions = {
     mask: /\w/,
@@ -60,57 +63,31 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     super(translate);
   }
 
+  get tagCtrl(): FormControl {
+    return this.formGroup.get("tagCtrl") as FormControl;
+  }
+
   get isMobile(): boolean {
     return this.deviceService.isMobile();
-  }
-
-  get canPublish(): boolean {
-    return this.content.status === Status.draft && this.formGroup?.valid;
-  }
-
-  get canUnpublish(): boolean {
-    return ([Status.published, Status.pending].includes(this.content.status)) && this.formGroup.valid;
   }
 
   ngOnInit(): void {
     this.formGroup.addControl('content', new FormControl(null, Validators.required()));
     this.formGroup.addControl('title', new FormControl(null, Validators.required()));
+    this.formGroup.addControl('tagCtrl', new FormControl(null));
+
     this.editor = new Editor();
     let id: string = this.aRouter.snapshot.params['id'];
 
     if (id) {
-      this.state = 'load';
-      this.contentService.get(id)
-        .pipe(takeUntil(this.unSubscriber))
-        .subscribe({
-          next: it => {
-            this.content = it;
-
-            if (this.content.title) {
-              this.formGroup.get('title')?.setValue(this.content.title);
-            }
-
-            if (this.content.content) {
-              this.formGroup.get('content')?.setValue(this.content.content);
-            }
-
-            if (!this.content.tags) {
-              this.content.tags = [];
-            }
-
-            this.state = 'form';
-          },
-          error: err => {
-            this.state = 'form';
-          }
-        });
+      this.init(id);
     }
 
     this.tagCtrl.valueChanges.pipe(
       debounceTime(300),
       skipWhile(val => val == null || val.toString()?.length < 3),
       takeUntil(this.unSubscriber),
-      mergeMap(val => this.contentService.tags({page: 0, max: 100, query: val} as Filter)),
+      mergeMap(val => this.contentService.tags({page: 0, max: 100, query: val} as TagsFilter)),
     ).subscribe({
       next: value => {
         this.filteredTags = [];
@@ -132,16 +109,16 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     this.editor?.destroy();
   }
 
-  submit(): void {
+  protected submit(): void {
 
     if (this.formGroup.valid) {
       this.state = 'load';
       this.save()
+        .pipe(
+          takeUntil(this.unSubscriber),
+        )
         .subscribe({
-          next: it => {
-            this.state = 'form';
-            this.router.navigate(['/article/edit', it.id]).then();
-          },
+          next: it => this.init(it.id),
           error: err => {
             this.state = 'form';
             this.rejectErrors(...err.errors)
@@ -150,7 +127,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     }
   }
 
-  add(): void {
+  protected add(): void {
 
     setTimeout(() => {
 
@@ -162,7 +139,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     }, 100)
   }
 
-  remove(tag: string): void {
+  protected remove(tag: string): void {
     const index = this.content.tags.indexOf(tag);
 
     if (index >= 0) {
@@ -170,7 +147,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     }
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
+  protected selected(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.viewValue;
 
     if (!this.content.tags.includes(value)) {
@@ -184,33 +161,64 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     this.tagCtrl.setValue(null);
   }
 
-  changeStatus(status: Status) {
+  protected changeStatus(status: Status) {
 
     if (this.content.status == status || status == null) {
       return;
     }
 
+    this.state = 'load';
+
     this.contentService.changeStatus(this.content.id, status)
       .pipe(
         takeUntil(this.unSubscriber)
       )
-      .subscribe(it => {
+      .subscribe({
+        next: (it) => this.init(this.content.id),
+        error: (err) => {
+          this.state = 'form';
+          this.rejectErrors(...err.errors);
+        }
+      });
+  }
 
-        if (it) {
-          this.content.status = status;
+  private init(id: string) {
+    this.state = 'load';
+    this.contentService.get(id)
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: it => {
+          this.content = it;
+
+          if (this.content.title) {
+            this.formGroup.get('title')?.setValue(this.content.title);
+          }
+
+          if (this.content.content) {
+            this.formGroup.get('content')?.setValue(this.content.content);
+          }
+
+          if (!this.content.tags) {
+            this.content.tags = [];
+          }
+
+          this.state = 'form';
+
+          if (!this.content.actions?.canEdit) {
+            this.formGroup.disable();
+          } else {
+            this.formGroup.enable();
+          }
+        },
+        error: err => {
+          this.state = 'form';
+          this.rejectErrors(...err.errors);
         }
       });
   }
 
   protected preview() {
-
-    if (this.formGroup.valid) {
-      this.save().subscribe(it => {
-        if (it.success) {
-          this.router.navigate(['/article/view', it.id]).then();
-        }
-      });
-    }
+    this.router.navigate(['/article/view', this.content.id]).then();
   }
 
   private save(): Observable<{ success: true, id: string }> {

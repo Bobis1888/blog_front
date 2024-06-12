@@ -42,6 +42,13 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.byTag = this.aRouter.snapshot.queryParamMap?.get("tag") == 'true';
     this.byAuthor = this.aRouter.snapshot.queryParamMap?.get("author") == 'true';
 
+    (this.formGroup.get('search') as FormControl).valueChanges
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe((it) => {
+        this.byTag = it.indexOf('#') == 0;
+        this.byAuthor = it.indexOf('@') == 0;
+      });
+
     if (this.byTag) {
       q = "#" + q;
     }
@@ -69,7 +76,11 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.contentService.list({
       max: 10,
       page: 0,
-      query: query
+      search: {
+        query: query,
+        author: this.byAuthor ? query : null,
+        tags: this.byTag ? [query] : null
+      }
     } as Filter)
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({

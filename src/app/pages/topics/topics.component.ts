@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {CoreModule} from 'app/core/core.module';
 import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
-import {ContentService, Filter} from "app/core/service/content/content.service";
+import {ContentService, Filter, TagsFilter} from "app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
 import {animations} from "app/core/config/app.animations";
 
@@ -37,7 +37,7 @@ export class TopicsComponent extends UnSubscriber implements OnInit {
     this.contentService.tags({
       max: 10,
       page: 0
-    } as Filter)
+    } as TagsFilter)
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: it => {

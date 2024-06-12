@@ -70,11 +70,16 @@
     "publishedDate": "Published on {{date}}",
     "empty": "Article not found",
     "tags": "Tags:",
+    "pending": "This article is pending approval",
+    "pendingHint": "This article will be published after approval",
     "sharedSuccess" : "Link copied to clipboard"
   },
   "editArticlePage": {
     "title": "Edit article",
     "articleTitle": "Article title",
+    "pending": "This article is pending approval",
+    "published": "This article is published! Unpublish it to edit",
+    "pendingHint": "This article will be published after approval",
     "articleTitlePlaceholder": "Your article title",
     "placeholder": "Start writing here",
     "submit": "Save",

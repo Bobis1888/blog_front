@@ -8,7 +8,7 @@ export const animations = [
         ':enter',
         [
           style({opacity: 0}),
-          animate('1s ease-out',
+          animate('100ms ease-out',
             style({opacity: 1}))
         ]
       ),
@@ -16,7 +16,7 @@ export const animations = [
         ':leave',
         [
           style({opacity: 1}),
-          animate('1s ease-in',
+          animate('0ms ease-in',
             style({opacity: 0}))
         ]
       )
@@ -29,7 +29,7 @@ export const animations = [
         ':enter',
         [
           style({opacity: 0}),
-          animate('1500ms ease-out',
+          animate('150ms ease-out',
             style({opacity: 1}))
         ]
       ),
@@ -37,7 +37,7 @@ export const animations = [
         ':leave',
         [
           style({opacity: 1}),
-          animate('1500ms ease-in',
+          animate('150ms ease-in',
             style({opacity: 0}))
         ]
       )
@@ -50,7 +50,7 @@ export const animations = [
         ':enter',
         [
           style({opacity: 0}),
-          animate('2s ease-out',
+          animate('200ms ease-out',
             style({opacity: 1}))
         ]
       ),
@@ -58,7 +58,7 @@ export const animations = [
         ':leave',
         [
           style({opacity: 1}),
-          animate('2s ease-in',
+          animate('200ms ease-in',
             style({opacity: 0}))
         ]
       )
@@ -84,7 +84,7 @@ export const animations = [
           animate('200ms ease-out', style({opacity: 0}))
         ], {optional: true}),
         query(':enter', [
-          animate('300ms ease-out', style({opacity: 1}))
+          animate('200ms ease-out', style({opacity: 1}))
         ], {optional: true}),
         query('@*', animateChild(), {optional: true})
       ]),

@@ -20,8 +20,9 @@
   </ng-container>
 </div>
 
-
 <ng-template #data>
+
+  <span *ngIf="content.status === Status.pending" [@opacity-1] class="status"> {{ 'viewArticlePage.pending' | translate }}</span>
 
   <h1 [@opacity-1]>{{ content.title }}</h1>
 
@@ -36,7 +37,7 @@
 
   <br>
 
-  <p [innerHTML]="content.content" [@opacity-2]></p>
+  <p [innerHTML]="content.content | safeHtml" [@opacity-2]></p>
 
 
   <div class="footer" [@opacity-2]>
@@ -51,7 +52,7 @@
         <mat-icon>{{ content.isFavorite ? 'bookmark' : 'bookmark_border' }}</mat-icon>
       </button>
       <button
-        *ngIf="content.status == Status.draft && authService.isAuthorized"
+        *ngIf="content.actions.canEdit || content.actions.canUnpublish"
         mat-icon-button
         routerLink="/article/edit/{{ content.id }}"
       >

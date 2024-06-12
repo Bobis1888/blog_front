@@ -1,4 +1,8 @@
 <div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}">
+
+  <span *ngIf="content.status === Status.pending" [@opacity-1] class="status"> {{ 'editArticlePage.pending' | translate }}</span>
+  <span *ngIf="content.status === Status.published" [@opacity-1] class="status"> {{ 'editArticlePage.published' | translate }}</span>
+
   <h1>{{ "editArticlePage.title" | translate }}</h1>
   <ng-container [ngSwitch]="state">
     <ng-container
@@ -38,7 +42,17 @@
 
       </div>
       <div class="tags">
-        <mat-form-field appearance="outline">
+
+
+        <div *ngIf="!content.actions.canEdit">
+          <mat-chip-listbox>
+            <mat-chip-row *ngFor="let tag of content.tags">
+              {{ tag }}
+            </mat-chip-row>
+          </mat-chip-listbox>
+        </div>
+
+        <mat-form-field appearance="outline" *ngIf="content.actions.canEdit">
           <mat-label>{{ 'editArticlePage.tags' | translate }}</mat-label>
           <mat-chip-grid #chipGrid>
             <mat-chip-row *ngFor="let tag of content.tags" (removed)="remove(tag)">
@@ -71,7 +85,7 @@
           </mat-autocomplete>
         </mat-form-field>
       </div>
-      <div class="menu">
+      <div class="menu" *ngIf="content.actions.canEdit">
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
       </div>
       <br/>
@@ -84,13 +98,14 @@
       </ngx-editor>
     </form>
     <div class="buttons">
-      <button mat-flat-button type="submit" (click)="submit()">
+      <button mat-flat-button type="submit"
+              *ngIf="content.actions.canEdit"
+              (click)="submit()">
         {{ "editArticlePage.submit" | translate }}
       </button>
 
       <button
-        [@opacity-1]
-        *ngIf="content.id && formGroup.valid"
+        *ngIf="content.id"
         mat-stroked-button
         (click)="preview()"
       >
@@ -99,8 +114,7 @@
 
       <button
         mat-flat-button
-        [@opacity-1]
-        *ngIf="canPublish"
+        *ngIf="content.actions.canPublish"
         (click)="changeStatus(Status.published)"
       >
         {{ "editArticlePage.publish" | translate }}
@@ -108,26 +122,24 @@
 
       <button
         mat-flat-button
-        [@opacity-1] *ngIf="canUnpublish"
+        *ngIf="content.actions.canUnpublish"
         (click)="changeStatus(Status.draft)"
       >
         {{ "editArticlePage.unpublish" | translate }}
       </button>
+
     </div>
   </div>
 </ng-template>
 
 <ng-template #load>
   <br>
-  <ngx-skeleton-loader count="1"
-                       [theme]="{'width': '100%', 'height.px': '50', 'border-radius.px': '30'}"></ngx-skeleton-loader>
+  <ngx-skeleton-loader count="2"
+                       [theme]="{'width': '75%'}"></ngx-skeleton-loader>
   <br>
-  <ngx-skeleton-loader count="1"
-                       [theme]="{'height.px': '50', 'border-radius.px': '30'}"></ngx-skeleton-loader>
+  <ngx-skeleton-loader count="14"></ngx-skeleton-loader>
   <br>
-  <ngx-skeleton-loader count="1" [theme]="{'height.px': '400', 'border-radius.px': '30'}"></ngx-skeleton-loader>
-  <br>
-  <ngx-skeleton-loader count="1"
-                       [theme]="{'height.px': '30', width : '20%', 'border-radius.px' : '30'}"></ngx-skeleton-loader>
+  <ngx-skeleton-loader count="2"
+                       [theme]="{width : '30%'}"></ngx-skeleton-loader>
   <br>
 </ng-template>

@@ -10,50 +10,74 @@ export enum Status {
   pending = 'pending'
 }
 
-export class Article {
+export interface Actions {
+  canDelete: boolean;
+  canEdit: boolean;
+  canPublish: boolean;
+  canUnpublish: boolean;
+}
+
+export interface Article {
   id: string;
   title: string;
   preView: string;
   preViewImg: string;
   content: string;
-  tags: Array<string> = [];
+  tags: Array<string>;
   authorName: string;
-  status: Status = Status.draft;
+  status: Status;
   publishedDate: Date;
-  isFavorite: boolean = false;
-  isLiked: boolean = false;
+  isFavorite: boolean;
+  isLiked: boolean;
+  actions: Actions;
 
-  constructor(id: string,
-              title: string,
-              preView: string,
-              preViewImg: string,
-              content: string,
-              author: string,
-              date: Date,
-              tags: Array<string>,
-              status: Status,
-              isFavorite: boolean,
-              isLiked: boolean) {
-    this.id = id;
-    this.title = title;
-    this.preView = preView;
-    this.preViewImg = preViewImg;
-    this.content = content;
-    this.authorName = author;
-    this.publishedDate = date;
-    this.tags = tags ?? [];
-    this.isFavorite = isFavorite;
-    this.isLiked = isLiked;
-    this.status = status;
-  }
+  // constructor(id: string,
+  //             title: string,
+  //             preView: string,
+  //             preViewImg: string,
+  //             content: string,
+  //             author: string,
+  //             date: Date,
+  //             tags: Array<string>,
+  //             status: Status,
+  //             isFavorite: boolean,
+  //             isLiked: boolean,
+  //             actions: Actions) {
+  //   this.id = id;
+  //   this.title = title;
+  //   this.preView = preView;
+  //   this.preViewImg = preViewImg;
+  //   this.content = content;
+  //   this.authorName = author;
+  //   this.publishedDate = date;
+  //   this.tags = tags ?? [];
+  //   this.isFavorite = isFavorite;
+  //   this.isLiked = isLiked;
+  //   this.status = status;
+  //   this.actions = actions;
+  // }
+}
+
+export interface TagsFilter {
+  max: number;
+  page: number
+  sortBy: Array<string>;
+  direction: string;
+  query: string;
 }
 
 export interface Filter {
   max: number;
   page: number
-  query: string;
   sortBy: Array<string>;
   direction: string;
+  search: Search;
+}
+
+export interface Search {
+  query: string;
+  author: string;
+  tags: Array<string>;
 }
 
 @Injectable({
@@ -82,7 +106,7 @@ export class ContentService extends UnSubscriber {
       .pipe(map(it => it.list));
   }
 
-  tags(filter: Filter): Observable<Array<string>> {
+  tags(filter: TagsFilter): Observable<Array<string>> {
     return this.httpSender.send(HttpMethod.POST, '/content/tags', filter)
       .pipe(map(it => it.list));
   }

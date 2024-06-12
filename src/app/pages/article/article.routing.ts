@@ -14,13 +14,17 @@ export const articleGuard: CanActivateFn = (
 export const articleRoutes: Routes = [
   {
     path: '',
-
     children: [
       {
         path: 'view/:id',
         component: ViewArticleComponent,
         data: {animation: 'ViewArticleComponent'},
         canActivate: [],
+      },
+      {
+        path: 'edit/reload/:id',
+        redirectTo: 'edit/:id',
+        data: {animation: 'ReloadEditArticleComponent'},
       },
       {
         path: 'edit',
