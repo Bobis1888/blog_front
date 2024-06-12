@@ -1,7 +1,9 @@
 {
   "meta": {
-    "description": "MyLog.ru — the most interesting place on the Internet. Platform for publishing content on various themes. All in one place.",
-    "keywords" : "article publish news tech learning reading read book"
+    "title": "Mylog",
+    "description": "Mylog.ru — the most interesting place on the Internet. Platform for publishing content on various themes. All in one place.",
+    "keywords" : "article publish news tech learning reading read book",
+    "badGateway": "Something went wrong..."
   },
   "topMenu": {
     "home": "Home",

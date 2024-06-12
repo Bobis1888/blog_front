@@ -1,6 +1,5 @@
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {FormGroup} from "@angular/forms";
-import {TranslateService} from "@ngx-translate/core";
 
 export interface Error {
   code: string;
@@ -12,9 +11,7 @@ export abstract class HasErrors extends UnSubscriber {
   protected errors: Error[] = [];
   protected formGroup: FormGroup = new FormGroup({});
 
-  protected constructor(protected translate: TranslateService) {
-    super();
-  }
+
 
   protected get hasErrors(): boolean {
     return this.errors.length > 0

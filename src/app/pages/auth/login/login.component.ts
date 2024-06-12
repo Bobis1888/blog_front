@@ -20,10 +20,9 @@ export class LoginComponent extends HasErrors implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              translate: TranslateService,
               private authService: AuthService,
               private deviceService: DeviceDetectorService) {
-    super(translate);
+    super();
   }
 
   protected hide: boolean = true;
@@ -34,6 +33,7 @@ export class LoginComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle(this.translate.instant('loginPage.title'));
     this.formGroup = this.formBuilder.group({
       login: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])

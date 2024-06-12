@@ -8,8 +8,6 @@ import {TrendsComponent} from "app/pages/trends/trends.component";
 import {TopicsComponent} from "app/pages/topics/topics.component";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {animations} from "app/core/config/app.animations";
-import {Title} from "@angular/platform-browser";
-import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'summary',
@@ -22,8 +20,6 @@ import {TranslateService} from "@ngx-translate/core";
 export class SummaryComponent extends UnSubscriber implements OnInit {
   constructor(
     protected authService: AuthService,
-    private tittle: Title,
-    private translate: TranslateService,
     private deviceService: DeviceDetectorService,
   ) {
     super();
@@ -36,7 +32,7 @@ export class SummaryComponent extends UnSubscriber implements OnInit {
   ngOnInit(): void {
 
     setTimeout(() => {
-      this.tittle.setTitle(this.translate.instant('summaryPage.title'));
+      this.title.setTitle(this.translate.instant('summaryPage.title'));
     }, 300);
 
   }

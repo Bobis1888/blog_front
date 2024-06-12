@@ -41,10 +41,8 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
   constructor(private contentService: ContentService,
               protected deviceService: DeviceDetectorService,
               private router: Router,
-              private translate: TranslateService,
               private matSnackBar: MatSnackBar,
               private meta: Meta,
-              private title: Title,
               protected authService: AuthService,
               private clipboardService: ClipboardService,
               private aRouter: ActivatedRoute) {
@@ -71,8 +69,18 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
           this.content = it;
           this.state = 'data';
 
-          this.title.setTitle(this.content.title);
-          this.meta.updateTag({name: 'description', content: this.content.preView});
+          if (this.content.title) {
+            this.title.setTitle(this.content.title);
+          }
+
+          if (this.content.preView) {
+            this.meta.updateTag({name: 'description', content: this.content.preView});
+          }
+
+          if (this.content.tags) {
+            this.meta.updateTag({name: 'keywords', content: this.content.tags
+                .map((it) => it.replace('#', '')).join(' ')});
+          }
         },
         error: err => {
           this.state = 'empty';

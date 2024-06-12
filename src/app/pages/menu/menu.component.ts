@@ -4,7 +4,6 @@ import { UnSubscriber } from 'app/core/abstract/un-subscriber';
 import { AuthService } from 'app/core/service/auth/auth.service';
 import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
@@ -20,7 +19,6 @@ export class MenuComponent extends UnSubscriber implements OnInit {
   constructor(
     protected authService: AuthService,
     protected router: Router,
-    protected translate: TranslateService,
     protected deviceService: DeviceDetectorService
   ) {
     super();

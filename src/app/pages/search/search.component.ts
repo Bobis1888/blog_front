@@ -23,11 +23,10 @@ export class SearchComponent extends HasErrors implements OnInit {
   constructor(translate: TranslateService,
               private aRouter: ActivatedRoute,
               private router: Router,
-              private title: Title,
               private meta: Meta,
               private contentService: ContentService,
               private deviceService: DeviceDetectorService) {
-    super(translate);
+    super();
   }
 
   protected state: 'loading' | 'data' | 'empty' | 'init' = 'init';

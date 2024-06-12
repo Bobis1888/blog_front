@@ -58,9 +58,8 @@ export class EditArticleComponent extends HasErrors implements OnInit {
   constructor(private contentService: ContentService,
               protected deviceService: DeviceDetectorService,
               private router: Router,
-              translate: TranslateService,
               private aRouter: ActivatedRoute) {
-    super(translate);
+    super();
   }
 
   get tagCtrl(): FormControl {

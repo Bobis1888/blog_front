@@ -10,13 +10,11 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
     provideRouter(routes,
       withPreloading(PreloadAllModules),
       withDebugTracing()),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),
-    importProvidersFrom(
-      TranslateModule.forRoot(provideTranslation())
-    )
   ]
 };

@@ -19,11 +19,10 @@ import {Router} from "@angular/router";
 export class ResetPasswordComponent extends HasErrors implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
-              translate: TranslateService,
               private router: Router,
               private authService: AuthService,
               private deviceService: DeviceDetectorService) {
-    super(translate);
+    super();
   }
 
   protected loading: boolean = false;
@@ -33,6 +32,7 @@ export class ResetPasswordComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle(this.translate.instant('resetPasswordPage.title'));
     this.formGroup = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
     });

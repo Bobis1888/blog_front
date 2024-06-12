@@ -11,7 +11,6 @@ import {SuccessDto} from "src/app/core/dto/success-dto";
 import {takeUntil} from "rxjs";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {HasErrors} from "app/core/abstract/has-errors";
-import {TranslateService} from "@ngx-translate/core";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
@@ -36,12 +35,11 @@ export class PasswordIndicator {
 })
 export class RegistrationComponent extends HasErrors implements OnInit {
 
-  constructor(translate: TranslateService,
-              protected authService: AuthService,
+  constructor(protected authService: AuthService,
               protected router: Router,
               protected deviceService: DeviceDetectorService,
               protected matSnackBar: MatSnackBar) {
-    super(translate);
+    super();
   }
 
 
@@ -68,6 +66,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle(this.translate.instant('registrationPage.title'));
     this.formGroup.addControl('email', new FormControl('', [Validators.required, Validators.email]));
     this.formGroup.addControl('password', new FormControl('', [Validators.minLength(8)]));
     this.formGroup.addControl('passwordRepeat', new FormControl('', [

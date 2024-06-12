@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, ChildrenOutletContexts, Router, RouterOutlet} from '@angular/router';
 import {MenuComponent} from "src/app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
-import {TranslateService} from "@ngx-translate/core";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
@@ -22,8 +21,7 @@ export class MainComponent extends UnSubscriber implements OnInit {
   private languages: Array<string> = ['ru', 'en'];
   private ref: MatSnackBarRef<any> | null = null;
 
-  constructor(protected translate: TranslateService,
-              protected aRouter: ActivatedRoute,
+  constructor(protected aRouter: ActivatedRoute,
               protected router: Router,
               @Inject(DOCUMENT) private document: Document,
               private meta: Meta,

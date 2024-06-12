@@ -3,7 +3,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {CoreModule} from "app/core/core.module";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {SuccessDto} from "app/core/dto/success-dto";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -19,13 +19,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class ChangePasswordComponent extends Registration {
 
-  constructor(translate: TranslateService,
-              protected aRouter: ActivatedRoute,
+  constructor(protected aRouter: ActivatedRoute,
               router: Router,
               authService: AuthService,
               deviceService: DeviceDetectorService,
               matSnackBar: MatSnackBar) {
-    super(translate, authService, router, deviceService, matSnackBar);
+    super(authService, router, deviceService, matSnackBar);
   }
 
   private uuid: string = "";
