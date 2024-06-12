@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Actions, Article, ContentService, Status, TagsFilter} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {debounceTime, mergeMap, Observable, skipWhile, takeUntil} from "rxjs";
+import {debounceTime, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {Editor, NgxEditorModule, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
@@ -169,8 +169,14 @@ export class EditArticleComponent extends HasErrors implements OnInit {
 
     this.state = 'load';
 
-    this.contentService.changeStatus(this.content.id, status)
-      .pipe(
+    let subs: Observable<any> = of({success: true});
+
+    if (status == Status.published) {
+      subs = this.save();
+    }
+
+    subs.pipe(
+        mergeMap(() => this.contentService.changeStatus(this.content.id, status)),
         takeUntil(this.unSubscriber)
       )
       .subscribe({

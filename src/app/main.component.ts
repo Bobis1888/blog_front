@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, ChildrenOutletContexts, Router, RouterOutlet} from '@angular/router';
 import {MenuComponent} from "src/app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {TranslateService} from "@ngx-translate/core";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
-import {skip, takeUntil} from "rxjs";
+import {takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
+import {DOCUMENT} from "@angular/common";
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,8 @@ export class MainComponent extends UnSubscriber implements OnInit {
   constructor(protected translate: TranslateService,
               protected aRouter: ActivatedRoute,
               protected router: Router,
+              @Inject(DOCUMENT) private document: Document,
+              private meta: Meta,
               protected outletContexts: ChildrenOutletContexts,
               protected matSnackBar: MatSnackBar) {
     super();
@@ -30,21 +34,20 @@ export class MainComponent extends UnSubscriber implements OnInit {
 
   ngOnInit(): void {
 
-    // TODO do in bootstrap
-    if (localStorage.getItem('currentLanguage') == null) {
-      let browserLang = this.translate.getBrowserLang() ?? '';
-
-      if (!this.languages.includes(browserLang)) {
-        browserLang = 'ru';
-      }
-
-      this.translate.setDefaultLang(browserLang);
-      localStorage.setItem('currentLanguage', browserLang);
-    }
-
     this.translate.onDefaultLangChange
-      .pipe(skip(1))
+      .pipe(takeUntil(this.unSubscriber))
       .subscribe(() => {
+        let lang = this.translate.defaultLang;
+
+        if (this.languages.indexOf(lang) === -1) {
+          lang = 'en';
+        }
+
+        localStorage.setItem('currentLanguage', lang);
+        this.document.documentElement.lang = lang;
+        this.meta.updateTag({name: 'lang', content: lang});
+        this.meta.updateTag({name: 'description', content: this.translate.instant('meta.description')});
+        this.meta.updateTag({name: 'keywords', content: this.translate.instant('meta.keywords')});
         this.ref?.dismiss();
         this.firstLaunch();
       });
@@ -77,6 +80,17 @@ export class MainComponent extends UnSubscriber implements OnInit {
       });
 
     this.firstLaunch();
+
+    // TODO do in bootstrap
+    if (localStorage.getItem('currentLanguage') == null) {
+      let browserLang = this.translate.getBrowserLang() ?? '';
+
+      if (!this.languages.includes(browserLang)) {
+        browserLang = 'ru';
+      }
+
+      this.translate.setDefaultLang(browserLang);
+    }
   }
 
   override ngOnDestroy(): void {

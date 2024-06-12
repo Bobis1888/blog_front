@@ -15,6 +15,7 @@ import {
 } from "@angular/common";
 import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {animations} from "app/core/config/app.animations";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'view-article',
@@ -42,6 +43,8 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
               private router: Router,
               private translate: TranslateService,
               private matSnackBar: MatSnackBar,
+              private meta: Meta,
+              private title: Title,
               protected authService: AuthService,
               private clipboardService: ClipboardService,
               private aRouter: ActivatedRoute) {
@@ -53,6 +56,7 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
+
     let id = this.aRouter.snapshot.params['id'];
 
     if (id == null) {
@@ -66,6 +70,9 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
         next: it => {
           this.content = it;
           this.state = 'data';
+
+          this.title.setTitle(this.content.title);
+          this.meta.updateTag({name: 'description', content: this.content.preView});
         },
         error: err => {
           this.state = 'empty';

@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Article, ContentService, Filter} from "app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
 import {animations} from "app/core/config/app.animations";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'search',
@@ -22,6 +23,8 @@ export class SearchComponent extends HasErrors implements OnInit {
   constructor(translate: TranslateService,
               private aRouter: ActivatedRoute,
               private router: Router,
+              private title: Title,
+              private meta: Meta,
               private contentService: ContentService,
               private deviceService: DeviceDetectorService) {
     super(translate);
@@ -41,6 +44,8 @@ export class SearchComponent extends HasErrors implements OnInit {
     let q = this.aRouter.snapshot.queryParamMap?.get("q");
     this.byTag = this.aRouter.snapshot.queryParamMap?.get("tag") == 'true';
     this.byAuthor = this.aRouter.snapshot.queryParamMap?.get("author") == 'true';
+    this.title.setTitle(this.byTag ? "Tag: " + q : this.byAuthor ? "Author: " + q : "Search");
+    this.meta.updateTag({name: 'description', content: 'Search results for: ' + q});
 
     (this.formGroup.get('search') as FormControl).valueChanges
       .pipe(takeUntil(this.unSubscriber))

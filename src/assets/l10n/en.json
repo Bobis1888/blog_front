@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "description": "MyLog.ru — the most interesting place on the Internet. Platform for publishing content on various themes. All in one place.",
+    "keywords" : "article publish news tech learning reading read book"
+  },
   "topMenu": {
     "home": "Home",
     "login": "Log in",
@@ -57,6 +61,7 @@
     "save": "Save"
   },
   "summaryPage": {
+    "title": "Mylog",
     "trends": "Trends",
     "mostTopics": "Popular topics",
     "noData" : "Nothing found, try again later!"

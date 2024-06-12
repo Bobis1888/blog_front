@@ -51,6 +51,5 @@ export class MenuComponent extends UnSubscriber implements OnInit {
   changeLanguage() {
     this.currentLanguage = this.currentLanguage === 'en' ? 'ru' : 'en';
     this.translate.setDefaultLang(this.currentLanguage);
-    localStorage.setItem('currentLanguage', this.currentLanguage);
   }
 }
