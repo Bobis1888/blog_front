@@ -11,8 +11,7 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
-    provideRouter(routes,
-      withDebugTracing()),
+    provideRouter(routes, withDebugTracing()),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),
   ]

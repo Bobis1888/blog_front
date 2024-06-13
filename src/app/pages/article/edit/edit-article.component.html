@@ -1,9 +1,10 @@
 <div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}">
 
-  <span *ngIf="content.status === Status.pending" [@opacity-1] class="status"> {{ 'editArticlePage.pending' | translate }}</span>
-  <span *ngIf="content.status === Status.published" [@opacity-1] class="status"> {{ 'editArticlePage.published' | translate }}</span>
+  <div *ngIf="state === 'form'">
+    <span *ngIf="content.status === Status.pending" [@opacity-1] class="status"> {{ 'editArticlePage.pending' | translate }}</span>
+    <span *ngIf="content.status === Status.published" [@opacity-1] class="status"> {{ 'editArticlePage.published' | translate }}</span>
+  </div>
 
-  <h1>{{ "editArticlePage.title" | translate }}</h1>
   <ng-container [ngSwitch]="state">
     <ng-container
       *ngSwitchCase="'form'"
@@ -20,7 +21,7 @@
 </div>
 
 <ng-template #form>
-  <br>
+  <h1>{{ "editArticlePage.title" | translate }}</h1>
   <div class="editor" *ngIf="editor != undefined" [@opacity-1]>
 
     <form [formGroup]="formGroup">
@@ -139,7 +140,7 @@
   <br>
   <ngx-skeleton-loader count="14"></ngx-skeleton-loader>
   <br>
-  <ngx-skeleton-loader count="2"
+  <ngx-skeleton-loader count="1"
                        [theme]="{width : '30%'}"></ngx-skeleton-loader>
   <br>
 </ng-template>

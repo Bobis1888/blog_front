@@ -2,11 +2,7 @@ import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, Routes} from "@angular/router";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {RegistrationComponent} from "./registration/registration.component";
-import {ConfirmRegistrationComponent} from "./confirm-registration/confirm-registration.component";
 import {LoginComponent} from "./login/login.component";
-import {ResetPasswordComponent} from "./reset-password/reset-password.component";
-import {ChangePasswordComponent} from "./change-password/change-password.component";
-import {ProfileComponent} from "app/pages/auth/profile/profile.component";
 
 export const nonAuthGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -29,6 +25,12 @@ export const authRoutes: Routes = [
     path: '',
     children: [
       {
+        path: 'login',
+        component: LoginComponent,
+        data: {animation: 'ConfirmRegistrationComponent'},
+        canActivate: [nonAuthGuard],
+      },
+      {
         path: 'registration',
         component: RegistrationComponent,
         data: {animation: 'RegistrationComponent'},
@@ -36,33 +38,31 @@ export const authRoutes: Routes = [
       },
       {
         path: 'confirm-registration',
-        component: ConfirmRegistrationComponent,
         data: {animation: 'ConfirmRegistrationComponent'},
         canActivate: [nonAuthGuard],
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-        data: {animation: 'ConfirmRegistrationComponent'},
-        canActivate: [nonAuthGuard],
+        loadComponent: () => import('app/pages/auth/confirm-registration/confirm-registration.component')
+          .then(m => m.ConfirmRegistrationComponent)
       },
       {
         path: 'forgot-password',
-        component: ResetPasswordComponent,
         data: {animation: 'ResetPasswordComponent'},
         canActivate: [nonAuthGuard],
+        loadComponent: () => import('app/pages/auth/reset-password/reset-password.component')
+          .then(m => m.ResetPasswordComponent)
       },
       {
         path: 'change-password',
-        component: ChangePasswordComponent,
         data: {animation: 'ChangePasswordComponent'},
         canActivate: [nonAuthGuard],
+        loadComponent: () => import('app/pages/auth/change-password/change-password.component')
+          .then(m => m.ChangePasswordComponent)
       },
       {
         path: 'profile',
-        component: ProfileComponent,
         data: {animation: 'ProfileComponent'},
         canActivate: [authGuard],
+        loadComponent: () => import('app/pages/auth/profile/profile.component')
+          .then(m => m.ProfileComponent)
       }
     ]
   },

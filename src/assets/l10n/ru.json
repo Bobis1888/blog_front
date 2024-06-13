@@ -11,7 +11,7 @@
     "signUp": "Регистрация",
     "logout": "Выйти",
     "forum": "Форум",
-    "profile": "Аккаунт",
+    "profile": "Профиль",
     "articles": "Статьи",
     "createArticle" : "Написать"
   },
@@ -57,8 +57,21 @@
   },
   "profilePage": {
     "title" : "Профиль",
+    "changeAvatar" : "Изменить аватар",
+    "addAvatar" : "Добавить аватар",
     "changePassword" : "Сменить пароль",
-    "nickName" : "Никнейм",
+    "nickname": "Никнейм: {{nickname}}",
+    "nicknamePlaceholder" : "Никнейм",
+    "changeNicknameTitle" : "Новый никнейм",
+    "emailToolTip": "Нажмите чтобы показать E-mail",
+    "email": "Email: {{email}}",
+    "noAbout" : "О себе пусто",
+    "edit": "Редактировать",
+    "successMessage": "Ваш никнейм был изменен!",
+    "addImage": "Добавление изображения сейчас недоступно",
+    "nicknameToolTip": "Псевдоним должен начинаться с @ и может содержать только латинские буквы, цифры и символы подчеркивания.",
+    "resetPassword": "Сбросить пароль",
+    "resetPasswordMessage": "Мы отправили ссылку на вашу почту для сброса пароля",
     "save": "Сохранить"
   },
   "summaryPage": {
@@ -101,6 +114,7 @@
   "firstLaunchTitle" : "Мы рады приветствовать вас!\nМы используем Cookies для хранения данных.",
   "firstLaunchAction" : "Ок",
   "errors": {
+    "nickname.invalid": "Неверный никнейм",
     "email.invalid" : "Неверный E-mail",
     "email.alreadyRegistered": "E-mail уже зарегистрирован",
     "emailHelp": "Забыли пароль? Перейдите по ссылке для сброса пароля",

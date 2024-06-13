@@ -4,12 +4,15 @@ import {SuccessDto} from "src/app/core/dto/success-dto";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {Router} from "@angular/router";
+import {UserInfo} from "app/core/service/auth/user-info";
 
 export enum AuthState {
   authorized = 'authorized',
   unauthorized = 'unauthorized',
 }
 
+
+//TODO split to 2 service
 @Injectable({
   providedIn: 'any'
 })
@@ -93,8 +96,12 @@ export class AuthService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.POST, '/auth/change-password', {uuid, password});
   }
 
-  public saveInfo(nickName: string, password: any): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.POST, '/auth/change-info', {nickName, password});
+  public changeNickname(nickname: string): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.POST, '/auth/change-nickname', {nickname});
+  }
+
+  public info(): Observable<UserInfo> {
+    return this.httpSender.send(HttpMethod.GET, '/auth/info');
   }
 
   private changeAuthState(authState: AuthState) {

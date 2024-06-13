@@ -11,7 +11,7 @@
     "signUp": "Sign up",
     "logout": "Sign out",
     "forum": "Forum",
-    "profile": "Account",
+    "profile": "Profile",
     "articles": "Articles",
     "createArticle": "Write"
   },
@@ -58,8 +58,21 @@
   },
   "profilePage": {
     "title": "Profile",
+    "changeAvatar" : "Change avatar",
+    "addAvatar" : "Add avatar",
     "changePassword": "Change password",
-    "nickName": "Nick name",
+    "nickname": "Nickname: {{nickname}}",
+    "nicknamePlaceholder" : "Nickname",
+    "changeNicknameTitle" : "Change nickname",
+    "email": "Email: {{email}}",
+    "noAbout" : "About is empty",
+    "emailToolTip": "Click to show email",
+    "edit": "Edit",
+    "resetPassword": "Reset password",
+    "successMessage": "Your nickname was changed!",
+    "nicknameToolTip": "The nickname must begin with @ and can only contain letters, numbers, and underscores.",
+    "addImage": "Adding images is currently unavailable",
+    "resetPasswordMessage": "We sended you a link to reset your password",
     "save": "Save"
   },
   "summaryPage": {
@@ -102,6 +115,7 @@
   "firstLaunchTitle" : "We're glad you are here!\nWe use cookies for better experience.",
   "firstLaunchAction" : "Ok",
   "errors": {
+    "nickname.invalid": "Invalid nickname",
     "email.invalid": "Invalid e-mail",
     "email.alreadyRegistered": "E-mail already registered",
     "emailHelp": "Forgot password? Go to link for reset password",

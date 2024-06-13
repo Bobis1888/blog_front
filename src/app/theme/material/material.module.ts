@@ -28,6 +28,7 @@ import {MatBadge} from "@angular/material/badge";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatTooltip} from "@angular/material/tooltip";
+import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 
 @NgModule({
   declarations: [],
@@ -58,6 +59,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatRipple,
     MatAutocompleteModule,
     MatTooltip,
+    MatRadioGroup,
+    MatRadioButton
   ],
   exports: [
     MatSidenavModule,
@@ -96,6 +99,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatMenuModule,
     MatAutocompleteModule,
     MatTooltip,
+    MatRadioGroup,
+    MatRadioButton
   ]
 })
 export class MaterialModule {

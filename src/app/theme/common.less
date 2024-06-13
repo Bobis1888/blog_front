@@ -44,6 +44,12 @@ html {
   --mdc-plain-tooltip-supporting-text-color: @firstColor;
   --mdc-plain-tooltip-supporting-text-line-height: 20px;
   --mat-autocomplete-container-shape: 20px;
+  --mdc-text-button-container-shape: 20px;
+  --mat-text-button-horizontal-padding: 15px;
+  --mdc-dialog-container-shape: 20px;
+  --mdc-switch-track-height: 24px;
+  --mdc-switch-track-shape: 20px;
+
 
   color: @thirdColor;
   font-size: 16px;
@@ -57,8 +63,30 @@ html {
     --mdc-fab-small-container-color: @secondColor;
   }
 
+  .mat-mdc-slide-toggle.mat-accent {
+    --mdc-switch-selected-pressed-state-layer-color: @secondColor;
+    --mdc-switch-selected-handle-color: @secondColor;
+    --mdc-switch-selected-hover-handle-color: @secondColor;
+    --mdc-switch-selected-focus-state-layer-color: @secondColor;
+    --mdc-switch-selected-hover-state-layer-color: @secondColor;
+
+    --mdc-switch-selected-focus-track-color: @fifthColor;
+    --mdc-switch-selected-track-color: @fifthColor;
+    --mdc-switch-selected-hover-track-color: @fifthColor;
+
+    --mdc-switch-selected-pressed-track-color: @secondColor;
+
+
+    --mdc-switch-selected-focus-handle-color: @secondColor;
+    --mdc-switch-selected-pressed-handle-color: @secondColor;
+  }
+
   .mat-mdc-fab.mat-accent {
     --mdc-fab-container-color: @secondColor;
+  }
+
+  .mat-mdc-fab.mat-primary {
+    --mdc-fab-container-color: @fifthColor;
   }
 
   .cdk-overlay-connected-position-bounding-box {
@@ -79,7 +107,7 @@ html {
 
 
 .mdc-text-field--outlined {
-  --mdc-outlined-text-field-container-shape: 28px !important;
+  --mdc-outlined-text-field-container-shape: 20px !important;
 }
 
 .mat-mdc-form-field {

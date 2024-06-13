@@ -16,7 +16,8 @@ export const routes: Routes = [
   {
     path: 'update-process',
     data: {animation: 'BadGatewayComponent'},
-    loadChildren: () => import('app/pages/bad-gateway/bad-gateway.component').then(m => m.BadGatewayComponent),
+    loadComponent: () => import('app/pages/bad-gateway/bad-gateway.component')
+      .then(m => m.BadGatewayComponent),
   },
   {
     path: 'article',

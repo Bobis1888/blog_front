@@ -1,61 +1,75 @@
 <div class="profile" [ngClass]="{ 'mobile': isMobile }">
+  <h1>{{ "profilePage.title" | translate }}</h1>
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'form'"
+      [ngTemplateOutlet]="form"
+    ></ng-container>
+
+    <ng-container
+      *ngSwitchCase="'load'"
+      [ngTemplateOutlet]="load"
+    ></ng-container>
+
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="form"></ng-container>
+  </ng-container>
+</div>
+
+
+<ng-template #load>
+  <mat-card class="load">
+    <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="5"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader>
+  </mat-card>
+</ng-template>
+
+<ng-template #form>
+
   <mat-card>
     <mat-card-header>
-      <h1>{{ "profilePage.title" | translate }}</h1>
+      <div mat-card-avatar *ngIf="info.image">
+        <img src="{{ info.image }}" alt="avatar">
+      </div>
+
+      <div mat-card-avatar *ngIf="!info.image">
+        <button
+          mat-fab
+          color="primary"
+          (click)="addImage()"
+        >
+          <mat-icon>
+            account_circle
+          </mat-icon>
+        </button>
+      </div>
+      <mat-card-title>{{ 'profilePage.nickname' | translate : {nickname: info.nickname} }}</mat-card-title>
+      <mat-card-title>
+        <span (click)="hideEmail = !hideEmail" class="email" [matTooltip]="'profilePage.emailToolTip' | translate"
+              [matTooltipPosition]="'right'">
+          {{ 'profilePage.email' | translate : {email: hideEmail ? '*'.repeat(info.email.length) : info.email} }}
+        </span>
+      </mat-card-title>
     </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="formGroup" (ngSubmit)="save()">
-        <div>
-          <mat-form-field appearance="outline">
-            <mat-label>{{ "profilePage.nickName" | translate }}</mat-label>
-            <input
-              matInput
-              formControlName="nickName"
-            />
-            <mat-icon matSuffix>alternate_email</mat-icon>
-            <mat-error
-              *ngIf="hasErrors && formGroup.get('nickName')?.valid == false"
-            >
-              {{ getErrors("nickName") }}
-            </mat-error>
-          </mat-form-field>
-        </div>
 
-        <div>
-          <mat-form-field appearance="outline">
-            <mat-label>{{ "profilePage.changePassword" | translate }}</mat-label>
-            <input
-              matInput
-              [type]="hide ? 'password' : 'text'"
-              placeholder="123@#$5hg"
-              formControlName="password"
-            />
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="hide = !hide"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide"
-            >
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-            </button>
-            <mat-error
-              *ngIf="hasErrors && formGroup.get('password')?.valid == false"
-            >
-              {{ getErrors("password") }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="buttons" [ngClass]="{ 'mobile': isMobile }">
-          <button mat-flat-button type="submit" (click)="save()">
-            {{ "profilePage.save" | translate }}
-          </button>
-        </div>
-      </form>
-      <mat-card-footer *ngIf="loading">
-        <mat-progress-bar mode="buffer"></mat-progress-bar>
-      </mat-card-footer>
+    <mat-card-content class="about">
+<!--      <p>-->
+<!--        {{ (info.about) ? info.about : 'profilePage.noAbout' | translate }}-->
+<!--      </p>-->
     </mat-card-content>
+    <mat-card-actions class="buttons">
+      <button
+        mat-flat-button
+        (click)="openEditDialog()"
+      >
+        {{ 'profilePage.edit' | translate }}
+      </button>
+      <button
+        mat-button
+        (click)="resetPassword()"
+      >
+        {{ 'profilePage.resetPassword' | translate }}
+      </button>
+    </mat-card-actions>
   </mat-card>
-</div>
+</ng-template>

@@ -1,36 +1,59 @@
 @import "src/app/theme/utils";
 
 .profile {
-  padding-top: 70px;
+  padding: 20px;
   margin: auto;
-  display: flex;
-  justify-content: center;
+  max-width: 600px;
 
-  form {
-    padding: 20px 80px;
-
-    div {
-      margin: 10px;
-    }
+  .load {
+    padding: 20px 20px 5px 20px;
   }
 
-  .hint-red {
-    color: @errorColor;
+  .about {
+    padding-top: 10px;
+    padding-left: 30px;
   }
 
   h1 {
-    margin: 10px auto;
+    margin-left: 20px;
+  }
+
+  .email {
+    cursor: pointer;
   }
 
   mat-card {
+    padding: 10px;
+  }
+
+  mat-card-content {
+    min-height: 60px;
+  }
+
+  mat-card-title {
+    padding-top: 10px;
+  }
+}
+
+.buttons {
+
+  padding: 5px 15px;
+
+  button {
     margin: 10px;
   }
 }
 
 .mobile {
-  padding-top: 10px;
-
-  form {
-    padding: 20px;
+  mat-card {
+    padding: 0;
   }
+
+  .mat-mdc-card-avatar {
+    padding: 10px;
+  }
+}
+
+.mat-mdc-card-avatar {
+  padding: 10px 15px;
 }

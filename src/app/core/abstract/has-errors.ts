@@ -17,6 +17,11 @@ export abstract class HasErrors extends UnSubscriber {
     return this.errors.length > 0
   }
 
+  protected reject(code: string, field: string, args: any = {}) {
+    let err = {code, field, args};
+    this.rejectErrors(err);
+  }
+
   protected rejectErrors(...error: Error[]) {
 
     if (error != null && error.length > 0) {

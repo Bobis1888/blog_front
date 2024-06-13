@@ -1,0 +1,22 @@
+<div class="dialog">
+  <h1>{{ 'profilePage.changeNicknameTitle' | translate }}</h1>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ "profilePage.nicknamePlaceholder" | translate }}</mat-label>
+      <input
+        [maskito]="maskitoOpt"
+        matInput
+        [formControl]="nicknameCtrl"
+      />
+      <mat-icon
+        [matTooltip]="'profilePage.nicknameToolTip' | translate"
+        matSuffix
+      >help_outline</mat-icon>
+      <mat-error *ngIf="hasErrors">{{ getErrors('nickname') }}</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-flat-button (click)="saveNickname()">{{ 'save' }}</button>
+    <button mat-button (click)="close()">{{ 'cancel' }}</button>
+  </mat-dialog-actions>
+</div>

@@ -5,12 +5,11 @@ import { AuthService } from 'app/core/service/auth/auth.service';
 import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import {DeviceDetectorService} from "ngx-device-detector";
-import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'top-menu',
   standalone: true,
-  imports: [CoreModule, NgOptimizedImage],
+  imports: [CoreModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less',
 })
