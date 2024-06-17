@@ -57,7 +57,7 @@ export class ListComponent extends HasErrors implements OnInit {
     }).afterClosed()
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
-        next: () => this.init()
+        next: (it) => it ? this.init() : null
       });
   }
 
