@@ -1,8 +1,10 @@
 <div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}">
 
   <div *ngIf="state === 'form'">
-    <span *ngIf="content.status === Status.pending" [@opacity-1] class="status"> {{ 'editArticlePage.pending' | translate }}</span>
-    <span *ngIf="content.status === Status.published" [@opacity-1] class="status"> {{ 'editArticlePage.published' | translate }}</span>
+    <span *ngIf="content.status === Status.pending" [@opacity-1]
+          class="status"> {{ 'editArticlePage.pending' | translate }}</span>
+    <span *ngIf="content.status === Status.published" [@opacity-1]
+          class="status"> {{ 'editArticlePage.published' | translate }}</span>
   </div>
 
   <ng-container [ngSwitch]="state">

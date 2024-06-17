@@ -1,8 +1,20 @@
 {
   "/api": {
-    "target": "https://my-log.ru",
+    "target": "http://localhost:4433",
     "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug"
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/": ""
+    }
+  },
+  "/api-dev": {
+    "target": "http://localhost:4433",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/": ""
+    }
   }
 }

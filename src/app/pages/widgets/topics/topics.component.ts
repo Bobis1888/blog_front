@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {CoreModule} from 'app/core/core.module';
-import {UnSubscriber} from 'app/core/abstract/un-subscriber';
+import {CoreModule} from 'src/app/core/core.module';
+import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
-import {ContentService, Filter, TagsFilter} from "app/core/service/content/content.service";
+import {ContentService, Filter, TagsFilter} from "src/app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
-import {animations} from "app/core/config/app.animations";
+import {animations} from "src/app/core/config/app.animations";
 
 @Component({
   selector: 'topics',

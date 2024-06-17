@@ -1,23 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {CoreModule} from "app/core/core.module";
-import {AuthService} from "app/core/service/auth/auth.service";
-import {HasErrors} from "app/core/abstract/has-errors";
+import {CoreModule} from "src/app/core/core.module";
+import {AuthService} from "src/app/core/service/auth/auth.service";
+import {HasErrors} from "src/app/core/abstract/has-errors";
 import {takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {UserInfo} from "app/core/service/auth/user-info";
+import {UserInfo} from "src/app/core/service/auth/user-info";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
-import {ChangeNicknameDialog} from "app/pages/auth/profile/dialog/nickname.dialog";
+import {ChangeNicknameDialog} from "src/app/pages/profile/dialog/nickname.dialog";
+import {LeftMenuComponent} from "app/pages/profile/left-menu/left-menu.component";
 
 @Component({
   selector: 'profile',
   standalone: true,
-  imports: [CoreModule, ReactiveFormsModule, ],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.less'
+  imports: [CoreModule, ReactiveFormsModule, LeftMenuComponent,],
+  templateUrl: './info.component.html',
+  styleUrl: './info.component.less'
 })
-export class ProfileComponent extends HasErrors implements OnInit {
+export class InfoComponent extends HasErrors implements OnInit {
 
   constructor(private authService: AuthService,
               private snackBar: MatSnackBar,

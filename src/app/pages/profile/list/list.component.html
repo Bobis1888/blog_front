@@ -1,0 +1,79 @@
+<div class="profile-list-article" [ngClass]="{ 'mobile': isMobile }">
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'data'"
+      [ngTemplateOutlet]="data"
+    ></ng-container>
+
+    <ng-container
+      *ngSwitchCase="'load'"
+      [ngTemplateOutlet]="load"
+    ></ng-container>
+
+    <ng-container
+      *ngSwitchCase="'empty'"
+      [ngTemplateOutlet]="empty"
+    ></ng-container>
+
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+  </ng-container>
+</div>
+
+
+<ng-template #load>
+  <mat-card class="load">
+    <ngx-skeleton-loader count="5"></ngx-skeleton-loader>
+  </mat-card>
+</ng-template>
+
+<ng-template #empty>
+  <h4>{{ 'profilePage.empty' | translate }}</h4>
+</ng-template>
+
+<ng-template #data>
+
+  <mat-card *ngFor="let item of list">
+    <mat-card-header>
+      <mat-card-title>{{ item.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p [innerHTML]="item.preView | safeHtml"></p>
+    </mat-card-content>
+    <mat-card-footer>
+      <div class="footer">
+        <button
+          *ngIf="item.actions.canEdit || item.actions.canUnpublish"
+          mat-icon-button
+          routerLink="/article/edit/{{ item.id }}"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          *ngIf="item.actions.canDelete"
+          mat-icon-button
+          (click)="delete(item.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button
+          *ngIf="item.actions.canPublish"
+          mat-icon-button
+          (click)="changeStatus(item.id, Status.published)"
+        >
+          <mat-icon>publish</mat-icon>
+        </button>
+
+        <button
+          *ngIf="item.actions.canUnpublish"
+          mat-icon-button
+          (click)="changeStatus(item.id, Status.draft)"
+        >
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</ng-template>

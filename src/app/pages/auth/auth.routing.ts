@@ -57,13 +57,7 @@ export const authRoutes: Routes = [
         loadComponent: () => import('app/pages/auth/change-password/change-password.component')
           .then(m => m.ChangePasswordComponent)
       },
-      {
-        path: 'profile',
-        data: {animation: 'ProfileComponent'},
-        canActivate: [authGuard],
-        loadComponent: () => import('app/pages/auth/profile/profile.component')
-          .then(m => m.ProfileComponent)
-      }
+
     ]
   },
 ];

@@ -9,7 +9,7 @@
         <mat-icon>search</mat-icon>
       </button>
 
-      <div *ngIf="isMobile" class="menu-button">
+      <div class="menu-button">
         <button
           mat-mini-fab
           aria-label="Search"
@@ -22,15 +22,15 @@
         </mat-menu>
       </div>
 
-      <ng-container
-        *ngTemplateOutlet="isMobile ? null : buttons"
-      ></ng-container>
+<!--      <ng-container-->
+<!--        *ngTemplateOutlet="isMobile ? null : buttons"-->
+<!--      ></ng-container>-->
     </div>
   </div>
 </section>
 
 <ng-template #buttons>
-  <div class="menu-button" [ngClass]="{vertical: isMobile}">
+  <div class="menu-button vertical">
     <button mat-stroked-button routerLink="/">
       {{ "topMenu.home" | translate }}
     </button>
@@ -56,7 +56,7 @@
     <button
       *ngIf="authService.isAuthorized"
       mat-stroked-button
-      routerLink="/auth/profile"
+      routerLink="/profile"
     >
       {{ "topMenu.profile" | translate }}
     </button>

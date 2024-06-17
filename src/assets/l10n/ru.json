@@ -2,7 +2,7 @@
   "meta": {
     "title": "Mylog",
     "description": "Mylog.ru — самое интересное место в Интернете. Платформа для публикации контента на разные темы. Все в одном месте.",
-    "keywords" : "статьи публикации новости технологии обучение читать книга",
+    "keywords": "статьи публикации новости технологии обучение читать книга",
     "badGateway": "Что-то пошло не так..."
   },
   "topMenu": {
@@ -13,7 +13,7 @@
     "forum": "Форум",
     "profile": "Профиль",
     "articles": "Статьи",
-    "createArticle" : "Написать"
+    "createArticle": "Написать"
   },
   "loginPage": {
     "title": "Вход",
@@ -37,13 +37,13 @@
       "strong": "Сильный"
     }
   },
-  "changePasswordPage" : {
-    "title" : "Изменение пароля",
-    "password" : "Пароль",
-    "repeatPassword" : "Повторите пароль",
-    "change" : "Изменить",
-    "afterChangeTitle" : "Пароль изменен",
-    "afterChangeMessage" : "Вы можете войти используя новый пароль"
+  "changePasswordPage": {
+    "title": "Изменение пароля",
+    "password": "Пароль",
+    "repeatPassword": "Повторите пароль",
+    "change": "Изменить",
+    "afterChangeTitle": "Пароль изменен",
+    "afterChangeMessage": "Вы можете войти используя новый пароль"
   },
   "confirmRegistrationPage": {
     "title": "Адрес электронной почты подтвержден",
@@ -56,34 +56,48 @@
     "reset": "Сбросить"
   },
   "profilePage": {
-    "title" : "Профиль",
-    "changeAvatar" : "Изменить аватар",
-    "addAvatar" : "Добавить аватар",
-    "changePassword" : "Сменить пароль",
+    "title": "Профиль",
+    "listTitle": "Мои статьи",
+    "changeAvatar": "Изменить аватар",
+    "addAvatar": "Добавить аватар",
+    "changePassword": "Сменить пароль",
     "nickname": "Никнейм: {{nickname}}",
-    "nicknamePlaceholder" : "Никнейм",
-    "changeNicknameTitle" : "Новый никнейм",
+    "nicknamePlaceholder": "Никнейм",
+    "changeNicknameTitle": "Новый никнейм",
     "emailToolTip": "Нажмите чтобы показать E-mail",
     "email": "Email: {{email}}",
-    "noAbout" : "О себе пусто",
+    "noAbout": "О себе пусто",
     "edit": "Редактировать",
     "successMessage": "Ваш никнейм был изменен!",
     "addImage": "Добавление изображения сейчас недоступно",
     "nicknameToolTip": "Псевдоним должен начинаться с @ и может содержать только латинские буквы, цифры и символы подчеркивания.",
     "resetPassword": "Сбросить пароль",
     "resetPasswordMessage": "Мы отправили ссылку на вашу почту для сброса пароля",
-    "save": "Сохранить"
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "empty": "Ничего не найдено",
+    "menu": {
+      "info": "Инфо",
+      "list": "Мои статьи",
+      "bookmarks": "Закладки"
+    }
+  },
+  "deleteDialog": {
+    "title": "Вы уверены?",
+    "content": "Вы удалите статью безвозвратно",
+    "cancel": "Отмена",
+    "submit": "Удалить"
   },
   "summaryPage": {
     "title": "Mylog",
-    "trends" : "Тренды",
+    "trends": "Тренды",
     "mostTopics": "Популярные темы",
-    "noData" : "Ничего не найдено, попробуйте ещё раз чуть позже."
+    "noData": "Ничего не найдено, попробуйте ещё раз чуть позже."
   },
-  "searchPage" : {
-    "search" : "Поиск",
-    "notFound" : "Ничего не найдено",
-    "message" : "Попробуйте ввести что-то"
+  "searchPage": {
+    "search": "Поиск",
+    "notFound": "Ничего не найдено",
+    "message": "Попробуйте ввести что-то"
   },
   "viewArticlePage": {
     "publishedDate": "Дата публикации {{date}}",
@@ -91,31 +105,34 @@
     "tags": "Теги:",
     "pending": "Эта статья ожидает проверки",
     "pendingHint": "Статья будет опубликована после проверки",
-    "sharedSuccess" : "Ссылка скопирована в буфер обмена"
+    "sharedSuccess": "Ссылка скопирована в буфер обмена",
+    "addedToBookmarks": "Добавлено в закладки",
+    "removedFromBookmarks": "Удалено из закладок",
+    "noTags": "Нет тегов"
   },
   "editArticlePage": {
     "title": "Редактирование статьи",
     "articleTitle": "Заголовок статьи",
     "articleTitlePlaceholder": "Ваш заголовок статьи",
     "published": "Эта статья опубликована! Снимите с публикации для редактирования",
-    "placeholder" : "Начните писать здесь",
+    "placeholder": "Начните писать здесь",
     "submit": "Сохранить",
     "preView": "Просмотр",
-    "publish" : "Опубликовать",
-    "unpublish" : "Снять с публикации",
+    "publish": "Опубликовать",
+    "unpublish": "Снять с публикации",
     "tags": "Теги",
     "pending": "Эта статья ожидает проверки",
     "pendingHint": "Статья будет опубликована после проверки",
     "tagHint": "Теги помогут найти вашу статью. Теги добавляются по одному, нажмите Enter чтобы добавить тэг"
   },
   "badGatewayPage": {
-    "title" : "Мы работаем над обновлением, просим прощения за доставленные неудобства."
+    "title": "Мы работаем над обновлением, просим прощения за доставленные неудобства."
   },
-  "firstLaunchTitle" : "Мы рады приветствовать вас!\nМы используем Cookies для хранения данных.",
-  "firstLaunchAction" : "Ок",
+  "firstLaunchTitle": "Мы рады приветствовать вас!\nМы используем Cookies для хранения данных.",
+  "firstLaunchAction": "Ок",
   "errors": {
     "nickname.invalid": "Неверный никнейм",
-    "email.invalid" : "Неверный E-mail",
+    "email.invalid": "Неверный E-mail",
     "email.alreadyRegistered": "E-mail уже зарегистрирован",
     "emailHelp": "Забыли пароль? Перейдите по ссылке для сброса пароля",
     "emailHelpAction": "Сбросить",

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Article, ContentService, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {takeUntil} from "rxjs";
+import {Observable, takeUntil} from "rxjs";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ClipboardService} from "ngx-clipboard";
@@ -16,6 +16,8 @@ import {
 import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {animations} from "app/core/config/app.animations";
 import {Meta} from "@angular/platform-browser";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialog} from "app/pages/article/dialog/delete.dialog";
 
 @Component({
   selector: 'view-article',
@@ -37,6 +39,7 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
   protected content: Article = {} as Article;
   protected state: 'data' | 'loading' | 'empty' = 'loading';
   private ref: MatSnackBarRef<any> | null = null;
+  protected readonly Status = Status;
 
   constructor(private contentService: ContentService,
               protected deviceService: DeviceDetectorService,
@@ -44,6 +47,7 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
               private matSnackBar: MatSnackBar,
               private meta: Meta,
               protected authService: AuthService,
+              protected matDialog: MatDialog,
               private clipboardService: ClipboardService,
               private aRouter: ActivatedRoute) {
     super();
@@ -62,39 +66,7 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
       return;
     }
 
-    this.contentService.get(id)
-      .pipe(takeUntil(this.unSubscriber))
-      .subscribe({
-        next: it => {
-          this.content = it;
-          this.state = 'data';
-
-          if (this.content.title) {
-            this.title.setTitle(this.content.title);
-          }
-
-          if (this.content.preView) {
-            this.meta.updateTag({name: 'description', content: this.content.preView});
-          }
-
-          if (this.content.tags) {
-            this.meta.updateTag({name: 'keywords', content: this.content.tags
-                .map((it) => it.replace('#', '')).join(' ')});
-          }
-        },
-        error: err => {
-          this.state = 'empty';
-        }
-      });
-  }
-
-  public goToUser(userName: string): void {
-
-    if (!userName) {
-      return;
-    }
-
-    this.router.navigate(['/search'], {queryParams: {q: userName, author: true}}).then();
+    this.init(id);
   }
 
   share() {
@@ -111,17 +83,46 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
   }
 
   like() {
-    this.content.isLiked = !this.content.isLiked;
-    this.contentService.like(this.content.id)
-      .pipe(takeUntil(this.unSubscriber))
-      .subscribe();
+    let obs: Observable<any>;
+
+    if (this.content.isLiked) {
+      obs = this.contentService.dislike(this.content.id);
+    } else {
+      obs = this.contentService.like(this.content.id);
+    }
+
+    obs.pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: value => {
+          this.content.isLiked = !this.content.isLiked;
+
+          if (this.content.isLiked) {
+            this.content.likes++;
+          } else {
+            this.content.likes--;
+          }
+        }
+      });
   }
 
   bookmark() {
-    this.content.isFavorite = !this.content.isFavorite;
-    this.contentService.saveToBookmark(this.content.id)
-      .pipe(takeUntil(this.unSubscriber))
-      .subscribe();
+    let obs: Observable<any>;
+
+    if (this.content.isSaved) {
+      obs = this.contentService.removeFromBookmarks(this.content.id);
+    } else {
+      obs = this.contentService.saveToBookmarks(this.content.id);
+    }
+
+    obs.pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: value => {
+          this.ref?.dismiss();
+          this.content.isSaved = !this.content.isSaved;
+          let message = this.translate.instant(`viewArticlePage.${this.content.isSaved ? 'addedToBookmarks' : 'removedFromBookmarks'}`);
+          this.ref = this.matSnackBar.open(message, undefined, {duration: 3000, panelClass: 'snack-bar'});
+        }
+      });
   }
 
   override ngOnDestroy() {
@@ -129,5 +130,63 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
     this.ref?.dismiss();
   }
 
-  protected readonly Status = Status;
+  delete() {
+    this.matDialog.open(DeleteDialog, {
+      id: this.content.id
+    }).afterClosed().subscribe({
+      next: it => {
+        if (it) {
+          this.router.navigate(['/']).then();
+          return;
+        }
+      }
+    });
+  }
+
+  changeStatus(status
+                 :
+                 Status
+  ) {
+    this.contentService.changeStatus(this.content.id, status)
+      .pipe(
+        takeUntil(this.unSubscriber),
+      ).subscribe({
+      next: (it) => {
+
+        if (it.success) {
+          this.init(this.content.id);
+        }
+      }
+    })
+  }
+
+  init(id: string) {
+    this.state = 'loading';
+    this.contentService.get(id)
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: it => {
+          this.content = it;
+          this.state = 'data';
+
+          if (this.content.title) {
+            this.title.setTitle(this.content.title);
+          }
+
+          if (this.content.preView) {
+            this.meta.updateTag({name: 'description', content: this.content.preView});
+          }
+
+          if (this.content.tags) {
+            this.meta.updateTag({
+              name: 'keywords', content: this.content.tags
+                .map((it) => it.replace('#', '')).join(' ')
+            });
+          }
+        },
+        error: err => {
+          this.state = 'empty';
+        }
+      });
+  }
 }

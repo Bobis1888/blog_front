@@ -2,7 +2,7 @@
   "meta": {
     "title": "Mylog",
     "description": "Mylog.ru — the most interesting place on the Internet. Platform for publishing content on various themes. All in one place.",
-    "keywords" : "article publish news tech learning reading read book",
+    "keywords": "article publish news tech learning reading read book",
     "badGateway": "Something went wrong..."
   },
   "topMenu": {
@@ -58,14 +58,15 @@
   },
   "profilePage": {
     "title": "Profile",
-    "changeAvatar" : "Change avatar",
-    "addAvatar" : "Add avatar",
+    "listTitle": "My article",
+    "changeAvatar": "Change avatar",
+    "addAvatar": "Add avatar",
     "changePassword": "Change password",
     "nickname": "Nickname: {{nickname}}",
-    "nicknamePlaceholder" : "Nickname",
-    "changeNicknameTitle" : "Change nickname",
+    "nicknamePlaceholder": "Nickname",
+    "changeNicknameTitle": "Change nickname",
     "email": "Email: {{email}}",
-    "noAbout" : "About is empty",
+    "noAbout": "About is empty",
     "emailToolTip": "Click to show email",
     "edit": "Edit",
     "resetPassword": "Reset password",
@@ -73,13 +74,26 @@
     "nicknameToolTip": "The nickname must begin with @ and can only contain letters, numbers, and underscores.",
     "addImage": "Adding images is currently unavailable",
     "resetPasswordMessage": "We sended you a link to reset your password",
-    "save": "Save"
+    "save": "Save",
+    "cancel": "Cancel",
+    "empty": "Nothing found.",
+    "menu": {
+      "info": "Info",
+      "list": "My article",
+      "bookmarks": "Bookmarks"
+    }
+  },
+  "deleteDialog": {
+    "title": "Are you sure?",
+    "content": "You won't be able to revert this!",
+    "cancel": "Cancel",
+    "submit": "Delete"
   },
   "summaryPage": {
     "title": "Mylog",
     "trends": "Trends",
     "mostTopics": "Popular topics",
-    "noData" : "Nothing found, try again later!"
+    "noData": "Nothing found, try again later!"
   },
   "searchPage": {
     "search": "Search",
@@ -92,7 +106,10 @@
     "tags": "Tags:",
     "pending": "This article is pending approval",
     "pendingHint": "This article will be published after approval",
-    "sharedSuccess" : "Link copied to clipboard"
+    "sharedSuccess": "Link copied to clipboard",
+    "addedToBookmarks": "Added to bookmarks",
+    "removedFromBookmarks": "Removed from bookmarks",
+    "noTags": "No tags"
   },
   "editArticlePage": {
     "title": "Edit article",
@@ -104,16 +121,16 @@
     "placeholder": "Start writing here",
     "submit": "Save",
     "preView": "Preview",
-    "publish" : "Publish",
-    "unpublish" : "Unpublish",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
     "tags": "Tags",
     "tagHint": "Tags will help to find your article. Tags added by one, press Enter to add tag"
   },
   "badGatewayPage": {
     "title": "We are working on the update, we apologize for the inconvenience."
   },
-  "firstLaunchTitle" : "We're glad you are here!\nWe use cookies for better experience.",
-  "firstLaunchAction" : "Ok",
+  "firstLaunchTitle": "We're glad you are here!\nWe use cookies for better experience.",
+  "firstLaunchAction": "Ok",
   "errors": {
     "nickname.invalid": "Invalid nickname",
     "email.invalid": "Invalid e-mail",

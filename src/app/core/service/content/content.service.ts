@@ -27,8 +27,9 @@ export interface Article {
   authorName: string;
   status: Status;
   publishedDate: Date;
-  isFavorite: boolean;
+  isSaved: boolean;
   isLiked: boolean;
+  likes: number;
   actions: Actions;
 
   // constructor(id: string,
@@ -120,12 +121,20 @@ export class ContentService extends UnSubscriber {
       .pipe(map(it => it.list));
   }
 
-  saveToBookmark(id: string) {
-    return this.httpSender.send(HttpMethod.POST, '/content/save-to-bookmark', {id});
+  saveToBookmarks(id: string) {
+    return this.httpSender.send(HttpMethod.PUT, '/content/bookmark/' + id);
+  }
+
+  removeFromBookmarks(id: string) {
+    return this.httpSender.send(HttpMethod.DELETE, '/content/bookmark/' + id);
   }
 
   like(id: string) {
-    return this.httpSender.send(HttpMethod.POST, '/content/like', {id});
+    return this.httpSender.send(HttpMethod.PUT, '/content/like/' + id);
+  }
+
+  dislike(id: string) {
+    return this.httpSender.send(HttpMethod.DELETE, '/content/like/' + id);
   }
 
   changeStatus(id: string, status: Status): Observable<SuccessDto> {
@@ -135,5 +144,11 @@ export class ContentService extends UnSubscriber {
     }
 
     return this.httpSender.send(HttpMethod.POST, '/content/change-status/' + id, {status: status.toUpperCase()});
+  }
+
+  bookmarks(filter: Filter): Observable<Article[]> {
+    return this.httpSender.send(HttpMethod.POST, '/content/bookmarks', filter).pipe(
+      map(it => it.list)
+    );
   }
 }
