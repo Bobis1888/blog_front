@@ -33,6 +33,7 @@ export class ListComponent extends HasErrors implements OnInit {
 
   protected state: 'data' | 'load' | 'empty' = 'load';
   protected list: Array<Article> = [];
+  protected totalPages: number = 0;
   protected info: UserInfo = {} as UserInfo;
   protected sortBy: Array<string> = [];
   protected max: number = 10;
@@ -89,7 +90,7 @@ export class ListComponent extends HasErrors implements OnInit {
         takeUntil(this.unSubscriber),
         mergeMap(val => {
           this.info = val;
-          return this.contentService.list({
+          return this.contentService.all({
             max: this.max,
             page: this.page,
             sortBy: this.sortBy,
@@ -101,7 +102,8 @@ export class ListComponent extends HasErrors implements OnInit {
       )
       .subscribe({
         next: it => {
-          this.list = it;
+          this.list = it.list;
+          this.totalPages = it.totalPages;
 
           if (this.list.length === 0) {
             this.state = 'empty';

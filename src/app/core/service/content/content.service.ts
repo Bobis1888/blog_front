@@ -116,4 +116,8 @@ export class ContentService extends UnSubscriber {
   changePreview(id: string, body: ChangePreviewRequest): Observable<SuccessDto> {
     return this.httpSender.send(HttpMethod.PUT, '/content/preview/' + id, body);
   }
+
+  all(filter: Filter): Observable<ListResponse> {
+    return this.httpSender.send(HttpMethod.POST, '/content/all', filter);
+  }
 }
