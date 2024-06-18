@@ -22,7 +22,8 @@
 
 <ng-template #load>
   <mat-card class="load">
-    <ngx-skeleton-loader count="5"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="4"></ngx-skeleton-loader>
   </mat-card>
 </ng-template>
 
@@ -31,7 +32,7 @@
 </ng-template>
 
 <ng-template #data>
-  <mat-card *ngFor="let item of list">
+  <mat-card *ngFor="let item of list" routerLink="/article/view/{{ item.id }}" matRipple>
     <mat-card-header>
       <mat-card-title>{{ item.title }}</mat-card-title>
     </mat-card-header>
