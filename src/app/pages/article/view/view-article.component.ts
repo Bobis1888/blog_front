@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Article, ContentService, Status} from "src/app/core/service/content/content.service";
+import {ContentService, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Observable, takeUntil} from "rxjs";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
@@ -17,7 +17,9 @@ import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {animations} from "app/core/config/app.animations";
 import {Meta} from "@angular/platform-browser";
 import {MatDialog} from "@angular/material/dialog";
-import {DeleteDialog} from "app/pages/article/dialog/delete.dialog";
+import {DeleteDialog} from "app/pages/article/delete-dialog/delete.dialog";
+import {Article} from "app/core/service/content/article";
+import {ChangeStatusDialog} from "app/pages/article/change-status-dialog/change-status.dialog";
 
 @Component({
   selector: 'view-article',
@@ -143,18 +145,16 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
     });
   }
 
-  changeStatus(status
-                 :
-                 Status
-  ) {
-    this.contentService.changeStatus(this.content.id, status)
-      .pipe(
-        takeUntil(this.unSubscriber),
-      ).subscribe({
+  changeStatus(status: Status) {
+    this.state = 'loading';
+    this.matDialog.open(ChangeStatusDialog, {
+      data: {status: status, id: this.content.id}
+    }).afterClosed().subscribe({
       next: (it) => {
-
-        if (it.success) {
+        if (it) {
           this.init(this.content.id);
+        } else {
+          this.state = 'data';
         }
       }
     })

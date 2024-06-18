@@ -3,60 +3,12 @@ import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
 import {map, Observable, of} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
+import {Article} from "app/core/service/content/article";
 
 export enum Status {
   published = 'published',
   draft = 'draft',
   pending = 'pending'
-}
-
-export interface Actions {
-  canDelete: boolean;
-  canEdit: boolean;
-  canPublish: boolean;
-  canUnpublish: boolean;
-}
-
-export interface Article {
-  id: string;
-  title: string;
-  preView: string;
-  preViewImg: string;
-  content: string;
-  tags: Array<string>;
-  authorName: string;
-  status: Status;
-  publishedDate: Date;
-  isSaved: boolean;
-  isLiked: boolean;
-  likes: number;
-  actions: Actions;
-
-  // constructor(id: string,
-  //             title: string,
-  //             preView: string,
-  //             preViewImg: string,
-  //             content: string,
-  //             author: string,
-  //             date: Date,
-  //             tags: Array<string>,
-  //             status: Status,
-  //             isFavorite: boolean,
-  //             isLiked: boolean,
-  //             actions: Actions) {
-  //   this.id = id;
-  //   this.title = title;
-  //   this.preView = preView;
-  //   this.preViewImg = preViewImg;
-  //   this.content = content;
-  //   this.authorName = author;
-  //   this.publishedDate = date;
-  //   this.tags = tags ?? [];
-  //   this.isFavorite = isFavorite;
-  //   this.isLiked = isLiked;
-  //   this.status = status;
-  //   this.actions = actions;
-  // }
 }
 
 export interface TagsFilter {
@@ -79,6 +31,15 @@ export interface Search {
   query: string;
   author: string;
   tags: Array<string>;
+}
+
+export interface ListResponse {
+  list: Array<Article>;
+  totalPages: number;
+}
+
+export interface ChangePreviewRequest {
+  content: string;
 }
 
 @Injectable({
@@ -150,5 +111,9 @@ export class ContentService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.POST, '/content/bookmarks', filter).pipe(
       map(it => it.list)
     );
+  }
+
+  changePreview(id: string, body: ChangePreviewRequest): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.PUT, '/content/preview/' + id, body);
   }
 }

@@ -32,11 +32,11 @@
 </ng-template>
 
 <ng-template #data>
-  <mat-card *ngFor="let item of list" routerLink="/article/view/{{ item.id }}" matRipple>
-    <mat-card-header>
+  <mat-card *ngFor="let item of list" matRipple>
+    <mat-card-header routerLink="/article/view/{{ item.id }}" >
       <mat-card-title>{{ item.title }}</mat-card-title>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content routerLink="/article/view/{{ item.id }}" >
       <p [innerHTML]="item.preView | safeHtml"></p>
     </mat-card-content>
     <mat-card-footer>

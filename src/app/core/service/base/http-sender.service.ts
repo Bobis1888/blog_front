@@ -42,7 +42,7 @@ export class HttpSenderService implements OnInit, Sender {
     }
 
     if (httpMethod == HttpMethod.PUT) {
-      return this.put(url);
+      return this.put(url, body);
     }
 
     return of({});
@@ -60,7 +60,7 @@ export class HttpSenderService implements OnInit, Sender {
     return this.httpClient.delete('/api' + url, this.options);
   }
 
-  private put(url: string): Observable<any> {
-    return this.httpClient.put('/api' + url, this.options);
+  private put(url: string, body: any): Observable<any> {
+    return this.httpClient.put('/api' + url, body, this.options);
   }
 }

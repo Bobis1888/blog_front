@@ -33,11 +33,20 @@
 
 <ng-template #data>
 
-  <mat-card *ngFor="let item of list">
-    <mat-card-header>
-      <mat-card-title>{{ item.title }}</mat-card-title>
+  <mat-card *ngFor="let item of list" matRipple>
+    <mat-card-header routerLink="/article/view/{{ item.id }}">
+      <div class="card-title">
+        <div>
+          <h2>
+            {{ item.title }}
+          </h2>
+        </div>
+        <div class="status">
+          {{ 'profilePage.status.' + item.status?.toLowerCase() | translate }}
+        </div>
+      </div>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content routerLink="/article/view/{{ item.id }}">
       <p [innerHTML]="item.preView | safeHtml"></p>
     </mat-card-content>
     <mat-card-footer>
@@ -72,6 +81,14 @@
           (click)="changeStatus(item.id, Status.draft)"
         >
           <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+
+        <button
+          *ngIf="item.actions.canEdit"
+          mat-icon-button
+          (click)="editPreview(item.id, item.preView)"
+        >
+          <mat-icon>library_books</mat-icon>
         </button>
 
       </div>

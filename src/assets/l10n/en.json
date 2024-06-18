@@ -76,11 +76,16 @@
     "resetPasswordMessage": "We sended you a link to reset your password",
     "save": "Save",
     "cancel": "Cancel",
-    "empty": "Nothing found.",
+    "empty": "No data.",
     "menu": {
       "info": "Info",
       "list": "My article",
       "bookmarks": "Bookmarks"
+    },
+    "status": {
+      "published": "Published",
+      "pending": "Pending approval",
+      "draft": "Draft"
     }
   },
   "deleteDialog": {
@@ -88,6 +93,12 @@
     "content": "You won't be able to revert this!",
     "cancel": "Cancel",
     "submit": "Delete"
+  },
+  "editPreviewDialog" : {
+    "title": "Preview",
+    "submit": "Save",
+    "cancel": "Cancel",
+    "hint": "Write a short description of your article. Maximum 255 characters"
   },
   "summaryPage": {
     "title": "Mylog",
@@ -98,7 +109,22 @@
   "searchPage": {
     "search": "Search",
     "notFound": "Not found",
-    "message": "Try to search something"
+    "message": "To search for authors, use the prefix <b>@</b>.<br>To search for tags use prefix <b>#</b>."
+  },
+
+  "changeStatusDialog" : {
+    "published" : {
+      "title" : "Are you ready to publish this article?",
+      "content" : "You can't edit this article after publishing.<br>You'll need to unpublish it first.",
+      "submit" : "Publish",
+      "cancel" : "Cancel"
+    },
+    "draft" : {
+      "title" : "Do you want to unpublish this article?",
+      "content" : "After editing, you must submit it for review again.",
+      "submit" : "Unpublish",
+      "cancel" : "Cancel"
+    }
   },
   "viewArticlePage": {
     "publishedDate": "Published on {{date}}",
@@ -120,9 +146,11 @@
     "articleTitlePlaceholder": "Your article title",
     "placeholder": "Start writing here",
     "submit": "Save",
-    "preView": "Preview",
+    "view": "View",
+    "editPreview": "Edit preview",
     "publish": "Publish",
     "unpublish": "Unpublish",
+    "delete": "Delete",
     "tags": "Tags",
     "tagHint": "Tags will help to find your article. Tags added by one, press Enter to add tag"
   },
@@ -134,6 +162,7 @@
   "errors": {
     "nickname.invalid": "Invalid nickname",
     "email.invalid": "Invalid e-mail",
+    "content.invalid": "Invalid content",
     "email.alreadyRegistered": "E-mail already registered",
     "emailHelp": "Forgot password? Go to link for reset password",
     "emailHelpAction": "Reset",

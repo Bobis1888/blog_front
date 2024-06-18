@@ -1,0 +1,38 @@
+<div class="dialog" [ngClass]="{ 'mobile': isMobile }">
+
+  <mat-dialog-content>
+    <h1>{{ 'editPreviewDialog.title' | translate }}</h1>
+
+    <form [formGroup]="formGroup">
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ "editPreviewDialog.title" | translate }}
+        </mat-label>
+        <textarea matInput
+                  maxlength="255"
+                  style="height: 170px"
+                  formControlName="content">
+        </textarea>
+        <mat-hint align="end">{{ contentLength }}/255</mat-hint>
+        <mat-icon
+          matSuffix
+          [matTooltip]="'editPreviewDialog.hint' | translate"
+          [matTooltipPosition]="'left'"
+        >
+          help_outline
+        </mat-icon>
+        <mat-error *ngIf="hasErrors">
+          {{ getErrors('content') }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-flat-button (click)="submit()">{{ 'editPreviewDialog.submit' | translate }}
+    </button>
+    <button mat-button (click)="close()">{{ 'editPreviewDialog.cancel' | translate }}</button>
+  </mat-dialog-actions>
+</div>

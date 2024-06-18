@@ -53,7 +53,7 @@
         <mat-icon>share</mat-icon>
       </button>
 
-      <button mat-icon-button (click)="bookmark()" *ngIf="authService.isAuthorized && !content.actions.canEdit">
+      <button mat-icon-button (click)="bookmark()" *ngIf="authService.isAuthorized && !content.actions.canDelete">
         <mat-icon>{{ content.isSaved ? 'bookmark' : 'bookmark_border' }}</mat-icon>
       </button>
 
@@ -71,29 +71,29 @@
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button
-        *ngIf="content.actions.canDelete"
-        mat-icon-button
-        (click)="delete()"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
+<!--      <button-->
+<!--        *ngIf="content.actions.canDelete"-->
+<!--        mat-icon-button-->
+<!--        (click)="delete()"-->
+<!--      >-->
+<!--        <mat-icon>delete</mat-icon>-->
+<!--      </button>-->
 
-      <button
-        *ngIf="content.actions.canPublish"
-        mat-icon-button
-        (click)="changeStatus(Status.published)"
-      >
-        <mat-icon>publish</mat-icon>
-      </button>
+<!--      <button-->
+<!--        *ngIf="content.actions.canPublish"-->
+<!--        mat-icon-button-->
+<!--        (click)="changeStatus(Status.published)"-->
+<!--      >-->
+<!--        <mat-icon>publish</mat-icon>-->
+<!--      </button>-->
 
-      <button
-        *ngIf="content.actions.canUnpublish"
-        mat-icon-button
-        (click)="changeStatus(Status.draft)"
-      >
-        <mat-icon>remove_circle_outline</mat-icon>
-      </button>
+<!--      <button-->
+<!--        *ngIf="content.actions.canUnpublish"-->
+<!--        mat-icon-button-->
+<!--        (click)="changeStatus(Status.draft)"-->
+<!--      >-->
+<!--        <mat-icon>remove_circle_outline</mat-icon>-->
+<!--      </button>-->
 
     </div>
     <div class="author">

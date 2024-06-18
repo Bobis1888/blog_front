@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
-import {Article, ContentService} from "src/app/core/service/content/content.service";
+import {ContentService} from "src/app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {CoreModule} from "src/app/core/core.module";
+import {Article} from "app/core/service/content/article";
 
 @Component({
   selector: 'trends',

@@ -1,0 +1,12 @@
+<div class="dialog">
+
+  <mat-dialog-content>
+    <h1>{{ 'changeStatusDialog.' + data.status + '.title' | translate }}</h1>
+    <p [innerHTML]="'changeStatusDialog.' + data.status + '.content' | translate"></p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-flat-button (click)="submit()">{{ 'changeStatusDialog.' + data.status + '.submit' | translate }}
+    </button>
+    <button mat-button (click)="close()">{{ 'changeStatusDialog.' + data.status + '.cancel' | translate }}</button>
+  </mat-dialog-actions>
+</div>

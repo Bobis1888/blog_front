@@ -6,10 +6,13 @@ import {mergeMap, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
-import {Article, ContentService, Filter, Search, Status} from "src/app/core/service/content/content.service";
+import {ContentService, Filter, Search, Status} from "src/app/core/service/content/content.service";
 import {AuthService} from "src/app/core/service/auth/auth.service";
 import {UserInfo} from "src/app/core/service/auth/user-info";
-import {DeleteDialog} from "app/pages/article/dialog/delete.dialog";
+import {DeleteDialog} from "app/pages/article/delete-dialog/delete.dialog";
+import {Article} from "app/core/service/content/article";
+import {ChangeStatusDialog} from "app/pages/article/change-status-dialog/change-status.dialog";
+import {EditPreviewDialog} from "app/pages/article/edit-preview-dialog/edit-preview-dialog.component";
 
 @Component({
   selector: 'user-article-list',
@@ -61,11 +64,21 @@ export class ListComponent extends HasErrors implements OnInit {
       });
   }
 
-  changeStatus(id: string, published: Status) {
-    this.contentService.changeStatus(id, published).pipe(
+  changeStatus(id: string, status: Status) {
+    this.state = 'load';
+    this.dialog.open(ChangeStatusDialog, {
+      data: {status: status, id: id}
+    }).afterClosed().pipe(
       takeUntil(this.unSubscriber),
     ).subscribe({
-      next: () => this.init()
+      next: (it) => {
+
+        if (it) {
+          this.init();
+        } else {
+          this.state = 'data';
+        }
+      }
     });
   }
 
@@ -98,5 +111,22 @@ export class ListComponent extends HasErrors implements OnInit {
         },
         error: () => this.state = 'load'
       });
+  }
+
+  editPreview(id: string, content: string) {
+    this.state = 'load';
+    this.dialog.open(EditPreviewDialog, {
+      data: {id: id, content: content}
+    }).afterClosed().pipe(
+      takeUntil(this.unSubscriber),
+    ).subscribe({
+      next: (it) => {
+        if (it) {
+          this.init();
+        } else {
+          this.state = 'data';
+        }
+      }
+    })
   }
 }

@@ -5,8 +5,9 @@ import {HasErrors} from "src/app/core/abstract/has-errors";
 import {takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MatSnackBarRef} from "@angular/material/snack-bar";
-import {Article, ContentService, Filter} from "src/app/core/service/content/content.service";
+import {ContentService, Filter} from "src/app/core/service/content/content.service";
 import {UserInfo} from "src/app/core/service/auth/user-info";
+import {Article} from "app/core/service/content/article";
 
 @Component({
   selector: 'bookmarks',
@@ -72,7 +73,13 @@ export class BookmarksComponent extends HasErrors implements OnInit {
       .pipe(
         takeUntil(this.unSubscriber),
       ).subscribe({
-      next: () => this.list = this.list.filter(it => it.id !== id)
+      next: () => {
+        this.list = this.list.filter(it => it.id !== id);
+
+        if (this.list.length === 0) {
+          this.state = 'empty';
+        }
+      }
     });
   }
 }

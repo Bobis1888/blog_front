@@ -4,10 +4,11 @@ import {HasErrors} from "app/core/abstract/has-errors";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Article, ContentService, Filter} from "app/core/service/content/content.service";
+import {ContentService, Filter} from "app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
 import {animations} from "app/core/config/app.animations";
 import {Meta} from "@angular/platform-browser";
+import {Article} from "app/core/service/content/article";
 
 @Component({
   selector: 'search',
@@ -52,7 +53,16 @@ export class SearchComponent extends HasErrors implements OnInit {
       });
 
     if (this.byTag) {
-      q = "#" + q;
+
+      if (q?.includes(',')) {
+        q = q?.split(',').map(it => it = '#' + it).join(',');
+      } else {
+        q = "#" + q;
+      }
+    }
+
+    if (this.byAuthor && !q?.startsWith('@')) {
+      q = "@" + q;
     }
 
     if (q) {
@@ -62,9 +72,9 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   public submit(): void {
-    let query = this.formGroup.get("search")?.value?.replace('#', '')?.replace('@', '');
+    let query = this.formGroup.get("search")?.value?.toString().replaceAll(/ /g, '');
     this.router.navigate([], {
-      queryParams: {q: query || null},
+      queryParams: {q: this.formGroup.get("search")?.value?.replaceAll(/#/g, '').replaceAll(/ /g, '')?.replace('@', '') || null},
       queryParamsHandling: 'merge',
     }).then();
 
@@ -81,7 +91,7 @@ export class SearchComponent extends HasErrors implements OnInit {
       search: {
         query: query,
         author: this.byAuthor ? query : null,
-        tags: this.byTag ? [query] : null
+        tags: this.byTag ? query?.split(',') : null
       }
     } as Filter)
       .pipe(takeUntil(this.unSubscriber))

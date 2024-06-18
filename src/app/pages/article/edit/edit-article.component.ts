@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Actions, Article, ContentService, Status, TagsFilter} from "src/app/core/service/content/content.service";
+import {ContentService, Status, TagsFilter} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {debounceTime, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
@@ -15,6 +15,12 @@ import {MaskitoDirective} from "@maskito/angular";
 import {CommonModule} from "@angular/common";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {animations} from "app/core/config/app.animations";
+import {Article} from "app/core/service/content/article";
+import {Actions} from "app/core/service/content/actions";
+import {MatDialog} from "@angular/material/dialog";
+import {ChangeStatusDialog} from "app/pages/article/change-status-dialog/change-status.dialog";
+import {EditPreviewDialog} from "app/pages/article/edit-preview-dialog/edit-preview-dialog.component";
+import {DeleteDialog} from "app/pages/article/delete-dialog/delete.dialog";
 
 @Component({
   selector: 'edit-article',
@@ -55,9 +61,12 @@ export class EditArticleComponent extends HasErrors implements OnInit {
   @ViewChild('tagsInput')
   protected tagsInput: ElementRef<HTMLInputElement> | undefined;
 
+  protected readonly Status = Status;
+
   constructor(private contentService: ContentService,
               protected deviceService: DeviceDetectorService,
               private router: Router,
+              protected matDialog: MatDialog,
               private aRouter: ActivatedRoute) {
     super();
   }
@@ -75,7 +84,11 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     this.formGroup.addControl('title', new FormControl(null, Validators.required()));
     this.formGroup.addControl('tagCtrl', new FormControl(null));
 
-    this.editor = new Editor();
+    this.editor = new Editor(
+      {
+        keyboardShortcuts: true,
+      }
+    );
     let id: string = this.aRouter.snapshot.params['id'];
 
     if (id) {
@@ -175,11 +188,24 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     }
 
     subs.pipe(
-        mergeMap(() => this.contentService.changeStatus(this.content.id, status)),
-        takeUntil(this.unSubscriber)
-      )
+      mergeMap(() => this.matDialog.open(ChangeStatusDialog, {
+        data: {
+          id: this.content.id,
+          status: status
+        }
+      }).afterClosed()),
+      takeUntil(this.unSubscriber)
+    )
       .subscribe({
-        next: () => this.init(this.content.id),
+        next: (it) => {
+
+          if (it) {
+            this.init(this.content.id)
+          } else {
+            this.state = 'form';
+          }
+
+        },
         error: (err) => {
           this.state = 'form';
           this.rejectErrors(...err.errors);
@@ -222,21 +248,44 @@ export class EditArticleComponent extends HasErrors implements OnInit {
       });
   }
 
+  protected delete() {
+    this.matDialog.open(DeleteDialog, {
+      id: this.content.id
+    }).afterClosed().subscribe({
+      next: it => {
+        if (it) {
+          this.router.navigate(['/']).then();
+          return;
+        }
+      }
+    });
+  }
+
   private save(): Observable<{ success: true, id: string }> {
     return this.contentService.save({
       id: this.content.id,
       title: this.formGroup.get('title')?.value,
-      preView: this.getPreviewContent(),
+      preView: this.content.preView ?? 'auto',
       content: this.formGroup.get('content')?.value,
       tags: this.content.tags
     } as Article)
       .pipe(takeUntil(this.unSubscriber));
   }
 
-  // TODO
-  private getPreviewContent(): string {
-    return "auto";
+  editPreview() {
+    this.state = 'load';
+    this.matDialog.open(EditPreviewDialog, {
+      data: {id: this.content.id, content: this.content.preView}
+    }).afterClosed().pipe(
+      takeUntil(this.unSubscriber),
+    ).subscribe({
+      next: (it) => {
+        if (it) {
+          this.init(this.content.id);
+        } else {
+          this.state = 'form';
+        }
+      }
+    })
   }
-
-  protected readonly Status = Status;
 }
