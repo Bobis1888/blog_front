@@ -10,18 +10,18 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.my-log.ru/update-process</loc>
+    <loc>https://www.my-log.ru/about</loc>
     <lastmod>2024-06-12T22:02:31+01:00</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.my-log.ru/article</loc>
-    <lastmod>2024-06-12T22:02:31+01:00</lastmod>
+    <loc>https://www.my-log.ru/auth/login</loc>
+    <lastmod>2024-06-19T22:02:31+01:00</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.my-log.ru/auth</loc>
-    <lastmod>2024-06-12T22:02:31+01:00</lastmod>
+    <loc>https://www.my-log.ru/auth/registration</loc>
+    <lastmod>2024-06-19T22:02:31+01:00</lastmod>
     <priority>1.0</priority>
   </url>
   </urlset>

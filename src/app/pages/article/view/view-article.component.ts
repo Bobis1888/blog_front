@@ -173,10 +173,6 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
             this.title.setTitle(this.content.title);
           }
 
-          if (this.content.preView) {
-            this.meta.updateTag({name: 'description', content: this.content.preView});
-          }
-
           if (this.content.tags) {
             this.meta.updateTag({
               name: 'keywords', content: this.content.tags
