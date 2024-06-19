@@ -1,15 +1,34 @@
 <section>
   <div class="top-menu" [ngClass]="{ mobile: isMobile }">
     <div class="image" routerLink="/">
-      <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493"/>
+      <img
+        src="assets/images/logo.png"
+        alt="Mylog logo"
+        height="157"
+        width="493"
+      />
     </div>
 
     <div class="buttons">
-      <button mat-icon-button aria-label="Search" routerLink="/search" *ngIf="!hideSearchButton">
+      <button
+        mat-icon-button
+        aria-label="Search"
+        routerLink="/search"
+        *ngIf="!hideSearchButton"
+      >
         <mat-icon>search</mat-icon>
       </button>
 
-      <div class="menu-button">
+      <div class="menu-button" *ngIf="!authService.isAuthorized">
+        <button mat-stroked-button routerLink="/auth/login">
+          {{ "topMenu.login" | translate }}
+        </button>
+        <button mat-flat-button routerLink="/auth/registration">
+          {{ "topMenu.signUp" | translate }}
+        </button>
+      </div>
+
+      <div class="menu-button" *ngIf="authService.isAuthorized">
         <button
           mat-mini-fab
           aria-label="Search"
@@ -18,67 +37,37 @@
           <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #beforeMenu="matMenu" xPosition="before">
-          <ng-container *ngTemplateOutlet="buttons"></ng-container>
+          <div class="menu-button vertical">
+            <button mat-stroked-button routerLink="/">
+              {{ "topMenu.home" | translate }}
+            </button>
+
+            <button
+              *ngIf="authService.isAuthorized"
+              mat-stroked-button
+              routerLink="/profile"
+            >
+              {{ "topMenu.profile" | translate }}
+            </button>
+
+            <button
+              *ngIf="authService.isAuthorized"
+              mat-stroked-button
+              routerLink="/article/edit"
+            >
+              {{ "topMenu.createArticle" | translate }}
+            </button>
+
+            <button
+              *ngIf="authService.isAuthorized"
+              mat-flat-button
+              (click)="logout()"
+            >
+              {{ "topMenu.logout" | translate }}
+            </button>
+          </div>
         </mat-menu>
       </div>
-
-<!--      <ng-container-->
-<!--        *ngTemplateOutlet="isMobile ? null : buttons"-->
-<!--      ></ng-container>-->
     </div>
   </div>
 </section>
-
-<ng-template #buttons>
-  <div class="menu-button vertical">
-    <button mat-stroked-button routerLink="/">
-      {{ "topMenu.home" | translate }}
-    </button>
-
-    <!--    <button mat-stroked-button color="primary">{{'topMenu.forum' | translate}}</button>-->
-    <!--    <button mat-stroked-button>{{'topMenu.articles' | translate}}</button>-->
-
-    <button
-      *ngIf="!authService.isAuthorized"
-      mat-stroked-button
-      routerLink="/auth/login"
-    >
-      {{ "topMenu.login" | translate }}
-    </button>
-    <button
-      *ngIf="!authService.isAuthorized"
-      mat-flat-button
-      routerLink="/auth/registration"
-    >
-      {{ "topMenu.signUp" | translate }}
-    </button>
-
-    <button
-      *ngIf="authService.isAuthorized"
-      mat-stroked-button
-      routerLink="/profile"
-    >
-      {{ "topMenu.profile" | translate }}
-    </button>
-
-    <button
-      *ngIf="authService.isAuthorized"
-      mat-stroked-button
-      routerLink="/article/edit"
-    >
-      {{ "topMenu.createArticle" | translate }}
-    </button>
-
-    <button
-      *ngIf="authService.isAuthorized"
-      mat-flat-button
-      (click)="logout()"
-    >
-      {{ "topMenu.logout" | translate }}
-    </button>
-
-    <button mat-stroked-button (click)="changeLanguage()">
-      {{ currentLanguage }}
-    </button>
-  </div>
-</ng-template>

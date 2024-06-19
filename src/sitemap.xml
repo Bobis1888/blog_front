@@ -5,13 +5,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.my-log.ru/landing</loc>
+    <lastmod>2024-06-20T22:02:31+01:00</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://www.my-log.ru/search</loc>
     <lastmod>2024-06-12T22:02:31+01:00</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.my-log.ru/about</loc>
-    <lastmod>2024-06-12T22:02:31+01:00</lastmod>
+    <lastmod>2024-06-18T22:02:31+01:00</lastmod>
     <priority>1.0</priority>
   </url>
   <url>

@@ -1,7 +1,12 @@
 <div class="profile" [ngClass]="{ 'mobile': isMobile }">
   <div class="box">
-    <div class="menu">
+    <div class="menu" *ngIf="!isMobile">
       <profile-left-menu></profile-left-menu>
+    </div>
+
+    <div class="mobile-menu" *ngIf="isMobile">
+      <profile-mobile-menu></profile-mobile-menu>
+      <br>
     </div>
 
     <div class="content">

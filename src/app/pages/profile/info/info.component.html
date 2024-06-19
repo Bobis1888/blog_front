@@ -55,6 +55,16 @@
       <!--      <p>-->
       <!--        {{ (info.about) ? info.about : 'profilePage.noAbout' | translate }}-->
       <!--      </p>-->
+      <br>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'profilePage.language' | translate }}</mat-label>
+        <mat-select (selectionChange)="onLangChange($event.value)" [(value)]="lang">
+          <mat-option *ngFor="let lng of languages" [value]="lng">
+            {{ 'profilePage.languages.' + lng | translate }}
+            {{ lng === translate.defaultLang ? ('profilePage.default' | translate) : '' }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </mat-card-content>
     <mat-card-actions class="buttons">
       <button

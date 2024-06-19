@@ -1,0 +1,23 @@
+<div class="landing" [ngClass]="{ mobile: isMobile }">
+  <section id="first">
+    <h1 class="name">{{ 'landingPage.name' | translate }}</h1>
+    <br>
+    <h1 class="title">{{ 'landingPage.title' | translate }}</h1>
+    <br>
+    <p class="sub-title" [innerHTML]="'landingPage.subtitle' | translate"></p>
+    <br>
+    <br>
+    <div class="sign-up-button">
+      <button mat-flat-button [routerLink]="'/auth/registration'">{{ 'landingPage.button' | translate }}</button>
+    </div>
+  </section>
+  <br>
+  <br>
+  <section id="second">
+<!--    <mat-card>-->
+<!--      <mat-card-header>-->
+<!--        <h2>Features to make Mylog your go-to platform for text content</h2>-->
+<!--      </mat-card-header>-->
+<!--    </mat-card>-->
+  </section>
+</div>

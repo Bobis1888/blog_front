@@ -53,10 +53,20 @@ html {
   --mat-badge-legacy-container-size: 30px;
   --mat-badge-background-color: none;
   --mat-badge-text-color: @thirdColor;
+  --mat-option-selected-state-label-text-color: @secondColor;
 
+  --mdc-outlined-text-field-focus-label-text-color: @secondColor;
 
   color: @thirdColor;
   font-size: 16px;
+
+  .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+    --mat-minimal-pseudo-checkbox-selected-checkmark-color: @secondColor;
+  }
+
+  .cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
+    border-radius: 20px !important;
+  }
 
   .cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel {
     border-top-left-radius: 20px !important;

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CoreModule } from 'app/core/core.module';
 import { UnSubscriber } from 'app/core/abstract/un-subscriber';
 import { AuthService } from 'app/core/service/auth/auth.service';
 import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
-import {DeviceDetectorService} from "ngx-device-detector";
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'top-menu',
@@ -13,9 +13,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less',
 })
-export class MenuComponent extends UnSubscriber implements OnInit {
-  public currentLanguage: string = 'en';
-
+export class MenuComponent extends UnSubscriber {
   constructor(
     protected authService: AuthService,
     protected router: Router,
@@ -24,16 +22,12 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     super();
   }
 
-  get hideSearchButton() : boolean {
-    return this.router.url.includes('/search');
+  get hideSearchButton(): boolean {
+    return this.router.url.includes('/search') || !this.authService.isAuthorized;
   }
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
-  }
-
-  ngOnInit(): void {
-    this.currentLanguage = this.translate.getDefaultLang();
   }
 
   logout() {
@@ -44,10 +38,5 @@ export class MenuComponent extends UnSubscriber implements OnInit {
         this.router.navigate(['/']).then();
         return;
       });
-  }
-
-  changeLanguage() {
-    this.currentLanguage = this.currentLanguage === 'en' ? 'ru' : 'en';
-    this.translate.setDefaultLang(this.currentLanguage);
   }
 }

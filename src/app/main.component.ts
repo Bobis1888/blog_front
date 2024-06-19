@@ -5,14 +5,14 @@ import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT, NgIf} from "@angular/common";
 import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   animations: animations,
-  imports: [RouterOutlet, MenuComponent],
+  imports: [RouterOutlet, MenuComponent, NgIf],
   templateUrl: 'main.component.html',
 })
 export class MainComponent extends UnSubscriber implements OnInit {
@@ -28,6 +28,10 @@ export class MainComponent extends UnSubscriber implements OnInit {
               protected outletContexts: ChildrenOutletContexts,
               protected matSnackBar: MatSnackBar) {
     super();
+  }
+
+  get hideTopMenu(): boolean {
+    return this.router.url.includes('/landing');
   }
 
   ngOnInit(): void {

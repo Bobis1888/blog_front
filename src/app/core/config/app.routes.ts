@@ -33,5 +33,11 @@ export const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('app/pages/profile/profile.routing')
       .then(m => m.profileRoutes)
+  },
+  {
+    path: 'landing',
+    data: {animation: 'LandingComponent'},
+    loadComponent: () => import('app/pages/landing-page/landing.component')
+      .then(m => m.LandingComponent),
   }
 ];

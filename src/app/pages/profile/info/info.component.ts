@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CoreModule} from "src/app/core/core.module";
 import {AuthService} from "src/app/core/service/auth/auth.service";
 import {HasErrors} from "src/app/core/abstract/has-errors";
@@ -10,11 +10,12 @@ import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {ChangeNicknameDialog} from "src/app/pages/profile/dialog/nickname.dialog";
 import {LeftMenuComponent} from "app/pages/profile/left-menu/left-menu.component";
+import {MatSelect} from "@angular/material/select";
 
 @Component({
   selector: 'profile',
   standalone: true,
-  imports: [CoreModule, ReactiveFormsModule, LeftMenuComponent,],
+  imports: [CoreModule, ReactiveFormsModule, LeftMenuComponent, MatSelect, FormsModule,],
   templateUrl: './info.component.html',
   styleUrl: './info.component.less'
 })
@@ -26,7 +27,8 @@ export class InfoComponent extends HasErrors implements OnInit {
               private deviceService: DeviceDetectorService) {
     super();
   }
-
+  protected readonly languages: Array<string> = ["ru", "en"];
+  lang: string = '';
   protected state: 'form' | 'load' = 'load';
   protected hideEmail: boolean = true;
   protected showBottomProgress: boolean = false;
@@ -43,6 +45,7 @@ export class InfoComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
+    this.lang = this.translate.getDefaultLang();
     this.title.setTitle(this.translate.instant('profilePage.metaTitle'));
     this.formGroup.addControl('nickname', new FormControl('', [Validators.required]));
 
@@ -105,5 +108,9 @@ export class InfoComponent extends HasErrors implements OnInit {
     this.ref?.dismiss();
     let message = this.translate.instant('profilePage.addImage');
     this.ref = this.snackBar.open(message, undefined, {duration: 3000})
+  }
+
+  onLangChange(lang: string) {
+    this.translate.setDefaultLang(lang);
   }
 }

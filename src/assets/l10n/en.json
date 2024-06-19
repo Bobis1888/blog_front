@@ -5,6 +5,13 @@
     "keywords": "article publish news tech learning reading read book",
     "badGateway": "Something went wrong..."
   },
+  "landingPage": {
+    "name": "Mylog",
+    "title" : "Platform for Reading and Writing Content",
+    "subtitle" : "Discover a platform where you can read and write content on a variety of topics.<br>Join our community of writers and readers today!",
+    "button" : "Sign up now",
+    "metaTitle": "Mylog - Platform for Reading and Writing Text Contents"
+  },
   "topMenu": {
     "home": "Home",
     "login": "Log in",
@@ -83,6 +90,12 @@
     "save": "Save",
     "cancel": "Cancel",
     "empty": "No data.",
+    "language": "Language",
+    "default": "(Default)",
+    "languages": {
+      "en": "English",
+      "ru": "Russian"
+    },
     "menu": {
       "info": "Info",
       "list": "My article",
