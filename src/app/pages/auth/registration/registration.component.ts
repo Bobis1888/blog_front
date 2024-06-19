@@ -66,7 +66,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle(this.translate.instant('registrationPage.title'));
+    this.title.setTitle(this.translate.instant('registrationPage.metaTitle'));
     this.formGroup.addControl('email', new FormControl('', [Validators.required, Validators.email]));
     this.formGroup.addControl('password', new FormControl('', [Validators.minLength(8)]));
     this.formGroup.addControl('passwordRepeat', new FormControl('', [

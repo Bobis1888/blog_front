@@ -42,7 +42,6 @@ export class SearchComponent extends HasErrors implements OnInit {
     let q = this.aRouter.snapshot.queryParamMap?.get("q");
     this.byTag = this.aRouter.snapshot.queryParamMap?.get("tag") == 'true';
     this.byAuthor = this.aRouter.snapshot.queryParamMap?.get("author") == 'true';
-    this.title.setTitle(this.byTag ? "Tag: " + q : this.byAuthor ? "Author: " + q : "Search");
     this.meta.updateTag({name: 'description', content: 'Search results for: ' + q, lang: 'en'});
     this.meta.updateTag({name: 'description', content: 'Результаты поиска: ' + q, lang: 'ru'});
 
@@ -70,6 +69,11 @@ export class SearchComponent extends HasErrors implements OnInit {
       this.formGroup.get("search")?.setValue(q);
       this.submit();
     }
+
+    setTimeout(() => {
+      let message = this.translate.instant('searchPage.metaTitle');
+      this.title.setTitle(message);
+    });
   }
 
   public submit(): void {

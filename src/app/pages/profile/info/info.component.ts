@@ -43,7 +43,7 @@ export class InfoComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle(this.translate.instant('profilePage.title'));
+    this.title.setTitle(this.translate.instant('profilePage.metaTitle'));
     this.formGroup.addControl('nickname', new FormControl('', [Validators.required]));
 
     this.state = 'load';

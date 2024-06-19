@@ -21,6 +21,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ChangeStatusDialog} from "app/pages/article/change-status-dialog/change-status.dialog";
 import {EditPreviewDialog} from "app/pages/article/edit-preview-dialog/edit-preview-dialog.component";
 import {DeleteDialog} from "app/pages/article/delete-dialog/delete.dialog";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'edit-article',
@@ -83,6 +84,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     this.formGroup.addControl('content', new FormControl(null, Validators.required()));
     this.formGroup.addControl('title', new FormControl(null, Validators.required()));
     this.formGroup.addControl('tagCtrl', new FormControl(null));
+    this.title.setTitle(this.translate.instant('editArticlePage.metaTitle'));
 
     this.editor = new Editor(
       {

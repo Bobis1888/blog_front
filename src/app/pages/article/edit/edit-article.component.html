@@ -142,7 +142,7 @@
       </button>
 
       <button
-        *ngIf="content.actions.canEdit"
+        *ngIf="content.actions.canEdit && content.id"
         mat-flat-button
         (click)="editPreview()"
       >

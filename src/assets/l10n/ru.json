@@ -17,6 +17,7 @@
   },
   "loginPage": {
     "title": "Вход",
+    "metaTitle": "Mylog - Вход",
     "login": "E-mail",
     "signIn": "Войти",
     "password": "Пароль",
@@ -24,6 +25,7 @@
   },
   "registrationPage": {
     "title": "Регистрация",
+    "metaTitle": "Mylog - Регистрация",
     "afterSignUpTitle": "Ура вы зарегистрировались!",
     "afterSignUpMessage": "На вашу почту направлено письмо для подтверждения регистрации",
     "signUp": "Вперед!",
@@ -39,6 +41,7 @@
   },
   "changePasswordPage": {
     "title": "Изменение пароля",
+    "metaTitle": "Mylog- Изменение пароля",
     "password": "Пароль",
     "repeatPassword": "Повторите пароль",
     "change": "Изменить",
@@ -47,16 +50,19 @@
   },
   "confirmRegistrationPage": {
     "title": "Адрес электронной почты подтвержден",
+    "metaTitle": "Mylog - Адрес электронной почты подтвержден",
     "content": "Ваша учетная запись активирована теперь вы можете войти используя свой E-mail и пароль"
   },
   "resetPasswordPage": {
     "title": "Сброс пароля",
+    "metaTitle": "Mylog- Сброс пароля",
     "content": "Введите ваш E-mail для сброса пароля, мы отправим ссылку для сброса на вашу почту",
     "email": "E-mail",
     "reset": "Сбросить"
   },
   "profilePage": {
     "title": "Профиль",
+    "metaTitle": "Mylog- Профиль",
     "listTitle": "Мои статьи",
     "changeAvatar": "Изменить аватар",
     "addAvatar": "Добавить аватар",
@@ -121,6 +127,7 @@
   },
   "searchPage": {
     "search": "Поиск",
+    "metaTitle": "Mylog - Поиск",
     "notFound": "Ничего не найдено",
     "message": "Для поиска авторов используйте префикс <b>@</b>.<br>Для поиска по тегам используйте префикс <b>#</b>."
   },
@@ -137,6 +144,7 @@
   },
   "editArticlePage": {
     "title": "Редактирование статьи",
+    "metaTitle": "Mylog - Редактирование статьи",
     "articleTitle": "Заголовок статьи",
     "articleTitlePlaceholder": "Ваш заголовок статьи",
     "published": "Эта статья опубликована! Снимите с публикации для редактирования",

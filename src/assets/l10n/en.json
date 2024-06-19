@@ -17,6 +17,7 @@
   },
   "loginPage": {
     "title": "Login",
+    "metaTitle": "Mylog - Login",
     "login": "E-mail",
     "signIn": "Sign in",
     "signUp": "Sign up",
@@ -25,6 +26,7 @@
   },
   "registrationPage": {
     "title": "Registration",
+    "metaTitle": "Mylog - Registration",
     "signUp": "Lets go!",
     "password": "Enter password",
     "repeatPassword": "Repeat password",
@@ -40,6 +42,7 @@
   },
   "changePasswordPage": {
     "title": "Change password",
+    "metaTitle": "Mylog - Change password",
     "password": "Password",
     "repeatPassword": "Repeat password",
     "change": "Change",
@@ -48,16 +51,19 @@
   },
   "confirmRegistrationPage": {
     "title": "Your registration is completed",
+    "metaTitle": "Mylog - Your registration is completed",
     "content": "Your account is enabled. You can sign in by your email and password"
   },
   "resetPasswordPage": {
     "title": "Reset password",
+    "metaTitle": "Mylog - Reset password",
     "content": "Enter your email and we will send you a link to reset your password",
     "email": "E-mail",
     "reset": "Reset"
   },
   "profilePage": {
     "title": "Profile",
+    "metaTitle": "Mylog - Profile",
     "listTitle": "My article",
     "changeAvatar": "Change avatar",
     "addAvatar": "Add avatar",
@@ -108,6 +114,7 @@
   },
   "searchPage": {
     "search": "Search",
+    "metaTitle": "Mylog - Search",
     "notFound": "Not found",
     "message": "To search for authors, use the prefix <b>@</b>.<br>To search for tags use prefix <b>#</b>."
   },
@@ -139,6 +146,7 @@
   },
   "editArticlePage": {
     "title": "Edit article",
+    "metaTitle": "Mylog - Edit article",
     "articleTitle": "Article title",
     "pending": "This article is pending approval",
     "published": "This article is published! Unpublish it to edit",

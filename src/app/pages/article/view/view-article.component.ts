@@ -170,7 +170,7 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
           this.state = 'data';
 
           if (this.content.title) {
-            this.title.setTitle(this.content.title);
+            this.title.setTitle('Mylog - ' + this.content.title);
           }
 
           if (this.content.tags) {
