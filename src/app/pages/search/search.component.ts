@@ -43,7 +43,8 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.byTag = this.aRouter.snapshot.queryParamMap?.get("tag") == 'true';
     this.byAuthor = this.aRouter.snapshot.queryParamMap?.get("author") == 'true';
     this.title.setTitle(this.byTag ? "Tag: " + q : this.byAuthor ? "Author: " + q : "Search");
-    this.meta.updateTag({name: 'description', content: 'Search results for: ' + q});
+    this.meta.updateTag({name: 'description', content: 'Search results for: ' + q, lang: 'en'});
+    this.meta.updateTag({name: 'description', content: 'Результаты поиска: ' + q, lang: 'ru'});
 
     (this.formGroup.get('search') as FormControl).valueChanges
       .pipe(takeUntil(this.unSubscriber))
