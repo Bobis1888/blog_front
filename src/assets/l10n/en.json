@@ -7,10 +7,19 @@
   },
   "landingPage": {
     "name": "Mylog",
-    "title" : "Platform for Reading and Writing Content",
-    "subtitle" : "Discover a platform where you can read and write content on a variety of topics.<br>Join our community of writers and readers today!",
-    "button" : "Sign up now",
-    "metaTitle": "Mylog - Platform for Reading and Writing Text Contents"
+    "title0": "Discover a World of Stories",
+    "subtitle0": "Be a part of our platform for reading and writing compelling content from talented writers from around the world.",
+    "preTitle1" : "Enhance your experience",
+    "title1": "Platform for Reading and Writing Content",
+    "features": "Features that make our platform ideal for creating and consuming content",
+    "feature0": "<h1>User-friendly Interface</h1>Easily navigate and access content with our intuitive interface",
+    "feature1": "<h1>Community of Writers</h1>Connect with other writers and readers from around the world",
+    "feature2": "<h1>Convenient Writing Tools</h1>Use our writing tools to create beautiful and easy to read content",
+    "title2" : "Discover a world of stories waiting to be written and read",
+    "subTitle2": "Start sharing your own stories or explore the works of others on our platform.",
+    "metaTitle": "Mylog - a World of Stories",
+    "button": "Sign up now",
+    "learn": "Learn more"
   },
   "topMenu": {
     "home": "Home",
@@ -113,7 +122,7 @@
     "cancel": "Cancel",
     "submit": "Delete"
   },
-  "editPreviewDialog" : {
+  "editPreviewDialog": {
     "title": "Preview",
     "submit": "Save",
     "cancel": "Cancel",
@@ -131,19 +140,18 @@
     "notFound": "Not found",
     "message": "To search for authors, use the prefix <b>@</b>.<br>To search for tags use prefix <b>#</b>."
   },
-
-  "changeStatusDialog" : {
-    "published" : {
-      "title" : "Are you ready to publish this article?",
-      "content" : "You can't edit this article after publishing.<br>You'll need to unpublish it first.",
-      "submit" : "Publish",
-      "cancel" : "Cancel"
+  "changeStatusDialog": {
+    "published": {
+      "title": "Are you ready to publish this article?",
+      "content": "You can't edit this article after publishing.<br>You'll need to unpublish it first.",
+      "submit": "Publish",
+      "cancel": "Cancel"
     },
-    "draft" : {
-      "title" : "Do you want to unpublish this article?",
-      "content" : "After editing, you must submit it for review again.",
-      "submit" : "Unpublish",
-      "cancel" : "Cancel"
+    "draft": {
+      "title": "Do you want to unpublish this article?",
+      "content": "After editing, you must submit it for review again.",
+      "submit": "Unpublish",
+      "cancel": "Cancel"
     }
   },
   "viewArticlePage": {

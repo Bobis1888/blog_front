@@ -1,4 +1,4 @@
-<top-menu></top-menu>
+<top-menu *ngIf="!hideTopMenu"></top-menu>
 <div [@routeAnimations]="getRouteAnimationData()">
   <router-outlet></router-outlet>
 </div>

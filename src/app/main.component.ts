@@ -100,11 +100,12 @@ export class MainComponent extends UnSubscriber implements OnInit {
 
   private firstLaunch(): void {
     if (localStorage.getItem('firstLaunch') == null) {
+      this.router.navigate(['landing']).then(() => {});
       setTimeout(() => {
         this.ref = this.matSnackBar.open(
           this.translate.instant('firstLaunchTitle'),
           this.translate.instant('firstLaunchAction'),
-          {panelClass: 'snack-bar'});
+          {panelClass: 'snack-bar', verticalPosition: 'bottom'});
         this.ref?.onAction()
           .subscribe({
             next: value => localStorage.setItem('firstLaunch', 'false')

@@ -1,23 +1,45 @@
 <div class="landing" [ngClass]="{ mobile: isMobile }">
-  <section id="first">
+  <section id="first" #first>
     <h1 class="name">{{ 'landingPage.name' | translate }}</h1>
-    <br>
-    <h1 class="title">{{ 'landingPage.title' | translate }}</h1>
-    <br>
-    <p class="sub-title" [innerHTML]="'landingPage.subtitle' | translate"></p>
-    <br>
-    <br>
+    <h1 class="title">{{ 'landingPage.title0' | translate }}</h1>
+    <div>
+      <p class="sub-title" [innerHTML]="'landingPage.subtitle0' | translate"></p>
+      <br>
+      <br>
+      <div class="sign-up-button">
+        <button mat-flat-button [routerLink]="'/auth/registration'">{{ 'landingPage.button' | translate }}</button>
+      </div>
+    </div>
+
+    <div>
+      <button mat-fab (click)="scrollToElement(second)">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+    </div>
+  </section>
+  <section id="second" #second>
+    <div>
+      <p class="sub-title">{{ 'landingPage.preTitle1' | translate }}</p>
+      <h1>{{ 'landingPage.title1' | translate }}</h1>
+    </div>
+
+    <p class="sub-title" [innerHTML]="'landingPage.features' | translate"></p>
+    <div class="features sub-title">
+      <p [innerHTML]="'landingPage.feature0' | translate"></p>
+      <p [innerHTML]="'landingPage.feature1' | translate"></p>
+      <p [innerHTML]="'landingPage.feature2' | translate"></p>
+    </div>
+  </section>
+  <section id="third" #third>
+    <h1 [innerHTML]="'landingPage.title2' | translate"></h1>
+    <p class="sub-title" [innerHTML]="'landingPage.subTitle2' | translate"></p>
     <div class="sign-up-button">
       <button mat-flat-button [routerLink]="'/auth/registration'">{{ 'landingPage.button' | translate }}</button>
     </div>
-  </section>
-  <br>
-  <br>
-  <section id="second">
-<!--    <mat-card>-->
-<!--      <mat-card-header>-->
-<!--        <h2>Features to make Mylog your go-to platform for text content</h2>-->
-<!--      </mat-card-header>-->
-<!--    </mat-card>-->
+    <div>
+      <button mat-fab (click)="scrollToElement(first)">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+    </div>
   </section>
 </div>

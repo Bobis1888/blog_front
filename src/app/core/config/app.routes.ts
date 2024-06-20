@@ -35,6 +35,10 @@ export const routes: Routes = [
       .then(m => m.profileRoutes)
   },
   {
+    path: 'about',
+    redirectTo: 'landing'
+  },
+  {
     path: 'landing',
     data: {animation: 'LandingComponent'},
     loadComponent: () => import('app/pages/landing-page/landing.component')

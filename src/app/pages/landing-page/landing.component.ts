@@ -26,4 +26,9 @@ export class LandingComponent extends UnSubscriber implements OnInit {
   ngOnInit(): void {
     this.title.setTitle(this.translate.instant('landingPage.metaTitle'));
   }
+
+  scrollToElement($element: any): void {
+    console.log($element);
+    $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+  }
 }

@@ -2,8 +2,31 @@
 
 .landing {
   margin: 40px auto;
-  max-width: 1000px;
   text-align: center;
+
+  #first {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #second {
+    background-color: @secondColor;
+    width: 100%;
+    color: @firstColor;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #third {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
 
   h1, h2, h3 {
     line-height: 1;
@@ -21,10 +44,9 @@
     font-size: 5em;
   }
 
-  p.sub-title {
-    margin: auto;
+  p.sub-title, div.sub-title {
     font-size: 1.5em;
-    line-height: 1;
+    line-height: 1.5;
     text-align: center;
     font-weight: bolder;
     font-family: Comfortaa, sans-serif;
@@ -37,8 +59,28 @@
       padding: 20px;
     }
   }
+
+  div.features {
+    display: flex;
+    justify-content: space-evenly;
+
+    p {
+      margin: 20px;
+    }
+  }
 }
 
 .mobile {
-  padding: 20px;
+  h1 {
+    font-size: 2.5em;
+  }
+
+  div.features {
+    flex-direction: column;
+  }
+
+  p.sub-title, div.sub-title {
+    font-size: 1.3em;
+    padding: 0 10px;
+  }
 }
