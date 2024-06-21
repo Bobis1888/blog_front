@@ -10,7 +10,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 
 export const provideTranslation = (): TranslateModuleConfig => ({
   useDefaultLang: true,
-  defaultLanguage: localStorage.getItem('currentLanguage') ?? "ru",
+  defaultLanguage: localStorage.getItem('currentLanguage') ?? "en",
   loader: {
     provide: TranslateLoader,
     useFactory: HttpLoaderFactory,
