@@ -1,21 +1,11 @@
 <section>
   <div class="top-menu" [ngClass]="{ mobile: isMobile }">
     <div class="image" routerLink="/">
-      <img
-        src="assets/images/logo.png"
-        alt="Mylog logo"
-        height="157"
-        width="493"
-      />
+      <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493" />
     </div>
 
     <div class="buttons">
-      <button
-        mat-icon-button
-        aria-label="Search"
-        routerLink="/search"
-        *ngIf="!hideSearchButton"
-      >
+      <button mat-icon-button aria-label="Search" routerLink="/search" *ngIf="!hideSearchButton">
         <mat-icon>search</mat-icon>
       </button>
 
@@ -23,17 +13,14 @@
         <button mat-stroked-button routerLink="/auth/login">
           {{ "topMenu.login" | translate }}
         </button>
-        <button mat-flat-button routerLink="/auth/registration">
-          {{ "topMenu.signUp" | translate }}
-        </button>
       </div>
 
+      <button *ngIf="!isMobile && authService.isAuthorized" mat-flat-button routerLink="/article/edit">
+        {{ "topMenu.write" | translate }}
+      </button>
+
       <div class="menu-button" *ngIf="authService.isAuthorized">
-        <button
-          mat-mini-fab
-          aria-label="Search"
-          [matMenuTriggerFor]="beforeMenu"
-        >
+        <button mat-mini-fab aria-label="Search" [matMenuTriggerFor]="beforeMenu">
           <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #beforeMenu="matMenu" xPosition="before">
@@ -42,27 +29,15 @@
               {{ "topMenu.home" | translate }}
             </button>
 
-            <button
-              *ngIf="authService.isAuthorized"
-              mat-stroked-button
-              routerLink="/profile"
-            >
+            <button *ngIf="authService.isAuthorized" mat-stroked-button routerLink="/profile">
               {{ "topMenu.profile" | translate }}
             </button>
 
-            <button
-              *ngIf="authService.isAuthorized"
-              mat-stroked-button
-              routerLink="/article/edit"
-            >
-              {{ "topMenu.createArticle" | translate }}
+            <button *ngIf="authService.isAuthorized && isMobile" mat-stroked-button routerLink="/article/edit">
+              {{ "topMenu.write" | translate }}
             </button>
 
-            <button
-              *ngIf="authService.isAuthorized"
-              mat-flat-button
-              (click)="logout()"
-            >
+            <button *ngIf="authService.isAuthorized" mat-flat-button (click)="logout()">
               {{ "topMenu.logout" | translate }}
             </button>
           </div>

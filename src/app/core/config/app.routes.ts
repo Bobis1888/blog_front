@@ -1,12 +1,11 @@
 import {Routes} from '@angular/router';
-import {SummaryComponent} from "app/pages/summary/summary.component";
 import {SearchComponent} from 'app/pages/search/search.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: SummaryComponent,
-    data: {animation: 'SummaryComponent'}
+    loadChildren: () => import('app/pages/summary/summary.routing')
+      .then(r => r.summaryRouting)
   },
   {
     path: 'search',
@@ -31,8 +30,9 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () => import('app/pages/profile/profile.routing')
-      .then(m => m.profileRoutes)
+    data: {animation: 'ProfileComponent'},
+    loadComponent: () => import('app/pages/profile/profile.component')
+      .then(m => m.ProfileComponent)
   },
   {
     path: 'about',

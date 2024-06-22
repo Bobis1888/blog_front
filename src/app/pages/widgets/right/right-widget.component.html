@@ -1,0 +1,51 @@
+<div class="right" [ngClass]="{mobile: isMobile}">
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'data'"
+      [ngTemplateOutlet]="data"
+    ></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #data>
+
+  <mat-card *ngIf="topics.length > 0" [@opacity-1]>
+    <mat-card-content>
+      <div class="buttons">
+        <ng-container *ngIf="authService.isAuthorized; else nonAuth">
+          <ng-container *ngFor="let item of lineTypes()">
+            <button *ngIf="item == currentType;"
+                    mat-flat-button (click)="changeType(item)">{{ 'rightWidget.' + item | translate }}
+            </button>
+            <button *ngIf="item != currentType;" mat-stroked-button
+                    (click)="changeType(item)">{{ 'rightWidget.' + item | translate }}
+            </button>
+          </ng-container>
+        </ng-container>
+        <ng-template #nonAuth>
+          <button mat-flat-button>{{ 'rightWidget.top' | translate }}</button>
+        </ng-template>
+      </div>
+    </mat-card-content>
+    <mat-divider class="divider"></mat-divider>
+    <mat-card-content>
+      <div class="topic">
+        <span *ngFor="let topic of topics"
+              [routerLink]="'/search'"
+              [queryParams]="{q: topic.replace('#', ''), tag: true}">
+          {{ topic }}
+        </span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #load>
+  <mat-card>
+    <mat-card-content>
+      <br>
+      <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

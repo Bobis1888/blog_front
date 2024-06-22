@@ -6,12 +6,13 @@ import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {NgIf} from "@angular/common";
+import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   animations: animations,
-  imports: [RouterOutlet, MenuComponent, NgIf],
+  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent],
   templateUrl: 'main.component.html',
 })
 export class MainComponent extends UnSubscriber implements OnInit {

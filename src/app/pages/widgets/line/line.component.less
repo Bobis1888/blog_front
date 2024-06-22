@@ -1,6 +1,6 @@
 @import "src/app/theme/utils";
 
-.trends {
+.line {
   margin: auto;
 
   mat-card {
@@ -14,17 +14,26 @@
     mat-card-title {
       font-weight: bolder;
     }
-  }
 
-  mat-card:hover {
-    transform: scale(1.02);
+    .card-title {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .status {
+      font-weight: bold;
+      font-size: 18px;
+      color: @warningColor;
+      align-items: center;
+    }
   }
 
   h1 {
     margin: 10px auto;
   }
 
-  .trends-header {
+  .line-header {
     text-align: right;
     padding: 0 25px;
     font-weight: bolder;

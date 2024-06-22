@@ -1,9 +1,0 @@
-<div class="profile-left-menu" [ngClass]="{ 'mobile': isMobile }">
-
-  <button *ngFor="let item of menu"
-          mat-stroked-button
-          [routerLink]="'/profile/' + item"
-  >
-    {{ ("profilePage.menu." + item) | translate }}
-  </button>
-</div>

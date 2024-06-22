@@ -74,12 +74,11 @@ export class ContentService extends UnSubscriber {
   }
 
   //TODO
-  getTrends(): Observable<Article[]> {
+  getTrends(): Observable<ListResponse> {
     return this.httpSender.send(HttpMethod.POST, '/content/list', {
       max: 10,
       page: 0,
-    } as Filter)
-      .pipe(map(it => it.list));
+    } as Filter);
   }
 
   saveToBookmarks(id: string) {
@@ -107,10 +106,8 @@ export class ContentService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.POST, '/content/change-status/' + id, {status: status.toUpperCase()});
   }
 
-  bookmarks(filter: Filter): Observable<Article[]> {
-    return this.httpSender.send(HttpMethod.POST, '/content/bookmarks', filter).pipe(
-      map(it => it.list)
-    );
+  bookmarks(filter: Filter): Observable<ListResponse> {
+    return this.httpSender.send(HttpMethod.POST, '/content/bookmarks', filter);
   }
 
   changePreview(id: string, body: ChangePreviewRequest): Observable<SuccessDto> {

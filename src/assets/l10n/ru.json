@@ -29,7 +29,7 @@
     "forum": "Форум",
     "profile": "Профиль",
     "articles": "Статьи",
-    "createArticle": "Написать"
+    "write": "Написать"
   },
   "loginPage": {
     "title": "Вход",
@@ -37,7 +37,8 @@
     "login": "E-mail",
     "signIn": "Войти",
     "password": "Пароль",
-    "forgotPassword": "Забыли пароль?"
+    "forgotPassword": "Забыли пароль?",
+    "haveNoAccount": "Нет аккаунта?"
   },
   "registrationPage": {
     "title": "Регистрация",
@@ -80,16 +81,12 @@
     "title": "Профиль",
     "metaTitle": "Mylog- Профиль",
     "listTitle": "Мои статьи",
-    "changeAvatar": "Изменить аватар",
-    "addAvatar": "Добавить аватар",
-    "changePassword": "Сменить пароль",
     "nickname": "Никнейм: {{nickname}}",
     "nicknamePlaceholder": "Никнейм",
     "changeNicknameTitle": "Новый никнейм",
     "emailToolTip": "Нажмите чтобы показать E-mail",
     "email": "Email: {{email}}",
-    "noAbout": "О себе пусто",
-    "edit": "Редактировать",
+    "edit": "Поменять никнейм",
     "successMessage": "Ваш никнейм был изменен!",
     "addImage": "Добавление изображения сейчас недоступно",
     "nicknameToolTip": "Псевдоним должен начинаться с @ и может содержать только латинские буквы, цифры и символы подчеркивания.",
@@ -103,16 +100,6 @@
     "languages": {
       "en": "Английский",
       "ru": "Русский"
-    },
-    "menu": {
-      "info": "Инфо",
-      "list": "Мои статьи",
-      "bookmarks": "Закладки"
-    },
-    "status": {
-      "published": "Опубликовано",
-      "pending": "Ожидает модерации",
-      "draft": "Черновик"
     }
   },
   "editPreviewDialog": {
@@ -143,9 +130,21 @@
   },
   "summaryPage": {
     "title": "Mylog",
-    "trends": "Тренды",
-    "mostTopics": "Популярные темы",
     "noData": "Ничего не найдено, попробуйте ещё раз чуть позже."
+  },
+  "rightWidget": {
+    "top" : "Популярное",
+    "bookmarks": "Закладки",
+    "my" : "Мои статьи",
+    "subscriptions": "Подписки"
+  },
+  "lineWidget": {
+    "noData": "Ничего не найдено, попробуйте ещё раз чуть позже!",
+    "status": {
+      "published": "Опубликовано",
+      "draft": "Черновик",
+      "pending": "Ожидает проверки"
+    }
   },
   "searchPage": {
     "search": "Поиск",

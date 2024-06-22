@@ -1,0 +1,123 @@
+<div class="line">
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'data'"
+      [ngTemplateOutlet]="data"
+    ></ng-container>
+    <ng-container
+      *ngSwitchCase="'empty'"
+      [ngTemplateOutlet]="empty"
+    ></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+  </ng-container>
+</div>
+
+
+<ng-template #load>
+
+  <mat-card *ngFor="let i of [1, 2, 3]">
+    <mat-card-content>
+      <br/>
+      <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader>
+      <ngx-skeleton-loader></ngx-skeleton-loader>
+      <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #empty>
+  <h1>{{ "lineWidget.noData" | translate }}</h1>
+</ng-template>
+
+<ng-template #data>
+  <div *ngFor="let item of items" class="article">
+    <mat-card [@opacity-1] matRipple>
+      <mat-card-header routerLink="/article/view/{{ item.id }}" *ngIf="type == LineType.my; else view">
+        <div class="card-title">
+          <div>
+            <h2>
+              {{ item.title }}
+            </h2>
+          </div>
+          <div class="status">
+            {{ ('lineWidget.status.' + item.status.toLowerCase()) | translate }}
+          </div>
+        </div>
+      </mat-card-header>
+      <ng-template #view>
+        <mat-card-header routerLink="/article/view/{{ item.id }}">
+          <mat-card-title>{{ item.title }}</mat-card-title>
+          <mat-card-subtitle class="tags">{{ item.tags.join(' ') }}</mat-card-subtitle>
+        </mat-card-header>
+      </ng-template>
+
+      <mat-card-content routerLink="/article/view/{{ item.id }}">
+        <p [innerHTML]="item.preView | safeHtml"></p>
+      </mat-card-content>
+      <mat-card-footer>
+        <ng-container *ngIf="type == LineType.top">
+          <div class="footer">
+            <div class="date">
+              <span>{{ item.publishedDate | date : "YYYY.MM.dd" }}</span>
+            </div>
+            <div class="author">
+            <span [routerLink]="'/search'"
+                  [queryParams]="{q: item.authorName, author: true}">{{ item.authorName }}</span>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="type == LineType.my">
+          <button
+            *ngIf="item.actions.canEdit || item.actions.canUnpublish"
+            mat-icon-button
+            routerLink="/article/edit/{{ item.id }}"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            *ngIf="item.actions.canDelete"
+            mat-icon-button
+            (click)="delete(item.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          <button
+            *ngIf="item.actions.canPublish"
+            mat-icon-button
+            (click)="changeStatus(item.id, Status.published)"
+          >
+            <mat-icon>publish</mat-icon>
+          </button>
+
+          <button
+            *ngIf="item.actions.canUnpublish"
+            mat-icon-button
+            (click)="changeStatus(item.id, Status.draft)"
+          >
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+
+          <button
+            *ngIf="item.actions.canEdit"
+            mat-icon-button
+            (click)="editPreview(item.id, item.preView)"
+          >
+            <mat-icon>library_books</mat-icon>
+          </button>
+
+        </ng-container>
+        <ng-container *ngIf="type == LineType.bookmarks">
+          <button
+            mat-icon-button
+            (click)="removeFromBookmarks(item.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</ng-template>

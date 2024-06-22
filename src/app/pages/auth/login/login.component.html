@@ -56,10 +56,16 @@
             {{ "loginPage.signIn" | translate }}
           </button>
 
-          <button type="button" mat-button routerLink="/auth/forgot-password">
+          <button type="button" mat-stroked-button routerLink="/auth/forgot-password">
             {{ "loginPage.forgotPassword" | translate }}
           </button>
         </div>
+        <div class="registration-button">
+          <button type="button" mat-button routerLink="/auth/registration">
+            {{ "loginPage.haveNoAccount" | translate }}
+          </button>
+        </div>
+
       </form>
       <div class="social">
         <!--todo-->

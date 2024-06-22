@@ -1,6 +1,6 @@
 @import "src/app/theme/utils";
 
-.topics {
+.right {
   margin: auto;
 
   h1 {
@@ -11,7 +11,7 @@
     margin: 20px;
   }
 
-  .topics-header {
+  .right-header {
     text-align: left;
     padding: 0 25px;
     font-weight: bolder;
@@ -40,5 +40,24 @@
       color: @firstColor;
     }
 
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin: 5px;
+    }
+  }
+
+  .divider {
+    margin: 10px 0;
+  }
+}
+
+.mobile {
+  .buttons {
+    display: block;
   }
 }

@@ -3,16 +3,17 @@ import {CoreModule} from 'app/core/core.module';
 import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {FormsModule} from '@angular/forms';
 import {DeviceDetectorService} from 'ngx-device-detector';
-import {TrendsComponent} from "app/pages/widgets/trends/trends.component";
-import {TopicsComponent} from "app/pages/widgets/topics/topics.component";
+import {LineComponent} from "app/pages/widgets/line/line.component";
+import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {animations} from "app/core/config/app.animations";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'summary',
   standalone: true,
   animations: animations,
-  imports: [CoreModule, FormsModule, TrendsComponent, TopicsComponent],
+  imports: [CoreModule, FormsModule, LineComponent, RightWidgetComponent, RouterOutlet],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.less',
 })

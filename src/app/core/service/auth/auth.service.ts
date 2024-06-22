@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {map, Observable, of, takeUntil} from "rxjs";
+import {map, Observable, of, takeUntil, tap} from "rxjs";
 import {SuccessDto} from "src/app/core/dto/success-dto";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
@@ -11,12 +11,13 @@ export enum AuthState {
   unauthorized = 'unauthorized',
 }
 
-
 //TODO split to 2 service
 @Injectable({
   providedIn: 'any'
 })
 export class AuthService extends UnSubscriber {
+
+  private userInfo: UserInfo | null = null;
 
   get isAuthorized(): boolean {
     let state = AuthState.unauthorized;
@@ -100,8 +101,16 @@ export class AuthService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.POST, '/auth/change-nickname', {nickname});
   }
 
-  public info(): Observable<UserInfo> {
-    return this.httpSender.send(HttpMethod.GET, '/auth/info');
+  public info(force: boolean = false): Observable<UserInfo> {
+
+    if (force || this.userInfo == null) {
+      return this.httpSender.send(HttpMethod.GET, '/auth/info')
+        .pipe(
+          tap(it => this.userInfo = it)
+        );
+    }
+
+    return of(this.userInfo);
   }
 
   private changeAuthState(authState: AuthState) {

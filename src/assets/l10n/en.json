@@ -29,7 +29,7 @@
     "forum": "Forum",
     "profile": "Profile",
     "articles": "Articles",
-    "createArticle": "Write"
+    "write": "Write"
   },
   "loginPage": {
     "title": "Login",
@@ -38,7 +38,8 @@
     "signIn": "Sign in",
     "signUp": "Sign up",
     "password": "Password",
-    "forgotPassword": "Forgot password?"
+    "forgotPassword": "Forgot password?",
+    "haveNoAccount": "Don't have an account?"
   },
   "registrationPage": {
     "title": "Registration",
@@ -80,17 +81,12 @@
   "profilePage": {
     "title": "Profile",
     "metaTitle": "Mylog - Profile",
-    "listTitle": "My article",
-    "changeAvatar": "Change avatar",
-    "addAvatar": "Add avatar",
-    "changePassword": "Change password",
     "nickname": "Nickname: {{nickname}}",
     "nicknamePlaceholder": "Nickname",
     "changeNicknameTitle": "Change nickname",
     "email": "Email: {{email}}",
-    "noAbout": "About is empty",
     "emailToolTip": "Click to show email",
-    "edit": "Edit",
+    "edit": "Edit nickname",
     "resetPassword": "Reset password",
     "successMessage": "Your nickname was changed!",
     "nicknameToolTip": "The nickname must begin with @ and can only contain letters, numbers, and underscores.",
@@ -104,16 +100,6 @@
     "languages": {
       "en": "English",
       "ru": "Russian"
-    },
-    "menu": {
-      "info": "Info",
-      "list": "My article",
-      "bookmarks": "Bookmarks"
-    },
-    "status": {
-      "published": "Published",
-      "pending": "Pending approval",
-      "draft": "Draft"
     }
   },
   "deleteDialog": {
@@ -130,9 +116,21 @@
   },
   "summaryPage": {
     "title": "Mylog",
-    "trends": "Trends",
-    "mostTopics": "Popular topics",
     "noData": "Nothing found, try again later!"
+  },
+  "rightWidget": {
+    "top" : "Hot",
+    "bookmarks": "Bookmarks",
+    "my" : "My articles",
+    "subscriptions": "Subscriptions"
+  },
+  "lineWidget": {
+    "noData": "Nothing found, try again later!",
+    "status": {
+      "published": "Published",
+      "draft": "Draft",
+      "pending": "Pending"
+    }
   },
   "searchPage": {
     "search": "Search",

@@ -23,7 +23,7 @@ export class MenuComponent extends UnSubscriber {
   }
 
   get hideSearchButton(): boolean {
-    return this.router.url.includes('/search') || !this.authService.isAuthorized;
+    return this.router.url.includes('/search');
   }
 
   get isMobile(): boolean {

@@ -1,16 +1,84 @@
-<div class="profile" [ngClass]="{ 'mobile': isMobile }">
-  <div class="box">
-    <div class="menu" *ngIf="!isMobile">
-      <profile-left-menu></profile-left-menu>
-    </div>
+<div class="info" [ngClass]="{ 'mobile': isMobile }">
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'form'"
+      [ngTemplateOutlet]="form"
+    ></ng-container>
 
-    <div class="mobile-menu" *ngIf="isMobile">
-      <profile-mobile-menu></profile-mobile-menu>
-      <br>
-    </div>
+    <ng-container
+      *ngSwitchCase="'load'"
+      [ngTemplateOutlet]="load"
+    ></ng-container>
 
-    <div class="content">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="form"></ng-container>
+  </ng-container>
 </div>
+
+
+<ng-template #load>
+  <mat-card class="load">
+    <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="5"></ngx-skeleton-loader>
+    <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader>
+  </mat-card>
+</ng-template>
+
+<ng-template #form>
+
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar *ngIf="info.image">
+        <img src="{{ info.image }}" alt="avatar">
+      </div>
+
+      <div mat-card-avatar *ngIf="!info.image">
+        <button
+          mat-fab
+          color="primary"
+          (click)="addImage()"
+        >
+          <mat-icon>
+            account_circle
+          </mat-icon>
+        </button>
+      </div>
+      <mat-card-title>{{ 'profilePage.nickname' | translate : {nickname: info.nickname} }}</mat-card-title>
+      <mat-card-title>
+        <span (click)="hideEmail = !hideEmail" class="email" [matTooltip]="'profilePage.emailToolTip' | translate"
+              [matTooltipPosition]="'right'">
+          {{ 'profilePage.email' | translate : {email: hideEmail ? '*'.repeat(info.email.length) : info.email} }}
+        </span>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="about">
+      <!--      <p>-->
+      <!--        {{ (info.about) ? info.about : 'profilePage.noAbout' | translate }}-->
+      <!--      </p>-->
+      <br>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'profilePage.language' | translate }}</mat-label>
+        <mat-select (selectionChange)="onLangChange($event.value)" [(value)]="lang">
+          <mat-option *ngFor="let lng of languages" [value]="lng">
+            {{ 'profilePage.languages.' + lng | translate }}
+            {{ lng === translate.defaultLang ? ('profilePage.default' | translate) : '' }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions class="buttons">
+      <button
+        mat-flat-button
+        (click)="openEditDialog()"
+      >
+        {{ 'profilePage.edit' | translate }}
+      </button>
+      <button
+        mat-button
+        (click)="resetPassword()"
+      >
+        {{ 'profilePage.resetPassword' | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
