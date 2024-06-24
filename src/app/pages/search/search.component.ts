@@ -89,7 +89,11 @@ export class SearchComponent extends HasErrors implements OnInit {
   public submit(): void {
     let query = this.formGroup.get("search")?.value?.toString().replaceAll(/ /g, '');
     this.router.navigate([], {
-      queryParams: {q: this.formGroup.get("search")?.value?.replaceAll(/#/g, '').replaceAll(/ /g, '')?.replace('@', '') || null},
+      queryParams: {
+        q: this.formGroup.get("search")?.value?.replaceAll(/#/g, '').replaceAll(/ /g, '')?.replace('@', '') || null,
+        tag: this.byTag ? 'true' : null,
+        author: this.byAuthor ? 'true' : null
+      },
       queryParamsHandling: 'merge',
     }).then();
 
