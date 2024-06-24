@@ -93,6 +93,10 @@ export class SearchComponent extends HasErrors implements OnInit {
       queryParamsHandling: 'merge',
     }).then();
 
+    if (this.focusField?.nativeElement) {
+      this.focusField?.nativeElement.blur();
+    }
+
     if (!query || this.state == 'loading' || query.length < 3) {
       return;
     }
