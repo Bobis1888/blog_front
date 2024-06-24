@@ -122,6 +122,9 @@
           <button mat-flat-button type="submit" (click)="submit()">
             {{ "registrationPage.signUp" | translate }}
           </button>
+          <button mat-button type="button" routerLink="/auth/login">
+            {{ "registrationPage.login" | translate }}
+          </button>
         </div>
       </form>
       <mat-card-footer *ngIf="loading">

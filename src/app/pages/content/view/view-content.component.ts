@@ -17,12 +17,12 @@ import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {animations} from "app/core/config/app.animations";
 import {Meta} from "@angular/platform-browser";
 import {MatDialog} from "@angular/material/dialog";
-import {DeleteDialog} from "app/pages/article/delete-dialog/delete.dialog";
-import {Article} from "app/core/service/content/article";
-import {ChangeStatusDialog} from "app/pages/article/change-status-dialog/change-status.dialog";
+import {DeleteDialog} from "../delete-dialog/delete.dialog";
+import {Content} from "app/core/service/content/content";
+import {ChangeStatusDialog} from "../change-status-dialog/change-status.dialog";
 
 @Component({
-  selector: 'view-article',
+  selector: 'view-content',
   standalone: true,
   imports: [
     NgxSkeletonLoaderModule,
@@ -33,12 +33,12 @@ import {ChangeStatusDialog} from "app/pages/article/change-status-dialog/change-
     CommonModule,
   ],
   animations: animations,
-  templateUrl: './view-article.component.html',
-  styleUrl: './view-article.component.less'
+  templateUrl: './view-content.component.html',
+  styleUrl: './view-content.component.less'
 })
-export class ViewArticleComponent extends UnSubscriber implements OnInit {
+export class ViewContentComponent extends UnSubscriber implements OnInit {
 
-  protected content: Article = {} as Article;
+  protected content: Content = {} as Content;
   protected state: 'data' | 'loading' | 'empty' = 'loading';
   private ref: MatSnackBarRef<any> | null = null;
   protected readonly Status = Status;
@@ -79,7 +79,7 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
 
     this.clipboardService.copy(location.href);
     this.ref = this.matSnackBar.open(
-      this.translate.instant('viewArticlePage.sharedSuccess'),
+      this.translate.instant('viewContentPage.sharedSuccess'),
       undefined,
       {duration: 3000, panelClass: 'snack-bar'});
   }
@@ -95,7 +95,7 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
 
     obs.pipe(takeUntil(this.unSubscriber))
       .subscribe({
-        next: value => {
+        next: () => {
           this.content.isLiked = !this.content.isLiked;
 
           if (this.content.isLiked) {
@@ -118,10 +118,10 @@ export class ViewArticleComponent extends UnSubscriber implements OnInit {
 
     obs.pipe(takeUntil(this.unSubscriber))
       .subscribe({
-        next: value => {
+        next: () => {
           this.ref?.dismiss();
           this.content.isSaved = !this.content.isSaved;
-          let message = this.translate.instant(`viewArticlePage.${this.content.isSaved ? 'addedToBookmarks' : 'removedFromBookmarks'}`);
+          let message = this.translate.instant(`viewContentPage.${this.content.isSaved ? 'addedToBookmarks' : 'removedFromBookmarks'}`);
           this.ref = this.matSnackBar.open(message, undefined, {duration: 3000, panelClass: 'snack-bar'});
         }
       });

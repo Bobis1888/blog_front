@@ -19,9 +19,9 @@ export const routes: Routes = [
       .then(m => m.BadGatewayComponent),
   },
   {
-    path: 'article',
-    loadChildren: () => import('app/pages/article/article.routing')
-      .then(r => r.articleRoutes)
+    path: 'content',
+    loadChildren: () => import('app/pages/content/content.routing')
+      .then(r => r.contentRoutes)
   },
   {
     path: 'auth',

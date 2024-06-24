@@ -29,14 +29,4 @@ export class MenuComponent extends UnSubscriber {
   get isMobile(): boolean {
     return this.deviceService.isMobile();
   }
-
-  logout() {
-    this.authService
-      .logout()
-      .pipe(takeUntil(this.unSubscriber))
-      .subscribe(() => {
-        this.router.navigate(['/']).then();
-        return;
-      });
-  }
 }

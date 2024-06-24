@@ -10,6 +10,7 @@ import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {ChangeNicknameDialog} from "src/app/pages/profile/dialog/nickname.dialog";
 import {MatSelect} from "@angular/material/select";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'profile',
@@ -23,6 +24,7 @@ export class ProfileComponent extends HasErrors implements OnInit {
   constructor(private authService: AuthService,
               private snackBar: MatSnackBar,
               public dialog: MatDialog,
+              protected router: Router,
               private deviceService: DeviceDetectorService) {
     super();
   }
@@ -64,6 +66,7 @@ export class ProfileComponent extends HasErrors implements OnInit {
   }
 
   openEditDialog() {
+    this.state = 'load';
     this.dialog.open(ChangeNicknameDialog, {
       data: {nickname: this.info.nickname}
     })
@@ -77,7 +80,10 @@ export class ProfileComponent extends HasErrors implements OnInit {
           let message = this.translate.instant('profilePage.successMessage');
           this.ref = this.snackBar.open(message, undefined, {duration: 3000});
         }
-      }
+
+        this.state = 'form';
+      },
+      error: () => this.state = 'form'
     });
   }
 
@@ -113,5 +119,15 @@ export class ProfileComponent extends HasErrors implements OnInit {
   onLangChange(lang: string) {
     this.translate.setDefaultLang(lang);
     localStorage.setItem('currentLanguage', lang);
+  }
+
+  logout() {
+    this.authService
+      .logout()
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe(() => {
+        this.router.navigate(['/']).then();
+        return;
+      });
   }
 }

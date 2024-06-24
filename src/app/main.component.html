@@ -1,5 +1,55 @@
-<top-menu *ngIf="!hideTopMenu"></top-menu>
-<div [@routeAnimations]="getRouteAnimationData()">
-  <router-outlet></router-outlet>
-</div>
+<ng-container *ngIf="isMobile; else desktop">
+  <mat-drawer-container>
+    <mat-drawer mode="over" position="end" #drawer>
+      <div class="drawer-container">
+        <div class="image" routerLink="/">
+          <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493"/>
+        </div>
+        <button *ngIf="authService.isAuthorized" mat-button routerLink="/profile" (click)="drawer.close()">
+          <mat-icon>account_circle</mat-icon>
+          {{ authService.userInfo?.nickname ?? '' }}
+        </button>
+        <button *ngIf="!authService.isAuthorized" mat-button routerLink="/auth/login" (click)="drawer.close()">
+          <mat-icon>account_circle</mat-icon>
+          {{ "topMenu.login" | translate }}
+        </button>
+        <button *ngIf="authService.isAuthorized" mat-button routerLink="/my" (click)="drawer.close()">
+          <mat-icon>list</mat-icon>
+          {{ "topMenu.my" | translate }}
+        </button>
+        <button *ngIf="authService.isAuthorized" mat-button routerLink="/bookmarks" (click)="drawer.close()">
+          <mat-icon>bookmark</mat-icon>
+          {{ "topMenu.bookmarks" | translate }}
+        </button>
+      </div>
+    </mat-drawer>
+    <div [@routeAnimations]="getRouteAnimationData()">
+      <router-outlet></router-outlet>
+      <br>
+      <br>
+      <br>
+      <mat-toolbar class="toolbarNav" *ngIf="!hideTopMenu" [@opacity-2]>
+        <button mat-icon-button aria-label="Search" routerLink="/">
+          <mat-icon>home</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Search" routerLink="/search">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button *ngIf="authService.isAuthorized" mat-icon-button aria-label="Search" routerLink="/content/edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Menu" (click)="drawer.toggle()">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </mat-toolbar>
+    </div>
+  </mat-drawer-container>
+</ng-container>
+<ng-template #desktop>
+  <top-menu *ngIf="!hideTopMenu"></top-menu>
+  <div [@routeAnimations]="getRouteAnimationData()">
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>
+
 

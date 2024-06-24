@@ -1,5 +1,5 @@
 <section>
-  <div class="top-menu" [ngClass]="{ mobile: isMobile }">
+  <div class="top-menu">
     <div class="image" routerLink="/">
       <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493" />
     </div>
@@ -15,34 +15,14 @@
         </button>
       </div>
 
-      <button *ngIf="!isMobile && authService.isAuthorized" mat-flat-button routerLink="/article/edit">
+      <button *ngIf="authService.isAuthorized" mat-flat-button routerLink="/content/edit">
+        <mat-icon class="light">edit</mat-icon>
         {{ "topMenu.write" | translate }}
       </button>
 
-      <div class="menu-button" *ngIf="authService.isAuthorized">
-        <button mat-mini-fab aria-label="Search" [matMenuTriggerFor]="beforeMenu">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <mat-menu #beforeMenu="matMenu" xPosition="before">
-          <div class="menu-button vertical">
-            <button mat-stroked-button routerLink="/">
-              {{ "topMenu.home" | translate }}
-            </button>
-
-            <button *ngIf="authService.isAuthorized" mat-stroked-button routerLink="/profile">
-              {{ "topMenu.profile" | translate }}
-            </button>
-
-            <button *ngIf="authService.isAuthorized && isMobile" mat-stroked-button routerLink="/article/edit">
-              {{ "topMenu.write" | translate }}
-            </button>
-
-            <button *ngIf="authService.isAuthorized" mat-flat-button (click)="logout()">
-              {{ "topMenu.logout" | translate }}
-            </button>
-          </div>
-        </mat-menu>
-      </div>
+      <button *ngIf="authService.isAuthorized" mat-icon-button routerLink="/profile">
+        <mat-icon>account_circle</mat-icon>
+      </button>
     </div>
   </div>
 </section>

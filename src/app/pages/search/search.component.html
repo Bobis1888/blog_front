@@ -4,7 +4,7 @@
     <form [formGroup]="formGroup" (ngSubmit)="submit()">
       <div>
         <mat-form-field appearance="outline" [floatLabel]="'always'">
-          <input matInput autofocus formControlName="search" placeholder="{{ 'searchPage.search' | translate }}"/>
+          <input matInput #focusField formControlName="search" placeholder="{{ 'searchPage.search' | translate }}"/>
           <mat-icon (click)="submit()" matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
@@ -54,8 +54,8 @@
 
 <ng-template #data>
   <div [@opacity-1]>
-    <div *ngFor="let item of items" class="article">
-      <mat-card routerLink="/article/view/{{ item.id }}" matRipple>
+    <div *ngFor="let item of items" class="content">
+      <mat-card routerLink="/content/view/{{ item.id }}" matRipple>
         <mat-card-header>
           <mat-card-title>{{ item.title }}</mat-card-title>
           <mat-card-subtitle> {{ item.tags.join(' ') }}</mat-card-subtitle>

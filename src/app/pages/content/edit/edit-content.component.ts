@@ -15,30 +15,30 @@ import {MaskitoDirective} from "@maskito/angular";
 import {CommonModule} from "@angular/common";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {animations} from "app/core/config/app.animations";
-import {Article} from "app/core/service/content/article";
+import {Content} from "app/core/service/content/content";
 import {Actions} from "app/core/service/content/actions";
 import {MatDialog} from "@angular/material/dialog";
-import {ChangeStatusDialog} from "app/pages/article/change-status-dialog/change-status.dialog";
-import {EditPreviewDialog} from "app/pages/article/edit-preview-dialog/edit-preview-dialog.component";
-import {DeleteDialog} from "app/pages/article/delete-dialog/delete.dialog";
+import {ChangeStatusDialog} from "../change-status-dialog/change-status.dialog";
+import {EditPreviewDialog} from "../edit-preview-dialog/edit-preview-dialog.component";
+import {DeleteDialog} from "../delete-dialog/delete.dialog";
 import {Title} from "@angular/platform-browser";
 
 @Component({
-  selector: 'edit-article',
+  selector: 'edit-content',
   standalone: true,
   animations: animations,
   imports: [CommonModule, TranslateModule, MaterialModule, NgxEditorModule, MaskitoDirective, NgxSkeletonLoaderModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './edit-article.component.html',
-  styleUrl: './edit-article.component.less'
+  templateUrl: './edit-content.component.html',
+  styleUrl: './edit-content.component.less'
 })
-export class EditArticleComponent extends HasErrors implements OnInit {
+export class EditContentComponent extends HasErrors implements OnInit {
 
-  protected content: Article = {
+  protected content: Content = {
     tags: new Array<string>(),
     actions: {
       canEdit: true
     } as Actions
-  } as Article;
+  } as Content;
   protected state: 'form' | 'load' = 'form';
   protected editor: Editor | undefined;
 
@@ -84,7 +84,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
     this.formGroup.addControl('content', new FormControl(null, Validators.required()));
     this.formGroup.addControl('title', new FormControl(null, Validators.required()));
     this.formGroup.addControl('tagCtrl', new FormControl(null));
-    this.title.setTitle(this.translate.instant('editArticlePage.metaTitle'));
+    this.title.setTitle(this.translate.instant('editContentPage.metaTitle'));
 
     this.editor = new Editor(
       {
@@ -270,7 +270,7 @@ export class EditArticleComponent extends HasErrors implements OnInit {
       preView: this.content.preView ?? 'auto',
       content: this.formGroup.get('content')?.value,
       tags: this.content.tags
-    } as Article)
+    } as Content)
       .pipe(takeUntil(this.unSubscriber));
   }
 

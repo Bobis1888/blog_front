@@ -23,17 +23,17 @@
 <ng-template #data>
 
   <span *ngIf="content.status === Status.pending" [@opacity-1]
-        class="status"> {{ 'viewArticlePage.pending' | translate }}</span>
+        class="status"> {{ 'viewContentPage.pending' | translate }}</span>
 
   <h1 [@opacity-1]>{{ content.title }}</h1>
 
   <span *ngIf="content.publishedDate" [@opacity-1]
-        class="date">{{ 'viewArticlePage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
+        class="date">{{ 'viewContentPage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
 
   <div class="tags" [@opacity-15]>
-    <span class="tags-title">{{ 'viewArticlePage.tags' | translate }}</span>
+    <span class="tags-title">{{ 'viewContentPage.tags' | translate }}</span>
     <span>&nbsp;</span>
-    <span *ngIf="content.tags.length === 0">{{ 'viewArticlePage.noTags' | translate }}</span>
+    <span *ngIf="content.tags.length === 0">{{ 'viewContentPage.noTags' | translate }}</span>
     <span class="tag"
           *ngFor="let tag of content.tags"
           [routerLink]="'/search'"
@@ -66,35 +66,10 @@
       <button
         *ngIf="content.actions.canEdit || content.actions.canUnpublish"
         mat-icon-button
-        routerLink="/article/edit/{{ content.id }}"
+        routerLink="/content/edit/{{ content.id }}"
       >
         <mat-icon>edit</mat-icon>
       </button>
-
-<!--      <button-->
-<!--        *ngIf="content.actions.canDelete"-->
-<!--        mat-icon-button-->
-<!--        (click)="delete()"-->
-<!--      >-->
-<!--        <mat-icon>delete</mat-icon>-->
-<!--      </button>-->
-
-<!--      <button-->
-<!--        *ngIf="content.actions.canPublish"-->
-<!--        mat-icon-button-->
-<!--        (click)="changeStatus(Status.published)"-->
-<!--      >-->
-<!--        <mat-icon>publish</mat-icon>-->
-<!--      </button>-->
-
-<!--      <button-->
-<!--        *ngIf="content.actions.canUnpublish"-->
-<!--        mat-icon-button-->
-<!--        (click)="changeStatus(Status.draft)"-->
-<!--      >-->
-<!--        <mat-icon>remove_circle_outline</mat-icon>-->
-<!--      </button>-->
-
     </div>
     <div class="author">
       <span [routerLink]="'/search'"
@@ -104,7 +79,7 @@
 </ng-template>
 
 <ng-template #empty>
-  {{ 'viewArticlePage.empty' | translate }}
+  {{ 'viewContentPage.empty' | translate }}
 </ng-template>
 
 <ng-template #load>

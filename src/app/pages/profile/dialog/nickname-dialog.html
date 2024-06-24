@@ -15,7 +15,7 @@
       <mat-error *ngIf="hasErrors">{{ getErrors('nickname') }}</mat-error>
     </mat-form-field>
   </mat-dialog-content>
-  <mat-dialog-actions align="center">
+  <mat-dialog-actions align="start">
     <button mat-flat-button (click)="saveNickname()">{{ 'profilePage.save' | translate }}</button>
     <button mat-button (click)="close()">{{ 'profilePage.cancel' | translate }}</button>
   </mat-dialog-actions>

@@ -2,7 +2,7 @@
   "meta": {
     "title": "Mylog",
     "description": "Mylog.ru — the most interesting place on the Internet. Platform for publishing content on various themes. All in one place.",
-    "keywords": "article publish news tech learning reading read book",
+    "keywords": "publish news tech learning reading read book",
     "badGateway": "Something went wrong..."
   },
   "landingPage": {
@@ -25,10 +25,9 @@
     "home": "Home",
     "login": "Log in",
     "signUp": "Sign up",
-    "logout": "Sign out",
-    "forum": "Forum",
     "profile": "Profile",
-    "articles": "Articles",
+    "my": "My publications",
+    "bookmarks": "Bookmarks",
     "write": "Write"
   },
   "loginPage": {
@@ -44,13 +43,14 @@
   "registrationPage": {
     "title": "Registration",
     "metaTitle": "Mylog - Registration",
-    "signUp": "Lets go!",
+    "signUp": "Next",
     "password": "Enter password",
     "repeatPassword": "Repeat password",
     "passwordWeak": "Password is {{value}}",
     "passwordNotEqual": "Passwords are not equal",
     "afterSignUpTitle": "Congratulations you are registered!",
     "afterSignUpMessage": "Check your email for confirmation registration",
+    "login": "Have an account?",
     "passwordStrong": {
       "weak": "Weak",
       "medium": "Medium",
@@ -93,6 +93,7 @@
     "addImage": "Adding images is currently unavailable",
     "resetPasswordMessage": "We sended you a link to reset your password",
     "save": "Save",
+    "logout": "Sign out",
     "cancel": "Cancel",
     "empty": "No data.",
     "language": "Language",
@@ -112,7 +113,7 @@
     "title": "Preview",
     "submit": "Save",
     "cancel": "Cancel",
-    "hint": "Write a short description of your article. Maximum 255 characters"
+    "hint": "Write a short description of your publication. Maximum 255 characters"
   },
   "summaryPage": {
     "title": "Mylog",
@@ -121,7 +122,7 @@
   "rightWidget": {
     "top" : "Hot",
     "bookmarks": "Bookmarks",
-    "my" : "My articles",
+    "my" : "My publications",
     "subscriptions": "Subscriptions"
   },
   "lineWidget": {
@@ -140,37 +141,38 @@
   },
   "changeStatusDialog": {
     "published": {
-      "title": "Are you ready to publish this article?",
-      "content": "You can't edit this article after publishing.<br>You'll need to unpublish it first.",
+      "title": "Are you ready to publish this publication?",
+      "content": "You can't edit this publication after publishing.<br>You'll need to unpublish it first.",
       "submit": "Publish",
       "cancel": "Cancel"
     },
     "draft": {
-      "title": "Do you want to unpublish this article?",
+      "title": "Do you want to unpublish this publication?",
       "content": "After editing, you must submit it for review again.",
       "submit": "Unpublish",
       "cancel": "Cancel"
     }
   },
-  "viewArticlePage": {
+  "viewContentPage": {
     "publishedDate": "Published on {{date}}",
-    "empty": "Article not found",
+    "empty": "Content not found",
     "tags": "Tags:",
-    "pending": "This article is pending approval",
-    "pendingHint": "This article will be published after approval",
+    "pending": "This publication is pending approval",
+    "pendingHint": "This publication will be published after approval",
     "sharedSuccess": "Link copied to clipboard",
     "addedToBookmarks": "Added to bookmarks",
     "removedFromBookmarks": "Removed from bookmarks",
     "noTags": "No tags"
   },
-  "editArticlePage": {
-    "title": "Edit article",
-    "metaTitle": "Mylog - Edit article",
-    "articleTitle": "Article title",
-    "pending": "This article is pending approval",
-    "published": "This article is published! Unpublish it to edit",
-    "pendingHint": "This article will be published after approval",
-    "articleTitlePlaceholder": "Your article title",
+  "editContentPage": {
+    "createTitle": "Create publication",
+    "editTitle": "Edit publication",
+    "metaTitle": "Mylog - Edit publication",
+    "contentTitle": "Publication title",
+    "pending": "This publication is pending approval",
+    "published": "This publication is published! Unpublish it to edit",
+    "pendingHint": "This publication will be published after approval",
+    "contentTitlePlaceholder": "Your publication title",
     "placeholder": "Start writing here",
     "submit": "Save",
     "view": "View",
@@ -179,7 +181,7 @@
     "unpublish": "Unpublish",
     "delete": "Delete",
     "tags": "Tags",
-    "tagHint": "Tags will help to find your article. Tags added by one, press Enter to add tag"
+    "tagHint": "Tags will help to find your publication. Tags added by one, press Enter to add tag"
   },
   "badGatewayPage": {
     "title": "We are working on the update, we apologize for the inconvenience."
@@ -188,6 +190,7 @@
   "firstLaunchAction": "Ok",
   "errors": {
     "nickname.invalid": "Invalid nickname",
+    "nickname.equal": "Same nickname",
     "email.invalid": "Invalid e-mail",
     "content.invalid": "Invalid content",
     "email.alreadyRegistered": "E-mail already registered",

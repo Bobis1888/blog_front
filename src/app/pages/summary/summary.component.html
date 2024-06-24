@@ -3,11 +3,6 @@
     <div class="line">
       <router-outlet></router-outlet>
     </div>
-    <right-widget [@opacity-1]></right-widget>
+    <right-widget [@opacity-1] *ngIf="!hideRightWidget"></right-widget>
   </div>
-</div>
-<div class="floating-button" *ngIf="isMobile && authService.isAuthorized">
-  <button mat-fab class="float" routerLink="/article/edit">
-    <mat-icon>edit</mat-icon>
-  </button>
 </div>

@@ -2,9 +2,9 @@
 
   <div *ngIf="state === 'form'">
     <span *ngIf="content.status === Status.pending" [@opacity-1]
-          class="status"> {{ 'editArticlePage.pending' | translate }}</span>
+          class="status"> {{ 'editContentPage.pending' | translate }}</span>
     <span *ngIf="content.status === Status.published" [@opacity-1]
-          class="status"> {{ 'editArticlePage.published' | translate }}</span>
+          class="status"> {{ 'editContentPage.published' | translate }}</span>
   </div>
 
   <ng-container [ngSwitch]="state">
@@ -23,17 +23,17 @@
 </div>
 
 <ng-template #form>
-  <h1>{{ "editArticlePage.title" | translate }}</h1>
+  <h1>{{ (content.id ? "editContentPage.editTitle" : "editContentPage.createTitle") | translate }}</h1>
   <div class="editor" *ngIf="editor != undefined" [@opacity-1]>
 
     <form [formGroup]="formGroup">
       <div class="title">
         <mat-form-field appearance="outline">
-          <mat-label>{{ "editArticlePage.articleTitle" | translate }}</mat-label>
+          <mat-label>{{ "editContentPage.contentTitle" | translate }}</mat-label>
           <input
             matInput
             formControlName="title"
-            [placeholder]="'editArticlePage.articleTitlePlaceholder' | translate"
+            [placeholder]="'editContentPage.contentTitlePlaceholder' | translate"
           />
           <mat-error
             *ngIf="hasErrors && formGroup.get('title')?.valid == false"
@@ -56,7 +56,7 @@
         </div>
 
         <mat-form-field appearance="outline" *ngIf="content.actions.canEdit">
-          <mat-label>{{ 'editArticlePage.tags' | translate }}</mat-label>
+          <mat-label>{{ 'editContentPage.tags' | translate }}</mat-label>
           <mat-chip-grid #chipGrid>
             <mat-chip-row *ngFor="let tag of content.tags" (removed)="remove(tag)">
               {{ tag }}
@@ -78,7 +78,7 @@
           />
           <mat-icon
             matSuffix
-            [matTooltip]="'editArticlePage.tagHint' | translate"
+            [matTooltip]="'editContentPage.tagHint' | translate"
             [matTooltipPosition]="'left'"
           >
             help_outline
@@ -96,7 +96,7 @@
       <ngx-editor [editor]="editor"
                   [outputFormat]="'html'"
                   formControlName="content"
-                  [placeholder]="'editArticlePage.placeholder' | translate">
+                  [placeholder]="'editContentPage.placeholder' | translate">
 
       </ngx-editor>
     </form>
@@ -108,21 +108,21 @@
         color="warn"
         (click)="delete()"
       >
-        {{ "editArticlePage.delete" | translate }}
+        {{ "editContentPage.delete" | translate }}
       </button>
 
       <button mat-flat-button type="submit"
               *ngIf="content.actions.canEdit"
               (click)="submit()">
-        {{ "editArticlePage.submit" | translate }}
+        {{ "editContentPage.submit" | translate }}
       </button>
 
       <button
         *ngIf="content.id"
         mat-stroked-button
-        routerLink="/article/view/{{ content.id }}"
+        routerLink="/content/view/{{ content.id }}"
       >
-        {{ "editArticlePage.view" | translate }}
+        {{ "editContentPage.view" | translate }}
       </button>
 
       <button
@@ -130,7 +130,7 @@
         *ngIf="content.actions.canPublish"
         (click)="changeStatus(Status.published)"
       >
-        {{ "editArticlePage.publish" | translate }}
+        {{ "editContentPage.publish" | translate }}
       </button>
 
       <button
@@ -138,7 +138,7 @@
         *ngIf="content.actions.canUnpublish"
         (click)="changeStatus(Status.draft)"
       >
-        {{ "editArticlePage.unpublish" | translate }}
+        {{ "editContentPage.unpublish" | translate }}
       </button>
 
       <button
@@ -146,7 +146,7 @@
         mat-flat-button
         (click)="editPreview()"
       >
-        {{ "editArticlePage.editPreview" | translate }}
+        {{ "editContentPage.editPreview" | translate }}
       </button>
 
     </div>

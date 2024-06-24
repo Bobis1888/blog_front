@@ -1,4 +1,4 @@
-<div class="line">
+<div class="line" [ngClass]="{mobile: isMobile}">
   <ng-container [ngSwitch]="state">
     <ng-container
       *ngSwitchCase="'data'"
@@ -26,13 +26,15 @@
 </ng-template>
 
 <ng-template #empty>
-  <h1>{{ "lineWidget.noData" | translate }}</h1>
+  <div class="empty">
+    <h1>{{ "lineWidget.noData" | translate }}</h1>
+  </div>
 </ng-template>
 
 <ng-template #data>
-  <div *ngFor="let item of items" class="article">
+  <div *ngFor="let item of items" class="content">
     <mat-card [@opacity-1] matRipple>
-      <mat-card-header routerLink="/article/view/{{ item.id }}" *ngIf="type == LineType.my; else view">
+      <mat-card-header routerLink="/content/view/{{ item.id }}" *ngIf="type == LineType.my; else view">
         <div class="card-title">
           <div>
             <h2>
@@ -45,13 +47,14 @@
         </div>
       </mat-card-header>
       <ng-template #view>
-        <mat-card-header routerLink="/article/view/{{ item.id }}">
+        <mat-card-header routerLink="/content/view/{{ item.id }}">
           <mat-card-title>{{ item.title }}</mat-card-title>
           <mat-card-subtitle class="tags">{{ item.tags.join(' ') }}</mat-card-subtitle>
         </mat-card-header>
       </ng-template>
 
-      <mat-card-content routerLink="/article/view/{{ item.id }}">
+      <mat-card-content routerLink="/content/view/{{ item.id }}">
+        <div *ngIf="type == LineType.my" class="tags">{{ item.tags.join(' ') }}</div>
         <p [innerHTML]="item.preView | safeHtml"></p>
       </mat-card-content>
       <mat-card-footer>
@@ -71,7 +74,7 @@
           <button
             *ngIf="item.actions.canEdit || item.actions.canUnpublish"
             mat-icon-button
-            routerLink="/article/edit/{{ item.id }}"
+            routerLink="/content/edit/{{ item.id }}"
           >
             <mat-icon>edit</mat-icon>
           </button>

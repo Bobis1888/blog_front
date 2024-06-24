@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CoreModule} from 'app/core/core.module';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -8,7 +8,7 @@ import {ContentService, Filter} from "app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
 import {animations} from "app/core/config/app.animations";
 import {Meta} from "@angular/platform-browser";
-import {Article} from "app/core/service/content/article";
+import {Content} from "app/core/service/content/content";
 
 @Component({
   selector: 'search',
@@ -29,9 +29,11 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   protected state: 'loading' | 'data' | 'empty' | 'init' = 'init';
-  protected items: Array<Article> = [];
+  protected items: Array<Content> = [];
   protected byTag: boolean = false;
   protected byAuthor: boolean = false;
+  @ViewChild('focusField')
+  protected focusField?: ElementRef<HTMLInputElement>;
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
@@ -74,6 +76,14 @@ export class SearchComponent extends HasErrors implements OnInit {
       let message = this.translate.instant('searchPage.metaTitle');
       this.title.setTitle(message);
     });
+
+    if (!q) {
+      setTimeout(() => {
+        if (this.focusField) {
+          this.focusField?.nativeElement.focus()
+        }
+      }, 200);
+    }
   }
 
   public submit(): void {

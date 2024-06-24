@@ -69,6 +69,11 @@ export class ChangeNicknameDialog extends HasErrors implements OnInit {
     if (this.formGroup.valid) {
       let nickname = this.formGroup.get("nickname")?.value;
 
+      if (nickname == this.authService.userInfo?.nickname) {
+        this.reject('equal', 'nickname');
+        return;
+      }
+
       this.authService
         .changeNickname(nickname)
         .pipe(

@@ -17,8 +17,6 @@ export enum AuthState {
 })
 export class AuthService extends UnSubscriber {
 
-  private userInfo: UserInfo | null = null;
-
   get isAuthorized(): boolean {
     let state = AuthState.unauthorized;
 
@@ -27,6 +25,19 @@ export class AuthService extends UnSubscriber {
     }
 
     return state == AuthState.authorized;
+  }
+
+  get userInfo(): UserInfo | null {
+    let info = localStorage.getItem('cachedUserInfo');
+
+    if (info != null) {
+      try {
+        return JSON.parse(localStorage.getItem('cachedUserInfo')!) as UserInfo;
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
   }
 
   get authState(): AuthState {
@@ -85,6 +96,7 @@ export class AuthService extends UnSubscriber {
   public logout(): Observable<void> {
     return this.httpSender.send(HttpMethod.GET, '/auth/logout')
       .pipe(map(()=> {
+        localStorage.removeItem("cachedUserInfo");
         this.changeAuthState(AuthState.unauthorized);
       }));
   }
@@ -106,7 +118,7 @@ export class AuthService extends UnSubscriber {
     if (force || this.userInfo == null) {
       return this.httpSender.send(HttpMethod.GET, '/auth/info')
         .pipe(
-          tap(it => this.userInfo = it)
+          tap(it => localStorage.setItem('cachedUserInfo', JSON.stringify(it)))
         );
     }
 

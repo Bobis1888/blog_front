@@ -3,7 +3,7 @@ import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
 import {map, Observable, of} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
-import {Article} from "app/core/service/content/article";
+import {Content} from "app/core/service/content/content";
 
 export enum Status {
   published = 'published',
@@ -34,7 +34,7 @@ export interface Search {
 }
 
 export interface ListResponse {
-  list: Array<Article>;
+  list: Array<Content>;
   totalPages: number;
 }
 
@@ -51,19 +51,19 @@ export class ContentService extends UnSubscriber {
     super();
   }
 
-  get(id: string): Observable<Article> {
+  get(id: string): Observable<Content> {
     return this.httpSender.send(HttpMethod.GET, '/content/get/' + id);
   }
 
-  save(article: Article): Observable<{ success: true, id: string }> {
-    return this.httpSender.send(HttpMethod.POST, '/content/save', article);
+  save(content: Content): Observable<{ success: true, id: string }> {
+    return this.httpSender.send(HttpMethod.POST, '/content/save', content);
   }
 
   delete(id: string): Observable<SuccessDto> {
     return this.httpSender.send(HttpMethod.DELETE, '/content/delete/' + id);
   }
 
-  list(filter: Filter): Observable<Article[]> {
+  list(filter: Filter): Observable<Content[]> {
     return this.httpSender.send(HttpMethod.POST, '/content/list', filter)
       .pipe(map(it => it.list));
   }

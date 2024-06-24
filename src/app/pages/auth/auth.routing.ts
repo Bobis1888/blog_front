@@ -12,14 +12,6 @@ export const nonAuthGuard: CanActivateFn = (
   return !authService.isAuthorized;
 };
 
-export const authGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  let authService = inject(AuthService);
-  return authService.isAuthorized;
-};
-
 export const authRoutes: Routes = [
   {
     path: '',
@@ -27,7 +19,7 @@ export const authRoutes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
-        data: {animation: 'ConfirmRegistrationComponent'},
+        data: {animation: 'LoginComponent'},
         canActivate: [nonAuthGuard],
       },
       {

@@ -9,12 +9,11 @@
 </div>
 
 <ng-template #data>
-
-  <mat-card *ngIf="topics.length > 0" [@opacity-1]>
+  <mat-card [@opacity-1]>
     <mat-card-content>
       <div class="buttons">
         <ng-container *ngIf="authService.isAuthorized; else nonAuth">
-          <ng-container *ngFor="let item of lineTypes()">
+          <ng-container *ngFor="let item of lineTypes(isMobile)">
             <button *ngIf="item == currentType;"
                     mat-flat-button (click)="changeType(item)">{{ 'rightWidget.' + item | translate }}
             </button>
@@ -28,16 +27,18 @@
         </ng-template>
       </div>
     </mat-card-content>
-    <mat-divider class="divider"></mat-divider>
-    <mat-card-content>
-      <div class="topic">
+    <ng-container *ngIf="topics.length > 0">
+      <mat-divider class="divider"></mat-divider>
+      <mat-card-content>
+        <div class="topic">
         <span *ngFor="let topic of topics"
               [routerLink]="'/search'"
               [queryParams]="{q: topic.replace('#', ''), tag: true}">
           {{ topic }}
         </span>
-      </div>
-    </mat-card-content>
+        </div>
+      </mat-card-content>
+    </ng-container>
   </mat-card>
 </ng-template>
 

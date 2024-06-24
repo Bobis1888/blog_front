@@ -7,7 +7,7 @@ import {LineComponent} from "app/pages/widgets/line/line.component";
 import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {animations} from "app/core/config/app.animations";
-import {RouterOutlet} from "@angular/router";
+import {Router, RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'summary',
@@ -20,6 +20,7 @@ import {RouterOutlet} from "@angular/router";
 export class SummaryComponent extends UnSubscriber implements OnInit {
   constructor(
     protected authService: AuthService,
+    protected router: Router,
     private deviceService: DeviceDetectorService,
   ) {
     super();
@@ -27,6 +28,10 @@ export class SummaryComponent extends UnSubscriber implements OnInit {
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
+  }
+
+  get hideRightWidget(): boolean {
+    return this.isMobile && ["my", "bookmarks"].find(it => this.router.url.includes(it)) != null;
   }
 
   ngOnInit(): void {}

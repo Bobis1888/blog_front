@@ -1,3 +1,5 @@
+@import "src/app/theme/utils";
+
 .top-menu {
   margin: auto;
   display: flex;
@@ -5,6 +7,11 @@
   align-items: center;
   padding: 10px;
   max-width: 1100px;
+
+
+  mat-icon.light {
+    color: @firstColor;
+  }
 
   .image {
     width: 150px;
@@ -30,30 +37,5 @@
 
   .menu-button {
     margin: 6px;
-  }
-}
-
-.mobile {
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  .image {
-    width: 100px;
-  }
-
-  .buttons {
-    padding: 5px;
-    flex-wrap: wrap;
-  }
-}
-
-.vertical {
-  display: flex;
-  flex-direction: column !important;
-
-  button {
-    margin: 5px 30px;
-    border: none;
-    font-size: 18px;
   }
 }

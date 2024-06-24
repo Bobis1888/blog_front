@@ -1,7 +1,7 @@
 import {Status} from "./content.service";
 import {Actions} from "./actions";
 
-export interface Article {
+export interface Content {
   id: string;
   title: string;
   preView: string;

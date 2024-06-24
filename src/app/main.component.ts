@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, ChildrenOutletContexts, Router, RouterOutlet} from '@angular/router';
+import {ActivatedRoute, ChildrenOutletContexts, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {MenuComponent} from "src/app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
@@ -7,13 +7,22 @@ import {takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {NgIf} from "@angular/common";
 import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatIcon} from "@angular/material/icon";
+import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav} from "@angular/material/sidenav";
+import {TranslateModule} from "@ngx-translate/core";
+import {AuthService} from "app/core/service/auth/auth.service";
+import {DeviceDetectorService} from "ngx-device-detector";
+import {MatRipple} from "@angular/material/core";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   animations: animations,
-  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent],
-  templateUrl: 'main.component.html',
+  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple],
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.less'],
 })
 export class MainComponent extends UnSubscriber implements OnInit {
 
@@ -23,9 +32,15 @@ export class MainComponent extends UnSubscriber implements OnInit {
 
   constructor(protected aRouter: ActivatedRoute,
               protected router: Router,
+              protected authService: AuthService,
               protected outletContexts: ChildrenOutletContexts,
+              protected deviceDetectorService: DeviceDetectorService,
               protected matSnackBar: MatSnackBar) {
     super();
+  }
+
+  get isMobile(): boolean {
+    return this.deviceDetectorService.isMobile();
   }
 
   get hideTopMenu(): boolean {
@@ -112,5 +127,4 @@ export class MainComponent extends UnSubscriber implements OnInit {
   getRouteAnimationData() {
     return this.outletContexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
   }
-
 }

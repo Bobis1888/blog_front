@@ -19,12 +19,19 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
+
+      h2 {
+        display: flex;
+        align-items: center;
+        margin: 0;
+      }
     }
 
     .status {
       font-weight: bold;
       font-size: 18px;
       color: @warningColor;
+      display: flex;
       align-items: center;
     }
   }
@@ -96,13 +103,17 @@
 
 .mobile {
   mat-card {
-    margin: 10px;
+    margin: 20px 10px;
   }
 
 }
 
-.article {
+.content {
   mat-card-content {
     min-height: 75px;
   }
+}
+
+.empty {
+  text-align: center;
 }

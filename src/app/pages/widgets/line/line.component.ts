@@ -4,15 +4,16 @@ import {ContentService, Filter, ListResponse, Search, Status} from "src/app/core
 import {Observable, of, takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {CoreModule} from "src/app/core/core.module";
-import {Article} from "app/core/service/content/article";
+import {Content} from "app/core/service/content/content";
 import {LineType} from "app/core/service/line/line.service";
 import {UserInfo} from "app/core/service/auth/user-info";
-import {AuthService} from "app/core/service/auth/auth.service";
-import {EditPreviewDialog} from "app/pages/article/edit-preview-dialog/edit-preview-dialog.component";
+import {AuthService, AuthState} from "app/core/service/auth/auth.service";
+import {EditPreviewDialog} from "app/pages/content/edit-preview-dialog/edit-preview-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {DeleteDialog} from "app/pages/article/delete-dialog/delete.dialog";
-import {ChangeStatusDialog} from "app/pages/article/change-status-dialog/change-status.dialog";
+import {DeleteDialog} from "app/pages/content/delete-dialog/delete.dialog";
+import {ChangeStatusDialog} from "app/pages/content/change-status-dialog/change-status.dialog";
 import {ActivatedRoute} from "@angular/router";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'line',
@@ -25,7 +26,7 @@ import {ActivatedRoute} from "@angular/router";
 export class LineComponent extends UnSubscriber implements OnInit {
 
   protected state: 'loading' | 'data' | 'empty' = 'loading';
-  public items: Array<Article> = [];
+  public items: Array<Content> = [];
   protected type: LineType = LineType.top;
   protected totalPages: number = 0;
   protected info: UserInfo = {} as UserInfo;
@@ -40,16 +41,20 @@ export class LineComponent extends UnSubscriber implements OnInit {
     private contentService: ContentService,
     protected authService: AuthService,
     protected dialog: MatDialog,
-    protected router: ActivatedRoute
+    protected router: ActivatedRoute,
+    protected deviceService: DeviceDetectorService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.authService.info()
-      .pipe(takeUntil(this.unSubscriber)).subscribe({
-      next: it => this.info = it
-    });
+
+    if (this.authService.authState == AuthState.authorized) {
+      this.authService.info()
+        .pipe(takeUntil(this.unSubscriber)).subscribe({
+        next: it => this.info = it
+      });
+    }
 
     this.router.data.subscribe({
       next: (it) => {
@@ -58,6 +63,10 @@ export class LineComponent extends UnSubscriber implements OnInit {
       },
       error: () => this.state = 'empty'
     });
+  }
+
+  protected isMobile(): boolean {
+    return this.deviceService.isMobile();
   }
 
   public editPreview(id: string, content: string) {
@@ -148,10 +157,10 @@ export class LineComponent extends UnSubscriber implements OnInit {
       }
       case 'subscriptions': {
         //TODO
-        return of({list: new Array<Article>()} as ListResponse);
+        return of({list: new Array<Content>()} as ListResponse);
       }
       default: {
-        return of({list: new Array<Article>()} as ListResponse);
+        return of({list: new Array<Content>()} as ListResponse);
       }
     }
   }

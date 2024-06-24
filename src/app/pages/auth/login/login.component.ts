@@ -6,8 +6,9 @@ import {AuthService} from "app/core/service/auth/auth.service";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {TranslateModule} from "@ngx-translate/core";
 import {HasErrors} from "app/core/abstract/has-errors";
-import {takeUntil} from "rxjs";
+import {mergeAll, mergeMap, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
+import {UserInfo} from "app/core/service/auth/user-info";
 
 @Component({
   selector: 'login',
@@ -58,11 +59,12 @@ export class LoginComponent extends HasErrors implements OnInit {
         .login(email, password)
         .pipe(
           takeUntil(this.unSubscriber),
+          mergeMap(() => this.authService.info(true)),
         ).subscribe({
-        next: (res: SuccessDto) => {
+        next: (res: UserInfo) => {
           this.loading = false;
 
-          if (res.success) {
+          if (res) {
             this.router.navigate(["/"]).then();
             return;
           }
