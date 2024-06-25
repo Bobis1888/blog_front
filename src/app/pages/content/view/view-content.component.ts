@@ -76,7 +76,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
     if (this.isMobile) {
       navigator.share({
         title: this.content.title,
-        text: this.content.preView ?? '',
+        text: this.translate.instant('viewContentPage.shareText'),
         url: location.href
       }).then();
       return;
