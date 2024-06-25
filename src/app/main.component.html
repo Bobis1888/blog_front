@@ -2,25 +2,30 @@
   <mat-drawer-container>
     <mat-drawer mode="over" position="end" #drawer>
       <div class="drawer-container">
-        <div class="image" routerLink="/">
-          <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493"/>
+        <div class="buttons">
+          <div class="image" routerLink="/">
+            <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493"/>
+          </div>
+          <button *ngIf="authService.isAuthorized" mat-button routerLink="/profile" (click)="drawer.close()">
+            <mat-icon>account_circle</mat-icon>
+            {{ authService.userInfo?.nickname ?? '' }}
+          </button>
+          <button *ngIf="!authService.isAuthorized" mat-button routerLink="/auth/login" (click)="drawer.close()">
+            <mat-icon>account_circle</mat-icon>
+            {{ "topMenu.login" | translate }}
+          </button>
+          <button *ngIf="authService.isAuthorized" mat-button routerLink="/my" (click)="drawer.close()">
+            <mat-icon>list</mat-icon>
+            {{ "topMenu.my" | translate }}
+          </button>
+          <button *ngIf="authService.isAuthorized" mat-button routerLink="/bookmarks" (click)="drawer.close()">
+            <mat-icon>bookmark</mat-icon>
+            {{ "topMenu.bookmarks" | translate }}
+          </button>
         </div>
-        <button *ngIf="authService.isAuthorized" mat-button routerLink="/profile" (click)="drawer.close()">
-          <mat-icon>account_circle</mat-icon>
-          {{ authService.userInfo?.nickname ?? '' }}
-        </button>
-        <button *ngIf="!authService.isAuthorized" mat-button routerLink="/auth/login" (click)="drawer.close()">
-          <mat-icon>account_circle</mat-icon>
-          {{ "topMenu.login" | translate }}
-        </button>
-        <button *ngIf="authService.isAuthorized" mat-button routerLink="/my" (click)="drawer.close()">
-          <mat-icon>list</mat-icon>
-          {{ "topMenu.my" | translate }}
-        </button>
-        <button *ngIf="authService.isAuthorized" mat-button routerLink="/bookmarks" (click)="drawer.close()">
-          <mat-icon>bookmark</mat-icon>
-          {{ "topMenu.bookmarks" | translate }}
-        </button>
+        <div class="footer">
+          <span>Mylog 2024</span>
+        </div>
       </div>
     </mat-drawer>
     <div [@routeAnimations]="getRouteAnimationData()">

@@ -1,0 +1,16 @@
+<div class="dialog">
+  <h1>{{ 'profilePage.changeLanguageTitle' | translate }}</h1>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'profilePage.language' | translate }}</mat-label>
+      <mat-select (selectionChange)="onLangChange($event.value)" [(value)]="lang">
+        <mat-option *ngFor="let lng of languages" [value]="lng">
+          {{ 'profilePage.languages.' + lng | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="start">
+    <button mat-flat-button (click)="close()">{{ 'profilePage.ok' | translate }}</button>
+  </mat-dialog-actions>
+</div>

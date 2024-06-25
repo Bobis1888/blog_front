@@ -73,8 +73,13 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
 
   share() {
 
-    if (this.isMobile) {
-      //TODO if mobile
+    if (this.isMobile && navigator.share && navigator.canShare()) {
+      navigator.share({
+        title: this.content.title,
+        text: this.content.preView ?? '',
+        url: location.href
+      }).then();
+      return;
     }
 
     this.clipboardService.copy(location.href);

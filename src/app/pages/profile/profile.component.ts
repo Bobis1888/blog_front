@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ChangeNicknameDialog} from "src/app/pages/profile/dialog/nickname.dialog";
 import {MatSelect} from "@angular/material/select";
 import {Router} from "@angular/router";
+import {ChangeLanguageDialog} from "app/pages/profile/change-language/language.dialog";
 
 @Component({
   selector: 'profile',
@@ -29,11 +30,7 @@ export class ProfileComponent extends HasErrors implements OnInit {
     super();
   }
 
-  protected readonly languages: Array<string> = ["ru", "en"];
-  lang: string = '';
   protected state: 'form' | 'load' = 'load';
-  protected hideEmail: boolean = true;
-  protected showBottomProgress: boolean = false;
   protected info: UserInfo = {} as UserInfo;
   private ref: MatSnackBarRef<any> | null = null;
 
@@ -47,7 +44,6 @@ export class ProfileComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lang = this.translate.getDefaultLang();
     this.title.setTitle(this.translate.instant('profilePage.metaTitle'));
     this.formGroup.addControl('nickname', new FormControl('', [Validators.required]));
 
@@ -65,7 +61,7 @@ export class ProfileComponent extends HasErrors implements OnInit {
     });
   }
 
-  openEditDialog() {
+  openEditNicknameDialog() {
     this.state = 'load';
     this.dialog.open(ChangeNicknameDialog, {
       data: {nickname: this.info.nickname}
@@ -89,24 +85,24 @@ export class ProfileComponent extends HasErrors implements OnInit {
 
   resetPassword() {
 
-    if (this.showBottomProgress) {
+    if (this.state == 'load') {
       return;
     }
 
-    this.showBottomProgress = true;
+    this.state = 'load';
     this.authService.resetPassword(this.info.email)
       .pipe(
         takeUntil(this.unSubscriber)
       ).subscribe({
       next: it => {
-        this.showBottomProgress = false;
+        this.state = 'form';
 
         if (it.success) {
           let message = this.translate.instant('profilePage.resetPasswordMessage');
           this.ref = this.snackBar.open(message, 'OK', {duration: 3000});
         }
       },
-      error: () => this.showBottomProgress = false
+      error: () => this.state = 'form'
     });
   }
 
@@ -116,9 +112,11 @@ export class ProfileComponent extends HasErrors implements OnInit {
     this.ref = this.snackBar.open(message, undefined, {duration: 3000})
   }
 
-  onLangChange(lang: string) {
-    this.translate.setDefaultLang(lang);
-    localStorage.setItem('currentLanguage', lang);
+  openChangeLanguageDialog() {
+    this.state = 'load';
+    this.dialog.open(ChangeLanguageDialog).afterClosed()
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({next: () => this.state = 'form'});
   }
 
   logout() {

@@ -27,62 +27,79 @@
 
   <mat-card>
     <mat-card-header>
-      <div mat-card-avatar *ngIf="info.image">
-        <img src="{{ info.image }}" alt="avatar">
+      <div mat-card-avatar>
+        <div *ngIf="info.image">
+          <img src="{{ info.image }}" alt="avatar">
+        </div>
+        <div *ngIf="!info.image">
+          <button
+            mat-fab
+            color="primary"
+            (click)="addImage()"
+          >
+            <mat-icon>
+              account_circle
+            </mat-icon>
+          </button>
+        </div>
       </div>
-
-      <div mat-card-avatar *ngIf="!info.image">
-        <button
-          mat-fab
-          color="primary"
-          (click)="addImage()"
-        >
-          <mat-icon>
-            account_circle
-          </mat-icon>
+      <div class="title">
+        <h1>
+          {{ info.nickname }}
+        </h1>
+      </div>
+      <div class="settings">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>settings</mat-icon>
         </button>
       </div>
-      <mat-card-title>{{ 'profilePage.nickname' | translate : {nickname: info.nickname} }}</mat-card-title>
-      <mat-card-title>
-        <span (click)="hideEmail = !hideEmail" class="email" [matTooltip]="'profilePage.emailToolTip' | translate"
-              [matTooltipPosition]="'right'">
-          {{ 'profilePage.email' | translate : {email: hideEmail ? '*'.repeat(info.email.length) : info.email} }}
-        </span>
-      </mat-card-title>
     </mat-card-header>
 
     <mat-card-content class="about">
-      <!--      <p>-->
-      <!--        {{ (info.about) ? info.about : 'profilePage.noAbout' | translate }}-->
-      <!--      </p>-->
-      <br>
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'profilePage.language' | translate }}</mat-label>
-        <mat-select (selectionChange)="onLangChange($event.value)" [(value)]="lang">
-          <mat-option *ngFor="let lng of languages" [value]="lng">
-            {{ 'profilePage.languages.' + lng | translate }}
-            {{ lng === translate.defaultLang ? ('profilePage.default' | translate) : '' }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <h4>
+        {{ 'profilePage.email' | translate : {email: info.email} }}
+      </h4>
+      <p>
+        {{ (info.about) ? info.about : 'profilePage.noAbout' | translate }}
+      </p>
     </mat-card-content>
     <mat-card-actions class="buttons">
-      <button
-        mat-flat-button
-        (click)="openEditDialog()"
-      >
-        {{ 'profilePage.edit' | translate }}
-      </button>
-      <button
-        mat-button
-        (click)="resetPassword()"
-      >
-        {{ 'profilePage.resetPassword' | translate }}
-      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <div class="vertical">
+          <button
+            mat-button
+            (click)="openEditNicknameDialog()"
+          >
+            {{ 'profilePage.editNickname' | translate }}
+          </button>
 
-      <button mat-flat-button color="warn" (click)="logout()">
-        {{ "profilePage.logout" | translate }}
-      </button>
+          <button
+            mat-button
+            (click)="openChangeLanguageDialog()"
+          >
+            {{ 'profilePage.changeLanguage' | translate }}
+          </button>
+          <!--          <button-->
+          <!--            mat-button-->
+          <!--            [disabled]="true"-->
+          <!--          >-->
+          <!--            {{ 'profilePage.editAbout' | translate }}-->
+          <!--          </button>-->
+          <button
+            mat-button
+            (click)="resetPassword()"
+          >
+            {{ 'profilePage.resetPassword' | translate }}
+          </button>
+
+          <button mat-flat-button color="warn" (click)="logout()">
+            {{ 'profilePage.logout' | translate }}
+          </button>
+        </div>
+
+      </mat-menu>
+
+
     </mat-card-actions>
   </mat-card>
 </ng-template>

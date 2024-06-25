@@ -30,11 +30,26 @@
 
 .drawer-container {
   width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-  button {
-    padding-right: 20px;
-    margin: 5px 10px;
+  .buttons {
+    button {
+      padding-right: 20px;
+      margin: 5px 10px;
+      font-size: 18px;
+    }
   }
+
+  .footer {
+    margin: 20px;
+  }
+}
+
+.footer {
+  text-align: center;
 }
 
 .image {
