@@ -165,6 +165,7 @@
     "pendingHint": "This publication will be published after approval",
     "sharedSuccess": "Link copied to clipboard",
     "addedToBookmarks": "Added to bookmarks",
+    "shareText": "Check out this publication on Mylog",
     "removedFromBookmarks": "Removed from bookmarks",
     "noTags": "No tags"
   },
@@ -172,7 +173,6 @@
     "createTitle": "Create publication",
     "editTitle": "Edit publication",
     "metaTitle": "Mylog - Edit publication",
-    "shareText": "Check out this publication on Mylog",
     "contentTitle": "Publication title",
     "pending": "This publication is pending approval",
     "published": "This publication is published! Unpublish it to edit",
