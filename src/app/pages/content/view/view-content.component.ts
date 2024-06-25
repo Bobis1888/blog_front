@@ -60,7 +60,6 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-
     let id = this.aRouter.snapshot.params['id'];
 
     if (id == null) {
@@ -87,6 +86,8 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
       this.translate.instant('viewContentPage.sharedSuccess'),
       undefined,
       {duration: 3000, panelClass: 'snack-bar'});
+
+    window.scroll(0, 0);
   }
 
   like() {
