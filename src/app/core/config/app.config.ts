@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withDebugTracing(),
-      withInMemoryScrolling({scrollPositionRestoration: 'enabled'} as InMemoryScrollingOptions),
+      withInMemoryScrolling({scrollPositionRestoration: 'top'} as InMemoryScrollingOptions),
     ),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),
