@@ -86,8 +86,6 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
       this.translate.instant('viewContentPage.sharedSuccess'),
       undefined,
       {duration: 3000, panelClass: 'snack-bar'});
-
-    window.scroll(0, 0);
   }
 
   like() {
@@ -185,6 +183,9 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
                 .map((it) => it.replace('#', '')).join(' ')
             });
           }
+
+          // TODO fix it
+          window.scroll(0, 0);
         },
         error: err => {
           this.state = 'empty';
