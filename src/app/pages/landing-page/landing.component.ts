@@ -28,7 +28,6 @@ export class LandingComponent extends UnSubscriber implements OnInit {
   }
 
   scrollToElement($element: any): void {
-    console.log($element);
     $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 }

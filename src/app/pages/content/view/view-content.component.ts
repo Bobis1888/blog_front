@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ContentService, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Observable, takeUntil} from "rxjs";
@@ -42,6 +42,8 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   protected state: 'data' | 'loading' | 'empty' = 'loading';
   private ref: MatSnackBarRef<any> | null = null;
   protected readonly Status = Status;
+  @ViewChild("top")
+  protected topElement: ElementRef | null = null;
 
   constructor(private contentService: ContentService,
               protected deviceService: DeviceDetectorService,
@@ -136,34 +138,6 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
     this.ref?.dismiss();
   }
 
-  delete() {
-    this.matDialog.open(DeleteDialog, {
-      id: this.content.id
-    }).afterClosed().subscribe({
-      next: it => {
-        if (it) {
-          this.router.navigate(['/']).then();
-          return;
-        }
-      }
-    });
-  }
-
-  changeStatus(status: Status) {
-    this.state = 'loading';
-    this.matDialog.open(ChangeStatusDialog, {
-      data: {status: status, id: this.content.id}
-    }).afterClosed().subscribe({
-      next: (it) => {
-        if (it) {
-          this.init(this.content.id);
-        } else {
-          this.state = 'data';
-        }
-      }
-    })
-  }
-
   init(id: string) {
     this.state = 'loading';
     this.contentService.get(id)
@@ -185,7 +159,9 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
           }
 
           // TODO fix it
-          window.scroll(0, 0);
+          setTimeout(() => {
+            this.topElement?.nativeElement?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+          });
         },
         error: err => {
           this.state = 'empty';
