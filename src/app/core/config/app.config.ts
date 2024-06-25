@@ -1,5 +1,10 @@
 import {ApplicationConfig, importProvidersFrom} from '@angular/core';
-import {provideRouter, withDebugTracing} from '@angular/router';
+import {
+  InMemoryScrollingOptions,
+  provideRouter,
+  withDebugTracing,
+  withInMemoryScrolling,
+} from '@angular/router';
 
 import {routes} from './app.routes';
 import {TranslateModule} from "@ngx-translate/core";
@@ -11,7 +16,11 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
-    provideRouter(routes, withDebugTracing()),
+    provideRouter(
+      routes,
+      withDebugTracing(),
+      withInMemoryScrolling({scrollPositionRestoration: 'enabled'} as InMemoryScrollingOptions),
+    ),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),
   ]
