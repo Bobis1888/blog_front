@@ -73,7 +73,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
 
   share() {
 
-    if (this.isMobile && navigator.share && navigator.canShare()) {
+    if (this.isMobile) {
       navigator.share({
         title: this.content.title,
         text: this.content.preView ?? '',
