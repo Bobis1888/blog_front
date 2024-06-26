@@ -27,7 +27,8 @@ import {SafeHtmlPipe} from "src/app/core/pipe/safe-html";
       count: 3,
       theme: {
         extendsFromRoot: true,
-        background: '#e8e1d5',
+        // background: '#e8e1d5',
+        background: '#585653'
       }
     }),
   ],

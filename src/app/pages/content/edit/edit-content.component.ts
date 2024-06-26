@@ -18,10 +18,9 @@ import {animations} from "app/core/config/app.animations";
 import {Content} from "app/core/service/content/content";
 import {Actions} from "app/core/service/content/actions";
 import {MatDialog} from "@angular/material/dialog";
-import {ChangeStatusDialog} from "../change-status-dialog/change-status.dialog";
-import {EditPreviewDialog} from "../edit-preview-dialog/edit-preview-dialog.component";
-import {DeleteDialog} from "../delete-dialog/delete.dialog";
-import {Title} from "@angular/platform-browser";
+import {ChangeStatusDialog} from "app/pages/content/change-status-dialog/change-status.dialog";
+import {EditPreviewDialog} from "app/pages/content/edit-preview-dialog/edit-preview-dialog.component";
+import {DeleteDialog} from "app/pages/content/delete-dialog/delete.dialog";
 
 @Component({
   selector: 'edit-content',
@@ -86,11 +85,10 @@ export class EditContentComponent extends HasErrors implements OnInit {
     this.formGroup.addControl('tagCtrl', new FormControl(null));
     this.title.setTitle(this.translate.instant('editContentPage.metaTitle'));
 
-    this.editor = new Editor(
-      {
-        keyboardShortcuts: true,
-      }
-    );
+    this.editor = new Editor({
+      keyboardShortcuts: true,
+    });
+
     let id: string = this.aRouter.snapshot.params['id'];
 
     if (id) {
@@ -98,15 +96,15 @@ export class EditContentComponent extends HasErrors implements OnInit {
     }
 
     this.tagCtrl.valueChanges.pipe(
-      debounceTime(300),
-      skipWhile(val => val == null || val.toString()?.length < 3),
+      debounceTime(500),
+      skipWhile(val => val == null || val.toString()?.length < 2),
       takeUntil(this.unSubscriber),
       mergeMap(val => this.contentService.tags({page: 0, max: 100, query: val} as TagsFilter)),
     ).subscribe({
       next: value => {
         this.filteredTags = [];
 
-        value.forEach((it) => {
+        value.forEach((it): void => {
 
           if (it.includes(',')) {
             this.filteredTags.push(...it.split(','));
@@ -114,6 +112,10 @@ export class EditContentComponent extends HasErrors implements OnInit {
             this.filteredTags.push(it);
           }
         });
+
+        if (this.filteredTags.length == 0) {
+          this.filteredTags.push("#" + this.tagCtrl.value);
+        }
       }
     });
   }
@@ -162,7 +164,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
   }
 
   protected selected(event: MatAutocompleteSelectedEvent): void {
-    const value = event.option.viewValue;
+    const value: string = event.option.viewValue;
 
     if (!this.content.tags.includes(value)) {
       this.content.tags.push(value);

@@ -5,30 +5,83 @@ body {
 }
 
 html {
+  color: @fourthColor;
+  font-size: 16px;
+
+  --mat-stepper-header-hover-state-layer-shape: 20px;
+  --mat-stepper-header-focus-state-layer-shape: 20px;
+  --mat-stepper-header-height: 60px;
+  --mat-slider-value-indicator-border-radius: 20px;
+  --mdc-shape-small: 20px;
+
+  // switch
+  --mdc-switch-track-height: 24px;
+  --mdc-switch-track-shape: 20px;
+
+  // icon
+  --mat-icon-color: @thirdColor;
+
+  // card
+  --mat-card-subtitle-text-color: @fourthColor;
+  --mdc-elevated-card-container-color: @secondColor;
   --mdc-elevated-card-container-shape: 20px;
   --mdc-outlined-card-container-shape: 20px;
   --mdc-outlined-card-outline-width: 1px;
+
+  // outlined-button
   --mdc-outlined-button-container-shape: 20px;
-  --mat-stepper-header-hover-state-layer-shape: 20px;
-  --mat-stepper-header-focus-state-layer-shape: 20px;
-  --mat-slider-value-indicator-border-radius: 20px;
-  --mat-stepper-header-height: 60px;
-  --mdc-shape-small: 20px;
-  --mdc-outlined-button-outline-color: @secondColor;
+  --mdc-outlined-button-label-text-color: @fourthColor;
+  --mdc-outlined-button-outline-color: @fourthColor;
   --mdc-outlined-button-outline-width: 2px;
 
-  --mdc-outlined-text-field-error-outline-color: @errorColor;
+  // text-button
+  --mdc-text-button-container-shape: 20px;
+  --mat-text-button-horizontal-padding: 15px;
+  --mdc-text-button-label-text-color: @fourthColor;
 
-  --mdc-outlined-text-field-focus-outline-color: @secondColor;
-  --mdc-outlined-text-field-focus-outline-width: 2px;
-  --mdc-outlined-text-field-outline-width: 2px;
-
-  --mdc-filled-button-container-color: @secondColor;
-  --mdc-filled-button-label-text-color: @backgroundColor;
+  // filled-button
+  --mdc-filled-button-container-color: @thirdColor;
+  --mdc-filled-button-label-text-color: @firstColor;
   --mdc-filled-button-container-shape: 20px;
 
+  // fab-button
   --mdc-fab-small-container-shape: 10px;
+
+  // mat-menu
   --mat-menu-container-shape: 10px;
+  --mat-menu-container-color: @secondColor;
+
+  // input
+  --mdc-outlined-text-field-error-outline-color: @errorColor;
+  --mdc-outlined-text-field-focus-outline-color: @fourthColor;
+  --mdc-outlined-text-field-focus-outline-width: 2px;
+  --mdc-outlined-text-field-outline-width: 2px;
+  --mdc-outlined-text-field-input-text-color: @fourthColor;
+  --mdc-outlined-text-field-input-text-placeholder-color: @fourthColor;
+  --mdc-outlined-text-field-outline-color: @fourthColor;
+  --mdc-outlined-text-field-label-text-color: @fourthColor;
+  --mdc-outlined-text-field-hover-label-text-color: @fourthColor;
+  --mdc-outlined-text-field-disabled-label-text-color: @fourthColor;
+  --mdc-outlined-text-field-hover-outline-color: @fourthColor;
+  --mdc-outlined-text-field-focus-label-text-color: @fourthColor;
+  --mdc-outlined-text-field-disabled-input-text-color: @thirdColor;
+
+  // mat-select
+  --mat-select-panel-background-color: @secondColor;
+  --mat-option-selected-state-label-text-color: @fourthColor;
+  --mat-select-enabled-trigger-text-color: @fourthColor;
+  --mat-select-enabled-arrow-color: @fourthColor;
+  --mat-select-focused-arrow-color: @fourthColor;
+
+  // autocomplete
+  --mat-autocomplete-background-color: @secondColor;
+  --mat-option-label-text-color: @fourthColor;
+  --mat-autocomplete-container-shape: 20px;
+
+  // dialog
+  --mdc-dialog-container-shape: 20px;
+  --mdc-dialog-container-color: @secondColor;
+  --mdc-dialog-supporting-text-color: @fourthColor;
 
   // snackbar
   --mdc-snackbar-container-color: @secondColor;
@@ -36,33 +89,37 @@ html {
   --mdc-snackbar-supporting-text-size: 20px;
   --mdc-snackbar-supporting-text-weight: 500;
   --mat-snack-bar-button-color: @backgroundColor;
+
   // tooltip
   --mdc-plain-tooltip-container-color: @secondColor;
   --mdc-plain-tooltip-supporting-text-size: 16px;
   --mdc-plain-tooltip-container-shape: 10px;
   --mdc-plain-tooltip-supporting-text-weight: 500px;
-  --mdc-plain-tooltip-supporting-text-color: @firstColor;
+  --mdc-plain-tooltip-supporting-text-color: @fourthColor;
   --mdc-plain-tooltip-supporting-text-line-height: 20px;
-  --mat-autocomplete-container-shape: 20px;
-  --mdc-text-button-container-shape: 20px;
-  --mat-text-button-horizontal-padding: 15px;
-  --mdc-dialog-container-shape: 20px;
-  --mdc-switch-track-height: 24px;
-  --mdc-switch-track-shape: 20px;
 
+  // mat-badge
   --mat-badge-legacy-container-size: 30px;
   --mat-badge-background-color: none;
-  --mat-badge-text-color: @thirdColor;
-  --mat-option-selected-state-label-text-color: @secondColor;
+  --mat-badge-text-color: @fourthColor;
 
-  --mdc-outlined-text-field-focus-label-text-color: @secondColor;
-  --mat-icon-color: @thirdColor;
+  // mat-sidenav
+  --mat-sidenav-container-background-color: @backgroundColor;
+  --mat-sidenav-container-text-color: @fourthColor;
   --mat-sidenav-content-text-color: @thirdColor;
-  --mdc-outlined-button-label-text-color: @secondColor;
-  --mdc-text-button-label-text-color: @secondColor;
+  --mat-sidenav-content-background-color: @firstColor;
 
-  color: @thirdColor;
-  font-size: 16px;
+  // divider
+  --mat-divider-color: @thirdColor;
+
+ // progress
+  .mdc-linear-progress__buffer-dots {
+    background-color: @fourthColor !important;
+  }
+
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
+    --mdc-chip-elevated-container-color: @fourthColor !important;
+  }
 
   .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
     --mat-minimal-pseudo-checkbox-selected-checkmark-color: @secondColor;
@@ -115,14 +172,18 @@ html {
 :root {
   --ngx-editor-border-radius: 20px !important;
   --ngx-editor-border-color: @secondColor !important;
-  --ngx-editor-text-color: @secondColor !important;
-  --ngx-editor-menubar-bg-color: @backgroundColor !important;
+  --ngx-editor-text-color: @fourthColor !important;
+  --ngx-editor-background-color: @secondColor !important;
+  --ngx-editor-menubar-bg-color: @secondColor !important;
   --ngx-editor-icon-size: 35px !important;
   --ngx-editor-popup-border-radius: 20px !important;
   --ngx-editor-bubble-bg-color: @secondColor !important;
-  //--ngx-editor-bubble-text-color: @secondColor !important;
+  --ngx-editor-placeholder-color: @fourthColor !important;
+  --ngx-editor-popup-bg-color: @secondColor !important;
+  --ngx-editor-menu-item-active-bg-color: @firstColor !important;
+  --ngx-editor-menu-item-active-color: @fourthColor !important;
+  --ngx-editor-menubar-height: 35px !important;
 }
-
 
 .mdc-text-field--outlined {
   --mdc-outlined-text-field-container-shape: 20px !important;
@@ -130,11 +191,6 @@ html {
 
 .mat-mdc-form-field {
   display: block;
-}
-
-.mdc-card {
-  //border-width: 1px !important;
-  //border-color: @fifthColor !important;
 }
 
 .snack-bar {

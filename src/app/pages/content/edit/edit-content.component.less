@@ -7,7 +7,6 @@
   font-size: 16px;
 
   h1 {
-    color: @secondColor;
     margin-left: 10px;
   }
 
@@ -23,6 +22,11 @@
   div.NgxEditor {
     min-height: 300px !important;
     overflow: scroll;
+  }
+
+  div.NgxEditor__MenuBar {
+    border-radius: 20px;
+    padding: 10px !important;
   }
 
   .NgxEditor__Content {
@@ -50,6 +54,8 @@
 
 .menu {
   display: flex;
+  background-color: @secondColor;
+  border-radius: 20px;
 
   ngx-editor-menu {
     margin: auto;
