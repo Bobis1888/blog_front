@@ -23,6 +23,10 @@
       <button *ngIf="authService.isAuthorized" mat-icon-button routerLink="/profile">
         <mat-icon>account_circle</mat-icon>
       </button>
+
+      <button mat-icon-button matBadge="beta" matBadgePosition="below after" (click)="switchMode()">
+        <mat-icon>{{ isDarkMode ? "nights_stay" : "wb_sunny" }}</mat-icon>
+      </button>
     </div>
   </div>
 </section>

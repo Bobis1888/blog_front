@@ -1,12 +1,15 @@
 @import "src/app/theme/utils";
 
-body {
-  padding: 0;
-}
+:root {
+  .mat-typography {
+    color: @textColor;
+  }
 
-html {
-  color: @fourthColor;
-  font-size: 16px;
+  .cdk-overlay-dark-backdrop {
+    background-color: @backgroundColorWithOpacity;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+  }
 
   --mat-stepper-header-hover-state-layer-shape: 20px;
   --mat-stepper-header-focus-state-layer-shape: 20px;
@@ -22,81 +25,108 @@ html {
   --mat-icon-color: @thirdColor;
 
   // card
-  --mat-card-subtitle-text-color: @fourthColor;
-  --mdc-elevated-card-container-color: @secondColor;
-  --mdc-elevated-card-container-shape: 20px;
-  --mdc-outlined-card-container-shape: 20px;
-  --mdc-outlined-card-outline-width: 1px;
+  .mat-mdc-card {
+    --mat-card-subtitle-text-color: @fourthColor;
+    --mdc-elevated-card-container-color: @secondColor;
+    --mdc-elevated-card-container-shape: 20px;
+    --mdc-outlined-card-container-shape: 20px;
+    --mdc-outlined-card-outline-width: 1px;
+  }
 
-  // outlined-button
-  --mdc-outlined-button-container-shape: 20px;
-  --mdc-outlined-button-label-text-color: @fourthColor;
-  --mdc-outlined-button-outline-color: @fourthColor;
-  --mdc-outlined-button-outline-width: 2px;
+  .mdc-button {
+    // outlined-button
+    --mdc-outlined-button-container-shape: 20px;
+    --mdc-outlined-button-label-text-color: @textColor;
+    --mdc-outlined-button-outline-color: @fourthColor;
+    --mdc-outlined-button-outline-width: 2px;
 
-  // text-button
-  --mdc-text-button-container-shape: 20px;
-  --mat-text-button-horizontal-padding: 15px;
-  --mdc-text-button-label-text-color: @fourthColor;
+    // text-button
+    --mdc-text-button-container-shape: 20px;
+    --mat-text-button-horizontal-padding: 15px;
+    --mdc-text-button-label-text-color: @textColor;
 
-  // filled-button
-  --mdc-filled-button-container-color: @thirdColor;
-  --mdc-filled-button-label-text-color: @firstColor;
-  --mdc-filled-button-container-shape: 20px;
+    // filled-button
+    --mdc-filled-button-container-color: @thirdColor;
+    --mdc-filled-button-label-text-color: @firstColor;
+    --mdc-filled-button-container-shape: 20px;
 
-  // fab-button
-  --mdc-fab-small-container-shape: 10px;
+    // fab-button
+    --mdc-fab-small-container-shape: 10px;
+  }
 
   // mat-menu
-  --mat-menu-container-shape: 10px;
-  --mat-menu-container-color: @secondColor;
+  .mat-mdc-menu-panel {
+    --mat-menu-container-shape: 10px;
+    --mat-menu-container-color: @secondColor;
+  }
 
   // input
-  --mdc-outlined-text-field-error-outline-color: @errorColor;
-  --mdc-outlined-text-field-focus-outline-color: @fourthColor;
-  --mdc-outlined-text-field-focus-outline-width: 2px;
-  --mdc-outlined-text-field-outline-width: 2px;
-  --mdc-outlined-text-field-input-text-color: @fourthColor;
-  --mdc-outlined-text-field-input-text-placeholder-color: @fourthColor;
-  --mdc-outlined-text-field-outline-color: @fourthColor;
-  --mdc-outlined-text-field-label-text-color: @fourthColor;
-  --mdc-outlined-text-field-hover-label-text-color: @fourthColor;
-  --mdc-outlined-text-field-disabled-label-text-color: @fourthColor;
-  --mdc-outlined-text-field-hover-outline-color: @fourthColor;
-  --mdc-outlined-text-field-focus-label-text-color: @fourthColor;
-  --mdc-outlined-text-field-disabled-input-text-color: @thirdColor;
+  .mat-mdc-form-field {
+    --mdc-outlined-text-field-error-outline-color: @errorColor;
+    --mdc-outlined-text-field-focus-outline-color: @fourthColor;
+    --mdc-outlined-text-field-focus-outline-width: 2px;
+    --mdc-outlined-text-field-outline-width: 2px;
+    --mdc-outlined-text-field-input-text-color: @textColor;
+    --mdc-outlined-text-field-input-text-placeholder-color: @textColor;
+    --mdc-outlined-text-field-outline-color: @fourthColor;
+    --mdc-outlined-text-field-label-text-color: @textColor;
+    --mdc-outlined-text-field-hover-label-text-color: @textColor;
+    --mdc-outlined-text-field-disabled-label-text-color: @textColor;
+    --mdc-outlined-text-field-hover-outline-color: @fourthColor;
+    --mdc-outlined-text-field-focus-label-text-color: @textColor;
+    --mdc-outlined-text-field-disabled-input-text-color: @textColor;
+  }
 
   // mat-select
-  --mat-select-panel-background-color: @secondColor;
-  --mat-option-selected-state-label-text-color: @fourthColor;
-  --mat-select-enabled-trigger-text-color: @fourthColor;
-  --mat-select-enabled-arrow-color: @fourthColor;
-  --mat-select-focused-arrow-color: @fourthColor;
+  .mat-mdc-select {
+    --mat-select-enabled-trigger-text-color: @textColor;
+    --mat-select-enabled-arrow-color: @fourthColor;
+    --mat-select-focused-arrow-color: @fourthColor;
+  }
+
+  div.mat-mdc-select-panel {
+    --mat-select-panel-background-color: @secondColor;
+    --mat-option-selected-state-label-text-color: @textColor;
+    --mat-option-label-text-color: @textColor;
+  }
+
+  .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+    --mat-minimal-pseudo-checkbox-selected-checkmark-color: @textColor !important;
+  }
 
   // autocomplete
-  --mat-autocomplete-background-color: @secondColor;
-  --mat-option-label-text-color: @fourthColor;
-  --mat-autocomplete-container-shape: 20px;
+  .mat-mdc-autocomplete-panel {
+    --mat-autocomplete-background-color: @thirdColor;
+    --mat-option-label-text-color: @firstColor;
+    --mat-autocomplete-container-shape: 20px;
+  }
 
   // dialog
-  --mdc-dialog-container-shape: 20px;
-  --mdc-dialog-container-color: @secondColor;
-  --mdc-dialog-supporting-text-color: @fourthColor;
+  .mat-mdc-dialog-container {
+    --mdc-dialog-container-shape: 20px;
+    --mdc-dialog-container-color: @secondColor;
+    --mdc-dialog-supporting-text-color: @fourthColor;
+  }
 
   // snackbar
-  --mdc-snackbar-container-color: @secondColor;
-  --mdc-snackbar-container-shape: 20px;
-  --mdc-snackbar-supporting-text-size: 20px;
-  --mdc-snackbar-supporting-text-weight: 500;
-  --mat-snack-bar-button-color: @backgroundColor;
+  .mdc-snackbar {
+    --mdc-snackbar-container-color: @secondColor;
+    --mdc-snackbar-container-shape: 20px;
+    --mdc-snackbar-supporting-text-size: 20px;
+    --mdc-snackbar-supporting-text-weight: 500;
+    --mat-snack-bar-button-color: @textColor;
+    --mdc-snackbar-supporting-text-color: @textColor;
+  }
 
   // tooltip
-  --mdc-plain-tooltip-container-color: @secondColor;
-  --mdc-plain-tooltip-supporting-text-size: 16px;
-  --mdc-plain-tooltip-container-shape: 10px;
-  --mdc-plain-tooltip-supporting-text-weight: 500px;
-  --mdc-plain-tooltip-supporting-text-color: @fourthColor;
-  --mdc-plain-tooltip-supporting-text-line-height: 20px;
+  .mdc-tooltip {
+    --mdc-plain-tooltip-container-color: @thirdColor;
+    --mdc-plain-tooltip-supporting-text-size: 16px;
+    --mdc-plain-tooltip-container-shape: 10px;
+    --mdc-plain-tooltip-supporting-text-weight: 500px;
+    --mdc-plain-tooltip-supporting-text-color: @firstColor;
+    --mdc-plain-tooltip-supporting-text-line-height: 20px;
+  }
 
   // mat-badge
   --mat-badge-legacy-container-size: 30px;
@@ -112,7 +142,28 @@ html {
   // divider
   --mat-divider-color: @thirdColor;
 
- // progress
+  // ngx-editor
+  .NgxEditor, .NgxEditor__MenuBar {
+    --ngx-editor-border-radius: 20px !important;
+    --ngx-editor-border-color: @secondColor !important;
+    --ngx-editor-text-color: @fourthColor !important;
+    --ngx-editor-background-color: @secondColor !important;
+    --ngx-editor-menubar-bg-color: @secondColor !important;
+    --ngx-editor-icon-size: 35px !important;
+    --ngx-editor-popup-border-radius: 20px !important;
+    --ngx-editor-bubble-bg-color: @secondColor !important;
+    --ngx-editor-placeholder-color: @textColor !important;
+    --ngx-editor-popup-bg-color: @secondColor !important;
+    --ngx-editor-menu-item-active-bg-color: @firstColor !important;
+    --ngx-editor-menu-item-active-color: @fourthColor !important;
+    --ngx-editor-menubar-height: 35px !important;
+  }
+
+  .ng-trigger-routeAnimations {
+    background-color: @backgroundColor;
+  }
+
+  // progress
   .mdc-linear-progress__buffer-dots {
     background-color: @fourthColor !important;
   }
@@ -167,44 +218,28 @@ html {
   .cdk-overlay-connected-position-bounding-box {
     padding: 10px;
   }
+
+  .mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 20px !important;
+  }
+
+  .mat-mdc-form-field {
+    display: block;
+  }
+
+  .snack-bar {
+    text-align: center;
+  }
+
+  .mat-mdc-outlined-button.mat-warn {
+    --mdc-outlined-button-label-text-color: @warningColor;
+    --mat-outlined-button-state-layer-color: @warningColor;
+  }
+
+  .mat-mdc-unelevated-button.mat-warn {
+    --mdc-filled-button-container-color: @warningColor;
+    --mat-filled-button-state-layer-color: @secondColor;
+  }
 }
 
-:root {
-  --ngx-editor-border-radius: 20px !important;
-  --ngx-editor-border-color: @secondColor !important;
-  --ngx-editor-text-color: @fourthColor !important;
-  --ngx-editor-background-color: @secondColor !important;
-  --ngx-editor-menubar-bg-color: @secondColor !important;
-  --ngx-editor-icon-size: 35px !important;
-  --ngx-editor-popup-border-radius: 20px !important;
-  --ngx-editor-bubble-bg-color: @secondColor !important;
-  --ngx-editor-placeholder-color: @fourthColor !important;
-  --ngx-editor-popup-bg-color: @secondColor !important;
-  --ngx-editor-menu-item-active-bg-color: @firstColor !important;
-  --ngx-editor-menu-item-active-color: @fourthColor !important;
-  --ngx-editor-menubar-height: 35px !important;
-}
-
-.mdc-text-field--outlined {
-  --mdc-outlined-text-field-container-shape: 20px !important;
-}
-
-.mat-mdc-form-field {
-  display: block;
-}
-
-.snack-bar {
-  text-align: center;
-}
-
-.mat-mdc-outlined-button.mat-warn {
-  --mdc-outlined-button-label-text-color: @warningColor;
-  --mat-outlined-button-state-layer-color: @warningColor;
-}
-
-.mat-mdc-unelevated-button.mat-warn {
-  --mdc-filled-button-container-color: @warningColor;
-  --mdc-filled-button-label-text-color: @secondColor;
-  --mat-filled-button-state-layer-color: @secondColor;
-}
 

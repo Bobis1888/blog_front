@@ -158,10 +158,13 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
             });
           }
 
-          // TODO fix it
-          setTimeout(() => {
-            this.topElement?.nativeElement?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-          });
+
+          if (this.isMobile) {
+            // TODO fix it
+            setTimeout(() => {
+              this.topElement?.nativeElement?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+            });
+          }
         },
         error: err => {
           this.state = 'empty';

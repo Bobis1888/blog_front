@@ -1,10 +1,55 @@
-// THEME COLOR
-@firstColor: @firstDarkColor;
-@secondColor: @secondDarkColor;
-@thirdColor: @thirdDarkColor;
-@fourthColor: @fourthDarkColor;
-@fifthColor: @fifthDarkColor;
+:root {
+  --first-color: #1c1c1c;
+  --second-color: #232324;
+  --third-color: #948d86;
+  --fourth-color: #b2a9a0;
+  --fifth-color: #e8e1d5;
+  --bg-color: #1c1c1c;
+  --text-color: #b2a9a0;
+  --skeleton-bg-color: #585653;
+}
 
+body[data-theme="light"] {
+  --first-color: #f8f7f4;
+  --second-color: #e8e1d5;
+  --third-color: #948d86;
+  --fourth-color: #76716c;
+  --fifth-color: #585653;
+  --bg-color: #f8f7f4;
+  --text-color: #585653;
+  --skeleton-bg-color: #948d86;
+  --bg-color-with-opacity: rgba(35, 35, 36, 0.7);
+}
+
+body[data-theme="dark"] {
+  --first-color: #1c1c1c;
+  --second-color: #232324;
+  --third-color: #948d86;
+  --fourth-color: #b2a9a0;
+  --fifth-color: #e8e1d5;
+  --bg-color: #1c1c1c;
+  --text-color: #b2a9a0;
+  --skeleton-bg-color: #585653;
+  --bg-color-with-opacity: rgba(35, 35, 36, 0.7);
+}
+
+// THEME COLOR
+@firstColor: var(--first-color);
+@secondColor: var(--second-color);
+@thirdColor: var(--third-color);
+@fourthColor: var(--fourth-color);
+@fifthColor: var(--fifth-color);
+
+
+@textColor: var(--text-color);
+@backgroundColor: var(--bg-color);
+@backgroundColorWithOpacity: var(--bg-color-with-opacity);
+
+//@firstColor: if(true, @firstDarkColor, @firstLightColor);
+//@secondColor: if(true, @secondDarkColor, @secondLightColor);
+//@thirdColor: if(true, @thirdDarkColor, @thirdLightColor);
+//@fourthColor: if(true, @fourthDarkColor, @fourthLightColor);
+//@fifthColor: if(true, @fifthDarkColor, @fifthLightColor);
 
 @firstDarkColor: #1c1c1c;
 @secondDarkColor: #232324;
@@ -12,22 +57,12 @@
 @fourthDarkColor: #b2a9a0;
 @fifthDarkColor: #e8e1d5;
 
-
 @firstLightColor: #e8e1d5;
 @secondLightColor: #585653;
 @thirdLightColor: #76716c;
 @fourthLightColor: #948d86;
 @fifthLightColor: #b2a9a0;
 
-
-@bgLight: #f8f7f4;
-@bgDark: @firstDarkColor;
-
-@backgroundColor: @bgDark;
-
 @errorColor: #f44336;
 @successColor: #4caf50;
 @warningColor: #ff9800;
-@infoColor: @fifthColor;
-@primaryColor: @thirdColor;
-@accentColor: #ffd740;
