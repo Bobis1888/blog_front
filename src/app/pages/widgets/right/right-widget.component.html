@@ -15,10 +15,14 @@
         <ng-container *ngIf="authService.isAuthorized; else nonAuth">
           <ng-container *ngFor="let item of lineTypes(isMobile)">
             <button *ngIf="item == currentType;"
-                    mat-flat-button (click)="changeType(item)">{{ 'rightWidget.' + item | translate }}
+                    mat-flat-button (click)="changeType(item)">
+              <mat-icon class="light">{{resolveIcon(item)}}</mat-icon>
+              {{ 'rightWidget.' + item | translate }}
             </button>
             <button *ngIf="item != currentType;" mat-stroked-button
-                    (click)="changeType(item)">{{ 'rightWidget.' + item | translate }}
+                    (click)="changeType(item)">
+              <mat-icon>{{resolveIcon(item)}}</mat-icon>
+              {{ 'rightWidget.' + item | translate }}
             </button>
           </ng-container>
         </ng-container>

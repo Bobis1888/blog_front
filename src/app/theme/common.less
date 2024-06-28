@@ -3,6 +3,10 @@
 :root {
   .mat-typography {
     color: @textColor;
+
+    mat-icon.light {
+      color: @lightIconColor;
+    }
   }
 
   .cdk-overlay-dark-backdrop {
@@ -26,7 +30,7 @@
 
   // card
   .mat-mdc-card {
-    --mat-card-subtitle-text-color: @fourthColor;
+    --mat-card-subtitle-text-color: @textColor;
     --mdc-elevated-card-container-color: @secondColor;
     --mdc-elevated-card-container-shape: 20px;
     --mdc-outlined-card-container-shape: 20px;
@@ -37,7 +41,7 @@
     // outlined-button
     --mdc-outlined-button-container-shape: 20px;
     --mdc-outlined-button-label-text-color: @textColor;
-    --mdc-outlined-button-outline-color: @fourthColor;
+    --mdc-outlined-button-outline-color: @thirdColor;
     --mdc-outlined-button-outline-width: 2px;
 
     // text-button
@@ -47,7 +51,7 @@
 
     // filled-button
     --mdc-filled-button-container-color: @thirdColor;
-    --mdc-filled-button-label-text-color: @firstColor;
+    --mdc-filled-button-label-text-color: @textColor;
     --mdc-filled-button-container-shape: 20px;
 
     // fab-button

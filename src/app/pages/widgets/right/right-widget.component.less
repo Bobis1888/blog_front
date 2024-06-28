@@ -3,8 +3,6 @@
 .right {
   margin: auto;
 
-  @import "src/app/theme/common.less";
-
   h1 {
     margin: 10px auto;
   }
@@ -29,7 +27,7 @@
     span {
       font-weight: 500;
       cursor: pointer;
-      color: @firstColor;
+      color: @textColor;
       display: inline-block;
       background-color: @thirdColor;
       border-radius: 20px;
@@ -39,7 +37,7 @@
 
     span:hover {
       background-color: @secondColor;
-      color: @fifthColor;
+      //color: @textColor;
     }
 
   }

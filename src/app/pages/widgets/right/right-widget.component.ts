@@ -75,4 +75,18 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
     this.currentType = type;
     this.router.navigate([type]).then();
   }
+
+  resolveIcon(item: LineType) {
+
+    switch (item) {
+      case LineType.top:
+        return 'local_fire_department';
+      case LineType.my:
+        return 'description';
+      case LineType.subscriptions:
+        return 'recent_actors';
+    }
+
+    return item.toLowerCase();
+  }
 }

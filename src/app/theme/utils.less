@@ -10,27 +10,31 @@
 }
 
 body[data-theme="light"] {
+  --data-theme: light;
   --first-color: #f8f7f4;
-  --second-color: #f7f3ed;
+  --second-color: #FFF;
   --third-color: #948d86;
   --fourth-color: #76716c;
   --fifth-color: #585653;
-  --bg-color: #f8f7f4;
+  --bg-color: #F2F2F2;
   --text-color: #585653;
   --skeleton-bg-color: #948d86;
   --bg-color-with-opacity: rgba(35, 35, 36, 0.7);
+  --light-icon-color: #f8f7f4;
 }
 
 body[data-theme="dark"] {
+  --data-theme: dark;
   --first-color: #1c1c1c;
   --second-color: #232324;
-  --third-color: #948d86;
+  --third-color: #333;
   --fourth-color: #b2a9a0;
   --fifth-color: #e8e1d5;
   --bg-color: #1c1c1c;
-  --text-color: #b2a9a0;
+  --text-color: #c9cccf;
   --skeleton-bg-color: #585653;
   --bg-color-with-opacity: rgba(35, 35, 36, 0.7);
+  --light-icon-color: #e8e1d5;
 }
 
 // THEME COLOR
@@ -39,6 +43,8 @@ body[data-theme="dark"] {
 @thirdColor: var(--third-color);
 @fourthColor: var(--fourth-color);
 @fifthColor: var(--fifth-color);
+@dataTheme: var(--data-theme);
+@lightIconColor: var(--light-icon-color);
 
 
 @textColor: var(--text-color);
