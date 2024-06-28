@@ -73,7 +73,7 @@ export class MainComponent extends UnSubscriber implements OnInit {
               this.ref = this.matSnackBar.open(
                 this.translate.instant('errors.sessionExpired'),
                 undefined,
-                {duration: 5000, panelClass: 'snack-bar'});
+                {duration: 3000, panelClass: 'snack-bar'});
             }, 500)
           }
         }

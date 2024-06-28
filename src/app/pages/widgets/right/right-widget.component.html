@@ -27,11 +27,14 @@
           </ng-container>
         </ng-container>
         <ng-template #nonAuth>
-          <button mat-flat-button>{{ 'rightWidget.top' | translate }}</button>
+          <button mat-flat-button>
+            <mat-icon class="light">{{resolveIcon(LineType.top)}}</mat-icon>
+            {{ 'rightWidget.top' | translate }}
+          </button>
         </ng-template>
       </div>
     </mat-card-content>
-    <ng-container *ngIf="topics.length > 0">
+    <ng-container *ngIf="topics.length > 0 && !isMobile">
       <mat-divider class="divider"></mat-divider>
       <mat-card-content>
         <div class="topic">

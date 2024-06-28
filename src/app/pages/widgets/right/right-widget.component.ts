@@ -89,4 +89,6 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
 
     return item.toLowerCase();
   }
+
+    protected readonly LineType = LineType;
 }
