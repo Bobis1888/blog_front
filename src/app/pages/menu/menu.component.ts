@@ -29,7 +29,7 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     let storageValue: string | null = localStorage.getItem('data-theme');
 
     // TODO enable for mobile
-    if (!this.isMobile) {
+    // if (!this.isMobile) {
 
       if (storageValue == null && !this.isSystemDark() && this.isDarkMode ||
         storageValue == null && this.isSystemDark() && !this.isDarkMode ||
@@ -37,7 +37,7 @@ export class MenuComponent extends UnSubscriber implements OnInit {
         storageValue == 'light' && this.isDarkMode) {
         this.switchMode();
       }
-    }
+    // }
   }
 
   get hideSearchButton(): boolean {

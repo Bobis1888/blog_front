@@ -116,17 +116,12 @@ export class LineComponent extends UnSubscriber implements OnInit {
   }
 
   removeFromBookmarks(id: string) {
+    this.state = 'loading';
     this.contentService.removeFromBookmarks(id)
       .pipe(
         takeUntil(this.unSubscriber),
       ).subscribe({
-      next: () => {
-        this.items = this.items.filter(it => it.id !== id);
-
-        if (this.list.length === 0) {
-          this.state = 'empty';
-        }
-      }
+      next: () => this.init()
     });
   }
 

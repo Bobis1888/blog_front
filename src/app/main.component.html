@@ -7,7 +7,7 @@
             <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493"/>
           </div>
           <button *ngIf="authService.isAuthorized" mat-button routerLink="/profile" (click)="drawer.close()">
-            <mat-icon>account_circle</mat-icon>
+<!--            <mat-icon>account_circle</mat-icon>-->
             {{ authService.userInfo?.nickname ?? '' }}
           </button>
           <button *ngIf="!authService.isAuthorized" mat-button routerLink="/auth/login" (click)="drawer.close()">
