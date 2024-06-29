@@ -13,6 +13,14 @@
   h1 {
     font-weight: bolder;
     letter-spacing: 1px;
+    margin: 0;
+  }
+
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
   }
 
   .status {
@@ -41,21 +49,32 @@
   padding-bottom: 10px;
 }
 
+.vertical {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    margin: 5px 10px;
+  }
+}
+
 .footer {
   padding-top: 10px;
   display: flex;
   justify-content: space-between;
 
-  .buttons {
-
-  }
-
   .author {
-    text-align: end;
-    font-weight: bold;
-    cursor: pointer;
     display: flex;
     align-items: center;
+
+    button {
+      margin-right: 10px;
+    }
+
+    span {
+      cursor: pointer;
+      font-weight: bold;
+    }
   }
 }
 

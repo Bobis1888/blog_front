@@ -7,6 +7,10 @@
     mat-icon.light {
       color: @lightColor;
     }
+
+    mat-icon.accent-icon {
+      color: @warningColor;
+    }
   }
 
   .cdk-overlay-dark-backdrop {
@@ -26,7 +30,9 @@
   --mdc-switch-track-shape: 20px;
 
   // icon
-  --mat-icon-color: @thirdColor;
+  .mat-icon {
+    --mat-icon-color: @fourthColor;
+  }
 
   // card
   .mat-mdc-card {

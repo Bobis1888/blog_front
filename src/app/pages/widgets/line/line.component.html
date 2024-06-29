@@ -27,7 +27,7 @@
 
 <ng-template #empty>
   <div class="empty">
-    <h1>{{ "lineWidget.noData" | translate }}</h1>
+    <h1>{{ "lineWidget.noData." + type | translate }}</h1>
   </div>
 </ng-template>
 
@@ -58,14 +58,21 @@
         <p [innerHTML]="item.preView | safeHtml"></p>
       </mat-card-content>
       <mat-card-footer>
-        <ng-container *ngIf="type == LineType.top">
+        <ng-container *ngIf="type == LineType.top || type == LineType.subscriptions || type == LineType.bookmarks">
           <div class="footer">
             <div class="date">
+              <button
+                *ngIf="type == LineType.bookmarks"
+                mat-icon-button
+                (click)="removeFromBookmarks(item.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
               <span>{{ item.publishedDate | date : "YYYY.MM.dd" }}</span>
             </div>
             <div class="author">
             <span [routerLink]="'/search'"
-                  [queryParams]="{q: item.authorName, author: true}">{{ item.authorName }}</span>
+                  [queryParams]="{q: item.authorName, author: true}">{{ item.authorName ?? 'unknown' }}</span>
             </div>
           </div>
         </ng-container>
@@ -111,14 +118,6 @@
             <mat-icon>library_books</mat-icon>
           </button>
 
-        </ng-container>
-        <ng-container *ngIf="type == LineType.bookmarks">
-          <button
-            mat-icon-button
-            (click)="removeFromBookmarks(item.id)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
         </ng-container>
       </mat-card-footer>
     </mat-card>

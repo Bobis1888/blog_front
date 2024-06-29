@@ -137,8 +137,7 @@
     "submit": "Удалить"
   },
   "summaryPage": {
-    "title": "Mylog",
-    "noData": "Ничего не найдено, попробуйте ещё раз чуть позже."
+    "title": "Mylog"
   },
   "rightWidget": {
     "top" : "Популярное",
@@ -147,7 +146,12 @@
     "subscriptions": "Подписки"
   },
   "lineWidget": {
-    "noData": "Ничего не найдено, попробуйте ещё раз чуть позже!",
+    "noData": {
+      "top": "Ничего не найдено, попробуйте ещё раз чуть позже!",
+      "subscriptions": "Вы не подписаны ни на одного автора",
+      "my": "У вас нет публикаций",
+      "bookmarks": "У вас нет закладок"
+    },
     "status": {
       "published": "Опубликовано",
       "draft": "Черновик",
@@ -170,7 +174,9 @@
     "sharedSuccess": "Ссылка скопирована в буфер обмена",
     "addedToBookmarks": "Добавлено в закладки",
     "removedFromBookmarks": "Удалено из закладок",
-    "noTags": "Нет тегов"
+    "noTags": "Нет тегов",
+    "subscribe": "Подписаться",
+    "unsubscribe": "Отписаться"
   },
   "editContentPage": {
     "createTitle": "Создание публикации",

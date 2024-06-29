@@ -10,6 +10,7 @@ export interface Content {
   authorName: string;
   status: Status;
   publishedDate: Date;
+  // todo move to actions can saveToBookmarks, can like ...
   isSaved: boolean;
   isLiked: boolean;
   likes: number;

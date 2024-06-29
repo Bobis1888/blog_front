@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
 import {map, Observable, of} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
@@ -45,11 +44,9 @@ export interface ChangePreviewRequest {
 @Injectable({
   providedIn: 'any'
 })
-export class ContentService extends UnSubscriber {
+export class ContentService {
 
-  constructor(private httpSender: HttpSenderService) {
-    super();
-  }
+  constructor(private httpSender: HttpSenderService) {}
 
   get(id: string): Observable<Content> {
     return this.httpSender.send(HttpMethod.GET, '/content/get/' + id);
@@ -116,5 +113,9 @@ export class ContentService extends UnSubscriber {
 
   all(filter: Filter): Observable<ListResponse> {
     return this.httpSender.send(HttpMethod.POST, '/content/all', filter);
+  }
+
+  listFromAuthors(filter: Filter): Observable<ListResponse> {
+    return this.httpSender.send(HttpMethod.POST, '/content/list-from-authors', filter);
   }
 }

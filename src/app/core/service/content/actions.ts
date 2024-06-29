@@ -3,4 +3,6 @@ export interface Actions {
   canEdit: boolean;
   canPublish: boolean;
   canUnpublish: boolean;
+  canSubscribe: boolean;
+  canUnsubscribe: boolean;
 }

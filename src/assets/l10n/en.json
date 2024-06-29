@@ -124,8 +124,7 @@
     "hint": "Write a short description of your publication. Maximum 255 characters"
   },
   "summaryPage": {
-    "title": "Mylog",
-    "noData": "Nothing found, try again later!"
+    "title": "Mylog"
   },
   "rightWidget": {
     "top" : "Hot",
@@ -134,7 +133,12 @@
     "subscriptions": "Subscriptions"
   },
   "lineWidget": {
-    "noData": "Nothing found, try again later!",
+    "noData": {
+      "top" : "Nothing found, try again later!",
+      "subscriptions": "You don't have any subscriptions",
+      "my": "You don't have any publications",
+      "bookmarks": "You don't have any bookmarks"
+    },
     "status": {
       "published": "Published",
       "draft": "Draft",
@@ -171,7 +175,9 @@
     "addedToBookmarks": "Added to bookmarks",
     "shareText": "Check out this publication on Mylog",
     "removedFromBookmarks": "Removed from bookmarks",
-    "noTags": "No tags"
+    "noTags": "No tags",
+    "subscribe": "Subscribe",
+    "unsubscribe": "Unsubscribe"
   },
   "editContentPage": {
     "createTitle": "Create publication",

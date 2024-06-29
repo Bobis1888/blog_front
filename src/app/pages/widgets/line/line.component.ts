@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
-import {ContentService, Filter, ListResponse, Search, Status} from "src/app/core/service/content/content.service";
+import {ContentService, Filter, ListResponse, Status} from "src/app/core/service/content/content.service";
 import {Observable, of, takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {CoreModule} from "src/app/core/core.module";
@@ -152,8 +152,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
         return this.contentService.bookmarks(this.filter);
       }
       case 'subscriptions': {
-        //TODO
-        return of({list: new Array<Content>()} as ListResponse);
+        return this.contentService.listFromAuthors(this.filter);
       }
       default: {
         return of({list: new Array<Content>()} as ListResponse);
@@ -166,9 +165,6 @@ export class LineComponent extends UnSubscriber implements OnInit {
       max: this.max,
       page: this.page,
       sortBy: this.sortBy,
-      search: {
-        author: this.info.nickname
-      } as Search
     } as Filter;
   }
 }

@@ -16,6 +16,7 @@ import {
 import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
+import {SubscriptionService} from "app/core/service/content/subscription.service";
 
 @Component({
   selector: 'view-content',
@@ -42,6 +43,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
               protected deviceService: DeviceDetectorService,
               private matSnackBar: MatSnackBar,
               private meta: Meta,
+              private subsService: SubscriptionService,
               protected authService: AuthService,
               private clipboardService: ClipboardService,
               private aRouter: ActivatedRoute) {
@@ -153,6 +155,34 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
           }
         },
         error: () => this.state = 'empty'
+      });
+  }
+
+  unsubscribe() {
+    this.subsService.unsubscribe(this.content.authorName)
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: (res) => {
+
+          if (res.success) {
+            this.content.actions.canUnsubscribe = false;
+            this.content.actions.canSubscribe = true;
+          }
+        }
+      });
+  }
+
+  subscribe() {
+    this.subsService.subscribe(this.content.authorName)
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: (res) => {
+
+          if (res.success) {
+            this.content.actions.canUnsubscribe = true;
+            this.content.actions.canSubscribe = false;
+          }
+        }
       });
   }
 }

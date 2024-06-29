@@ -26,7 +26,19 @@
   <span *ngIf="content.status === Status.pending"
         class="status"> {{ 'viewContentPage.pending' | translate }}</span>
 
-  <h1>{{ content.title }}</h1>
+  <div class="title-container">
+    <h1>{{ content.title }}</h1>
+<!--    <button mat-icon-button-->
+<!--            *ngIf="false"-->
+<!--            [matMenuTriggerFor]="menu">-->
+<!--      <mat-icon>more_horiz</mat-icon>-->
+<!--    </button>-->
+<!--    <mat-menu #menu="matMenu" xPosition="before">-->
+<!--      <div class="vertical">-->
+<!--      </div>-->
+<!--    </mat-menu>-->
+  </div>
+
 
   <span *ngIf="content.publishedDate"
         class="date">{{ 'viewContentPage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
@@ -60,6 +72,7 @@
 
       <button mat-icon-button (click)="like()" [disabled]="!authService.isAuthorized">
         <mat-icon matBadge="{{ content.likes }}"
+                  [ngClass]="{'accent-icon': content.isLiked}"
                   matBadgePosition="below after">{{ content.isLiked ? 'favorite' : 'favorite_border' }}
         </mat-icon>
       </button>
@@ -73,6 +86,21 @@
       </button>
     </div>
     <div class="author">
+      <button
+        *ngIf="content.actions.canSubscribe && !isMobile"
+        mat-flat-button
+        (click)="subscribe()"
+      >
+        {{ 'viewContentPage.subscribe' | translate }}
+      </button>
+
+      <button
+        *ngIf="content.actions.canSubscribe && isMobile"
+        mat-icon-button
+        (click)="subscribe()"
+      >
+        <mat-icon>group_add</mat-icon>
+      </button>
       <span [routerLink]="'/search'"
             [queryParams]="{q: content.authorName, author: true}">{{ content.authorName }}</span>
     </div>
