@@ -64,7 +64,8 @@ export class ProfileComponent extends HasErrors implements OnInit {
   openEditNicknameDialog() {
     this.state = 'load';
     this.dialog.open(ChangeNicknameDialog, {
-      data: {nickname: this.info.nickname}
+      data: {nickname: this.info.nickname},
+      autoFocus: false
     })
       .afterClosed()
       .pipe(takeUntil(this.unSubscriber)).subscribe({

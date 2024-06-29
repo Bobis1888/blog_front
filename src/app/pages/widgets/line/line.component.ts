@@ -72,7 +72,8 @@ export class LineComponent extends UnSubscriber implements OnInit {
   public editPreview(id: string, content: string) {
     this.state = 'loading';
     this.dialog.open(EditPreviewDialog, {
-      data: {id: id, content: content}
+      data: {id: id, content: content},
+      autoFocus: false
     }).afterClosed().pipe(
       takeUntil(this.unSubscriber),
     ).subscribe({
