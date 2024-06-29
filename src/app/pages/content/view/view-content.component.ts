@@ -134,7 +134,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
     this.contentService.get(id)
       .pipe(
         takeUntil(this.unSubscriber),
-        delay(100),
+        delay(300),
       )
       .subscribe({
         next: it => {
