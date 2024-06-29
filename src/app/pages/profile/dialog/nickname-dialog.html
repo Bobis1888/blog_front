@@ -5,6 +5,7 @@
       <mat-label>{{ "profilePage.nicknamePlaceholder" | translate }}</mat-label>
       <input
         [maskito]="maskitoOpt"
+        [autofocus]="false"
         matInput
         [formControl]="nicknameCtrl"
       />
