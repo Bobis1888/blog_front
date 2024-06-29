@@ -1,5 +1,6 @@
 import {ApplicationConfig, importProvidersFrom} from '@angular/core';
 import {
+  InMemoryScrollingFeature,
   InMemoryScrollingOptions,
   provideRouter,
   withDebugTracing,
@@ -13,13 +14,21 @@ import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {appCoreInterceptor} from "src/app/core/config/app.core.interceptor";
 import {provideAnimations} from "@angular/platform-browser/animations";
 
+const scrollConfig: InMemoryScrollingOptions = {
+  scrollPositionRestoration: 'top',
+  anchorScrolling: 'enabled',
+};
+
+const inMemoryScrollingFeature: InMemoryScrollingFeature =
+  withInMemoryScrolling(scrollConfig);
+
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
     provideRouter(
       routes,
       withDebugTracing(),
-      withInMemoryScrolling({scrollPositionRestoration: 'top'} as InMemoryScrollingOptions),
+      inMemoryScrollingFeature
     ),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),
