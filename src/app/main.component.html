@@ -54,8 +54,7 @@
 </ng-container>
 <ng-template #desktop>
   <top-menu *ngIf="!hideTopMenu"></top-menu>
-  <div>
-    <!--  <div [@routeAnimations]="getRouteAnimationData()">-->
+  <div [@routeAnimations]="getRouteAnimationData()">
     <router-outlet></router-outlet>
   </div>
 </ng-template>

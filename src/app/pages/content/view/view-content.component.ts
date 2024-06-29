@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ContentService, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {Observable, takeUntil} from "rxjs";
+import {delay, Observable, takeUntil} from "rxjs";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ClipboardService} from "ngx-clipboard";
@@ -37,8 +37,6 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   protected state: 'data' | 'loading' | 'empty' = 'loading';
   private ref: MatSnackBarRef<any> | null = null;
   protected readonly Status = Status;
-  @ViewChild("top")
-  protected topElement: ElementRef | null = null;
 
   constructor(private contentService: ContentService,
               protected deviceService: DeviceDetectorService,
@@ -134,7 +132,10 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   init(id: string) {
     this.state = 'loading';
     this.contentService.get(id)
-      .pipe(takeUntil(this.unSubscriber))
+      .pipe(
+        takeUntil(this.unSubscriber),
+        delay(100),
+      )
       .subscribe({
         next: it => {
           this.content = it;
@@ -148,14 +149,6 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
             this.meta.updateTag({
               name: 'keywords', content: this.content.tags
                 .map((it) => it.replace('#', '')).join(' ')
-            });
-          }
-
-
-          if (this.isMobile) {
-            // TODO fix it
-            setTimeout(() => {
-              this.topElement?.nativeElement?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
             });
           }
         },
