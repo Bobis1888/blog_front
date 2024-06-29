@@ -23,15 +23,15 @@
 
 <ng-template #data>
 
-  <span *ngIf="content.status === Status.pending" [@opacity-1]
+  <span *ngIf="content.status === Status.pending"
         class="status"> {{ 'viewContentPage.pending' | translate }}</span>
 
-  <h1 [@opacity-1]>{{ content.title }}</h1>
+  <h1>{{ content.title }}</h1>
 
-  <span *ngIf="content.publishedDate" [@opacity-1]
+  <span *ngIf="content.publishedDate"
         class="date">{{ 'viewContentPage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
 
-  <div class="tags" [@opacity-15]>
+  <div class="tags">
     <span class="tags-title">{{ 'viewContentPage.tags' | translate }}</span>
     <span>&nbsp;</span>
     <span *ngIf="content.tags.length === 0">{{ 'viewContentPage.noTags' | translate }}</span>
@@ -45,10 +45,10 @@
 
   <br>
 
-  <p [innerHTML]="content.content | safeHtml" [@opacity-2]></p>
+  <p [innerHTML]="content.content | safeHtml"></p>
 
 
-  <div class="footer" [@opacity-2]>
+  <div class="footer">
     <div class="buttons">
       <button mat-icon-button (click)="share()">
         <mat-icon>share</mat-icon>

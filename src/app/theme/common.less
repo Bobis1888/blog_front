@@ -5,7 +5,7 @@
     color: @textColor;
 
     mat-icon.light {
-      color: @lightIconColor;
+      color: @lightColor;
     }
   }
 
@@ -51,7 +51,7 @@
 
     // filled-button
     --mdc-filled-button-container-color: @thirdColor;
-    --mdc-filled-button-label-text-color: @textColor;
+    --mdc-filled-button-label-text-color: @lightColor;
     --mdc-filled-button-container-shape: 20px;
 
     // fab-button
@@ -128,7 +128,7 @@
     --mdc-plain-tooltip-supporting-text-size: 16px;
     --mdc-plain-tooltip-container-shape: 10px;
     --mdc-plain-tooltip-supporting-text-weight: 500px;
-    --mdc-plain-tooltip-supporting-text-color: @fifthColor;
+    --mdc-plain-tooltip-supporting-text-color: @lightColor;
     --mdc-plain-tooltip-supporting-text-line-height: 20px;
   }
 
@@ -175,7 +175,9 @@
   }
 
   .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
-    --mdc-chip-elevated-container-color: @fourthColor !important;
+    --mdc-chip-elevated-container-color: @thirdColor !important;
+    --mdc-chip-label-text-color: @lightColor !important;
+    --mdc-chip-label-text-weight: 500;
   }
 
   .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {

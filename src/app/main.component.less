@@ -11,9 +11,9 @@
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 
-  -webkit-box-shadow: 3px 3px 5px 6px @secondColor;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  -moz-box-shadow:    3px 3px 5px 6px @secondColor;  /* Firefox 3.5 - 3.6 */
-  box-shadow:        2px 2px 4px 5px @secondColor;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  -webkit-box-shadow: 3px 3px 5px 6px @backgroundColorWithOpacity;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 6px @backgroundColorWithOpacity;  /* Firefox 3.5 - 3.6 */
+  box-shadow:        2px 2px 4px 5px @backgroundColorWithOpacity;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
 .mat-drawer-container {
@@ -58,6 +58,10 @@
 
 .footer {
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .image {

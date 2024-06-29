@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ContentService, Status} from "src/app/core/service/content/content.service";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Observable, takeUntil} from "rxjs";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {DeviceDetectorService} from "ngx-device-detector";
@@ -14,12 +14,8 @@ import {
   CommonModule,
 } from "@angular/common";
 import {SafeHtmlPipe} from "app/core/pipe/safe-html";
-import {animations} from "app/core/config/app.animations";
 import {Meta} from "@angular/platform-browser";
-import {MatDialog} from "@angular/material/dialog";
-import {DeleteDialog} from "../delete-dialog/delete.dialog";
 import {Content} from "app/core/service/content/content";
-import {ChangeStatusDialog} from "../change-status-dialog/change-status.dialog";
 
 @Component({
   selector: 'view-content',
@@ -32,7 +28,6 @@ import {ChangeStatusDialog} from "../change-status-dialog/change-status.dialog";
     SafeHtmlPipe,
     CommonModule,
   ],
-  animations: animations,
   templateUrl: './view-content.component.html',
   styleUrl: './view-content.component.less'
 })
@@ -47,11 +42,9 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
 
   constructor(private contentService: ContentService,
               protected deviceService: DeviceDetectorService,
-              private router: Router,
               private matSnackBar: MatSnackBar,
               private meta: Meta,
               protected authService: AuthService,
-              protected matDialog: MatDialog,
               private clipboardService: ClipboardService,
               private aRouter: ActivatedRoute) {
     super();
@@ -166,9 +159,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
             });
           }
         },
-        error: err => {
-          this.state = 'empty';
-        }
+        error: () => this.state = 'empty'
       });
   }
 }

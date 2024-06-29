@@ -4,7 +4,7 @@
       <div class="drawer-container">
         <div class="buttons">
           <div class="image" routerLink="/">
-            <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493"/>
+            <img src="assets/images/logo.webp" alt="Mylog logo" height="157" width="493"/>
           </div>
           <button *ngIf="authService.isAuthorized" mat-button routerLink="/profile" (click)="drawer.close()">
             {{ authService.userInfo?.nickname ?? '' }}
@@ -23,6 +23,9 @@
           </button>
         </div>
         <div class="footer">
+          <button mat-icon-button (click)="themeDataService.switchMode()">
+            <mat-icon>{{ themeDataService.isDarkMode ? "wb_sunny" : "nights_stay" }}</mat-icon>
+          </button>
           <span>Mylog 2024</span>
         </div>
       </div>

@@ -11,6 +11,7 @@ import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {ClipboardModule} from "ngx-clipboard";
 import {MaskitoDirective} from "@maskito/angular";
 import {SafeHtmlPipe} from "src/app/core/pipe/safe-html";
+import {ThemeDataService} from "app/core/service/theme-data.service";
 
 @NgModule({
   declarations: [],
@@ -46,7 +47,8 @@ import {SafeHtmlPipe} from "src/app/core/pipe/safe-html";
   providers: [
     HttpSenderService,
     AuthService,
-    ContentService
+    ContentService,
+    ThemeDataService
   ]
 })
 export class CoreModule {}

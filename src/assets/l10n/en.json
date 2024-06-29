@@ -26,9 +26,13 @@
     "login": "Log in",
     "signUp": "Sign up",
     "profile": "Profile",
-    "my": "My publications",
+    "my": "Publications",
     "bookmarks": "Bookmarks",
-    "write": "Write"
+    "write": "Write",
+    "mode" : {
+      "light": "Light",
+      "dark": "Dark"
+    }
   },
   "loginPage": {
     "title": "Login",
@@ -126,7 +130,7 @@
   "rightWidget": {
     "top" : "Hot",
     "bookmarks": "Bookmarks",
-    "my" : "My publications",
+    "my" : "Publications",
     "subscriptions": "Subscriptions"
   },
   "lineWidget": {

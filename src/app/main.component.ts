@@ -15,12 +15,14 @@ import {TranslateModule} from "@ngx-translate/core";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MatRipple} from "@angular/material/core";
+import {MatBadge} from "@angular/material/badge";
+import {ThemeDataService} from "app/core/service/theme-data.service";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   animations: animations,
-  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple],
+  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple, MatBadge],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.less'],
 })
@@ -34,6 +36,7 @@ export class MainComponent extends UnSubscriber implements OnInit {
               protected router: Router,
               protected authService: AuthService,
               protected outletContexts: ChildrenOutletContexts,
+              protected themeDataService: ThemeDataService,
               protected deviceDetectorService: DeviceDetectorService,
               protected matSnackBar: MatSnackBar) {
     super();
@@ -48,6 +51,7 @@ export class MainComponent extends UnSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
+    this.themeDataService.init();
     //todo handle service
     this.aRouter.queryParams
       .pipe(takeUntil(this.unSubscriber))
@@ -99,11 +103,6 @@ export class MainComponent extends UnSubscriber implements OnInit {
   }
 
   private firstLaunch(): void {
-
-    if (localStorage.getItem('firstLaunch') == null) {
-      this.router.navigate(['landing']).then(() => localStorage.setItem('firstLaunch', 'true'));
-      return;
-    }
 
     if (localStorage.getItem('cookie') == null) {
       setTimeout(() => {

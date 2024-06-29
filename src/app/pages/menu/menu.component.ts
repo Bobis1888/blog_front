@@ -4,6 +4,7 @@ import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {AuthService} from 'app/core/service/auth/auth.service';
 import {Router} from '@angular/router';
 import {DeviceDetectorService} from 'ngx-device-detector';
+import {ThemeDataService} from "app/core/service/theme-data.service";
 
 @Component({
   selector: 'top-menu',
@@ -14,30 +15,17 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 })
 export class MenuComponent extends UnSubscriber implements OnInit {
 
-  protected isDarkMode: boolean = true;
-
   constructor(
     protected authService: AuthService,
     protected router: Router,
+    protected themeDataService: ThemeDataService,
     protected deviceService: DeviceDetectorService,
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.isDarkMode = document.body.getAttribute("data-theme") == "dark";
-    let storageValue: string | null = localStorage.getItem('data-theme');
-
-    // TODO enable for mobile
-    // if (!this.isMobile) {
-
-      if (storageValue == null && !this.isSystemDark() && this.isDarkMode ||
-        storageValue == null && this.isSystemDark() && !this.isDarkMode ||
-        storageValue == 'dark' && !this.isDarkMode ||
-        storageValue == 'light' && this.isDarkMode) {
-        this.switchMode();
-      }
-    // }
+    this.themeDataService.init();
   }
 
   get hideSearchButton(): boolean {
@@ -46,20 +34,5 @@ export class MenuComponent extends UnSubscriber implements OnInit {
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
-  }
-
-  switchMode(): void {
-    this.isDarkMode = !this.isDarkMode;
-
-    document.body.setAttribute(
-      'data-theme',
-      this.isDarkMode ? 'dark' : 'light',
-    );
-
-    localStorage.setItem('data-theme', this.isDarkMode ? 'dark' : 'light');
-  }
-
-  isSystemDark(): boolean {
-    return window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches;
   }
 }

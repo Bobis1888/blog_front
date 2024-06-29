@@ -1,7 +1,7 @@
 <section>
   <div class="top-menu">
     <div class="image" routerLink="/">
-      <img src="assets/images/logo.png" alt="Mylog logo" height="157" width="493" />
+      <img src="assets/images/logo.webp" alt="Mylog logo" height="157" width="493" />
     </div>
 
     <div class="buttons">
@@ -24,8 +24,8 @@
         <mat-icon>account_circle</mat-icon>
       </button>
 
-      <button mat-icon-button matBadge="Beta" matBadgePosition="below after" (click)="switchMode()">
-        <mat-icon>{{ isDarkMode ? "nights_stay" : "wb_sunny" }}</mat-icon>
+      <button mat-icon-button (click)="themeDataService.switchMode()">
+        <mat-icon>{{ themeDataService.isDarkMode ? "wb_sunny" : "nights_stay" }}</mat-icon>
       </button>
     </div>
   </div>
