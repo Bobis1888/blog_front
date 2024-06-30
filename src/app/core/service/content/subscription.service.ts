@@ -4,14 +4,15 @@ import {Observable} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {Filter} from "app/core/service/content/content.service";
 
-interface SubscriptionListResponse {
-  list: Array<Subscription>
-  totalPages: number
+export interface SubscriptionListResponse {
+  list: Array<Subscription>;
+  totalPages: number;
+  totalRows: number;
 }
 
-interface Subscription {
-  nickname: string
-  subscribedDate: Date
+export interface Subscription {
+  nickname: string;
+  subscribedDate: Date;
 }
 
 @Injectable({
@@ -30,10 +31,10 @@ export class SubscriptionService {
   }
 
   subscribers(filter: Filter): Observable<SubscriptionListResponse> {
-    return this.httpSender.send(HttpMethod.DELETE, '/content/subscribers', filter);
+    return this.httpSender.send(HttpMethod.POST, '/content/subscribers', filter);
   }
 
   subscriptions(filter: Filter): Observable<SubscriptionListResponse> {
-    return this.httpSender.send(HttpMethod.DELETE, '/content/subscriptions', filter);
+    return this.httpSender.send(HttpMethod.POST, '/content/subscriptions', filter);
   }
 }

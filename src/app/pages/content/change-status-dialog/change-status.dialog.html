@@ -5,7 +5,7 @@
     <p [innerHTML]="'changeStatusDialog.' + data.status + '.content' | translate"></p>
   </mat-dialog-content>
   <mat-dialog-actions align="start">
-    <button mat-flat-button (click)="submit()">{{ 'changeStatusDialog.' + data.status + '.submit' | translate }}
+    <button mat-flat-button color="warn" (click)="submit()">{{ 'changeStatusDialog.' + data.status + '.submit' | translate }}
     </button>
     <button mat-button (click)="close()">{{ 'changeStatusDialog.' + data.status + '.cancel' | translate }}</button>
   </mat-dialog-actions>

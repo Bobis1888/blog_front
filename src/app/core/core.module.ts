@@ -13,6 +13,7 @@ import {MaskitoDirective} from "@maskito/angular";
 import {SafeHtmlPipe} from "src/app/core/pipe/safe-html";
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
+import {StatisticsService} from "app/core/service/content/statistics.service";
 
 @NgModule({
   declarations: [],
@@ -50,6 +51,7 @@ import {SubscriptionService} from "app/core/service/content/subscription.service
     AuthService,
     ContentService,
     SubscriptionService,
+    StatisticsService,
     ThemeDataService
   ]
 })

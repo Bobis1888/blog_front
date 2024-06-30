@@ -143,7 +143,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
   private list(): Observable<ListResponse> {
     switch (this.type) {
       case 'top': {
-        return this.contentService.getTrends();
+        return this.contentService.getSuggestions();
       }
       case 'my': {
         return this.contentService.all(this.filter);

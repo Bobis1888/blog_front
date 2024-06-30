@@ -3,7 +3,7 @@ import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angula
 import {CoreModule} from "src/app/core/core.module";
 import {AuthService} from "src/app/core/service/auth/auth.service";
 import {HasErrors} from "src/app/core/abstract/has-errors";
-import {takeUntil} from "rxjs";
+import {catchError, map, mergeMap, of, takeUntil, throwError} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {UserInfo} from "src/app/core/service/auth/user-info";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
@@ -12,6 +12,8 @@ import {ChangeNicknameDialog} from "src/app/pages/profile/dialog/nickname.dialog
 import {MatSelect} from "@angular/material/select";
 import {Router} from "@angular/router";
 import {ChangeLanguageDialog} from "app/pages/profile/change-language/language.dialog";
+import {StatisticsService} from "app/core/service/content/statistics.service";
+import {Statistics} from "app/core/service/content/statistics";
 
 @Component({
   selector: 'profile',
@@ -25,13 +27,16 @@ export class ProfileComponent extends HasErrors implements OnInit {
   constructor(private authService: AuthService,
               private snackBar: MatSnackBar,
               public dialog: MatDialog,
+              protected statisticsService: StatisticsService,
               protected router: Router,
               private deviceService: DeviceDetectorService) {
     super();
   }
 
   protected state: 'form' | 'load' = 'load';
-  protected info: UserInfo = {} as UserInfo;
+  protected info: UserInfo = {
+    statistics: {} as Statistics
+  } as UserInfo;
   private ref: MatSnackBarRef<any> | null = null;
 
   get isMobile(): boolean {
@@ -52,11 +57,12 @@ export class ProfileComponent extends HasErrors implements OnInit {
       .info(true)
       .pipe(
         takeUntil(this.unSubscriber),
+        map<UserInfo, void>(it => this.info = it),
+        mergeMap(() => this.statisticsService.get()),
+        map<Statistics, void>(it => this.info.statistics = it),
+        catchError((err) => of(err))
       ).subscribe({
-      next: it => {
-        this.state = 'form';
-        this.info = it;
-      },
+      next: () => this.state = 'form',
       error: () => this.state = 'load'
     });
   }

@@ -104,7 +104,14 @@
     "empty": "Пусто.",
     "logout": "Выйти",
     "language": "Язык",
-    "default": "(По умолчанию)",
+    "statistics": {
+      "subscriptions" : "Подписки: {{count}}",
+      "subscribers" : "Подписчики: {{count}}",
+      "articles" : "Публикации: {{count}}",
+      "comments" : "Комментарии: {{count}}",
+      "bookmarks" : "Закладки: {{count}}",
+      "likes" : "Лайки: {{count}}"
+    },
     "languages": {
       "en": "Английский",
       "ru": "Русский"

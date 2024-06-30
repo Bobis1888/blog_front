@@ -63,6 +63,18 @@
         {{ (info.about) ? info.about : 'profilePage.noAbout' | translate }}
       </p>
     </mat-card-content>
+
+    <mat-card-content class="stat" *ngIf="info.statistics">
+      <span> {{ 'profilePage.statistics.subscribers' | translate : {count: info.statistics.subscribers} }}</span>
+      <br>
+      <span> {{ 'profilePage.statistics.subscriptions' | translate : {count: info.statistics.subscriptions} }}</span>
+      <br>
+      <span> {{ 'profilePage.statistics.articles' | translate : {count: info.statistics.articles} }}</span>
+      <br>
+      <span> {{ 'profilePage.statistics.likes' | translate : {count: info.statistics.likes} }}</span>
+      <br>
+      <span> {{ 'profilePage.statistics.bookmarks' | translate : {count: info.statistics.bookmarks} }}</span>
+    </mat-card-content>
     <mat-card-actions class="buttons">
       <mat-menu #menu="matMenu" xPosition="before">
         <div class="vertical">

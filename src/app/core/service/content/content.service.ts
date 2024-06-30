@@ -70,12 +70,13 @@ export class ContentService {
       .pipe(map(it => it.list));
   }
 
-  //TODO
-  getTrends(): Observable<ListResponse> {
-    return this.httpSender.send(HttpMethod.POST, '/content/list', {
-      max: 10,
-      page: 0,
-    } as Filter);
+  getSuggestions(): Observable<ListResponse> {
+    // TODO post
+    // return this.httpSender.send(HttpMethod.POST, '/content/list', {
+    //   max: 10,
+    //   page: 0,
+    // } as Filter);
+    return this.httpSender.send(HttpMethod.GET, '/content/suggestions');
   }
 
   saveToBookmarks(id: string) {

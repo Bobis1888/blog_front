@@ -105,7 +105,14 @@
     "cancel": "Cancel",
     "empty": "No data.",
     "language": "Language",
-    "default": "(Default)",
+    "statistics": {
+      "subscriptions" : "Subscriptions: {{count}}",
+      "subscribers" : "Subscribers: {{count}}",
+      "articles" : "Publications: {{count}}",
+      "comments" : "Comments: {{count}}",
+      "bookmarks" : "Bookmarks: {{count}}",
+      "likes" : "Likes: {{count}}"
+    },
     "languages": {
       "en": "English",
       "ru": "Russian"
