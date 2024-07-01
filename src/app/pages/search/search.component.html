@@ -11,6 +11,26 @@
     </form>
   </div>
 
+  <div class="author-block" *ngIf="byAuthor && authorInfo" [@opacity-1]>
+    <mat-card>
+      <mat-card-header *ngIf="authorInfo">
+        <mat-card-title>{{ authorInfo.nickname }}</mat-card-title>
+        <mat-card-title>
+          {{ 'searchPage.registrationDate' | translate : {date: registrationDate} }}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="authorInfo">
+        <p>{{authorInfo?.about ?? 'searchPage.noAbout' | translate }}</p>
+      </mat-card-content>
+      <mat-card-actions *ngIf="authorInfo" align="end">
+        <button mat-flat-button (click)="subscribe()" *ngIf="canSubscribe">
+          {{ 'searchPage.subscribe' | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-divider></mat-divider>
+  </div>
+
   <div class="result-block">
     <ng-container [ngSwitch]="state">
       <ng-container
@@ -33,10 +53,14 @@
   </div>
 </div>
 
-
 <ng-template #load>
-  <div class="progress-bar-container">
-    <mat-progress-bar mode="buffer"></mat-progress-bar>
+  <div>
+    <mat-card *ngFor="let i of [1,2]">
+      <mat-card-content>
+        <ngx-skeleton-loader [count]="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
+        <ngx-skeleton-loader [count]="5"></ngx-skeleton-loader>
+      </mat-card-content>
+    </mat-card>
   </div>
 </ng-template>
 
@@ -74,6 +98,14 @@
           </div>
         </mat-card-footer>
       </mat-card>
+    </div>
+    <div class="load-more" *ngIf="canLoadMore">
+      <button mat-button (click)="loadMore()" *ngIf="!loadMoreProgress">
+        {{ 'searchPage.loadMore' | translate }}
+      </button>
+      <div class="progress-bar-container" *ngIf="loadMoreProgress">
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </div>
     </div>
   </div>
 </ng-template>

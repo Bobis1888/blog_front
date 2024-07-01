@@ -1,4 +1,7 @@
 <div class="landing" [ngClass]="{ mobile: isMobile }">
+  <button mat-icon-button (click)="themeDataService.switchMode()">
+    <mat-icon>{{ themeDataService.isDarkMode ? "wb_sunny" : "nights_stay" }}</mat-icon>
+  </button>
   <section id="first" #first>
     <h1 class="name">{{ 'landingPage.name' | translate }}</h1>
     <h1 class="title">{{ 'landingPage.title0' | translate }}</h1>

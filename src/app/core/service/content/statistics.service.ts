@@ -10,7 +10,12 @@ export class StatisticsService {
 
   constructor(private httpSender: HttpSenderService) {}
 
-  get(): Observable<Statistics> {
-    return this.httpSender.send(HttpMethod.GET, '/content/statistics');
+  get(nickname: string = ''): Observable<Statistics> {
+
+    if (nickname) {
+      nickname = '/' + nickname;
+    }
+
+    return this.httpSender.send(HttpMethod.GET, '/content/statistics' + nickname);
   }
 }

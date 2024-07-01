@@ -6,6 +6,7 @@
     "badGateway": "Something went wrong..."
   },
   "landingPage": {
+    "metaTitle": "Mylog - a World of Stories",
     "name": "Mylog",
     "title0": "Discover a World of Stories",
     "subtitle0": "Be a part of our platform for reading and writing compelling content<br>from talented writers from around the world.",
@@ -17,7 +18,6 @@
     "feature2": "<h1>Tools</h1>Use our writing tools to create beautiful and easy to read content",
     "title2" : "Discover a world of stories waiting to be written and read",
     "subTitle2": "Start sharing your own stories or explore the works of others on our platform.",
-    "metaTitle": "Mylog - a World of Stories",
     "button": "Sign up now",
     "learn": "Learn more"
   },
@@ -156,6 +156,10 @@
     "search": "Search",
     "metaTitle": "Mylog - Search",
     "notFound": "Not found",
+    "noAbout": "No description",
+    "registrationDate": "On the platform for {{date}} days",
+    "subscribers" : "Subscribers: {{count}}",
+    "subscribe": "Subscribe",
     "message": "To search for authors, use the prefix <b>@</b>.<br>To search for tags use prefix <b>#</b>."
   },
   "changeStatusDialog": {

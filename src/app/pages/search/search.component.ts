@@ -5,10 +5,14 @@ import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ContentService, Filter} from "app/core/service/content/content.service";
-import {takeUntil} from "rxjs";
+import {map, mergeMap, of, takeUntil} from "rxjs";
 import {animations} from "app/core/config/app.animations";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
+import {UserInfo} from "app/core/service/auth/user-info";
+import {AuthService} from "app/core/service/auth/auth.service";
+import {StatisticsService} from "app/core/service/content/statistics.service";
+import {Statistics} from "app/core/service/content/statistics";
 
 @Component({
   selector: 'search',
@@ -23,6 +27,8 @@ export class SearchComponent extends HasErrors implements OnInit {
   constructor(private aRouter: ActivatedRoute,
               private router: Router,
               private meta: Meta,
+              private authService: AuthService,
+              private statService: StatisticsService,
               private contentService: ContentService,
               private deviceService: DeviceDetectorService) {
     super();
@@ -32,11 +38,41 @@ export class SearchComponent extends HasErrors implements OnInit {
   protected items: Array<Content> = [];
   protected byTag: boolean = false;
   protected byAuthor: boolean = false;
+  protected authorInfo: UserInfo | null = null;
+  protected loadMoreProgress: boolean = true;
+  protected totalPages: number = 1;
+  protected page: number = 0;
+
   @ViewChild('focusField')
   protected focusField?: ElementRef<HTMLInputElement>;
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
+  }
+
+  get canLoadMore(): boolean {
+    return this.totalPages > 1 && !this.loadMoreProgress && this.page < this.totalPages;
+  }
+
+  get registrationDate(): number {
+
+    if (!this.authorInfo?.registrationDate) {
+      return 0;
+    }
+
+    let date = new Date(this.authorInfo.registrationDate);
+    let oneDay = 24 * 60 * 60 * 1000;
+    let diffInTime = date.valueOf() - Date.now().valueOf();
+
+    return Math.abs(Math.round(diffInTime / oneDay));
+  }
+
+  get query(): string {
+    return this.formGroup.get("search")?.value?.toString().replaceAll(/ /g, '');
+  }
+
+  get canSubscribe(): boolean {
+    return this.authService.isAuthorized && this.authorInfo?.nickname != this.authService.userInfo?.nickname;
   }
 
   ngOnInit(): void {
@@ -57,7 +93,7 @@ export class SearchComponent extends HasErrors implements OnInit {
     if (this.byTag) {
 
       if (q?.includes(',')) {
-        q = q?.split(',').map(it => it = '#' + it).join(',');
+        q = q?.split(',').map(it => '#' + it).join(',');
       } else {
         q = "#" + q;
       }
@@ -87,7 +123,8 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   public submit(): void {
-    let query = this.formGroup.get("search")?.value?.toString().replaceAll(/ /g, '');
+    let query = this.query;
+
     this.router.navigate([], {
       queryParams: {
         q: this.formGroup.get("search")?.value?.replaceAll(/#/g, '').replaceAll(/ /g, '')?.replace('@', '') || null,
@@ -108,9 +145,42 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.state = 'loading';
     this.items = [];
 
+    if (this.byAuthor) {
+      this.searchAuthor(query);
+    }
+
+    this.find(query);
+  }
+
+  public searchAuthor(nickname: string) {
+    this.authorInfo = null;
+    this.authService.info(false, nickname)
+      .pipe(
+        takeUntil(this.unSubscriber),
+        map(it => this.authorInfo = it),
+        mergeMap((it: UserInfo) =>
+          this.authService.isAuthorized ? this.statService.get(it.nickname) : of({} as Statistics)),
+      )
+      .subscribe({
+        next: it => {
+
+          if (this.authorInfo) {
+            this.authorInfo.statistics = it;
+          }
+        },
+      });
+  }
+
+  public loadMore() {
+    this.loadMoreProgress = true;
+    this.page++;
+    this.find(this.query);
+  }
+
+  private find(query: string = '') {
     this.contentService.list({
       max: 10,
-      page: 0,
+      page: this.page,
       search: {
         query: query,
         author: this.byAuthor ? query : null,
@@ -120,17 +190,25 @@ export class SearchComponent extends HasErrors implements OnInit {
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: it => {
-          this.items.push(...it);
+          this.items.push(...it.list);
+          this.totalPages = it.totalPages;
 
           if (this.items.length == 0) {
             this.state = 'empty';
           } else {
             this.state = 'data';
           }
+
+          this.loadMoreProgress = false;
         },
         error: () => {
           this.state = 'empty';
+          this.loadMoreProgress = false;
         }
       });
+  }
+
+  subscribe() {
+
   }
 }

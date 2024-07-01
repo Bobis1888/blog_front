@@ -38,7 +38,7 @@ export class BadGatewayComponent extends UnSubscriber implements OnInit {
           delay: (err: any) => {
 
             if (err) {
-              return of(true).pipe(delay(2500),);
+              return of(true).pipe(delay(15000),);
             }
 
             return of(undefined);

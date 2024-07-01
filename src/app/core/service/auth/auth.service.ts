@@ -113,12 +113,20 @@ export class AuthService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.POST, '/auth/change-nickname', {nickname});
   }
 
-  public info(force: boolean = false): Observable<UserInfo> {
+  public info(force: boolean = false, nickname: string = ''): Observable<UserInfo> {
 
-    if (force || this.userInfo == null) {
-      return this.httpSender.send(HttpMethod.GET, '/auth/info')
+    if (nickname) {
+      nickname = '/' + nickname;
+    }
+
+    if (force || this.userInfo == null || nickname) {
+      return this.httpSender.send(HttpMethod.GET, '/auth/info' + nickname)
         .pipe(
-          tap(it => localStorage.setItem('cachedUserInfo', JSON.stringify(it)))
+          tap(it => {
+            if (!nickname) {
+              localStorage.setItem('cachedUserInfo', JSON.stringify(it));
+            }
+          })
         );
     }
 

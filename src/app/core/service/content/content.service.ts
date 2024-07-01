@@ -35,6 +35,7 @@ export interface Search {
 export interface ListResponse {
   list: Array<Content>;
   totalPages: number;
+  totalRows: number;
 }
 
 export interface ChangePreviewRequest {
@@ -60,9 +61,8 @@ export class ContentService {
     return this.httpSender.send(HttpMethod.DELETE, '/content/delete/' + id);
   }
 
-  list(filter: Filter): Observable<Content[]> {
-    return this.httpSender.send(HttpMethod.POST, '/content/list', filter)
-      .pipe(map(it => it.list));
+  list(filter: Filter): Observable<ListResponse> {
+    return this.httpSender.send(HttpMethod.POST, '/content/list', filter);
   }
 
   tags(filter: TagsFilter): Observable<Array<string>> {

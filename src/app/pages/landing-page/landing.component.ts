@@ -3,6 +3,7 @@ import {CoreModule} from 'app/core/core.module';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {Router} from "@angular/router";
+import {ThemeDataService} from "app/core/service/theme-data.service";
 
 @Component({
   selector: 'landing-page',
@@ -14,7 +15,7 @@ import {Router} from "@angular/router";
 export class LandingComponent extends UnSubscriber implements OnInit {
   constructor(
     private deviceService: DeviceDetectorService,
-    private router: Router,
+    protected themeDataService: ThemeDataService,
   ) {
     super();
   }
