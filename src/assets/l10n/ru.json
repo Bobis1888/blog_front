@@ -173,6 +173,7 @@
     "noAbout": "Нет описания",
     "subscribers" : "Подписчиков: {{count}}",
     "subscribe": "Подписаться",
+    "publications" : "Публикаций: {{count}}",
     "registrationDate": "На платформе {{date}} дня"
   },
   "viewContentPage": {

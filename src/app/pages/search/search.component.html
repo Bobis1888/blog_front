@@ -18,12 +18,18 @@
         <mat-card-title>
           {{ 'searchPage.registrationDate' | translate : {date: registrationDate} }}
         </mat-card-title>
+        <mat-card-subtitle *ngIf="authorInfo?.statistics">
+          <span>{{ 'searchPage.subscribers' | translate : {count: authorInfo.statistics.subscribers} }}</span>
+        </mat-card-subtitle>
       </mat-card-header>
+
       <mat-card-content *ngIf="authorInfo">
-        <p>{{authorInfo?.about ?? 'searchPage.noAbout' | translate }}</p>
+        <p>{{ authorInfo?.about ?? 'searchPage.noAbout' | translate }}</p>
       </mat-card-content>
-      <mat-card-actions *ngIf="authorInfo" align="end">
-        <button mat-flat-button (click)="subscribe()" *ngIf="canSubscribe">
+
+
+      <mat-card-actions *ngIf="canSubscribe" align="end">
+        <button mat-flat-button (click)="subscribe()">
           {{ 'searchPage.subscribe' | translate }}
         </button>
       </mat-card-actions>
