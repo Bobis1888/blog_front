@@ -159,7 +159,7 @@ export class SearchComponent extends HasErrors implements OnInit {
         takeUntil(this.unSubscriber),
         map(it => this.authorInfo = it),
         mergeMap((it: UserInfo) =>
-          this.authService.isAuthorized ? this.statService.get(it.nickname) : of({} as Statistics)),
+          this.authService.isAuthorized ? this.statService.get(it.nickname) : of(null)),
       )
       .subscribe({
         next: it => {

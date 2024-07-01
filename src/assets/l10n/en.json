@@ -160,7 +160,6 @@
     "registrationDate": "On the platform for {{date}} days",
     "subscribers" : "Subscribers: {{count}}",
     "subscribe": "Subscribe",
-    "publications" : "Publications: {{count}}",
     "message": "To search for authors, use the prefix <b>@</b>.<br>To search for tags use prefix <b>#</b>."
   },
   "changeStatusDialog": {

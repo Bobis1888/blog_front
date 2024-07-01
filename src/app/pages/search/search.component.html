@@ -19,12 +19,12 @@
           {{ 'searchPage.registrationDate' | translate : {date: registrationDate} }}
         </mat-card-title>
         <mat-card-subtitle *ngIf="authorInfo?.statistics">
-          <span>{{ 'searchPage.subscribers' | translate : {count: authorInfo.statistics.subscribers} }}</span>
+          <span>{{ 'searchPage.subscribers' | translate : {count: authorInfo.statistics?.subscribers} }}</span>
         </mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content *ngIf="authorInfo">
-        <p>{{ authorInfo?.about ?? 'searchPage.noAbout' | translate }}</p>
+        <p>{{ authorInfo.about ?? 'searchPage.noAbout' | translate }}</p>
       </mat-card-content>
 
 
