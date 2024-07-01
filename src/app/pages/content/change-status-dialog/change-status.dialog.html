@@ -1,4 +1,4 @@
-<div class="dialog">
+<div class="dialog" [ngClass]="{mobile: isMobile}">
 
   <mat-dialog-content>
     <h1>{{ 'changeStatusDialog.' + data.status + '.title' | translate }}</h1>

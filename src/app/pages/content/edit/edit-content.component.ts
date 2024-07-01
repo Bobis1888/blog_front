@@ -252,7 +252,9 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
   protected delete() {
     this.matDialog.open(DeleteDialog, {
-      id: this.content.id
+      data: {
+        id: this.content.id
+      }
     }).afterClosed().subscribe({
       next: it => {
         if (it) {

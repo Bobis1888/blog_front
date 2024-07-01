@@ -10,6 +10,7 @@ import {ContentService, Status} from "app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
 import {MatButton} from "@angular/material/button";
 import {TranslateModule} from "@ngx-translate/core";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 export interface DialogData {
   id: string;
@@ -27,9 +28,14 @@ export class ChangeStatusDialog extends HasErrors {
 
   constructor(
     private dialogRef: MatDialogRef<ChangeStatusDialog>,
+    private deviceService: DeviceDetectorService,
     @Inject(MAT_DIALOG_DATA) protected data: DialogData,
     private contentService: ContentService) {
     super();
+  }
+
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
   }
 
   submit(): void {
