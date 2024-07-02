@@ -8,12 +8,13 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {UserInfo} from "src/app/core/service/auth/user-info";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
-import {ChangeNicknameDialog} from "src/app/pages/profile/dialog/nickname.dialog";
+import {ChangeNicknameDialog} from "app/pages/profile/change-nickname/nickname.dialog";
 import {MatSelect} from "@angular/material/select";
 import {Router} from "@angular/router";
 import {ChangeLanguageDialog} from "app/pages/profile/change-language/language.dialog";
 import {StatisticsService} from "app/core/service/content/statistics.service";
 import {Statistics} from "app/core/service/content/statistics";
+import {ChangeDescriptionDialog} from "app/pages/profile/change-description/description.dialog";
 
 @Component({
   selector: 'profile',
@@ -80,6 +81,29 @@ export class ProfileComponent extends HasErrors implements OnInit {
         if (it) {
           this.ref?.dismiss();
           this.info.nickname = it;
+          let message = this.translate.instant('profilePage.successMessage');
+          this.ref = this.snackBar.open(message, undefined, {duration: 3000});
+        }
+
+        this.state = 'form';
+      },
+      error: () => this.state = 'form'
+    });
+  }
+
+  openEditDescriptionDialog() {
+    this.state = 'load';
+    this.dialog.open(ChangeDescriptionDialog, {
+      data: {description: this.info.description},
+      autoFocus: false
+    })
+      .afterClosed()
+      .pipe(takeUntil(this.unSubscriber)).subscribe({
+      next: it => {
+
+        if (it) {
+          this.ref?.dismiss();
+          this.info.description = it;
           let message = this.translate.instant('profilePage.successMessage');
           this.ref = this.snackBar.open(message, undefined, {duration: 3000});
         }

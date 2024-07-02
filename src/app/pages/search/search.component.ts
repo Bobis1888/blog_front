@@ -6,18 +6,16 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ContentService, Filter} from "app/core/service/content/content.service";
 import {map, mergeMap, of, takeUntil} from "rxjs";
-import {animations} from "app/core/config/app.animations";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
 import {UserInfo} from "app/core/service/auth/user-info";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {StatisticsService} from "app/core/service/content/statistics.service";
-import {Statistics} from "app/core/service/content/statistics";
+import {SubscriptionService} from "app/core/service/content/subscription.service";
 
 @Component({
   selector: 'search',
   standalone: true,
-  animations: animations,
   imports: [CoreModule, FormsModule, ReactiveFormsModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
@@ -29,6 +27,7 @@ export class SearchComponent extends HasErrors implements OnInit {
               private meta: Meta,
               private authService: AuthService,
               private statService: StatisticsService,
+              private subsService: SubscriptionService,
               private contentService: ContentService,
               private deviceService: DeviceDetectorService) {
     super();
@@ -72,7 +71,9 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   get canSubscribe(): boolean {
-    return this.authService.isAuthorized && this.authorInfo?.nickname != this.authService.userInfo?.nickname;
+    return this.authService.isAuthorized &&
+      this.authorInfo?.statistics?.userIsSubscribed === false &&
+      this.authorInfo?.nickname != this.authService.userInfo?.nickname;
   }
 
   ngOnInit(): void {
@@ -209,6 +210,11 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   subscribe() {
-
+    this.subsService
+      .subscribe(this.authorInfo?.nickname ?? '')
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: () => this.searchAuthor(this.authorInfo?.nickname ?? '')
+      });
   }
 }

@@ -60,7 +60,7 @@
         {{ 'profilePage.email' | translate : {email: info.email} }}
       </h4>
       <p>
-        {{ (info.about) ? info.about : 'profilePage.noAbout' | translate }}
+        {{ (info.description) ? info.description : 'profilePage.noAbout' | translate }}
       </p>
     </mat-card-content>
 
@@ -91,12 +91,12 @@
           >
             {{ 'profilePage.changeLanguage' | translate }}
           </button>
-          <!--          <button-->
-          <!--            mat-button-->
-          <!--            [disabled]="true"-->
-          <!--          >-->
-          <!--            {{ 'profilePage.editAbout' | translate }}-->
-          <!--          </button>-->
+          <button
+            mat-button
+            (click)="openEditDescriptionDialog()"
+          >
+            {{ 'profilePage.editAbout' | translate }}
+          </button>
           <button
             mat-button
             (click)="resetPassword()"

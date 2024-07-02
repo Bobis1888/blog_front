@@ -113,6 +113,10 @@ export class AuthService extends UnSubscriber {
     return this.httpSender.send(HttpMethod.POST, '/auth/change-nickname', {nickname});
   }
 
+  public changeDescription(description: string): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.POST, '/auth/change-description', {description});
+  }
+
   public info(force: boolean = false, nickname: string = ''): Observable<UserInfo> {
 
     if (nickname) {

@@ -1,0 +1,20 @@
+<div class="dialog" [ngClass]="{mobile: isMobile}">
+  <h1>{{ 'profilePage.changeDescriptionTitle' | translate }}</h1>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ "profilePage.descriptionPlaceholder" | translate }}</mat-label>
+      <textarea matInput
+                maxlength="{{maxLength}}"
+                style="height: 170px"
+                [formControl]="description">
+        </textarea>
+      <mat-hint align="end">
+        {{count}}
+      </mat-hint>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="start">
+    <button mat-flat-button (click)="saveNickname()">{{ 'profilePage.save' | translate }}</button>
+    <button mat-button (click)="close()">{{ 'profilePage.cancel' | translate }}</button>
+  </mat-dialog-actions>
+</div>

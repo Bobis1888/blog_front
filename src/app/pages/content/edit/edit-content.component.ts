@@ -44,8 +44,8 @@ export class EditContentComponent extends HasErrors implements OnInit {
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote',
       {heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']},
-      'align_left', 'align_center', 'align_right', 'align_justify', 'ordered_list',
-      'bullet_list', 'link', 'image', 'text_color', 'background_color'],
+      // 'align_left', 'align_center', 'align_right', 'align_justify', 'ordered_list','bullet_list',
+      'link', 'image', 'text_color', 'background_color'],
   ];
 
   protected separatorKeysCodes: number[] = [ENTER, COMMA];

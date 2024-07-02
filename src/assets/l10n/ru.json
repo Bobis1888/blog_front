@@ -86,6 +86,7 @@
     "metaTitle": "Mylog- Профиль",
     "nickname": "Никнейм: {{nickname}}",
     "nicknamePlaceholder": "Никнейм",
+    "descriptionPlaceholder": "Описание",
     "changeNicknameTitle": "Новый никнейм",
     "email": "Email: {{email}}",
     "editNickname": "Поменять никнейм",
@@ -94,7 +95,8 @@
     "ok": "Ок",
     "changeLanguage": "Изменить язык",
     "changeLanguageTitle": "Изменить язык",
-    "successMessage": "Ваш никнейм был изменен!",
+    "changeDescriptionTitle": "Изменить описание",
+    "successMessage": "Данные сохранены!",
     "addImage": "Добавление изображения сейчас недоступно",
     "nicknameToolTip": "Псевдоним должен начинаться с @ и может содержать только латинские буквы, цифры и символы подчеркивания.",
     "resetPassword": "Сбросить пароль",
@@ -172,8 +174,9 @@
     "message": "Для поиска авторов используйте префикс <b>@</b>.<br>Для поиска по тегам используйте префикс <b>#</b>.",
     "noAbout": "Нет описания",
     "subscribers" : "Подписчиков: {{count}}",
-    "subscribe": "Подписаться",
-    "registrationDate": "На платформе {{date}} дня"
+    "subscribe": "Читать",
+    "registrationDate": "На платформе {{date}} дней",
+    "userIsSubscribed": "Вы читаете этого автора"
   },
   "viewContentPage": {
     "publishedDate": "Дата публикации {{date}}",

@@ -11,28 +11,32 @@
     </form>
   </div>
 
-  <div class="author-block" *ngIf="byAuthor && authorInfo" [@opacity-1]>
+  <div class="author-block" *ngIf="byAuthor && authorInfo">
     <mat-card>
-      <mat-card-header *ngIf="authorInfo">
-        <mat-card-title>{{ authorInfo.nickname }}</mat-card-title>
-        <mat-card-title>
-          {{ 'searchPage.registrationDate' | translate : {date: registrationDate} }}
-        </mat-card-title>
-        <mat-card-subtitle *ngIf="authorInfo?.statistics">
-          <span>{{ 'searchPage.subscribers' | translate : {count: authorInfo.statistics?.subscribers} }}</span>
-        </mat-card-subtitle>
-      </mat-card-header>
+
+      <div class="header" *ngIf="authorInfo">
+        <div class="title">
+          <h2>
+            {{ authorInfo.nickname }}
+          </h2>
+          <button mat-flat-button *ngIf="canSubscribe" (click)="subscribe()">
+            {{ 'searchPage.subscribe' | translate }}
+          </button>
+          <b *ngIf="authorInfo?.statistics?.userIsSubscribed">{{ 'searchPage.userIsSubscribed' | translate }}</b>
+        </div>
+        <div class="title">
+          <h2>
+            {{ 'searchPage.registrationDate' | translate : {date: registrationDate} }}
+          </h2>
+        </div>
+        <div class="sub-title" *ngIf="authorInfo?.statistics">
+          <b>{{ 'searchPage.subscribers' | translate : {count: authorInfo.statistics?.subscribers} }}</b>
+        </div>
+      </div>
 
       <mat-card-content *ngIf="authorInfo">
-        <p>{{ authorInfo.about ?? 'searchPage.noAbout' | translate }}</p>
+        <p>{{ authorInfo.description ?? 'searchPage.noAbout' | translate }}</p>
       </mat-card-content>
-
-
-      <mat-card-actions *ngIf="canSubscribe" align="end">
-        <button mat-flat-button (click)="subscribe()">
-          {{ 'searchPage.subscribe' | translate }}
-        </button>
-      </mat-card-actions>
     </mat-card>
     <mat-divider></mat-divider>
   </div>
@@ -83,7 +87,7 @@
 </ng-template>
 
 <ng-template #data>
-  <div [@opacity-1]>
+  <div>
     <div *ngFor="let item of items" class="content">
       <mat-card routerLink="/content/view/{{ item.id }}" matRipple>
         <mat-card-header>

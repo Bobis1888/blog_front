@@ -7,6 +7,6 @@ export interface UserInfo {
   enabled: boolean;
   image: string;
   email: string;
-  about: string | null;
+  description: string | null;
   statistics: Statistics | null;
 }

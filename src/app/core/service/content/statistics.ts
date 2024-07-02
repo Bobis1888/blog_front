@@ -5,4 +5,6 @@ export interface Statistics {
   likes: number;
   subscriptions: number;
   subscribers: number;
+  isSubscriber: boolean;
+  userIsSubscribed: boolean;
 }
