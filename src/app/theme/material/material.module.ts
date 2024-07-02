@@ -29,6 +29,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import {MatDialogActions, MatDialogContent} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [],
@@ -60,7 +61,9 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
     MatAutocompleteModule,
     MatTooltip,
     MatRadioGroup,
-    MatRadioButton
+    MatRadioButton,
+    MatDialogContent,
+    MatDialogActions
   ],
   exports: [
     MatSidenavModule,
@@ -100,7 +103,9 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
     MatAutocompleteModule,
     MatTooltip,
     MatRadioGroup,
-    MatRadioButton
+    MatRadioButton,
+    MatDialogContent,
+    MatDialogActions
   ]
 })
 export class MaterialModule {

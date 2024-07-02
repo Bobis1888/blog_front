@@ -1,0 +1,20 @@
+<div class="dialog">
+  <h1>{{ 'profilePage.changeAvatarTitle' | translate }}</h1>
+  <mat-dialog-content>
+    <label id="label" for="image_uploads">{{ 'profilePage.selectFile' | translate }}</label>
+    <input
+      [hidden]="true"
+      type="file"
+      multiple
+      id="image_uploads"
+      name="avatar"
+      (change)="change($event)"
+      accept="image/png, image/jpeg"/>
+    <span *ngIf="file != null" [@opacity-1]>{{ file.name }}</span>
+    <span *ngIf="error != ''" class="error" [@opacity-1]>{{ error }}</span>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-flat-button (click)="save()">{{ 'profilePage.save' | translate }}</button>
+    <button mat-button (click)="close()">{{ 'profilePage.cancel' | translate }}</button>
+  </mat-dialog-actions>
+</div>

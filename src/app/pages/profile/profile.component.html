@@ -34,8 +34,7 @@
         <div *ngIf="!info.image">
           <button
             mat-fab
-            color="primary"
-            (click)="addImage()"
+            (click)="openEditAvatarDialog()"
           >
             <mat-icon>
               account_circle
@@ -60,18 +59,20 @@
         {{ 'profilePage.email' | translate : {email: info.email} }}
       </h4>
       <p>
-        {{ (info.description) ? info.description : 'profilePage.noAbout' | translate }}
+        {{ (info.description) ? info.description : 'profilePage.noDescription' | translate }}
       </p>
     </mat-card-content>
 
     <mat-card-content class="stat" *ngIf="info.statistics">
+      <b> {{ 'profilePage.statistics.title' | translate }}</b>
+      <br>
       <span> {{ 'profilePage.statistics.subscribers' | translate : {count: info.statistics.subscribers} }}</span>
       <br>
-      <span> {{ 'profilePage.statistics.subscriptions' | translate : {count: info.statistics.subscriptions} }}</span>
+      <span> {{ 'profilePage.statistics.likes' | translate : {count: info.statistics.likes} }}</span>
       <br>
       <span> {{ 'profilePage.statistics.articles' | translate : {count: info.statistics.articles} }}</span>
       <br>
-      <span> {{ 'profilePage.statistics.likes' | translate : {count: info.statistics.likes} }}</span>
+      <span> {{ 'profilePage.statistics.subscriptions' | translate : {count: info.statistics.subscriptions} }}</span>
       <br>
       <span> {{ 'profilePage.statistics.bookmarks' | translate : {count: info.statistics.bookmarks} }}</span>
     </mat-card-content>
@@ -95,7 +96,7 @@
             mat-button
             (click)="openEditDescriptionDialog()"
           >
-            {{ 'profilePage.editAbout' | translate }}
+            {{ 'profilePage.editDescription' | translate }}
           </button>
           <button
             mat-button

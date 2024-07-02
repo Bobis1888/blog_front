@@ -15,6 +15,7 @@ import {ChangeLanguageDialog} from "app/pages/profile/change-language/language.d
 import {StatisticsService} from "app/core/service/content/statistics.service";
 import {Statistics} from "app/core/service/content/statistics";
 import {ChangeDescriptionDialog} from "app/pages/profile/change-description/description.dialog";
+import {ChangeAvatarDialog} from "app/pages/profile/change-avatar/avatar.dialog";
 
 @Component({
   selector: 'profile',
@@ -114,6 +115,27 @@ export class ProfileComponent extends HasErrors implements OnInit {
     });
   }
 
+  openEditAvatarDialog() {
+    this.state = 'load';
+    this.dialog.open(ChangeAvatarDialog)
+      .afterClosed()
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: it => {
+
+          if (it) {
+            this.ref?.dismiss();
+            this.info.description = it;
+            let message = this.translate.instant('profilePage.successMessage');
+            this.ref = this.snackBar.open(message, undefined, {duration: 3000});
+          }
+
+          this.state = 'form';
+        },
+        error: () => this.state = 'form'
+      });
+  }
+
   resetPassword() {
 
     if (this.state == 'load') {
@@ -135,12 +157,6 @@ export class ProfileComponent extends HasErrors implements OnInit {
       },
       error: () => this.state = 'form'
     });
-  }
-
-  addImage() {
-    this.ref?.dismiss();
-    let message = this.translate.instant('profilePage.addImage');
-    this.ref = this.snackBar.open(message, undefined, {duration: 3000})
   }
 
   openChangeLanguageDialog() {

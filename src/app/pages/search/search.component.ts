@@ -5,17 +5,19 @@ import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ContentService, Filter} from "app/core/service/content/content.service";
-import {map, mergeMap, of, takeUntil} from "rxjs";
+import {delay, map, mergeMap, of, takeUntil} from "rxjs";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
 import {UserInfo} from "app/core/service/auth/user-info";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {StatisticsService} from "app/core/service/content/statistics.service";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
+import {animations} from "app/core/config/app.animations";
 
 @Component({
   selector: 'search',
   standalone: true,
+  animations: animations,
   imports: [CoreModule, FormsModule, ReactiveFormsModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
@@ -154,7 +156,6 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   public searchAuthor(nickname: string) {
-    this.authorInfo = null;
     this.authService.info(false, nickname)
       .pipe(
         takeUntil(this.unSubscriber),
@@ -214,7 +215,7 @@ export class SearchComponent extends HasErrors implements OnInit {
       .subscribe(this.authorInfo?.nickname ?? '')
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
-        next: () => this.searchAuthor(this.authorInfo?.nickname ?? '')
+        next: () => this.searchAuthor(this.authorInfo?.nickname ?? ''),
       });
   }
 }

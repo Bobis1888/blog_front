@@ -87,11 +87,13 @@
     "nickname": "Никнейм: {{nickname}}",
     "nicknamePlaceholder": "Никнейм",
     "descriptionPlaceholder": "Описание",
+    "selectFile": "Выберите файл для загрузки (PNG, JPG)",
     "changeNicknameTitle": "Новый никнейм",
+    "changeAvatarTitle": "Изменить аватар",
     "email": "Email: {{email}}",
     "editNickname": "Поменять никнейм",
-    "editAbout": "Рассказать о себе",
-    "noAbout": "Нет описания",
+    "editDescription": "Редактировать описание",
+    "noDescription": "Нет описания",
     "ok": "Ок",
     "changeLanguage": "Изменить язык",
     "changeLanguageTitle": "Изменить язык",
@@ -107,6 +109,7 @@
     "logout": "Выйти",
     "language": "Язык",
     "statistics": {
+      "title": "Статистика",
       "subscriptions" : "Подписки: {{count}}",
       "subscribers" : "Подписчики: {{count}}",
       "articles" : "Публикации: {{count}}",
@@ -172,11 +175,11 @@
     "metaTitle": "Mylog - Поиск",
     "notFound": "Ничего не найдено",
     "message": "Для поиска авторов используйте префикс <b>@</b>.<br>Для поиска по тегам используйте префикс <b>#</b>.",
-    "noAbout": "Нет описания",
+    "noDescription": "Нет описания",
     "subscribers" : "Подписчиков: {{count}}",
-    "subscribe": "Читать",
-    "registrationDate": "На платформе {{date}} дней",
-    "userIsSubscribed": "Вы читаете этого автора"
+    "subscribe": "Подписаться",
+    "registrationDate": "На платформе {{date}} д.",
+    "userIsSubscribed": "Вы подписаны"
   },
   "viewContentPage": {
     "publishedDate": "Дата публикации {{date}}",
@@ -217,6 +220,7 @@
   "firstLaunchTitle": "Мы рады приветствовать вас!\nМы используем Cookies для хранения данных.",
   "firstLaunchAction": "Ок",
   "errors": {
+    "image.maxSize": "Превышен максимальный размер файла (2 MB)",
     "nickname.invalid": "Неверный никнейм",
     "nickname.equal": "Никнейм не изменился",
     "email.invalid": "Неверный E-mail",

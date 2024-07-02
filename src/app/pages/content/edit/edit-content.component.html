@@ -91,6 +91,9 @@
       </div>
       <div class="menu" *ngIf="content.actions.canEdit">
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+        <ngx-editor-floating-menu [editor]="editor">
+          <ngx-editor-menu [editor]="editor" [toolbar]="shortToolbar"></ngx-editor-menu>
+        </ngx-editor-floating-menu>
       </div>
       <br/>
 

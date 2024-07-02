@@ -18,8 +18,8 @@ export interface DialogData {
 
 @Component({
   selector: 'nickname-dialog',
-  templateUrl: './nickname-dialog.html',
-  styleUrl: './nickname.less',
+  templateUrl: './nickname.dialog.html',
+  styleUrl: './nickname.dialog.less',
   standalone: true,
   imports: [CoreModule, MatDialogContent, MatDialogActions, ReactiveFormsModule],
 })

@@ -14,6 +14,7 @@ import {SafeHtmlPipe} from "src/app/core/pipe/safe-html";
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
 import {StatisticsService} from "app/core/service/content/statistics.service";
+import {FileService} from "app/core/service/content/file.service";
 
 @NgModule({
   declarations: [],
@@ -52,7 +53,8 @@ import {StatisticsService} from "app/core/service/content/statistics.service";
     ContentService,
     SubscriptionService,
     StatisticsService,
-    ThemeDataService
+    ThemeDataService,
+    FileService
   ]
 })
 export class CoreModule {}
