@@ -27,7 +27,7 @@ export class HttpSenderService implements OnInit, Sender {
   }
 
   // TODO
-  send(httpMethod: HttpMethod, url: string, body?: any) : Observable<any> {
+  send(httpMethod: HttpMethod, url: string, body?: any): Observable<any> {
 
     if (httpMethod == HttpMethod.GET) {
       return this.get(url);
@@ -46,6 +46,13 @@ export class HttpSenderService implements OnInit, Sender {
     }
 
     return of({});
+  }
+
+  public download(url: string): Observable<any> {
+    return this.httpClient.get('/api' + url, {
+      ...this.options,
+      responseType: 'blob'
+    });
   }
 
   private post(url: string, body: any): Observable<any> {

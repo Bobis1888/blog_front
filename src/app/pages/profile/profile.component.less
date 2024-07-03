@@ -8,6 +8,31 @@
     padding: 20px 20px 5px 20px;
   }
 
+  .default-avatar {
+    background-color: @lightColor;
+    border-radius: 16px;
+
+    img {
+      clip-path: none !important;
+    }
+  }
+
+  .avatar {
+    background-color: @firstColor;
+    border-radius: 16px;
+    cursor: pointer;
+    padding: 10px;
+    width: 70px;
+    height: 70px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      clip-path: circle(30px at center);
+    }
+  }
+
   .about {
     padding-top: 10px;
     padding-left: 30px;
@@ -19,7 +44,7 @@
   }
 
   h1 {
-    margin-left: 20px;
+    margin: 0 0 0 10px;
   }
 
   .title {
@@ -55,5 +80,6 @@
 }
 
 .mat-mdc-card-avatar {
-  padding: 10px 20px;
+  width: 60px;
+  height: 60px;
 }

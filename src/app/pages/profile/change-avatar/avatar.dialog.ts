@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {MatDialogRef} from "@angular/material/dialog";
 import {CoreModule} from "src/app/core/core.module";
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
-import {FileService} from "app/core/service/content/file.service";
+import {StorageService} from "app/core/service/content/storage.service";
 import {animations} from "app/core/config/app.animations";
 import {takeUntil} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
@@ -23,9 +23,8 @@ export class ChangeAvatarDialog extends UnSubscriber {
 
   constructor(
     private dialogRef: MatDialogRef<ChangeAvatarDialog>,
-    private fileService: FileService) {
+    private storageService: StorageService) {
     super();
-
   }
 
   close() {
@@ -34,7 +33,7 @@ export class ChangeAvatarDialog extends UnSubscriber {
 
   save() {
     if (this.file) {
-      this.fileService.upload(this.file, 'avatar')
+      this.storageService.upload(this.file, 'avatar')
         .pipe(takeUntil(this.unSubscriber))
         .subscribe({
           next: (it: SuccessDto) => this.dialogRef.close(it.success),

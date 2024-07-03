@@ -5,7 +5,8 @@ export interface UserInfo {
   nickname: string;
   registrationDate: Date,
   enabled: boolean;
-  image: string;
+  hasImage: boolean;
+  imageBase64: string;
   email: string;
   description: string | null;
   statistics: Statistics | null;

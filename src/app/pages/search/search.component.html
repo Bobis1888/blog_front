@@ -16,9 +16,17 @@
 
       <div class="header" *ngIf="authorInfo">
         <div class="title">
-          <h2>
-            {{ authorInfo.nickname }}
-          </h2>
+          <div class="title-avatar">
+            <div *ngIf="authorInfo.hasImage" class="avatar">
+              <img src="{{authorInfo.imageBase64}}" alt="avatar">
+            </div>
+            <div *ngIf="!authorInfo.hasImage" class="avatar default-avatar">
+              <img ngSrc="assets/images/dinosaur.png" alt="avatar" height="128" width="128">
+            </div>
+            <h2>
+              {{ authorInfo.nickname }}
+            </h2>
+          </div>
           <button mat-flat-button *ngIf="canSubscribe" (click)="subscribe()">
             {{ 'searchPage.subscribe' | translate }}
           </button>
@@ -35,7 +43,7 @@
       </div>
 
       <mat-card-content *ngIf="authorInfo">
-        <p>{{ authorInfo.description ?? 'searchPage.noDescription' | translate }}</p>
+        <p class="description">{{ authorInfo.description ?? 'searchPage.noDescription' | translate }}</p>
       </mat-card-content>
     </mat-card>
     <mat-divider></mat-divider>
