@@ -31,7 +31,7 @@
         <div *ngIf="info.hasImage" class="avatar" (click)="openEditAvatarDialog()">
           <img src="{{info.imageBase64}}" alt="avatar">
         </div>
-        <div *ngIf="!info.hasImage" class="avatar default-avatar" (click)="openEditAvatarDialog()">
+        <div *ngIf="!info.hasImage" class="default-avatar avatar" (click)="openEditAvatarDialog()">
           <img ngSrc="assets/images/dinosaur.png" alt="avatar" height="128" width="128">
         </div>
       </div>
