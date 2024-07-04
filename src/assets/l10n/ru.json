@@ -87,7 +87,7 @@
     "nickname": "Никнейм: {{nickname}}",
     "nicknamePlaceholder": "Никнейм",
     "descriptionPlaceholder": "Описание",
-    "selectFile": "Выберите файл для загрузки (PNG, JPG)",
+    "selectFile": "Переместите в эту зону файл для загрузки<br>или кликните для выбора (PNG, JPG)",
     "changeNicknameTitle": "Новый никнейм",
     "changeAvatarTitle": "Изменить аватар",
     "email": "Email: {{email}}",
@@ -215,7 +215,7 @@
     "tagHint": "Теги помогут найти вашу публикацию. Теги добавляются по одному, нажмите Enter чтобы добавить тэг"
   },
   "badGatewayPage": {
-    "title": "Мы работаем над обновлением, пожалуйста, подождите"
+    "title": "Мы работаем над обновлением, пожалуйста, подождите."
   },
   "firstLaunchTitle": "Мы рады приветствовать вас!\nМы используем Cookies для хранения данных.",
   "firstLaunchAction": "Ок",

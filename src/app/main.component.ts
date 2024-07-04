@@ -17,12 +17,13 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {MatRipple} from "@angular/material/core";
 import {MatBadge} from "@angular/material/badge";
 import {ThemeDataService} from "app/core/service/theme-data.service";
+import {MatDivider} from "@angular/material/divider";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   animations: animations,
-  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple, MatBadge],
+  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple, MatBadge, MatDivider],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.less'],
 })
@@ -47,7 +48,7 @@ export class MainComponent extends UnSubscriber implements OnInit {
   }
 
   get hideTopMenu(): boolean {
-    return this.router.url.includes('/landing');
+    return this.router.url.includes('/landing') || this.router.url.includes('/update-process');
   }
 
   ngOnInit(): void {

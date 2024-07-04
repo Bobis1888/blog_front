@@ -1,11 +1,17 @@
-import {Component} from "@angular/core";
-import {MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject} from "@angular/core";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {CoreModule} from "src/app/core/core.module";
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
-import {StorageService} from "app/core/service/content/storage.service";
+import {StorageService, UploadResponse} from "app/core/service/content/storage.service";
 import {animations} from "app/core/config/app.animations";
 import {takeUntil} from "rxjs";
-import {SuccessDto} from "app/core/dto/success-dto";
+import {DeviceDetectorService} from "ngx-device-detector";
+
+
+interface DialogData {
+  imagePath: string;
+  hasImage: boolean;
+}
 
 @Component({
   selector: 'avatar-dialog',
@@ -18,13 +24,20 @@ import {SuccessDto} from "app/core/dto/success-dto";
 export class ChangeAvatarDialog extends UnSubscriber {
 
   protected maxSize = 2;
-  protected error: string  = '';
+  protected error: string = '';
   protected file: File | null = null;
+  protected newAvatarPreview: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<ChangeAvatarDialog>,
+    protected deviceService: DeviceDetectorService,
+    @Inject(MAT_DIALOG_DATA) protected data: DialogData,
     private storageService: StorageService) {
     super();
+  }
+
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
   }
 
   close() {
@@ -36,25 +49,36 @@ export class ChangeAvatarDialog extends UnSubscriber {
       this.storageService.upload(this.file, 'avatar')
         .pipe(takeUntil(this.unSubscriber))
         .subscribe({
-          next: (it: SuccessDto) => this.dialogRef.close(it.success),
+          next: (it: UploadResponse) => this.dialogRef.close(it),
           error: () => this.dialogRef.close(false),
         })
     }
   }
 
-  change($event: any) {
+  handleFile($event: any) {
     this.error = '';
     this.file = null;
 
-    if ($event.target?.files?.length > 0) {
+    if ($event instanceof File) {
+      this.file = $event;
+    } else if ($event.target?.files?.length > 0) {
       this.file = $event.target.files[0];
+    }
 
-      if ((this.file?.size ?? 0) > (this.maxSize * 1024 * 1024)) {
-        this.file = null;
-        this.error = this.translate.instant('errors.image.maxSize', {maxSize: this.maxSize})
-        return
+    if ((this.file?.size ?? 0) > (this.maxSize * 1024 * 1024)) {
+      this.file = null;
+      this.error = this.translate.instant('errors.image.maxSize', {maxSize: this.maxSize})
+    }
 
-      }
+    if (this.file) {
+
+      let fileReader = new FileReader();
+      fileReader.readAsDataURL(this.file!);
+      let me = this
+
+      fileReader.onload = function () {
+        me.newAvatarPreview = fileReader.result as string;
+      };
     }
   }
 }

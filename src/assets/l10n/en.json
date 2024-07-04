@@ -86,7 +86,7 @@
     "title": "Profile",
     "metaTitle": "Mylog - Profile",
     "nickname": "Nickname: {{nickname}}",
-    "selectFile": "Choose image to upload (PNG, JPG)",
+    "selectFile": "Drop file here to upload<br>or click to upload (PNG, JPG)",
     "nicknamePlaceholder": "Nickname",
     "descriptionPlaceholder": "Description",
     "changeNicknameTitle": "Change nickname",
@@ -216,7 +216,7 @@
     "tagHint": "Tags will help to find your publication. Tags added by one, press Enter to add tag"
   },
   "badGatewayPage": {
-    "title": "We are working on the update, we apologize for the inconvenience."
+    "title": "We are working on the update, please wait."
   },
   "firstLaunchTitle": "We're glad you are here!\nWe use cookies for better experience.",
   "firstLaunchAction": "Ok",

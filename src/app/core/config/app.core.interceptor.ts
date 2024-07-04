@@ -22,7 +22,8 @@ export const appCoreInterceptor: HttpInterceptorFn = (req, next) => {
       if (err instanceof HttpErrorResponse) {
         resError = err.error;
 
-        if (err.status == 502 && err.statusText == "Bad Gateway") {
+        if (err.status == 502 && err.statusText == "Bad Gateway"
+          || (err.url?.endsWith('auth/state') && err.status == 404)) {
           setTimeout(() => {
             router.navigate(['update-process']).then();
           }, 100);

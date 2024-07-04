@@ -6,7 +6,7 @@ export interface UserInfo {
   registrationDate: Date,
   enabled: boolean;
   hasImage: boolean;
-  imageBase64: string;
+  imagePath: string;
   email: string;
   description: string | null;
   statistics: Statistics | null;

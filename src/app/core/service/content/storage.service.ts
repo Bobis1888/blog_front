@@ -3,6 +3,11 @@ import {Observable} from "rxjs";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
 import {SuccessDto} from "app/core/dto/success-dto";
 
+export interface UploadResponse {
+  success: boolean;
+  uuid: string;
+}
+
 export class GetFile {
   type: string = '';
   nickname: string = '';
@@ -23,7 +28,7 @@ export class StorageService {
   constructor(private httpSender: HttpSenderService) {
   }
 
-  upload(file: File, type: string = ''): Observable<SuccessDto> {
+  upload(file: File, type: string = ''): Observable<UploadResponse> {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
     formData.append('type', type);

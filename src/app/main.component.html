@@ -6,9 +6,17 @@
           <div class="image" routerLink="/">
             <img src="assets/images/logo.webp" alt="Mylog logo" height="157" width="493"/>
           </div>
-          <button *ngIf="authService.isAuthorized" mat-button routerLink="/profile" (click)="drawer.close()">
-            {{ authService.userInfo?.nickname ?? '' }}
-          </button>
+          <div class="profile" *ngIf="authService.isAuthorized" routerLink="/profile" (click)="drawer.close()">
+            <div class="avatar" *ngIf="authService.userInfo.hasImage">
+              <img src="{{ authService.userInfo.imagePath }}" (error)="authService.userInfo.hasImage = false" alt="Avatar">
+            </div>
+            <span>
+              {{ authService.userInfo.nickname }}
+            </span>
+          </div>
+
+          <mat-divider></mat-divider>
+
           <button *ngIf="!authService.isAuthorized" mat-button routerLink="/auth/login" (click)="drawer.close()">
             <mat-icon>login</mat-icon>
             {{ "topMenu.login" | translate }}

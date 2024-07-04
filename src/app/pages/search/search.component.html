@@ -17,11 +17,10 @@
       <div class="header" *ngIf="authorInfo">
         <div class="title">
           <div class="title-avatar">
-            <div *ngIf="authorInfo.hasImage" class="avatar">
-              <img src="{{authorInfo.imageBase64}}" alt="avatar">
-            </div>
-            <div *ngIf="!authorInfo.hasImage" class="avatar default-avatar">
-              <img ngSrc="assets/images/dinosaur.png" alt="avatar" height="128" width="128">
+            <div class="avatar" [@opacity-2] [ngClass]="{'default-avatar': !authorInfo.hasImage}">
+              <img src="{{ authorInfo.imagePath }}"
+                   (error)="authorInfo.imagePath = 'assets/images/dinosaur.png'; authorInfo.hasImage = false"
+                   alt="avatar">
             </div>
             <h2>
               {{ authorInfo.nickname }}
@@ -38,7 +37,7 @@
           </h2>
         </div>
         <div class="sub-title">
-          <b>{{ 'searchPage.subscribers' | translate : {count: authorInfo.statistics?.subscribers ?? 0 } }}</b>
+          <b>{{ 'searchPage.subscribers' | translate : {count: authorInfo.statistics?.subscribers ?? 0} }}</b>
         </div>
       </div>
 

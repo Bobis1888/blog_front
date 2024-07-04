@@ -5,10 +5,12 @@ import {AuthService} from 'app/core/service/auth/auth.service';
 import {Router} from '@angular/router';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {ThemeDataService} from "app/core/service/theme-data.service";
+import { animations } from 'app/core/config/app.animations';
 
 @Component({
   selector: 'top-menu',
   standalone: true,
+  animations: animations,
   imports: [CoreModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.less',

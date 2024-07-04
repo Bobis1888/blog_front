@@ -27,17 +27,24 @@ export class AuthService extends UnSubscriber {
     return state == AuthState.authorized;
   }
 
-  get userInfo(): UserInfo | null {
+  get userInfo(): UserInfo {
     let info = localStorage.getItem('cachedUserInfo');
 
     if (info != null) {
       try {
         return JSON.parse(localStorage.getItem('cachedUserInfo')!) as UserInfo;
       } catch (e) {
-        return null;
+        return {} as UserInfo;
       }
     }
-    return null;
+
+    return {} as UserInfo;
+  }
+
+  set userInfo(it: UserInfo | null) {
+    if (it) {
+      localStorage.setItem('cachedUserInfo', JSON.stringify(it));
+    }
   }
 
   get authState(): AuthState {
@@ -126,9 +133,11 @@ export class AuthService extends UnSubscriber {
     if (force || this.userInfo == null || nickname) {
       return this.httpSender.send(HttpMethod.GET, '/auth/info' + nickname)
         .pipe(
-          tap(it => {
+          tap((it: UserInfo) => {
             if (!nickname) {
-              localStorage.setItem('cachedUserInfo', JSON.stringify(it));
+              it.hasImage = true;
+              it.imagePath = "/api/storage/download?type=avatar&nickname=" + it.nickname + "&uuid=";
+              this.userInfo = it;
             }
           })
         );

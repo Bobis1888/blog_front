@@ -5,7 +5,7 @@ import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ContentService, Filter} from "app/core/service/content/content.service";
-import {catchError, delay, map, mergeMap, Observable, of, takeUntil} from "rxjs";
+import {catchError, map, mergeMap, Observable, of, takeUntil} from "rxjs";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
 import {UserInfo} from "app/core/service/auth/user-info";
@@ -13,7 +13,6 @@ import {AuthService} from "app/core/service/auth/auth.service";
 import {StatisticsService} from "app/core/service/content/statistics.service";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
 import {animations} from "app/core/config/app.animations";
-import {GetFile, StorageService} from "app/core/service/content/storage.service";
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
@@ -30,7 +29,6 @@ export class SearchComponent extends HasErrors implements OnInit {
               private router: Router,
               private meta: Meta,
               private authService: AuthService,
-              private storageService: StorageService,
               private statService: StatisticsService,
               private subsService: SubscriptionService,
               private contentService: ContentService,
@@ -163,7 +161,7 @@ export class SearchComponent extends HasErrors implements OnInit {
       .pipe(
         takeUntil(this.unSubscriber),
         map(it => this.authorInfo = it),
-        mergeMap(() => this.initAvatar(nickname)),
+        mergeMap(() => this.initAvatar()),
         mergeMap(() => this.statService.get(nickname)),
         catchError((err) => of(err))
       )
@@ -177,26 +175,14 @@ export class SearchComponent extends HasErrors implements OnInit {
       });
   }
 
-  private initAvatar(nickname: string): Observable<any> {
-    return this.storageService.download(new GetFile('avatar', nickname))
-      .pipe(
-        takeUntil(this.unSubscriber),
-        map((it: File) => {
-          if (it != null) {
-            let fileReader = new FileReader();
-            fileReader.readAsDataURL(it);
-            let me = this
-            fileReader.onload = function () {
+  private initAvatar(): Observable<any> {
 
-              if (me.authorInfo) {
-                me.authorInfo.hasImage = fileReader.result != null;
-                me.authorInfo.imageBase64 = fileReader.result as string;
-              }
-            };
-          }
-        }),
-        catchError((err) => of(err))
-      );
+    if (this.authorInfo) {
+      this.authorInfo.hasImage = true;
+      this.authorInfo.imagePath = "/api/storage/download?type=avatar&nickname=" +  this.authorInfo.nickname + "&uuid=";
+    }
+
+    return of();
   }
 
   public loadMore() {

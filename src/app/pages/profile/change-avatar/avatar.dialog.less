@@ -7,6 +7,9 @@
     cursor: pointer;
     display: block;
     text-align: center;
+    padding: 20px;
+    border: 1px dashed @fifthColor;
+    border-radius: 20px;
   }
 
   span {
@@ -20,6 +23,38 @@
     font-size: 16px;
     font-weight: bolder;
   }
+
+  .avatars-preview {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .arrow {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+
+  .avatar {
+    background-color: @firstColor;
+    border: 3px @fifthColor solid;
+    border-radius: 50px;
+    padding: 5px;
+    width: 60px;
+    height: 60px;
+    margin: 10px auto;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      clip-path: circle(30px at center);
+    }
+  }
+}
+
+.mobile {
+  --mat-dialog-with-actions-content-padding: 0 !important;
 }
 
 

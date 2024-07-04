@@ -1,32 +1,55 @@
-<section>
-  <div class="top-menu">
-    <div class="image" routerLink="/">
-      <img src="assets/images/logo.webp" alt="Mylog logo" height="157" width="493" />
-    </div>
-
-    <div class="buttons">
-      <button mat-icon-button aria-label="Search" routerLink="/search" *ngIf="!hideSearchButton">
-        <mat-icon>search</mat-icon>
-      </button>
-
-      <div class="menu-button" *ngIf="!authService.isAuthorized">
-        <button mat-stroked-button routerLink="/auth/login">
-          {{ "topMenu.login" | translate }}
-        </button>
-      </div>
-
-      <button *ngIf="authService.isAuthorized" mat-flat-button routerLink="/content/edit">
-        <mat-icon class="light">edit</mat-icon>
-        {{ "topMenu.write" | translate }}
-      </button>
-
-      <button *ngIf="authService.isAuthorized" mat-icon-button routerLink="/profile">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-
-      <button mat-icon-button (click)="themeDataService.switchMode()">
-        <mat-icon>{{ themeDataService.isDarkMode ? "wb_sunny" : "nights_stay" }}</mat-icon>
-      </button>
-    </div>
+<div class="top-menu">
+  <div class="image" routerLink="/">
+    <img
+      src="assets/images/logo.webp"
+      alt="Mylog logo"
+      height="157"
+      width="493"
+    />
   </div>
-</section>
+
+  <div class="buttons">
+    <button
+      mat-icon-button
+      aria-label="Search"
+      routerLink="/search"
+      *ngIf="!hideSearchButton"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+
+    <div class="menu-button" *ngIf="!authService.isAuthorized">
+      <button mat-stroked-button routerLink="/auth/login">
+        {{ "topMenu.login" | translate }}
+      </button>
+    </div>
+
+    <button
+      *ngIf="authService.isAuthorized"
+      mat-flat-button
+      routerLink="/content/edit"
+    >
+      <mat-icon class="light">edit</mat-icon>
+      {{ "topMenu.write" | translate }}
+    </button>
+
+    <button
+      *ngIf="authService.isAuthorized && !authService.userInfo.hasImage"
+      mat-icon-button
+      [@opacity-2]
+      routerLink="/profile"
+    >
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
+   <div class="avatar" *ngIf="authService.isAuthorized && authService.userInfo.hasImage" [@opacity-2] routerLink="/profile">
+      <img src="{{ authService.userInfo.imagePath }}" (error)="authService.userInfo.hasImage = false" alt="Avatar" />
+    </div>
+
+    <button mat-icon-button (click)="themeDataService.switchMode()">
+      <mat-icon>{{
+        themeDataService.isDarkMode ? "wb_sunny" : "nights_stay"
+      }}</mat-icon>
+    </button>
+  </div>
+</div>

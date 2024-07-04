@@ -15,6 +15,7 @@ import {ThemeDataService} from "app/core/service/theme-data.service";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
 import {StatisticsService} from "app/core/service/content/statistics.service";
 import {StorageService} from "app/core/service/content/storage.service";
+import {DragAndDropDirective} from "app/core/directive/drag-and-drop";
 
 @NgModule({
   declarations: [],
@@ -27,6 +28,7 @@ import {StorageService} from "app/core/service/content/storage.service";
     NgxEditorModule,
     MaskitoDirective,
     SafeHtmlPipe,
+    DragAndDropDirective,
     NgxSkeletonLoaderModule.forRoot({
       count: 3,
       theme: {
@@ -45,7 +47,8 @@ import {StorageService} from "app/core/service/content/storage.service";
     NgxSkeletonLoaderModule,
     ClipboardModule,
     AsyncPipe,
-    MaskitoDirective
+    MaskitoDirective,
+    DragAndDropDirective
   ],
   providers: [
     HttpSenderService,
