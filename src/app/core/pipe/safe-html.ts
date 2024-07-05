@@ -8,7 +8,7 @@ export class SafeHtmlPipe implements PipeTransform {
 
   transform(value: string): SafeHtml {
     let processed = this.sanitized.sanitize(SecurityContext.HTML, value);
-    processed = this.sanitized.sanitize(SecurityContext.STYLE, processed);
+    // processed = this.sanitized.sanitize(SecurityContext.STYLE, processed);
     return this.sanitized.bypassSecurityTrustHtml(processed ?? '');
   }
 }
