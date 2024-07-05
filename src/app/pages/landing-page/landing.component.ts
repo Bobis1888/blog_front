@@ -25,6 +25,7 @@ export class LandingComponent extends UnSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.setItem('firstLaunch', 'true');
     this.title.setTitle(this.translate.instant('landingPage.metaTitle'));
   }
 
