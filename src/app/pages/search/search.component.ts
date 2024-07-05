@@ -161,7 +161,7 @@ export class SearchComponent extends HasErrors implements OnInit {
       .pipe(
         takeUntil(this.unSubscriber),
         map(it => this.authorInfo = it),
-        mergeMap(() => this.initAvatar()),
+        map(() => this.initAvatar()),
         mergeMap(() => this.statService.get(nickname)),
         catchError((err) => of(err))
       )
@@ -175,14 +175,12 @@ export class SearchComponent extends HasErrors implements OnInit {
       });
   }
 
-  private initAvatar(): Observable<any> {
+  private initAvatar(): void {
 
     if (this.authorInfo) {
       this.authorInfo.hasImage = true;
       this.authorInfo.imagePath = "/api/storage/download?type=avatar&nickname=" +  this.authorInfo.nickname + "&uuid=";
     }
-
-    return of();
   }
 
   public loadMore() {

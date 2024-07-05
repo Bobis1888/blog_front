@@ -42,8 +42,8 @@
       <mat-icon>account_circle</mat-icon>
     </button>
 
-   <div class="avatar" *ngIf="authService.isAuthorized && authService.userInfo.hasImage" [@opacity-2] routerLink="/profile">
-      <img src="{{ authService.userInfo.imagePath }}" (error)="authService.userInfo.hasImage = false" alt="Avatar" />
+   <div class="avatar" *ngIf="authService.isAuthorized && hasImage" [@opacity-2] routerLink="/profile">
+      <img src="{{ authService.userInfo.imagePath }}" (error)="hasImage = false" alt="Avatar" />
     </div>
 
     <button mat-icon-button (click)="themeDataService.switchMode()">

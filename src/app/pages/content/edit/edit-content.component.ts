@@ -43,6 +43,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote',
+      'align_left', 'align_center', 'align_right', 'align_justify',
       {heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']},
       'link', 'image'],
   ];
@@ -88,6 +89,9 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
     this.editor = new Editor({
       keyboardShortcuts: true,
+      features: {
+        resizeImage: true
+      }
     });
 
     let id: string = this.aRouter.snapshot.params['id'];

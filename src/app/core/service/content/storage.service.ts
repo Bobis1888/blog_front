@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
-import {SuccessDto} from "app/core/dto/success-dto";
 
 export interface UploadResponse {
   success: boolean;

@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import { animations } from 'app/core/config/app.animations';
+import { UserInfo } from 'app/core/service/auth/user-info';
 
 @Component({
   selector: 'top-menu',
@@ -24,6 +25,16 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     protected deviceService: DeviceDetectorService,
   ) {
     super();
+  }
+
+  get hasImage(): boolean {
+    return this.authService.userInfo.hasImage;
+  }
+
+  set hasImage(value: boolean) {
+    let info: UserInfo = this.authService.userInfo;
+    info.hasImage = value;
+    this.authService.userInfo = info;
   }
 
   ngOnInit(): void {
