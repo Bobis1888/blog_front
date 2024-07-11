@@ -3,10 +3,9 @@ import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angula
 import {Router} from "@angular/router";
 import {CoreModule} from "app/core/core.module";
 import {AuthService} from "app/core/service/auth/auth.service";
-import {SuccessDto} from "app/core/dto/success-dto";
 import {TranslateModule} from "@ngx-translate/core";
 import {HasErrors} from "app/core/abstract/has-errors";
-import {mergeAll, mergeMap, takeUntil} from "rxjs";
+import {mergeMap, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {UserInfo} from "app/core/service/auth/user-info";
 

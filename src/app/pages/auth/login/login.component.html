@@ -61,16 +61,18 @@
           </button>
         </div>
         <br>
-        <div class="registration-button">
-          <button type="button" mat-button routerLink="/auth/registration">
-            {{ "loginPage.haveNoAccount" | translate }}
+        <mat-divider></mat-divider>
+        <br>
+        <span class="reg-hint" [innerHTML]="'loginPage.haveNoAccount' | translate"></span>
+        <div class="social-buttons">
+          <button type="button" mat-mini-fab routerLink="/auth/registration">
+            <mat-icon>alternate_email</mat-icon>
           </button>
+          <a mat-mini-fab href="https://my-log.ru/api/auth/oauth2/authorization/google">
+            <img class="social-img" src="assets/social/google-48.png" alt="Google">
+          </a>
         </div>
-
       </form>
-      <div class="social">
-        <!--todo-->
-      </div>
       <mat-card-footer *ngIf="loading">
         <mat-progress-bar mode="buffer"></mat-progress-bar>
       </mat-card-footer>

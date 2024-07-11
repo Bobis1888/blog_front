@@ -3,7 +3,7 @@
     "title": "Mylog",
     "description": "Mylog.ru — the most interesting place on the Internet. Platform for publishing content on various themes. All in one place.",
     "keywords": "publish news tech learning reading read book",
-    "badGateway": "Something went wrong..."
+    "badGateway": "Updating..."
   },
   "landingPage": {
     "metaTitle": "Mylog - a World of Stories",
@@ -42,7 +42,10 @@
     "signUp": "Sign up",
     "password": "Password",
     "forgotPassword": "Forgot password?",
-    "haveNoAccount": "Don't have an account?"
+    "haveNoAccount": "Don't have an account?",
+    "social" : {
+      "google": "Google"
+    }
   },
   "registrationPage": {
     "title": "Registration",

@@ -6,6 +6,20 @@
   display: flex;
   justify-content: center;
 
+  .social-buttons {
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+
+    .social-img {
+      display: flex;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+
+
   form {
     padding: 20px 80px;
 
@@ -22,17 +36,15 @@
     margin: 10px auto;
   }
 
-  mat-card {
-    margin: 10px;
+  .reg-hint {
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-size: 16px;
   }
 
-  .registration-button {
-    display: flex;
-    flex-direction: column;
-
-    button {
-      text-decoration: underline;
-    }
+  mat-card {
+    margin: 10px;
   }
 }
 

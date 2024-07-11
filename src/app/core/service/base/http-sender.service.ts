@@ -15,6 +15,7 @@ export enum HttpMethod {
 })
 export class HttpSenderService implements OnInit, Sender {
 
+  private prefix: string = '/api';
   protected options: any = {};
 
   constructor(protected httpClient: HttpClient) {
@@ -49,25 +50,25 @@ export class HttpSenderService implements OnInit, Sender {
   }
 
   public download(url: string): Observable<any> {
-    return this.httpClient.get('/api' + url, {
+    return this.httpClient.get(this.prefix + url, {
       ...this.options,
       responseType: 'blob'
     });
   }
 
   private post(url: string, body: any): Observable<any> {
-    return this.httpClient.post('/api' + url, body, this.options);
+    return this.httpClient.post(this.prefix + url, body, this.options);
   }
 
   private get(url: string): Observable<any> {
-    return this.httpClient.get('/api' + url, this.options);
+    return this.httpClient.get(this.prefix + url, this.options);
   }
 
   private delete(url: string): Observable<any> {
-    return this.httpClient.delete('/api' + url, this.options);
+    return this.httpClient.delete(this.prefix + url, this.options);
   }
 
   private put(url: string, body: any): Observable<any> {
-    return this.httpClient.put('/api' + url, body, this.options);
+    return this.httpClient.put(this.prefix + url, body, this.options);
   }
 }
