@@ -233,7 +233,7 @@
     "emailHelp": "Forgot password? Go to link for reset password",
     "emailHelpAction": "Reset",
     "login.invalid": "Invalid login",
-    "login.blocked": "Login is blocked for {{time}} minutes",
+    "login.block": "Login is blocked for {{time}} minutes. Try again later or reset password",
     "password.invalid": "Invalid password",
     "password.invalidSize": "Invalid password size",
     "sessionExpired": "Session expired, please sign in again",
