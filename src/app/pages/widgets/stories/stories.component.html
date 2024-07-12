@@ -8,19 +8,9 @@
       *ngSwitchCase="'empty'"
       [ngTemplateOutlet]="empty"
     ></ng-container>
-    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="empty"></ng-container>
   </ng-container>
 </div>
-
-<ng-template #load>
-
-  <mat-card>
-    <mat-card-content>
-      <br/>
-      <ngx-skeleton-loader count="4"></ngx-skeleton-loader>
-    </mat-card-content>
-  </mat-card>
-</ng-template>
 
 <ng-template #empty>
 </ng-template>

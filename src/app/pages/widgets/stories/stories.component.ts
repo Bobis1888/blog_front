@@ -5,7 +5,7 @@ import {CoreModule} from "src/app/core/core.module";
 import {ActivatedRoute} from "@angular/router";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {StoriesService, Story} from "app/core/service/stories/stories.service";
-import {interval, Subscription, takeUntil} from "rxjs";
+import {interval, takeUntil} from "rxjs";
 
 @Component({
   selector: 'stories',
@@ -17,7 +17,7 @@ import {interval, Subscription, takeUntil} from "rxjs";
 })
 export class StoriesComponent extends UnSubscriber implements OnInit {
 
-  protected state: 'loading' | 'data' | 'empty' = 'loading';
+  protected state: 'data' | 'empty' = 'empty';
   public items: Array<Story> = [];
   protected progressbarValue = 0;
   protected currentSecond: number = 0;
@@ -48,7 +48,6 @@ export class StoriesComponent extends UnSubscriber implements OnInit {
     this.storiesService.list()
       .pipe(
         takeUntil(this.unSubscriber),
-        // delay(15000)
       )
       .subscribe({
         next: it => {
