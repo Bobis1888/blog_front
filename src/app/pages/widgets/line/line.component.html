@@ -32,6 +32,9 @@
 </ng-template>
 
 <ng-template #data>
+  <ng-container *ngIf="type == LineType.top">
+    <stories></stories>
+  </ng-container>
   <div *ngFor="let item of items" class="content">
     <mat-card [@opacity-1] matRipple>
       <mat-card-header routerLink="/content/view/{{ item.id }}" *ngIf="type == LineType.my; else view">

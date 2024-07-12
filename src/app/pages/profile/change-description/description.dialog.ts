@@ -49,7 +49,6 @@ export class ChangeDescriptionDialog extends HasErrors implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data);
     this.formGroup.addControl(
       'description',
       new FormControl(

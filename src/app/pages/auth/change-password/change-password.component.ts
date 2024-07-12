@@ -38,7 +38,6 @@ export class ChangePasswordComponent extends Registration {
 
   override submit(): void {
 
-    console.log('this', this.loading);
     if (this.loading) {
       return;
     }

@@ -18,7 +18,7 @@
     "feature2": "<h1>Tools</h1>Use our writing tools to create beautiful and easy to read content",
     "title2" : "Discover a world of stories waiting to be written and read",
     "subTitle2": "Start sharing your own stories or explore the works of others on our platform.",
-    "button": "Sign up now",
+    "button": "Join now",
     "learn": "Learn more"
   },
   "topMenu": {
@@ -224,6 +224,7 @@
   "firstLaunchTitle": "We're glad you are here!\nWe use cookies for better experience.",
   "firstLaunchAction": "Ok",
   "errors": {
+    "serverError": "Server error",
     "image.maxSize": "The maximum file size is exceeded (2 MB)",
     "nickname.invalid": "Invalid nickname",
     "nickname.equal": "Same nickname",
@@ -233,7 +234,7 @@
     "emailHelp": "Forgot password? Go to link for reset password",
     "emailHelpAction": "Reset",
     "login.invalid": "Invalid login",
-    "login.block": "Login is blocked for {{time}} minutes. Try again later or reset password",
+    "login.block": "Login is blocked for {{time}} minutes.\nTry again later or reset password",
     "password.invalid": "Invalid password",
     "password.invalidSize": "Invalid password size",
     "sessionExpired": "Session expired, please sign in again",

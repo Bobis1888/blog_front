@@ -16,6 +16,7 @@ import {SubscriptionService} from "app/core/service/content/subscription.service
 import {StatisticsService} from "app/core/service/content/statistics.service";
 import {StorageService} from "app/core/service/content/storage.service";
 import {DragAndDropDirective} from "app/core/directive/drag-and-drop";
+import {StoriesService} from "app/core/service/stories/stories.service";
 
 @NgModule({
   declarations: [],
@@ -57,7 +58,8 @@ import {DragAndDropDirective} from "app/core/directive/drag-and-drop";
     SubscriptionService,
     StatisticsService,
     ThemeDataService,
-    StorageService
+    StorageService,
+    StoriesService
   ]
 })
 export class CoreModule {}

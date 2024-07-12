@@ -1,0 +1,40 @@
+<div class="stories" [ngClass]="{mobile: isMobile}">
+  <ng-container [ngSwitch]="state">
+    <ng-container
+      *ngSwitchCase="'data'"
+      [ngTemplateOutlet]="data"
+    ></ng-container>
+    <ng-container
+      *ngSwitchCase="'empty'"
+      [ngTemplateOutlet]="empty"
+    ></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #load>
+
+  <mat-card>
+    <mat-card-content>
+      <br/>
+      <ngx-skeleton-loader count="4"></ngx-skeleton-loader>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #empty>
+</ng-template>
+
+<ng-template #data>
+  <mat-card [routerLink]="currentStory.link" matRipple>
+    <div class="title">
+      <h1>{{ currentStory.title }}</h1>
+    </div>
+    <mat-card-content>
+      <p [innerHTML]="currentStory.description | safeHtml"></p>
+      <mat-card-footer>
+        <mat-progress-bar [value]="progressbarValue"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

@@ -18,13 +18,15 @@
     }
   }
 
-
-
   form {
     padding: 20px 80px;
 
     div {
       margin: 10px;
+    }
+
+    div:not(:last-child) {
+      margin-bottom: 25px !important;
     }
   }
 
@@ -43,17 +45,13 @@
     font-size: 16px;
   }
 
-  .has-error {
-    margin-bottom: 30px !important;
-  }
-
   mat-card {
     margin: 10px;
   }
 }
 
 .login-mobile {
-  padding-top: 10em;
+  padding-top: 6em;
 
   form {
     padding: 20px;
@@ -73,5 +71,7 @@
   color: @thirdColor;
 }
 
-.buttons-mobile {
+.errors {
+  text-align: center;
+  color: @errorColor;
 }
