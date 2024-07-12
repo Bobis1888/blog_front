@@ -5,8 +5,9 @@ import {AuthService} from 'app/core/service/auth/auth.service';
 import {Router} from '@angular/router';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {ThemeDataService} from "app/core/service/theme-data.service";
-import { animations } from 'app/core/config/app.animations';
-import { UserInfo } from 'app/core/service/auth/user-info';
+import {animations} from 'app/core/config/app.animations';
+import {UserInfo} from 'app/core/service/auth/user-info';
+import {map, of} from "rxjs";
 
 @Component({
   selector: 'top-menu',
@@ -42,13 +43,13 @@ export class MenuComponent extends UnSubscriber implements OnInit {
 
   ngOnInit(): void {
     this.themeDataService.init();
+    this.authService.getState()
+      .pipe(
+        map((it) => it.logged ? this.authService.info() : of({}))
+      ).subscribe();
   }
 
   get hideSearchButton(): boolean {
     return this.router.url.includes('/search');
-  }
-
-  get isMobile(): boolean {
-    return this.deviceService.isMobile();
   }
 }
