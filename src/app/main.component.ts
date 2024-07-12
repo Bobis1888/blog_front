@@ -3,7 +3,7 @@ import {ActivatedRoute, ChildrenOutletContexts, Router, RouterLink, RouterOutlet
 import {MenuComponent} from "src/app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
-import {takeUntil} from "rxjs";
+import {map, takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {NgIf} from "@angular/common";
 import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
@@ -18,6 +18,7 @@ import {MatRipple} from "@angular/material/core";
 import {MatBadge} from "@angular/material/badge";
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {MatDivider} from "@angular/material/divider";
+import {UserInfo} from "app/core/service/auth/user-info";
 
 @Component({
   selector: 'app-root',
@@ -53,6 +54,9 @@ export class MainComponent extends UnSubscriber implements OnInit {
 
   ngOnInit(): void {
     this.themeDataService.init();
+    this.authService.getState().pipe(
+      map( () => this.authService.info())
+    ).subscribe();
     //todo handle service
     this.aRouter.queryParams
       .pipe(takeUntil(this.unSubscriber))

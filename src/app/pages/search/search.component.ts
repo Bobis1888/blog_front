@@ -76,7 +76,7 @@ export class SearchComponent extends HasErrors implements OnInit {
   get canSubscribe(): boolean {
     return this.authService.isAuthorized &&
       this.authorInfo?.statistics?.userIsSubscribed === false &&
-      this.authorInfo?.nickname != this.authService.userInfo?.nickname;
+      this.authorInfo?.nickname != this.authService.userInfo.nickname;
   }
 
   ngOnInit(): void {

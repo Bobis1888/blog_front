@@ -28,13 +28,16 @@ export class MenuComponent extends UnSubscriber implements OnInit {
   }
 
   get hasImage(): boolean {
-    return this.authService.userInfo.hasImage;
+    return this.authService.userInfo.hasImage ?? false;
   }
 
   set hasImage(value: boolean) {
-    let info: UserInfo = this.authService.userInfo;
-    info.hasImage = value;
-    this.authService.userInfo = info;
+    let info: UserInfo | null = this.authService.userInfo;
+
+    if (info != null) {
+      info.hasImage = value;
+      this.authService.userInfo = info;
+    }
   }
 
   ngOnInit(): void {

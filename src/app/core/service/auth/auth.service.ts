@@ -32,7 +32,7 @@ export class AuthService extends UnSubscriber {
 
     if (info != null) {
       try {
-        return JSON.parse(localStorage.getItem('cachedUserInfo')!) as UserInfo;
+        return JSON.parse(info!) as UserInfo;
       } catch (e) {
         return {} as UserInfo;
       }
@@ -130,7 +130,7 @@ export class AuthService extends UnSubscriber {
       nickname = '/' + nickname;
     }
 
-    if (force || this.userInfo == null || nickname) {
+    if (force || this.userInfo.nickname == null || nickname) {
       return this.httpSender.send(HttpMethod.GET, '/auth/info' + nickname)
         .pipe(
           tap((it: UserInfo) => {
