@@ -157,6 +157,7 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   public searchAuthor(nickname: string) {
+    this.authorInfo = null;
     this.authService.info(false, nickname)
       .pipe(
         takeUntil(this.unSubscriber),
