@@ -17,7 +17,7 @@
       <div class="header" *ngIf="authorInfo">
         <div class="title">
           <div class="title-avatar">
-            <div class="avatar" [@opacity-2] [ngClass]="{'default-avatar': !authorInfo.hasImage}">
+            <div class="avatar" [ngClass]="{'default-avatar': !authorInfo.hasImage}">
               <img src="{{ authorInfo.imagePath }}"
                    (error)="authorInfo.imagePath = 'assets/images/dinosaur.png'; authorInfo.hasImage = false"
                    alt="avatar">

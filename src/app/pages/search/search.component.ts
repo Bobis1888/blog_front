@@ -5,20 +5,18 @@ import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ContentService, Filter} from "app/core/service/content/content.service";
-import {catchError, map, mergeMap, Observable, of, takeUntil} from "rxjs";
+import {catchError, map, mergeMap, of, takeUntil} from "rxjs";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
 import {UserInfo} from "app/core/service/auth/user-info";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {StatisticsService} from "app/core/service/content/statistics.service";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
-import {animations} from "app/core/config/app.animations";
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'search',
   standalone: true,
-  animations: animations,
   imports: [CoreModule, FormsModule, ReactiveFormsModule, NgOptimizedImage],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
