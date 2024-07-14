@@ -53,11 +53,6 @@ export class AuthService extends UnSubscriber {
 
   constructor(private httpSender: HttpSenderService, private router: Router) {
     super();
-    try {
-      this.getState()
-        .pipe(takeUntil(this.unSubscriber))
-        .subscribe();
-    } catch (ignore) {}
   }
 
   public login(login: string, password: string): Observable<SuccessDto> {

@@ -3,7 +3,7 @@ import {ActivatedRoute, ChildrenOutletContexts, Router, RouterLink, RouterOutlet
 import {MenuComponent} from "src/app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
-import {map, of, takeUntil} from "rxjs";
+import {mergeMap, takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {NgIf} from "@angular/common";
 import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
@@ -54,7 +54,7 @@ export class MainComponent extends UnSubscriber implements OnInit {
   ngOnInit(): void {
     this.themeDataService.init();
     this.authService.getState().pipe(
-      map( (it) => it.logged ? this.authService.info() : of({}))
+      mergeMap( (it: {'logged': boolean}) => this.authService.info(it.logged))
     ).subscribe();
     //todo handle service
     this.aRouter.queryParams
