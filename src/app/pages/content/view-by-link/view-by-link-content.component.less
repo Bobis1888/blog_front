@@ -1,0 +1,89 @@
+@import "src/app/theme/utils";
+
+:host ::ng-deep .content img {
+  max-width: 100%;
+}
+
+.content {
+  padding: 20px;
+  margin: auto;
+  max-width: 700px;
+  font-size: 16px;
+
+  h1 {
+    font-weight: bolder;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .status {
+    color: @warningColor;
+    font-weight: bold;
+    padding-bottom: 20px;
+    display: block;
+  }
+}
+
+.tags {
+  .tag {
+    padding-right: 5px;
+    cursor: pointer;
+    font-weight: bolder;
+    letter-spacing: 1px;
+  }
+
+  .tags-title {
+    font-weight: bolder;
+  }
+}
+
+.date {
+  font-weight: bolder;
+  display: block;
+  padding-bottom: 10px;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    margin: 5px 10px;
+  }
+}
+
+.footer {
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  .author {
+    display: flex;
+    align-items: center;
+
+    button {
+      margin-right: 10px;
+    }
+
+    span {
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+}
+
+.mobile {
+
+  img {
+    max-width: 100px;
+  }
+}
+
+

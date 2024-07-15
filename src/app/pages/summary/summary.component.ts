@@ -8,12 +8,13 @@ import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.compone
 import {AuthService} from "app/core/service/auth/auth.service";
 import {animations} from "app/core/config/app.animations";
 import {Router, RouterOutlet} from "@angular/router";
+import {PublicInfoWidgetComponent} from "app/pages/widgets/legal/public-info-widget.component";
 
 @Component({
   selector: 'summary',
   standalone: true,
   animations: animations,
-  imports: [CoreModule, FormsModule, LineComponent, RightWidgetComponent, RouterOutlet],
+  imports: [CoreModule, FormsModule, LineComponent, RightWidgetComponent, RouterOutlet, PublicInfoWidgetComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.less',
 })

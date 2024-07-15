@@ -1,5 +1,15 @@
-import {Routes} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, Routes} from '@angular/router';
 import {SearchComponent} from 'app/pages/search/search.component';
+import {inject} from "@angular/core";
+import {AuthService} from "app/core/service/auth/auth.service";
+
+export const authGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  let authService = inject(AuthService);
+  return authService.isAuthorized;
+};
 
 export const routes: Routes = [
   {
@@ -31,6 +41,7 @@ export const routes: Routes = [
   {
     path: 'profile',
     data: {animation: 'ProfileComponent'},
+    canActivate: [authGuard],
     loadComponent: () => import('app/pages/profile/profile.component')
       .then(m => m.ProfileComponent)
   },

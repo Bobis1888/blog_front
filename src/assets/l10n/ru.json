@@ -222,6 +222,11 @@
   },
   "firstLaunchTitle": "Мы рады приветствовать вас!\nМы используем Cookies для хранения данных.",
   "firstLaunchAction": "Ок",
+  "legalWidget" : {
+    "privacyPolicy": "Конфиденциальность",
+    "aboutPersonalData": "О персональных данных",
+    "aboutUs": "О проекте"
+  },
   "errors": {
     "serverError": "Произошла ошибка на сервере",
     "image.maxSize": "Превышен максимальный размер файла (2 MB)",

@@ -221,6 +221,11 @@
   "badGatewayPage": {
     "title": "We are working on the update, please wait."
   },
+  "legalWidget" : {
+    "privacyPolicy": "Privacy Policy",
+    "aboutPersonalData": "About Personal Data",
+    "aboutUs": "About Us"
+  },
   "firstLaunchTitle": "We're glad you are here!\nWe use cookies for better experience.",
   "firstLaunchAction": "Ok",
   "errors": {

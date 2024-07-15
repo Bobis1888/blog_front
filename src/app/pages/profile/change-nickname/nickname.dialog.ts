@@ -25,19 +25,27 @@ export interface DialogData {
 })
 export class ChangeNicknameDialog extends HasErrors implements OnInit {
 
-  private maxLengthNickname = 35;
+  protected maxLengthNickname = 35;
 
   constructor(
     private dialogRef: MatDialogRef<ChangeNicknameDialog>,
     @Inject(MAT_DIALOG_DATA) protected data: DialogData,
     private authService: AuthService) {
     super();
-
   }
 
   readonly maskitoOpt: MaskitoOptions = {
     mask: this.mask,
+    preprocessors: [
+      ({elementState, data}) => ({
+        data: data?.startsWith("@") ? data : "@" + data, elementState
+      }),
+    ]
   };
+
+  protected get length(): string {
+    return (this.maxLengthNickname - (this.nicknameCtrl?.value?.length ?? 0)) + '/' + this.maxLengthNickname;
+  }
 
   private get mask() : RegExp[] {
     let res = [];

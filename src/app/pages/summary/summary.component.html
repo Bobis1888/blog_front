@@ -3,6 +3,9 @@
     <div class="line">
       <router-outlet></router-outlet>
     </div>
-    <right-widget [@opacity-1] *ngIf="!hideRightWidget"></right-widget>
+    <div class="web-widgets">
+      <right-widget [@opacity-1] *ngIf="!hideRightWidget"></right-widget>
+      <public-info [@opacity-1]></public-info>
+    </div>
   </div>
 </div>

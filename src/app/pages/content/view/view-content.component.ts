@@ -39,14 +39,14 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   private ref: MatSnackBarRef<any> | null = null;
   protected readonly Status = Status;
 
-  constructor(private contentService: ContentService,
+  constructor(protected contentService: ContentService,
               protected deviceService: DeviceDetectorService,
-              private matSnackBar: MatSnackBar,
-              private meta: Meta,
-              private subsService: SubscriptionService,
+              protected matSnackBar: MatSnackBar,
+              protected meta: Meta,
+              protected subsService: SubscriptionService,
               protected authService: AuthService,
-              private clipboardService: ClipboardService,
-              private aRouter: ActivatedRoute) {
+              protected clipboardService: ClipboardService,
+              protected aRouter: ActivatedRoute) {
     super();
   }
 

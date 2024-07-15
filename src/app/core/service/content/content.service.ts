@@ -53,6 +53,10 @@ export class ContentService {
     return this.httpSender.send(HttpMethod.GET, '/content/get/' + id);
   }
 
+  getByLink(link: string): Observable<Content> {
+    return this.httpSender.send(HttpMethod.GET, '/content/get-by-link/' + link);
+  }
+
   save(content: Content): Observable<{ success: true, id: string }> {
     return this.httpSender.send(HttpMethod.POST, '/content/save', content);
   }

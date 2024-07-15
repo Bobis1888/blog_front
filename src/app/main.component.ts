@@ -71,19 +71,6 @@ export class MainComponent extends UnSubscriber implements OnInit {
             this.router.navigate(['/auth/change-password'], {queryParams: {uuid: it["reset-password"]}}).then();
             return;
           }
-
-          if (it["expired"] === "true") {
-            this.router.navigate([], {
-              queryParams: {},
-              queryParamsHandling: '',
-            }).then();
-            setTimeout(() => {
-              this.ref = this.matSnackBar.open(
-                this.translate.instant('errors.sessionExpired'),
-                undefined,
-                {duration: 3000, panelClass: 'snack-bar'});
-            }, 500)
-          }
         }
       });
 

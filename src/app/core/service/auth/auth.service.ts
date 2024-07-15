@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
-import {map, Observable, of, takeUntil, tap} from "rxjs";
+import {map, Observable, of, tap} from "rxjs";
 import {SuccessDto} from "src/app/core/dto/success-dto";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {Router} from "@angular/router";
 import {UserInfo} from "app/core/service/auth/user-info";
+import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 
 export enum AuthState {
   authorized = 'authorized',
@@ -16,6 +17,7 @@ export enum AuthState {
   providedIn: 'any'
 })
 export class AuthService extends UnSubscriber {
+  private ref: MatSnackBarRef<any> | null = null;
 
   get isAuthorized(): boolean {
     let state = AuthState.unauthorized;
@@ -51,7 +53,9 @@ export class AuthService extends UnSubscriber {
     return this.isAuthorized ? AuthState.authorized : AuthState.unauthorized
   }
 
-  constructor(private httpSender: HttpSenderService, private router: Router) {
+  constructor(private httpSender: HttpSenderService,
+              private matSnackBar: MatSnackBar,
+              private router: Router) {
     super();
   }
 
@@ -84,9 +88,14 @@ export class AuthService extends UnSubscriber {
 
             if (this.isAuthorized) {
               this.changeAuthState(AuthState.unauthorized);
-              this.router.navigate(['/'], {
-                queryParams: {expired: true}
-              }).then();
+              this.ref = this.matSnackBar.open(
+                this.translate.instant('errors.sessionExpired'),
+                undefined,
+                {duration: 3000, panelClass: 'snack-bar'});
+
+              if (this.router.url.includes('profile')) {
+                this.router.navigate(['/']).then();
+              }
             }
           }
 
@@ -97,7 +106,7 @@ export class AuthService extends UnSubscriber {
 
   public logout(): Observable<void> {
     return this.httpSender.send(HttpMethod.GET, '/auth/logout')
-      .pipe(map(()=> {
+      .pipe(map(() => {
         localStorage.removeItem("cachedUserInfo");
         this.changeAuthState(AuthState.unauthorized);
       }));
