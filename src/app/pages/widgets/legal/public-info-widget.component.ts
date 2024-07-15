@@ -14,8 +14,8 @@ export class PublicInfoWidgetComponent implements OnInit {
   protected state: 'data' | 'loading' = 'loading';
 
   constructor(
-    private deviceService: DeviceDetectorService,
-  ) {}
+    private deviceService: DeviceDetectorService) {
+  }
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();

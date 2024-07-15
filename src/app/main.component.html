@@ -6,7 +6,7 @@
           <div class="image" routerLink="/">
             <img src="assets/images/logo.webp" alt="Mylog logo" height="157" width="493"/>
           </div>
-          <div class="profile" *ngIf="authService.isAuthorized" routerLink="/profile" (click)="drawer.close()">
+          <div class="profile" *ngIf="authService.isAuthorized" routerLink="/profile">
             <span class="nickname">
               {{ authService.userInfo.nickname }}
             </span>
@@ -14,15 +14,15 @@
 
           <mat-divider></mat-divider>
 
-          <button *ngIf="!authService.isAuthorized" mat-button routerLink="/auth/login" (click)="drawer.close()">
+          <button *ngIf="!authService.isAuthorized" mat-button routerLink="/auth/login">
             <mat-icon>login</mat-icon>
             {{ "topMenu.login" | translate }}
           </button>
-          <button *ngIf="authService.isAuthorized" mat-button routerLink="/my" (click)="drawer.close()">
+          <button *ngIf="authService.isAuthorized" mat-button routerLink="/my">
             <mat-icon>description</mat-icon>
             {{ "topMenu.my" | translate }}
           </button>
-          <button *ngIf="authService.isAuthorized" mat-button routerLink="/bookmarks" (click)="drawer.close()">
+          <button *ngIf="authService.isAuthorized" mat-button routerLink="/bookmarks">
             <mat-icon>bookmarks</mat-icon>
             {{ "topMenu.bookmarks" | translate }}
           </button>
@@ -31,7 +31,7 @@
           <button mat-icon-button (click)="themeDataService.switchMode()">
             <mat-icon>{{ themeDataService.isDarkMode ? "wb_sunny" : "nights_stay" }}</mat-icon>
           </button>
-          <span>Mylog 2024</span>
+          <public-info></public-info>
         </div>
       </div>
     </mat-drawer>

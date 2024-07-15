@@ -3,9 +3,10 @@
     <div class="line">
       <router-outlet></router-outlet>
     </div>
+
     <div class="web-widgets">
       <right-widget [@opacity-1] *ngIf="!hideRightWidget"></right-widget>
-      <public-info [@opacity-1]></public-info>
+      <public-info [@opacity-1] *ngIf="!isMobile"></public-info>
     </div>
   </div>
 </div>

@@ -156,6 +156,7 @@
     },
     "status": {
       "published": "Published",
+      "private_published": "Published (private)",
       "draft": "Draft",
       "pending": "Pending"
     }

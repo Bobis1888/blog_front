@@ -169,6 +169,7 @@
     },
     "status": {
       "published": "Опубликовано",
+      "private_published": "Опубликовано (private)",
       "draft": "Черновик",
       "pending": "Ожидает проверки"
     }

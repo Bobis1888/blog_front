@@ -1,5 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, ChildrenOutletContexts, Router, RouterLink, RouterOutlet} from '@angular/router';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {
+  ActivatedRoute,
+  ChildrenOutletContexts, EventType,
+  NavigationStart,
+  Router,
+  RouterLink,
+  RouterOutlet
+} from '@angular/router';
 import {MenuComponent} from "src/app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
@@ -10,7 +17,7 @@ import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.compone
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav} from "@angular/material/sidenav";
+import {MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {TranslateModule} from "@ngx-translate/core";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
@@ -18,12 +25,13 @@ import {MatRipple} from "@angular/material/core";
 import {MatBadge} from "@angular/material/badge";
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {MatDivider} from "@angular/material/divider";
+import {PublicInfoWidgetComponent} from "app/pages/widgets/legal/public-info-widget.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   animations: animations,
-  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple, MatBadge, MatDivider],
+  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple, MatBadge, MatDivider, PublicInfoWidgetComponent, MatSidenavModule],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.less'],
 })
@@ -51,10 +59,20 @@ export class MainComponent extends UnSubscriber implements OnInit {
     return this.router.url.includes('/landing') || this.router.url.includes('/update-process');
   }
 
+  @ViewChild('drawer') public drawer?: MatDrawer;
+
   ngOnInit(): void {
+    this.router.events.subscribe({
+      next: (it) => {
+
+        if (it.type == EventType.NavigationStart) {
+          this.drawer?.close().then();
+        }
+      }
+    });
     this.themeDataService.init();
     this.authService.getState().pipe(
-      mergeMap( (it: {'logged': boolean}) => this.authService.info(it.logged))
+      mergeMap((it: { 'logged': boolean }) => this.authService.info(it.logged))
     ).subscribe();
     //todo handle service
     this.aRouter.queryParams

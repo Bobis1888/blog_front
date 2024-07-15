@@ -24,12 +24,12 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature =
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
     provideRouter(
       routes,
       withDebugTracing(),
       inMemoryScrollingFeature
     ),
+    importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),
   ]
