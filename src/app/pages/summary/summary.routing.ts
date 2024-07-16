@@ -16,10 +16,10 @@ export const summaryGuard: CanActivateFn = (
     return true
   }
 
-  if (localStorage.getItem('firstLaunch') == null) {
-    router.navigate(['landing']).then(() => localStorage.setItem('firstLaunch', 'true'));
-    return false;
-  }
+  // if (localStorage.getItem('firstLaunch') == null) {
+  //   router.navigate(['landing']).then(() => localStorage.setItem('firstLaunch', 'true'));
+  //   return false;
+  // }
 
   return true;
 };
