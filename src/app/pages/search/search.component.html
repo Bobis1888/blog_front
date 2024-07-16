@@ -11,8 +11,8 @@
     </form>
   </div>
 
-  <div class="author-block" *ngIf="byAuthor && authorInfo">
-    <mat-card>
+  <div class="author-block" *ngIf="byAuthor && authorInfos">
+    <mat-card *ngFor="let authorInfo of authorInfos">
 
       <div class="header" *ngIf="authorInfo">
         <div class="title">
@@ -26,14 +26,14 @@
               {{ authorInfo.nickname }}
             </h2>
           </div>
-          <button mat-flat-button *ngIf="canSubscribe" (click)="subscribe()">
+          <button mat-flat-button *ngIf="authorInfo.additionalInfo?.canSubscribe" (click)="subscribe(authorInfo)">
             {{ 'searchPage.subscribe' | translate }}
           </button>
           <b *ngIf="authorInfo?.statistics?.userIsSubscribed">{{ 'searchPage.userIsSubscribed' | translate }}</b>
         </div>
         <div class="title">
           <h2>
-            {{ 'searchPage.registrationDate' | translate : {date: registrationDate} }}
+            {{ 'searchPage.registrationDate' | translate : {date: authorInfo.additionalInfo?.registrationDate ?? 0} }}
           </h2>
         </div>
         <div class="sub-title">
@@ -99,7 +99,7 @@
       <mat-card routerLink="/content/view/{{ item.id }}" matRipple>
         <mat-card-header>
           <mat-card-title>{{ item.title }}</mat-card-title>
-          <mat-card-subtitle> {{ item.tags.join(' ') }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="item.tags"> {{ item.tags.join(' ') }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <p [innerHTML]="item.preView | safeHtml"></p>
@@ -116,7 +116,7 @@
         </mat-card-footer>
       </mat-card>
     </div>
-    <div class="load-more" *ngIf="canLoadMore">
+    <div class="load-more" *ngIf="canLoadMore || loadMoreProgress">
       <button mat-button (click)="loadMore()" *ngIf="!loadMoreProgress">
         {{ 'searchPage.loadMore' | translate }}
       </button>

@@ -11,6 +11,7 @@ import {takeUntil} from "rxjs";
 import {MatButton} from "@angular/material/button";
 import {TranslateModule} from "@ngx-translate/core";
 import {DeviceDetectorService} from "ngx-device-detector";
+import {AuthService} from "app/core/service/auth/auth.service";
 
 export interface DialogData {
   id: string;
@@ -29,6 +30,7 @@ export class ChangeStatusDialog extends HasErrors {
   constructor(
     private dialogRef: MatDialogRef<ChangeStatusDialog>,
     private deviceService: DeviceDetectorService,
+    protected authService: AuthService,
     @Inject(MAT_DIALOG_DATA) protected data: DialogData,
     private contentService: ContentService) {
     super();

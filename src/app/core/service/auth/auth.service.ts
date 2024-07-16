@@ -150,6 +150,10 @@ export class AuthService extends UnSubscriber {
     return of(this.userInfo);
   }
 
+  public infos(nickname: string): Observable<Array<UserInfo>> {
+    return this.httpSender.send(HttpMethod.GET, '/auth/infos/' + nickname)
+  }
+
   private changeAuthState(authState: AuthState) {
     localStorage.setItem('authState', authState);
   }

@@ -1,5 +1,5 @@
 export interface Statistics {
-  userid: number;
+  nickname: string;
   articles: number;
   bookmarks: number;
   likes: number;

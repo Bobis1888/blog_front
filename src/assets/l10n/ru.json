@@ -183,6 +183,7 @@
     "subscribers" : "Подписчиков: {{count}}",
     "subscribe": "Подписаться",
     "registrationDate": "На платформе {{date}} д.",
+    "loadMore": "Загрузить еще",
     "userIsSubscribed": "Вы подписаны"
   },
   "viewContentPage": {
@@ -209,7 +210,6 @@
     "placeholder": "Начните писать здесь",
     "submit": "Сохранить",
     "view": "Просмотр",
-    "editPreview": "Редактировать превью",
     "publish": "Опубликовать",
     "unpublish": "Снять с публикации",
     "tags": "Теги",

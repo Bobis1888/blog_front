@@ -18,4 +18,8 @@ export class StatisticsService {
 
     return this.httpSender.send(HttpMethod.GET, '/content/statistics' + nickname);
   }
+
+  getList(list: Array<string>): Observable<Array<Statistics>> {
+    return this.httpSender.send(HttpMethod.POST, '/content/statistics/list', list);
+  }
 }

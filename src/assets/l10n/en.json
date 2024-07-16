@@ -170,6 +170,7 @@
     "subscribers" : "Subscribers: {{count}}",
     "subscribe": "Subscribe",
     "userIsSubscribed": "You are subscribed",
+    "loadMore": "Load more",
     "message": "To search for authors, use the prefix <b>@</b>.<br>To search for tags use prefix <b>#</b>."
   },
   "changeStatusDialog": {
@@ -212,7 +213,6 @@
     "placeholder": "Start writing here",
     "submit": "Save",
     "view": "View",
-    "editPreview": "Edit preview",
     "publish": "Publish",
     "unpublish": "Unpublish",
     "delete": "Delete",

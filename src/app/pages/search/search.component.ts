@@ -8,11 +8,12 @@ import {ContentService, Filter} from "app/core/service/content/content.service";
 import {catchError, map, mergeMap, of, takeUntil} from "rxjs";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
-import {UserInfo} from "app/core/service/auth/user-info";
+import {AdditionalInfo, UserInfo} from "app/core/service/auth/user-info";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {StatisticsService} from "app/core/service/content/statistics.service";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
 import {NgOptimizedImage} from "@angular/common";
+import {Statistics} from "app/core/service/content/statistics";
 
 @Component({
   selector: 'search',
@@ -38,7 +39,7 @@ export class SearchComponent extends HasErrors implements OnInit {
   protected items: Array<Content> = [];
   protected byTag: boolean = false;
   protected byAuthor: boolean = false;
-  protected authorInfo: UserInfo | null = null;
+  protected authorInfos: Array<UserInfo> = [];
   protected loadMoreProgress: boolean = true;
   protected totalPages: number = 1;
   protected page: number = 0;
@@ -51,16 +52,16 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   get canLoadMore(): boolean {
-    return this.totalPages > 1 && !this.loadMoreProgress && this.page < this.totalPages;
+    return this.totalPages > 1 && !this.loadMoreProgress && this.page < this.totalPages - 1;
   }
 
-  get registrationDate(): number {
+  registrationDate(authorInfo: UserInfo): number {
 
-    if (!this.authorInfo?.registrationDate) {
+    if (!authorInfo?.registrationDate) {
       return 0;
     }
 
-    let date = new Date(this.authorInfo.registrationDate);
+    let date = new Date(authorInfo.registrationDate);
     let oneDay = 24 * 60 * 60 * 1000;
     let diffInTime = date.valueOf() - Date.now().valueOf();
 
@@ -71,10 +72,10 @@ export class SearchComponent extends HasErrors implements OnInit {
     return this.formGroup.get("search")?.value?.toString().replaceAll(/ /g, '');
   }
 
-  get canSubscribe(): boolean {
+  canSubscribe(authorInfo: UserInfo): boolean {
     return this.authService.isAuthorized &&
-      this.authorInfo?.statistics?.userIsSubscribed === false &&
-      this.authorInfo?.nickname != this.authService.userInfo.nickname;
+      authorInfo?.statistics?.userIsSubscribed === false &&
+      authorInfo?.nickname != this.authService.userInfo.nickname;
   }
 
   ngOnInit(): void {
@@ -148,37 +149,61 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.items = [];
 
     if (this.byAuthor) {
-      this.searchAuthor(query);
+      this.searchAuthors(query);
     }
 
     this.find(query);
   }
 
-  public searchAuthor(nickname: string) {
-    this.authorInfo = null;
-    this.authService.info(false, nickname)
+  public searchAuthors(nickname: string) {
+    this.authorInfos = [];
+    this.authService.infos(nickname)
       .pipe(
         takeUntil(this.unSubscriber),
-        map(it => this.authorInfo = it),
-        map(() => this.initAvatar()),
-        mergeMap(() => this.statService.get(nickname)),
+        map(it => this.authorInfos = it),
+        map(() => this.initAvatars()),
+        mergeMap(() => this.initStats()),
         catchError((err) => of(err))
       )
       .subscribe({
-        next: it => {
+        next: stat => {
 
-          if (this.authorInfo) {
-            this.authorInfo.statistics = it;
+          if (this.authorInfos) {
+            this.authorInfos.map(it => {
+              it.additionalInfo = {} as AdditionalInfo;
+              it.additionalInfo.canSubscribe = this.canSubscribe(it);
+              it.additionalInfo.registrationDate = this.registrationDate(it);
+              return it;
+            })
           }
         },
       });
   }
 
-  private initAvatar(): void {
+  private initStats() {
+    return this.statService.getList(this.authorInfos.map(it => it.nickname)).pipe(
+      map(stat => {
 
-    if (this.authorInfo) {
-      this.authorInfo.hasImage = true;
-      this.authorInfo.imagePath = "/api/storage/download?type=avatar&nickname=" +  this.authorInfo.nickname + "&uuid=";
+        if (this.authorInfos) {
+          return this.authorInfos.map(ui => {
+            ui.statistics = stat?.find((it: Statistics) => it.nickname == ui.nickname) ?? null;
+            return ui;
+          });
+        }
+
+        return [];
+      })
+    )
+  }
+
+  private initAvatars(): void {
+
+    if (this.authorInfos) {
+      this.authorInfos.map(it => {
+        it.hasImage = true;
+        it.imagePath = "/api/storage/download?type=avatar&nickname=" +  it.nickname + "&uuid=";
+        return it;
+      });
     }
   }
 
@@ -219,12 +244,12 @@ export class SearchComponent extends HasErrors implements OnInit {
       });
   }
 
-  subscribe() {
+  subscribe(authorInfo: UserInfo) {
     this.subsService
-      .subscribe(this.authorInfo?.nickname ?? '')
+      .subscribe(authorInfo?.nickname ?? '')
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
-        next: () => this.searchAuthor(this.authorInfo?.nickname ?? ''),
+        next: () => this.searchAuthors(authorInfo?.nickname ?? ''),
       });
   }
 }

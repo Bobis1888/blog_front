@@ -1,11 +1,11 @@
 {
-  "/api": {
+  "/api-prod": {
     "target": "https://my-log.ru",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
   },
-  "/api-dev": {
+  "/api": {
     "target": "http://localhost:4433",
     "secure": false,
     "changeOrigin": true,

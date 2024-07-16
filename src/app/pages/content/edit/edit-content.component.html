@@ -3,7 +3,7 @@
   <div *ngIf="state === 'form'">
     <span *ngIf="content.status === Status.pending" [@opacity-1]
           class="status"> {{ 'editContentPage.pending' | translate }}</span>
-    <span *ngIf="content.status === Status.published" [@opacity-1]
+    <span *ngIf="content.status === Status.published && !authService.userInfo.isPremiumUser" [@opacity-1]
           class="status"> {{ 'editContentPage.published' | translate }}</span>
   </div>
 
@@ -24,6 +24,7 @@
 
 <ng-template #form>
   <h1>{{ (content.id ? "editContentPage.editTitle" : "editContentPage.createTitle") | translate }}</h1>
+  <br *ngIf="!content.actions?.canEdit">
   <div class="editor" *ngIf="editor != undefined" [@opacity-1]>
 
     <form [formGroup]="formGroup">
@@ -48,7 +49,7 @@
       <div class="tags">
 
 
-        <div *ngIf="!content.actions.canEdit">
+        <div *ngIf="!content.actions?.canEdit">
           <mat-chip-listbox>
             <mat-chip-row *ngFor="let tag of content.tags">
               {{ tag }}
@@ -89,6 +90,35 @@
           </mat-autocomplete>
         </mat-form-field>
       </div>
+
+      <div class="pre-view">
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{ "editPreviewDialog.title" | translate }}
+          </mat-label>
+          <textarea matInput
+                    maxlength="255"
+                    style="height: 100px"
+                    formControlName="preView">
+        </textarea>
+          <mat-hint
+            *ngIf="content.actions.canEdit"
+            align="end">{{ contentLength }}/255</mat-hint>
+          <mat-icon
+            *ngIf="content.actions.canEdit"
+            matSuffix
+            [matTooltip]="'editPreviewDialog.hint' | translate"
+            [matTooltipPosition]="'left'"
+          >
+            help_outline
+          </mat-icon>
+          <mat-error *ngIf="hasErrors">
+            {{ getErrors('content') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <br/>
+
       <div class="menu" *ngIf="content.actions.canEdit">
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
         <ngx-editor-floating-menu [editor]="editor">
@@ -106,15 +136,6 @@
       </ngx-editor>
     </form>
     <div class="buttons">
-
-      <button
-        *ngIf="content.id"
-        mat-flat-button
-        color="warn"
-        (click)="delete()"
-      >
-        {{ "editContentPage.delete" | translate }}
-      </button>
 
       <button mat-flat-button type="submit"
               *ngIf="content.actions.canEdit"
@@ -147,13 +168,13 @@
       </button>
 
       <button
-        *ngIf="content.actions.canEdit && content.id"
+        *ngIf="content.id"
         mat-flat-button
-        (click)="editPreview()"
+        color="warn"
+        (click)="delete()"
       >
-        {{ "editContentPage.editPreview" | translate }}
+        {{ "editContentPage.delete" | translate }}
       </button>
-
     </div>
   </div>
 </ng-template>

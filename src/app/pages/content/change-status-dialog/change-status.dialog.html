@@ -2,7 +2,7 @@
 
   <mat-dialog-content>
     <h1>{{ 'changeStatusDialog.' + data.status + '.title' | translate }}</h1>
-    <p [innerHTML]="'changeStatusDialog.' + data.status + '.content' | translate"></p>
+    <p *ngIf="!authService.userInfo.isPremiumUser" [innerHTML]="'changeStatusDialog.' + data.status + '.content' | translate"></p>
   </mat-dialog-content>
   <mat-dialog-actions align="center">
     <button mat-flat-button color="warn" (click)="submit()">{{ 'changeStatusDialog.' + data.status + '.submit' | translate }}

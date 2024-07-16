@@ -21,6 +21,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ChangeStatusDialog} from "app/pages/content/change-status-dialog/change-status.dialog";
 import {EditPreviewDialog} from "app/pages/content/edit-preview-dialog/edit-preview-dialog.component";
 import {DeleteDialog} from "app/pages/content/delete-dialog/delete.dialog";
+import {AuthService} from "app/core/service/auth/auth.service";
 
 @Component({
   selector: 'edit-content',
@@ -68,6 +69,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
   constructor(private contentService: ContentService,
               protected deviceService: DeviceDetectorService,
               private router: Router,
+              protected authService: AuthService,
               protected matDialog: MatDialog,
               private aRouter: ActivatedRoute) {
     super();
@@ -77,12 +79,17 @@ export class EditContentComponent extends HasErrors implements OnInit {
     return this.formGroup.get("tagCtrl") as FormControl;
   }
 
+  get contentLength(): number {
+    return this.formGroup.get('preView')?.value?.length || 0;
+  }
+
   get isMobile(): boolean {
     return this.deviceService.isMobile();
   }
 
   ngOnInit(): void {
     this.formGroup.addControl('content', new FormControl(null, Validators.required()));
+    this.formGroup.addControl('preView', new FormControl(null));
     this.formGroup.addControl('title', new FormControl(null, Validators.required()));
     this.formGroup.addControl('tagCtrl', new FormControl(null));
     this.title.setTitle(this.translate.instant('editContentPage.metaTitle'));
@@ -139,7 +146,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
           takeUntil(this.unSubscriber),
         )
         .subscribe({
-          next: it => this.init(it.id),
+          next: it => this.router.navigate(['content', 'edit', it.id], ),
           error: err => {
             this.state = 'form';
             this.rejectErrors(...err.errors)
@@ -238,6 +245,10 @@ export class EditContentComponent extends HasErrors implements OnInit {
             this.formGroup.get('content')?.setValue(this.content.content);
           }
 
+          if (this.content.preView) {
+            this.formGroup.get('preView')?.setValue(this.content.preView);
+          }
+
           if (!this.content.tags) {
             this.content.tags = [];
           }
@@ -276,27 +287,10 @@ export class EditContentComponent extends HasErrors implements OnInit {
     return this.contentService.save({
       id: this.content.id,
       title: this.formGroup.get('title')?.value,
-      preView: this.content.preView ?? 'auto',
+      preView: this.formGroup.get('preView')?.value?? 'auto',
       content: this.formGroup.get('content')?.value,
       tags: this.content.tags
     } as Content)
       .pipe(takeUntil(this.unSubscriber));
-  }
-
-  editPreview() {
-    this.state = 'load';
-    this.matDialog.open(EditPreviewDialog, {
-      data: {id: this.content.id, content: this.content.preView}
-    }).afterClosed().pipe(
-      takeUntil(this.unSubscriber),
-    ).subscribe({
-      next: (it) => {
-        if (it) {
-          this.init(this.content.id);
-        } else {
-          this.state = 'form';
-        }
-      }
-    })
   }
 }
