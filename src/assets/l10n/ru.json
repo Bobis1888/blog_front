@@ -223,10 +223,11 @@
   },
   "firstLaunchTitle": "Мы рады приветствовать вас!\nМы используем Cookies для хранения данных.",
   "firstLaunchAction": "Ок",
-  "legalWidget" : {
+  "footerWidget" : {
     "privacyPolicy": "Конфиденциальность",
     "aboutPersonalData": "О персональных данных",
-    "aboutUs": "О проекте"
+    "aboutUs": "О проекте",
+    "copyright": "Mylog 2024"
   },
   "errors": {
     "serverError": "Произошла ошибка на сервере",

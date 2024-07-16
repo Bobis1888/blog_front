@@ -33,6 +33,8 @@ import {delay, takeUntil} from "rxjs";
 })
 export class ViewByLinkContentComponent extends ViewContentComponent {
 
+  private link: string = '';
+
   constructor(contentService: ContentService,
               deviceService: DeviceDetectorService,
               matSnackBar: MatSnackBar,
@@ -52,14 +54,14 @@ export class ViewByLinkContentComponent extends ViewContentComponent {
   }
 
   override ngOnInit() {
-    let link = this.aRouter.snapshot.params['link'];
 
-    if (link == null) {
-      this.state = 'empty';
-      return;
-    }
-
-    this.init(link);
+    this.aRouter.params
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe(params => {
+        if (params['link'] != this.link) {
+          this.init(params['link']);
+        }
+      });
   }
 
   override init(link: string) {

@@ -222,10 +222,11 @@
   "badGatewayPage": {
     "title": "We are working on the update, please wait."
   },
-  "legalWidget" : {
+  "footerWidget" : {
     "privacyPolicy": "Privacy Policy",
     "aboutPersonalData": "About Personal Data",
-    "aboutUs": "About Us"
+    "aboutUs": "About Us",
+    "copyright": "Mylog 2024"
   },
   "firstLaunchTitle": "We're glad you are here!\nWe use cookies for better experience.",
   "firstLaunchAction": "Ok",

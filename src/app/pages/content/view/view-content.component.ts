@@ -38,6 +38,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   protected state: 'data' | 'loading' | 'empty' = 'loading';
   private ref: MatSnackBarRef<any> | null = null;
   protected readonly Status = Status;
+  private id: string = '';
 
   constructor(protected contentService: ContentService,
               protected deviceService: DeviceDetectorService,
@@ -55,14 +56,15 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = this.aRouter.snapshot.params['id'];
 
-    if (id == null) {
-      this.state = 'empty';
-      return;
-    }
+    this.aRouter.params
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe(params => {
 
-    this.init(id);
+        if (params['id'] != this.id) {
+          this.init(params['id']);
+        }
+      });
   }
 
   share() {

@@ -1,0 +1,26 @@
+<div class="footer" [ngClass]="{mobile: isMobile}">
+  <mat-card *ngIf="!isMobile">
+    <mat-card-content>
+      <ng-container [ngTemplateOutlet]="links"></ng-container>
+    </mat-card-content>
+  </mat-card>
+
+  <ng-container
+    *ngIf="isMobile"
+    [ngTemplateOutlet]="links">
+
+  </ng-container>
+</div>
+
+<ng-template #links>
+  <div class="links">
+    <div>
+      <a mat-button routerLink="/content/about">{{ 'footerWidget.aboutUs' | translate }}</a>
+      <a mat-button routerLink="/content/privacy-policy">{{ 'footerWidget.privacyPolicy' | translate }}</a>
+      <a mat-button routerLink="/content/personal-data">{{ 'footerWidget.aboutPersonalData' | translate }}</a>
+    </div>
+    <div>
+      <span class="copyright" [innerHTML]="'footerWidget.copyright' | translate"></span>
+    </div>
+  </div>
+</ng-template>

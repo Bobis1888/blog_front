@@ -3,13 +3,13 @@ import {CoreModule} from 'src/app/core/core.module';
 import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
-  selector: 'public-info',
+  selector: 'footer',
   standalone: true,
   imports: [CoreModule],
-  templateUrl: './public-info-widget.component.html',
-  styleUrl: './public-info-widget.component.less',
+  templateUrl: './footer-widget.component.html',
+  styleUrl: './footer-widget.component.less',
 })
-export class PublicInfoWidgetComponent implements OnInit {
+export class FooterWidgetComponent implements OnInit {
 
   protected state: 'data' | 'loading' = 'loading';
 

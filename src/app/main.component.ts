@@ -25,13 +25,13 @@ import {MatRipple} from "@angular/material/core";
 import {MatBadge} from "@angular/material/badge";
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {MatDivider} from "@angular/material/divider";
-import {PublicInfoWidgetComponent} from "app/pages/widgets/legal/public-info-widget.component";
+import {FooterWidgetComponent} from "app/pages/widgets/footer/footer-widget.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   animations: animations,
-  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple, MatBadge, MatDivider, PublicInfoWidgetComponent, MatSidenavModule],
+  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple, MatBadge, MatDivider, FooterWidgetComponent, MatSidenavModule],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.less'],
 })

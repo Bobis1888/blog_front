@@ -1,0 +1,48 @@
+@import "src/app/theme/utils.less";
+
+.footer {
+  margin: auto;
+
+  mat-card {
+    margin: 0 20px 20px;
+  }
+}
+
+div.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  .copyright {
+    font-weight: bolder;
+    margin-right: 20px;
+  }
+}
+
+.mobile {
+  mat-card {
+    margin: 0;
+  }
+
+  a {
+    margin: 5px;
+  }
+
+  div.links {
+    flex-direction: column;
+
+    div {
+      flex-direction: column;
+    }
+  }
+
+  .copyright {
+    margin-right: 0 !important;
+    margin-top: 5px;
+  }
+}
