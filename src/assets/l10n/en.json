@@ -114,12 +114,12 @@
     "language": "Language",
     "statistics": {
       "title": "Statistics",
-      "subscriptions" : "Subscriptions: {{count}}",
-      "subscribers" : "Subscribers: {{count}}",
-      "articles" : "Publications: {{count}}",
-      "comments" : "Comments: {{count}}",
-      "bookmarks" : "Bookmarks: {{count}}",
-      "likes" : "Likes: {{count}}"
+      "subscriptions" : "Subscriptions:",
+      "subscribers" : "Subscribers:",
+      "articles" : "Publications:",
+      "comments" : "Comments:",
+      "bookmarks" : "Bookmarks:",
+      "reactions" : "Reactions:"
     },
     "languages": {
       "en": "English",
@@ -216,6 +216,7 @@
     "publish": "Publish",
     "unpublish": "Unpublish",
     "delete": "Delete",
+    "draft" : "Draft",
     "tags": "Tags",
     "tagHint": "Tags will help to find your publication. Tags added by one, press Enter to add tag"
   },

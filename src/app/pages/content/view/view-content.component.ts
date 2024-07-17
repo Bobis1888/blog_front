@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ContentService, Status} from "src/app/core/service/content/content.service";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {delay, Observable, takeUntil} from "rxjs";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {DeviceDetectorService} from "ngx-device-detector";
@@ -15,8 +15,9 @@ import {
 } from "@angular/common";
 import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {Meta} from "@angular/platform-browser";
-import {Content} from "app/core/service/content/content";
+import {Content, Reaction} from "app/core/service/content/content";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
+import {MatMenuTrigger} from "@angular/material/menu";
 
 @Component({
   selector: 'view-content',
@@ -47,12 +48,21 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
               protected subsService: SubscriptionService,
               protected authService: AuthService,
               protected clipboardService: ClipboardService,
+              protected router: Router,
               protected aRouter: ActivatedRoute) {
     super();
   }
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
+  }
+
+  get favoriteReaction(): Reaction {
+    return this.content.reactions.find(it => it.value === 'favorite') ?? {} as Reaction;
+  }
+
+  get reactions(): Array<Reaction> {
+    return this.content.reactions.filter(it => it.value != 'favorite' && it.value != 'favorite_outline') ?? []
   }
 
   ngOnInit(): void {
@@ -62,6 +72,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
       .subscribe(params => {
 
         if (params['id'] != this.id) {
+          this.id = params['id'];
           this.init(params['id']);
         }
       });
@@ -85,25 +96,41 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
       {duration: 3000, panelClass: 'snack-bar'});
   }
 
-  like() {
+  react(value: string = 'favorite') {
     let obs: Observable<any>;
 
-    if (this.content.isLiked) {
-      obs = this.contentService.dislike(this.content.id);
+    if (this.content.reactions.find(it => it.value === value)?.isUserReaction) {
+      obs = this.contentService.removeReact(this.content.id);
     } else {
-      obs = this.contentService.like(this.content.id);
+      obs = this.contentService.react(this.content.id, value);
     }
 
     obs.pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: () => {
-          this.content.isLiked = !this.content.isLiked;
 
-          if (this.content.isLiked) {
-            this.content.likes++;
-          } else {
-            this.content.likes--;
+          if (!this.content.reactions.find(it => it.value == value)) {
+            this.content.reactions.push({
+              value: value,
+              count: 0,
+              isUserReaction: false
+            });
           }
+
+          this.content.reactions.map(it => {
+
+            if (it.value === value) {
+              it.count = it.isUserReaction ? it.count - 1 : it.count + 1;
+              it.isUserReaction = !it.isUserReaction;
+            } else {
+              if (it.isUserReaction) {
+                it.count = it.count - 1;
+                it.isUserReaction = false;
+              }
+            }
+          });
+
+          this.content.reactions = this.content.reactions.filter(it => it.count > 0);
         }
       });
   }
@@ -186,5 +213,10 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
           }
         }
       });
+  }
+
+  protected onmouseleave(trigger: MatMenuTrigger) {
+    setTimeout(() => trigger.closeMenu(), 1000);
+
   }
 }

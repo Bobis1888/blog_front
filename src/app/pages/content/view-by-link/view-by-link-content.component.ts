@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ContentService} from "src/app/core/service/content/content.service";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ClipboardService} from "ngx-clipboard";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -28,8 +28,8 @@ import {delay, takeUntil} from "rxjs";
     SafeHtmlPipe,
     CommonModule,
   ],
-  templateUrl: './view-by-link-content.component.html',
-  styleUrl: './view-by-link-content.component.less'
+  templateUrl: '../view/view-content.component.html',
+  styleUrl: '../view/view-content.component.less'
 })
 export class ViewByLinkContentComponent extends ViewContentComponent {
 
@@ -42,6 +42,7 @@ export class ViewByLinkContentComponent extends ViewContentComponent {
               subsService: SubscriptionService,
               authService: AuthService,
               clipboardService: ClipboardService,
+              router: Router,
               aRouter: ActivatedRoute) {
     super(contentService,
       deviceService,
@@ -50,6 +51,7 @@ export class ViewByLinkContentComponent extends ViewContentComponent {
       subsService,
       authService,
       clipboardService,
+      router,
       aRouter);
   }
 
@@ -59,6 +61,7 @@ export class ViewByLinkContentComponent extends ViewContentComponent {
       .pipe(takeUntil(this.unSubscriber))
       .subscribe(params => {
         if (params['link'] != this.link) {
+          this.link = params['link'];
           this.init(params['link']);
         }
       });

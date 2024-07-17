@@ -166,7 +166,7 @@ export class SearchComponent extends HasErrors implements OnInit {
         catchError((err) => of(err))
       )
       .subscribe({
-        next: stat => {
+        next: () => {
 
           if (this.authorInfos) {
             this.authorInfos.map(it => {
@@ -249,7 +249,7 @@ export class SearchComponent extends HasErrors implements OnInit {
       .subscribe(authorInfo?.nickname ?? '')
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
-        next: () => this.searchAuthors(authorInfo?.nickname ?? ''),
+        next: () => this.searchAuthors(this.query),
       });
   }
 }

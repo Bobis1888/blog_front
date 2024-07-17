@@ -2,7 +2,7 @@ export interface Statistics {
   nickname: string;
   articles: number;
   bookmarks: number;
-  likes: number;
+  reactions: number;
   subscriptions: number;
   subscribers: number;
   isSubscriber: boolean;

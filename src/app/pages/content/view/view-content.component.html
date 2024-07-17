@@ -23,20 +23,27 @@
 
 <ng-template #data>
 
+
+  <div class="author">
+      <span [routerLink]="'/search'"
+            [queryParams]="{q: content.authorName, author: true}">
+        {{ content.authorName }}
+      </span>
+
+    <button
+      *ngIf="content.actions.canSubscribe && authService.isAuthorized"
+      mat-flat-button
+      (click)="subscribe()"
+    >
+      {{ 'viewContentPage.subscribe' | translate }}
+    </button>
+  </div>
+
   <span *ngIf="content.status === Status.pending"
         class="status"> {{ 'viewContentPage.pending' | translate }}</span>
 
   <div class="title-container">
     <h1>{{ content.title }}</h1>
-<!--    <button mat-icon-button-->
-<!--            *ngIf="false"-->
-<!--            [matMenuTriggerFor]="menu">-->
-<!--      <mat-icon>more_horiz</mat-icon>-->
-<!--    </button>-->
-<!--    <mat-menu #menu="matMenu" xPosition="before">-->
-<!--      <div class="vertical">-->
-<!--      </div>-->
-<!--    </mat-menu>-->
   </div>
 
 
@@ -58,53 +65,62 @@
   <br>
 
   <p [innerHTML]="content.content | safeHtml"></p>
+  <br>
 
+  <div class="reactions" *ngIf="content.status != Status.draft">
+    <button mat-icon-button (click)="react(favoriteReaction.value)" [disabled]="!authService.isAuthorized">
+      <mat-icon matBadge="{{ favoriteReaction.count }}"
+                class="accent-icon"
+                matBadgePosition="below after">{{ favoriteReaction.value || 'favorite_outline' }}
+      </mat-icon>
+    </button>
 
-  <div class="footer">
-    <div class="buttons">
-      <button mat-icon-button (click)="share()">
-        <mat-icon>share</mat-icon>
-      </button>
+    <button *ngFor="let it of reactions" mat-icon-button
+            (click)="react(it.value)"
+            [disabled]="!authService.isAuthorized">
+      <mat-icon matBadge="{{ it.count }}"
+                class="accent-icon"
+                matBadgePosition="below after">{{ it.value }}
+      </mat-icon>
+    </button>
 
-      <button mat-icon-button (click)="bookmark()" *ngIf="authService.isAuthorized && !content.actions.canDelete">
-        <mat-icon>{{ content.isSaved ? 'bookmark' : 'bookmark_border' }}</mat-icon>
-      </button>
+    <button mat-icon-button
+            [matMenuTriggerFor]="menu"
+            *ngIf="authService.isAuthorized">
+      <mat-icon>add_circle</mat-icon>
+    </button>
 
-      <button mat-icon-button (click)="like()" [disabled]="!authService.isAuthorized">
-        <mat-icon matBadge="{{ content.likes }}"
-                  [ngClass]="{'accent-icon': content.isLiked}"
-                  matBadgePosition="below after">{{ content.isLiked ? 'favorite' : 'favorite_border' }}
-        </mat-icon>
-      </button>
+    <mat-menu #menu="matMenu" xPosition="after" yPosition="above">
+      <div class="reactions-menu">
+        <button mat-icon-button
+                *ngFor="let type of ['favorite', 'local_fire_department', 'mood', 'star']"
+                (click)="react(type)"
+                [disabled]="!authService.isAuthorized">
+          <mat-icon>{{ type }}</mat-icon>
+        </button>
+      </div>
+    </mat-menu>
 
-      <button
-        *ngIf="content.actions.canEdit || content.actions.canUnpublish"
-        mat-icon-button
-        routerLink="/content/edit/{{ content.id }}"
-      >
-        <mat-icon>edit</mat-icon>
-      </button>
-    </div>
-    <div class="author">
-      <button
-        *ngIf="content.actions.canSubscribe && !isMobile  && authService.isAuthorized"
-        mat-flat-button
-        (click)="subscribe()"
-      >
-        {{ 'viewContentPage.subscribe' | translate }}
-      </button>
-
-      <button
-        *ngIf="content.actions.canSubscribe && isMobile && authService.isAuthorized"
-        mat-icon-button
-        (click)="subscribe()"
-      >
-        <mat-icon>group_add</mat-icon>
-      </button>
-      <span [routerLink]="'/search'"
-            [queryParams]="{q: content.authorName, author: true}">{{ content.authorName }}</span>
-    </div>
   </div>
+
+  <div class="buttons">
+    <button mat-icon-button (click)="share()">
+      <mat-icon>share</mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="bookmark()" *ngIf="authService.isAuthorized && !content.actions.canDelete">
+      <mat-icon>{{ content.isSaved ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+    </button>
+
+    <button
+      *ngIf="content.actions.canEdit || content.actions.canUnpublish"
+      mat-icon-button
+      routerLink="/content/edit/{{ content.id }}"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+
 </ng-template>
 
 <ng-template #empty>

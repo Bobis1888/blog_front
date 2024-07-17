@@ -11,7 +11,7 @@
         </mat-label>
         <textarea matInput
                   maxlength="255"
-                  style="height: 170px"
+                  [cdkTextareaAutosize]="true"
                   formControlName="content">
         </textarea>
         <mat-hint align="end">{{ contentLength }}/255</mat-hint>

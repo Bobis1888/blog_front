@@ -6,6 +6,11 @@
   border-radius: 20px;
 }
 
+:host ::ng-deep .content a {
+  color: @warningColor;
+  font-weight: bolder;
+}
+
 .content {
   padding: 20px;
   margin: auto;
@@ -30,6 +35,23 @@
     font-weight: bold;
     padding-bottom: 20px;
     display: block;
+  }
+}
+
+.reactions-menu {
+  display: flex;
+  justify-content: space-around;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  span {
+    cursor: pointer;
+    font-weight: bold;
   }
 }
 
@@ -61,31 +83,17 @@
   }
 }
 
-.footer {
-  padding-top: 10px;
-  display: flex;
-  justify-content: space-between;
-
-  .author {
-    display: flex;
-    align-items: center;
-
-    button {
-      margin-right: 10px;
-    }
-
-    span {
-      cursor: pointer;
-      font-weight: bold;
-    }
-  }
-}
-
 .mobile {
 
   img {
     max-width: 100px;
   }
+}
+
+.buttons {
+  display: flex;
+  justify-content: end;
+  flex-direction: row-reverse;
 }
 
 

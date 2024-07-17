@@ -47,26 +47,62 @@
     </mat-card-header>
 
     <mat-card-content class="about">
-      <h4>
+      <br>
+      <h3>
         {{ 'profilePage.email' | translate : {email: info.email} }}
-      </h4>
-      <p>
+      </h3>
+      <p style="line-break: anywhere">
         {{ (info.description) ? info.description : 'profilePage.noDescription' | translate }}
       </p>
     </mat-card-content>
 
     <mat-card-content class="stat" *ngIf="info.statistics">
-      <b> {{ 'profilePage.statistics.title' | translate }}</b>
       <br>
-      <span> {{ 'profilePage.statistics.subscribers' | translate : {count: info.statistics.subscribers} }}</span>
-      <br>
-      <span> {{ 'profilePage.statistics.likes' | translate : {count: info.statistics.likes} }}</span>
-      <br>
-      <span> {{ 'profilePage.statistics.articles' | translate : {count: info.statistics.articles} }}</span>
-      <br>
-      <span> {{ 'profilePage.statistics.subscriptions' | translate : {count: info.statistics.subscriptions} }}</span>
-      <br>
-      <span> {{ 'profilePage.statistics.bookmarks' | translate : {count: info.statistics.bookmarks} }}</span>
+      <table>
+        <th colspan="2">
+          <b> {{ 'profilePage.statistics.title' | translate }}</b>
+        </th>
+        <tr>
+          <td>
+            <p>{{ 'profilePage.statistics.subscribers' | translate }}</p>
+          </td>
+          <td>
+            <p>{{ info.statistics.subscribers }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>{{ 'profilePage.statistics.reactions' | translate }}</p>
+          </td>
+          <td>
+            <p>{{ info.statistics.reactions }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>{{ 'profilePage.statistics.articles' | translate }}</p>
+          </td>
+          <td>
+            <p>{{ info.statistics.articles }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>{{ 'profilePage.statistics.subscriptions' | translate }}</p>
+          </td>
+          <td>
+            <p>{{ info.statistics.subscriptions }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>{{ 'profilePage.statistics.bookmarks' | translate }}</p>
+          </td>
+          <td>
+            <p>{{ info.statistics.bookmarks }}</p>
+          </td>
+        </tr>
+      </table>
     </mat-card-content>
     <mat-card-actions class="buttons">
       <mat-menu #menu="matMenu" xPosition="before">

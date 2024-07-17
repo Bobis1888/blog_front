@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
 
 export interface Story {
@@ -44,6 +44,22 @@ export class StoriesService {
   }
 
   public list(): Observable<Array<Story>> {
-    return this.httpSender.send(HttpMethod.GET, '/stories/list?lang=' + this.lang);
+    return of([
+      {
+        id: 1,
+        title: 'Новый евент стартует осенью',
+        description: 'Пиши на заданные темы и получай призы',
+        link: 'event',
+        lang: 'ru'
+      },
+      {
+        id: 2,
+        title: 'Новый функционал',
+        description: 'Публикуем описание нового функционала',
+        link: 'features',
+        lang: 'ru'
+      }
+    ])
+    // return this.httpSender.send(HttpMethod.GET, '/stories/list?lang=' + this.lang);
   }
 }

@@ -1,6 +1,8 @@
 <div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}">
 
-  <div *ngIf="state === 'form'">
+  <div class="status-box" *ngIf="state === 'form'">
+    <span *ngIf="content.status === Status.draft" [@opacity-1]
+          class="status"> {{ 'editContentPage.draft' | translate }}</span>
     <span *ngIf="content.status === Status.pending" [@opacity-1]
           class="status"> {{ 'editContentPage.pending' | translate }}</span>
     <span *ngIf="content.status === Status.published && !authService.userInfo.isPremiumUser" [@opacity-1]
@@ -98,7 +100,7 @@
           </mat-label>
           <textarea matInput
                     maxlength="255"
-                    style="height: 100px"
+                    [cdkTextareaAutosize]="true"
                     formControlName="preView">
         </textarea>
           <mat-hint

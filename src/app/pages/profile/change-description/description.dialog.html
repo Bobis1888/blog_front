@@ -5,7 +5,8 @@
       <mat-label>{{ "profilePage.descriptionPlaceholder" | translate }}</mat-label>
       <textarea matInput
                 maxlength="{{maxLength}}"
-                style="height: 170px"
+                [cdkTextareaAutosize]="true"
+                style="{{ isMobile ? 'max-height: 50vh;' : null }}"
                 [formControl]="description">
         </textarea>
       <mat-hint align="end">

@@ -12,7 +12,12 @@ export interface Content {
   publishedDate: Date;
   // todo move to actions can saveToBookmarks, can like ...
   isSaved: boolean;
-  isLiked: boolean;
-  likes: number;
+  reactions: Array<Reaction>;
   actions: Actions;
+}
+
+export interface Reaction {
+  count: number;
+  value: string;
+  isUserReaction: boolean;
 }

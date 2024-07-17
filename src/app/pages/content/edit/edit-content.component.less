@@ -1,5 +1,10 @@
 @import 'src/app/theme/utils';
 
+:host ::ng-deep .content a {
+  color: @warningColor;
+  font-weight: bolder;
+}
+
 .content {
   padding: 20px;
   margin: auto;
@@ -13,8 +18,11 @@
   .status {
     color: @warningColor;
     font-weight: bold;
-    padding-bottom: 20px;
-    display: block;
+  }
+
+  .status-box {
+    display: flex;
+    justify-content: end;
   }
 }
 

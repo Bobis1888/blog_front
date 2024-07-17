@@ -16,7 +16,7 @@
 </ng-template>
 
 <ng-template #data>
-  <mat-card [routerLink]="currentStory.link" matRipple>
+  <mat-card [routerLink]="'/content/' + currentStory.link" matRipple>
     <div class="title">
       <h1>{{ currentStory.title }}</h1>
     </div>

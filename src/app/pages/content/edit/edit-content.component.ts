@@ -55,6 +55,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
   protected separatorKeysCodes: number[] = [ENTER, COMMA];
   protected filteredTags: string[] = [];
+  protected id: string = '';
   readonly maskitoOpt: MaskitoOptions = {
     mask: /\w/,
     preprocessors: [
@@ -101,10 +102,10 @@ export class EditContentComponent extends HasErrors implements OnInit {
       }
     });
 
-    let id: string = this.aRouter.snapshot.params['id'];
+    this.id = this.aRouter.snapshot.params['id'];
 
-    if (id) {
-      this.init(id);
+    if (this.id) {
+      this.init();
     }
 
     this.tagCtrl.valueChanges.pipe(
@@ -146,7 +147,16 @@ export class EditContentComponent extends HasErrors implements OnInit {
           takeUntil(this.unSubscriber),
         )
         .subscribe({
-          next: it => this.router.navigate(['content', 'edit', it.id], ),
+          next: it => {
+
+            if (this.id != it.id) {
+              this.id = it.id;
+              this.router.navigate(['content', 'edit', it.id]).then();
+            } else {
+              this.state = 'form';
+            }
+
+          },
           error: err => {
             this.state = 'form';
             this.rejectErrors(...err.errors)
@@ -216,7 +226,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
         next: (it) => {
 
           if (it) {
-            this.init(this.content.id)
+            this.init();
           } else {
             this.state = 'form';
           }
@@ -229,9 +239,9 @@ export class EditContentComponent extends HasErrors implements OnInit {
       });
   }
 
-  private init(id: string) {
+  private init() {
     this.state = 'load';
-    this.contentService.get(id)
+    this.contentService.get(this.id)
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: it => {

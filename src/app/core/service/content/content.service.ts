@@ -91,12 +91,12 @@ export class ContentService {
     return this.httpSender.send(HttpMethod.DELETE, '/content/bookmark/' + id);
   }
 
-  like(id: string) {
-    return this.httpSender.send(HttpMethod.PUT, '/content/like/' + id);
+  react(id: string, type: string) {
+    return this.httpSender.send(HttpMethod.PUT, '/content/react/' + id + '/' + type);
   }
 
-  dislike(id: string) {
-    return this.httpSender.send(HttpMethod.DELETE, '/content/like/' + id);
+  removeReact(id: string) {
+    return this.httpSender.send(HttpMethod.DELETE, '/content/react/' + id);
   }
 
   changeStatus(id: string, status: Status): Observable<SuccessDto> {

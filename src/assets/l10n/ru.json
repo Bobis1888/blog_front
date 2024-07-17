@@ -113,12 +113,12 @@
     "language": "Язык",
     "statistics": {
       "title": "Статистика",
-      "subscriptions" : "Подписки: {{count}}",
-      "subscribers" : "Подписчики: {{count}}",
-      "articles" : "Публикации: {{count}}",
-      "comments" : "Комментарии: {{count}}",
-      "bookmarks" : "Закладки: {{count}}",
-      "likes" : "Лайки: {{count}}"
+      "subscriptions" : "Подписки:",
+      "subscribers" : "Подписчики:",
+      "articles" : "Публикации:",
+      "comments" : "Комментарии:",
+      "bookmarks" : "Закладки:",
+      "reactions" : "Реакции:"
     },
     "languages": {
       "en": "Английский",
@@ -214,6 +214,7 @@
     "unpublish": "Снять с публикации",
     "tags": "Теги",
     "delete": "Удалить",
+    "draft" : "Черновик",
     "pending": "Эта публикация ожидает проверки",
     "pendingHint": "Контент будет опубликован после проверки",
     "tagHint": "Теги помогут найти вашу публикацию. Теги добавляются по одному, нажмите Enter чтобы добавить тэг"
