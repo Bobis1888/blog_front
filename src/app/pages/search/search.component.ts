@@ -69,7 +69,8 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   get query(): string {
-    return this.formGroup.get("search")?.value?.toString().replaceAll(/ /g, '');
+    let value = this.formGroup.get("search")?.value?.toString() ?? '';
+    return (this.byAuthor || this.byTag) ? value.replaceAll(/ /g, '') : value;
   }
 
   canSubscribe(authorInfo: UserInfo): boolean {
