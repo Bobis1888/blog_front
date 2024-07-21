@@ -5,7 +5,7 @@ import {CoreModule} from "src/app/core/core.module";
 import {ActivatedRoute} from "@angular/router";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {StoriesService, Story} from "app/core/service/stories/stories.service";
-import {interval, takeUntil} from "rxjs";
+import {interval, Subscription, takeUntil} from "rxjs";
 
 @Component({
   selector: 'stories',
@@ -21,6 +21,7 @@ export class StoriesComponent extends UnSubscriber implements OnInit {
   public items: Array<Story> = [];
   protected progressbarValue = 0;
   protected currentSecond: number = 0;
+  private subs: Subscription = new Subscription()
 
   constructor(
     protected storiesService: StoriesService,
@@ -65,18 +66,26 @@ export class StoriesComponent extends UnSubscriber implements OnInit {
 
   startTimer(seconds: number) {
     const timer$ = interval(seconds);
+    this.subs.unsubscribe();
 
-    const subs = timer$.subscribe({
+    this.subs = timer$.subscribe({
       next: (sec) => {
         this.progressbarValue = 100 - sec * 100 / seconds;
         this.currentSecond = sec;
 
         if (this.currentSecond === seconds) {
+          this.subs.unsubscribe();
           this.nextStory();
-          subs.unsubscribe();
+          this.startTimer(100);
         }
       }
     });
+  }
+
+  override ngOnDestroy() {
+    this.subs.unsubscribe();
+    this.nextStory();
+    super.ngOnDestroy();
   }
 
   protected nextStory() {
@@ -89,6 +98,5 @@ export class StoriesComponent extends UnSubscriber implements OnInit {
     }
 
     this.storiesService.current = this.items[index].id;
-    this.startTimer(100);
   }
 }
