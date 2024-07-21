@@ -98,6 +98,8 @@
     "editNickname": "Change nickname",
     "editDescription": "Edit description",
     "noDescription": "No description",
+    "description": "Description: {{value}}",
+    "isPremium" : "You have an premium account",
     "ok": "Ok",
     "changeLanguage": "Change language",
     "changeLanguageTitle": "Change language",

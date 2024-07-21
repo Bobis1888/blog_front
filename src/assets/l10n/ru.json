@@ -96,6 +96,8 @@
     "email": "Email: {{email}}",
     "editNickname": "Поменять никнейм",
     "editDescription": "Редактировать описание",
+    "description": "Описание: {{value}}",
+    "isPremium" : "У вас премиум аккаунт",
     "noDescription": "Нет описания",
     "ok": "Ок",
     "changeLanguage": "Изменить язык",

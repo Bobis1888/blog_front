@@ -48,11 +48,17 @@
 
     <mat-card-content class="about">
       <br>
+      <h4 *ngIf="info.isPremiumUser" class="premium-hint">
+        {{ 'profilePage.isPremium' | translate }}
+      </h4>
       <h3>
         {{ 'profilePage.email' | translate : {email: info.email} }}
       </h3>
-      <p style="line-break: anywhere">
-        {{ (info.description) ? info.description : 'profilePage.noDescription' | translate }}
+      <p style="line-break: anywhere" *ngIf="info.description">
+        {{ 'profilePage.description' | translate : {value : info.description} }}
+      </p>
+      <p style="line-break: anywhere" *ngIf="!info.description">
+        {{ 'profilePage.noDescription' | translate }}
       </p>
     </mat-card-content>
 
