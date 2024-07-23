@@ -14,6 +14,7 @@ import {HasErrors} from "app/core/abstract/has-errors";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
+import {Metrika} from "ng-yandex-metrika";
 
 export class PasswordIndicator {
   color: string;
@@ -38,6 +39,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
   constructor(protected authService: AuthService,
               protected router: Router,
               protected deviceService: DeviceDetectorService,
+              protected metrika: Metrika,
               protected matSnackBar: MatSnackBar) {
     super();
   }
@@ -76,6 +78,8 @@ export class RegistrationComponent extends HasErrors implements OnInit {
         }
       ]
     ));
+
+    this.metrika.reachGoal('open_registration_page');
   }
 
   override ngOnDestroy() {
@@ -107,6 +111,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
 
             if (res.success) {
               this.state = 'message';
+              this.metrika.reachGoal('registration');
               return;
             }
           },

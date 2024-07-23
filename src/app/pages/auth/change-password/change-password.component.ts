@@ -9,6 +9,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RegistrationComponent as Registration} from "app/pages/auth/registration/registration.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Metrika} from "ng-yandex-metrika";
 
 @Component({
   selector: 'change-password',
@@ -23,8 +24,9 @@ export class ChangePasswordComponent extends Registration {
               router: Router,
               authService: AuthService,
               deviceService: DeviceDetectorService,
+              metrika: Metrika,
               matSnackBar: MatSnackBar) {
-    super(authService, router, deviceService, matSnackBar);
+    super(authService, router, deviceService, metrika, matSnackBar);
   }
 
   private uuid: string = "";
@@ -34,7 +36,6 @@ export class ChangePasswordComponent extends Registration {
     this.formGroup.removeControl('email');
     this.uuid = this.aRouter.snapshot.queryParamMap.get("uuid") ?? "";
   }
-
 
   override submit(): void {
 

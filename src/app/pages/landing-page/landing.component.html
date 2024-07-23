@@ -28,9 +28,12 @@
 
     <p class="sub-title" [innerHTML]="'landingPage.features' | translate"></p>
     <div class="features sub-title">
-      <p [innerHTML]="'landingPage.feature0' | translate"></p>
-      <p [innerHTML]="'landingPage.feature1' | translate"></p>
-      <p [innerHTML]="'landingPage.feature2' | translate"></p>
+      <p class="feature-item" [innerHTML]="'landingPage.feature0' | translate"></p>
+      <p class="feature-item" [innerHTML]="'landingPage.feature1' | translate"></p>
+      <p class="feature-item" [innerHTML]="'landingPage.feature2' | translate"></p>
+    </div>
+    <div class="sign-up-button">
+      <button mat-flat-button [routerLink]="'/content/features'">{{ 'landingPage.learn' | translate }}</button>
     </div>
   </section>
   <section id="third" #third>

@@ -13,6 +13,7 @@ import {provideTranslation} from "src/app/core/config/app.translate.config";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {appCoreInterceptor} from "src/app/core/config/app.core.interceptor";
 import {provideAnimations} from "@angular/platform-browser/animations";
+import {MetrikaModule} from 'ng-yandex-metrika';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -29,6 +30,7 @@ export const appConfig: ApplicationConfig = {
       withDebugTracing(),
       inMemoryScrollingFeature
     ),
+    importProvidersFrom(MetrikaModule.forRoot([{id: 97893121, webvisor: true}])),
     importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),
