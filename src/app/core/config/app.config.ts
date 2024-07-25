@@ -30,7 +30,10 @@ export const appConfig: ApplicationConfig = {
       withDebugTracing(),
       inMemoryScrollingFeature
     ),
-    importProvidersFrom(MetrikaModule.forRoot([{id: 97893121, webvisor: true}])),
+    importProvidersFrom(MetrikaModule.forRoot([
+      // {id: 0},
+      {id: 97893121, webvisor: true}
+    ])),
     importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),

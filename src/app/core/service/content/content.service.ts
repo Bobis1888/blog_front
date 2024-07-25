@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpMethod, HttpSenderService} from "app/core/service/base/http-sender.service";
-import {map, Observable, of} from "rxjs";
+import {Observable, of} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {Content} from "app/core/service/content/content";
 
@@ -8,14 +8,6 @@ export enum Status {
   published = 'published',
   draft = 'draft',
   pending = 'pending'
-}
-
-export interface TagsFilter {
-  max: number;
-  page: number
-  sortBy: Array<string>;
-  direction: string;
-  query: string;
 }
 
 export interface Filter {
@@ -67,11 +59,6 @@ export class ContentService {
 
   list(filter: Filter): Observable<ListResponse> {
     return this.httpSender.send(HttpMethod.POST, '/content/list', filter);
-  }
-
-  tags(filter: TagsFilter): Observable<Array<string>> {
-    return this.httpSender.send(HttpMethod.POST, '/content/tags', filter)
-      .pipe(map(it => it.list));
   }
 
   getSuggestions(): Observable<ListResponse> {

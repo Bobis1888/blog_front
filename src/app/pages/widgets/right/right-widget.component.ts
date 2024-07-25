@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {CoreModule} from 'src/app/core/core.module';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
-import {ContentService, TagsFilter} from "src/app/core/service/content/content.service";
 import {takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {LineType, lineTypes} from "app/core/service/line/line.service";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {Router} from "@angular/router";
+import {TagService, TagsFilter} from "app/core/service/content/tag.service";
 
 @Component({
   selector: 'right-widget',
@@ -24,7 +24,7 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
   protected readonly lineTypes = lineTypes;
 
   constructor(
-    private contentService: ContentService,
+    protected tagService: TagService,
     private deviceService: DeviceDetectorService,
     protected authService: AuthService,
     protected router: Router,
@@ -47,27 +47,17 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
       this.currentType = LineType.top;
     }
 
-    this.contentService.tags({
-      max: 10,
-      page: 0
-    } as TagsFilter)
+    this.tagService.suggestions()
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: it => {
           it.forEach((it) => {
-
-            if (it.includes(',')) {
-              this.topics.push(...it.split(','));
-            } else {
-              this.topics.push(it);
-            }
+            this.topics.push(it.value);
           });
 
           this.state = 'data';
         },
-        error: err => {
-          this.state = 'data';
-        }
+        error: () => this.state = 'data'
       });
   }
 
@@ -90,5 +80,5 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
     return item.toLowerCase();
   }
 
-    protected readonly LineType = LineType;
+  protected readonly LineType = LineType;
 }

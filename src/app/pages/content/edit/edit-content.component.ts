@@ -1,33 +1,36 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ContentService, Status, TagsFilter} from "src/app/core/service/content/content.service";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {debounceTime, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
+import {ContentService, Status} from "src/app/core/service/content/content.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {debounceTime, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {Editor, NgxEditorModule, Toolbar, Validators} from "ngx-editor";
+import {Editor, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {HasErrors} from "app/core/abstract/has-errors";
-import {TranslateModule} from "@ngx-translate/core";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MaskitoOptions} from "@maskito/core";
-import {MaterialModule} from "app/theme/material/material.module";
-import {MaskitoDirective} from "@maskito/angular";
 import {CommonModule} from "@angular/common";
-import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {animations} from "app/core/config/app.animations";
 import {Content} from "app/core/service/content/content";
 import {Actions} from "app/core/service/content/actions";
 import {MatDialog} from "@angular/material/dialog";
 import {ChangeStatusDialog} from "app/pages/content/change-status-dialog/change-status.dialog";
-import {EditPreviewDialog} from "app/pages/content/edit-preview-dialog/edit-preview-dialog.component";
 import {DeleteDialog} from "app/pages/content/delete-dialog/delete.dialog";
 import {AuthService} from "app/core/service/auth/auth.service";
+import {TagService, TagsFilter} from "app/core/service/content/tag.service";
+import {CoreModule} from "app/core/core.module";
+import hash from 'hash-it';
+import {ConfirmCloseDialog} from "app/pages/content/confirm-close-dialog/confirm-close.dialog";
 
 @Component({
   selector: 'edit-content',
   standalone: true,
   animations: animations,
-  imports: [CommonModule, TranslateModule, MaterialModule, NgxEditorModule, MaskitoDirective, NgxSkeletonLoaderModule, ReactiveFormsModule, RouterLink],
+  imports: [
+    CommonModule,
+    CoreModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './edit-content.component.html',
   styleUrl: './edit-content.component.less'
 })
@@ -66,8 +69,11 @@ export class EditContentComponent extends HasErrors implements OnInit {
   protected tagsInput: ElementRef<HTMLInputElement> | undefined;
 
   protected readonly Status = Status;
+  private hash: number = 0;
+  private tagHash: number = 0;
 
   constructor(private contentService: ContentService,
+              protected tagService: TagService,
               protected deviceService: DeviceDetectorService,
               private router: Router,
               protected authService: AuthService,
@@ -89,7 +95,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formGroup.addControl('content', new FormControl(null, Validators.required()));
+    this.formGroup.addControl('content', new FormControl('<p></p>', Validators.required()));
     this.formGroup.addControl('preView', new FormControl(null));
     this.formGroup.addControl('title', new FormControl(null, Validators.required()));
     this.formGroup.addControl('tagCtrl', new FormControl(null));
@@ -106,24 +112,22 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
     if (this.id) {
       this.init();
+    } else {
+      this.hash = hash(this.formGroup.getRawValue());
+      this.tagHash = hash(this.content.tags);
     }
 
     this.tagCtrl.valueChanges.pipe(
       debounceTime(500),
       skipWhile(val => val == null || val.toString()?.length < 2),
       takeUntil(this.unSubscriber),
-      mergeMap(val => this.contentService.tags({page: 0, max: 100, query: val} as TagsFilter)),
+      mergeMap(val => this.tagService.list({max: 10, query: val} as TagsFilter)),
     ).subscribe({
       next: value => {
         this.filteredTags = [];
 
         value.forEach((it): void => {
-
-          if (it.includes(',')) {
-            this.filteredTags.push(...it.split(','));
-          } else {
-            this.filteredTags.push(it);
-          }
+          this.filteredTags.push(it.value);
         });
 
         if (this.filteredTags.length == 0) {
@@ -131,6 +135,26 @@ export class EditContentComponent extends HasErrors implements OnInit {
         }
       }
     });
+  }
+
+  canDeactivate(nextPath: string): Observable<boolean> {
+    let res = (this.hash == hash(this.formGroup.getRawValue()) &&
+      this.tagHash == hash(this.content.tags));
+
+    if (!res) {
+      return this.matDialog.open(ConfirmCloseDialog).afterClosed().pipe(
+        map(it => {
+
+          if (it === undefined) {
+            it = false;
+          }
+
+          return it;
+        })
+      );
+    }
+
+    return of(res);
   }
 
   override ngOnDestroy() {
@@ -162,6 +186,8 @@ export class EditContentComponent extends HasErrors implements OnInit {
             this.rejectErrors(...err.errors)
           }
         })
+    } else {
+
     }
   }
 
@@ -263,6 +289,9 @@ export class EditContentComponent extends HasErrors implements OnInit {
             this.content.tags = [];
           }
 
+          this.hash = hash(this.formGroup.getRawValue());
+          this.tagHash = hash(this.content.tags);
+
           this.state = 'form';
 
           if (!this.content.actions?.canEdit) {
@@ -297,7 +326,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
     return this.contentService.save({
       id: this.content.id,
       title: this.formGroup.get('title')?.value,
-      preView: this.formGroup.get('preView')?.value?? 'auto',
+      preView: this.formGroup.get('preView')?.value ?? 'auto',
       content: this.formGroup.get('content')?.value,
       tags: this.content.tags
     } as Content)

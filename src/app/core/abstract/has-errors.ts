@@ -11,10 +11,8 @@ export abstract class HasErrors extends UnSubscriber {
   protected errors: Error[] = [];
   protected formGroup: FormGroup = new FormGroup({});
 
-
-
   protected get hasErrors(): boolean {
-    return this.errors.length > 0
+    return this.errors.length > 0;
   }
 
   protected reject(code: string, field: string, args: any = {}) {

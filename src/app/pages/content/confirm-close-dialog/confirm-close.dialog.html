@@ -1,0 +1,11 @@
+<div class="dialog">
+
+  <mat-dialog-content>
+    <h1>{{ 'confirmCloseDialog.title' | translate }}</h1>
+    <p [innerHTML]="'confirmCloseDialog.content' | translate"></p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-flat-button color="warn" (click)="submit()">{{ 'confirmCloseDialog.submit' | translate }}</button>
+    <button mat-button (click)="submit(false)">{{ 'confirmCloseDialog.cancel' | translate }}</button>
+  </mat-dialog-actions>
+</div>

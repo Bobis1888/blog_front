@@ -85,6 +85,12 @@
     "email": "E-mail",
     "reset": "Reset"
   },
+  "confirmCloseDialog" : {
+    "title": "Exit without saving?",
+    "content": "All unsaved data will be lost",
+    "cancel": "Cancel",
+    "submit": "Don`t save"
+  },
   "profilePage": {
     "title": "Profile",
     "metaTitle": "Mylog - Profile",
