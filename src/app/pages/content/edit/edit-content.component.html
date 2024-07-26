@@ -29,7 +29,7 @@
   <br *ngIf="!content.actions?.canEdit">
   <div class="editor" *ngIf="editor != undefined" [@opacity-1]>
 
-    <form [formGroup]="formGroup">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()">
 
       <div class="title">
         <mat-form-field appearance="outline">
@@ -130,55 +130,64 @@
       </div>
       <br/>
 
-      <ngx-editor [editor]="editor"
-                  [outputFormat]="'html'"
-                  [spellcheck]="true"
-                  formControlName="content"
-                  [placeholder]="'editContentPage.placeholder' | translate">
+      <ngx-editor
+        [@opacity-1]
+        [ngClass]="{'error' : hasErrors && this.fieldHasErrors('content')}"
+        [editor]="editor"
+        [outputFormat]="'html'"
+        [spellcheck]="true"
+        formControlName="content"
+        [placeholder]="'editContentPage.placeholder' | translate">
 
       </ngx-editor>
+
+      <div class="buttons">
+
+        <button mat-flat-button type="submit"
+                *ngIf="content.actions.canEdit"
+                >
+          {{ "editContentPage.submit" | translate }}
+        </button>
+
+        <button
+          *ngIf="content.id"
+          mat-stroked-button
+          type="button"
+          routerLink="/content/view/{{ content.id }}"
+        >
+          {{ "editContentPage.view" | translate }}
+        </button>
+
+        <button
+          mat-flat-button
+          type="button"
+          *ngIf="content.actions.canPublish"
+          (click)="changeStatus(Status.published)"
+        >
+          {{ "editContentPage.publish" | translate }}
+        </button>
+
+        <button
+          mat-flat-button
+          type="button"
+          *ngIf="content.actions.canUnpublish"
+          (click)="changeStatus(Status.draft)"
+        >
+          {{ "editContentPage.unpublish" | translate }}
+        </button>
+
+        <button
+          *ngIf="content.id"
+          mat-flat-button
+          color="warn"
+          type="button"
+          (click)="delete()"
+        >
+          {{ "editContentPage.delete" | translate }}
+        </button>
+      </div>
     </form>
-    <div class="buttons">
 
-      <button mat-flat-button type="submit"
-              *ngIf="content.actions.canEdit"
-              (click)="submit()">
-        {{ "editContentPage.submit" | translate }}
-      </button>
-
-      <button
-        *ngIf="content.id"
-        mat-stroked-button
-        routerLink="/content/view/{{ content.id }}"
-      >
-        {{ "editContentPage.view" | translate }}
-      </button>
-
-      <button
-        mat-flat-button
-        *ngIf="content.actions.canPublish"
-        (click)="changeStatus(Status.published)"
-      >
-        {{ "editContentPage.publish" | translate }}
-      </button>
-
-      <button
-        mat-flat-button
-        *ngIf="content.actions.canUnpublish"
-        (click)="changeStatus(Status.draft)"
-      >
-        {{ "editContentPage.unpublish" | translate }}
-      </button>
-
-      <button
-        *ngIf="content.id"
-        mat-flat-button
-        color="warn"
-        (click)="delete()"
-      >
-        {{ "editContentPage.delete" | translate }}
-      </button>
-    </div>
   </div>
 </ng-template>
 

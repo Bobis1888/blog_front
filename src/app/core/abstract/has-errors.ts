@@ -15,6 +15,25 @@ export abstract class HasErrors extends UnSubscriber {
     return this.errors.length > 0;
   }
 
+  protected validate(): boolean {
+    this.clearErrors();
+    this.formGroup.updateValueAndValidity();
+
+    this.fieldNames.forEach(field => {
+
+      if (this.formGroup.get(field)?.errors) {
+        let arr: Array<string> = Object.keys(this.formGroup.get(field)?.errors ?? {}) ?? [];
+        arr.forEach(code => this.reject(field, code));
+      }
+    })
+
+    return this.formGroup.valid;
+  }
+
+  protected get fieldNames(): Array<string> {
+    return Object.keys(this.formGroup.controls ?? {}) ?? [];
+  }
+
   protected reject(code: string, field: string, args: any = {}) {
     let err = {code, field, args};
     this.rejectErrors(err);

@@ -214,9 +214,4 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
         }
       });
   }
-
-  protected onmouseleave(trigger: MatMenuTrigger) {
-    setTimeout(() => trigger.closeMenu(), 1000);
-
-  }
 }

@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ContentService, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {debounceTime, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
+import {debounceTime, delay, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {Editor, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
@@ -96,9 +96,9 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
   ngOnInit(): void {
     this.formGroup.addControl('content', new FormControl('<p></p>', Validators.required()));
-    this.formGroup.addControl('preView', new FormControl(null));
-    this.formGroup.addControl('title', new FormControl(null, Validators.required()));
-    this.formGroup.addControl('tagCtrl', new FormControl(null));
+    this.formGroup.addControl('preView', new FormControl(""));
+    this.formGroup.addControl('title', new FormControl("", Validators.required()));
+    this.formGroup.addControl('tagCtrl', new FormControl(""));
     this.title.setTitle(this.translate.instant('editContentPage.metaTitle'));
 
     this.editor = new Editor({
@@ -113,8 +113,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
     if (this.id) {
       this.init();
     } else {
-      this.hash = hash(this.formGroup.getRawValue());
-      this.tagHash = hash(this.content.tags);
+      this.calculateHash();
     }
 
     this.tagCtrl.valueChanges.pipe(
@@ -137,7 +136,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
     });
   }
 
-  canDeactivate(nextPath: string): Observable<boolean> {
+  canDeactivate(): Observable<boolean> {
     let res = (this.hash == hash(this.formGroup.getRawValue()) &&
       this.tagHash == hash(this.content.tags));
 
@@ -164,7 +163,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
   protected submit(): void {
 
-    if (this.formGroup.valid) {
+    if (this.validate()) {
       this.state = 'load';
       this.save()
         .pipe(
@@ -172,6 +171,8 @@ export class EditContentComponent extends HasErrors implements OnInit {
         )
         .subscribe({
           next: it => {
+
+            this.calculateHash();
 
             if (this.id != it.id) {
               this.id = it.id;
@@ -186,8 +187,6 @@ export class EditContentComponent extends HasErrors implements OnInit {
             this.rejectErrors(...err.errors)
           }
         })
-    } else {
-
     }
   }
 
@@ -230,8 +229,6 @@ export class EditContentComponent extends HasErrors implements OnInit {
     if (this.content.status == status || status == null) {
       return;
     }
-
-    this.state = 'load';
 
     let subs: Observable<any> = of({success: true});
 
@@ -289,8 +286,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
             this.content.tags = [];
           }
 
-          this.hash = hash(this.formGroup.getRawValue());
-          this.tagHash = hash(this.content.tags);
+          this.calculateHash();
 
           this.state = 'form';
 
@@ -315,6 +311,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
     }).afterClosed().subscribe({
       next: it => {
         if (it) {
+          this.calculateHash();
           this.router.navigate(['/']).then();
           return;
         }
@@ -322,14 +319,27 @@ export class EditContentComponent extends HasErrors implements OnInit {
     });
   }
 
-  private save(): Observable<{ success: true, id: string }> {
+  private save(): Observable<{ success: boolean, id: string }> {
+
+    if (this.id != '' && this.hash == hash(this.formGroup.getRawValue()) && this.tagHash == hash(this.content.tags)) {
+      let res = {success: true, id: this.id};
+      return of(res).pipe(delay(200));
+    }
+
+    let previewValue = this.formGroup.get('preView')?.value ?? '';
+
     return this.contentService.save({
       id: this.content.id,
       title: this.formGroup.get('title')?.value,
-      preView: this.formGroup.get('preView')?.value ?? 'auto',
+      preView: previewValue == '' ? 'auto' : previewValue,
       content: this.formGroup.get('content')?.value,
       tags: this.content.tags
     } as Content)
       .pipe(takeUntil(this.unSubscriber));
+  }
+
+  private calculateHash(): void {
+    this.hash = hash(this.formGroup.getRawValue());
+    this.tagHash = hash(this.content.tags);
   }
 }
