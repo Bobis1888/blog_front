@@ -3,7 +3,7 @@ import {ContentService, Status} from "src/app/core/service/content/content.servi
 import {ActivatedRoute, Router} from "@angular/router";
 import {debounceTime, delay, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {Editor, Toolbar, Validators} from "ngx-editor";
+import {Editor, TBItems, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
@@ -21,6 +21,7 @@ import {TagService, TagsFilter} from "app/core/service/content/tag.service";
 import {CoreModule} from "app/core/core.module";
 import hash from 'hash-it';
 import {ConfirmCloseDialog} from "app/pages/content/confirm-close-dialog/confirm-close.dialog";
+import {ImageUploadMenuComponent} from "app/core/ngx-editor-plugins/image-upload/image-upload-menu.component";
 
 @Component({
   selector: 'edit-content',
@@ -30,6 +31,7 @@ import {ConfirmCloseDialog} from "app/pages/content/confirm-close-dialog/confirm
     CommonModule,
     CoreModule,
     ReactiveFormsModule,
+    ImageUploadMenuComponent,
   ],
   templateUrl: './edit-content.component.html',
   styleUrl: './edit-content.component.less'

@@ -1,0 +1,15 @@
+<div class="block">
+  <label id="label" for="image_uploads">
+    <mat-icon>upload</mat-icon>
+  </label>
+  <input
+    [hidden]="true"
+    type="file"
+    multiple
+    id="image_uploads"
+    name="upload"
+    (change)="handleFile($event)"
+    accept="{{ accept }}"/>
+</div>
+
+
