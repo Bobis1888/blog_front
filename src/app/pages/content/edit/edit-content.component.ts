@@ -137,21 +137,6 @@ export class EditContentComponent extends HasErrors implements OnInit {
         }
       }
     });
-
-    this.formGroup.get("content")?.valueChanges
-      ?.pipe(takeUntil(this.unSubscriber))
-      .subscribe({
-        next: (it) => {
-
-          if (!it) {
-            return;
-          }
-
-          this.formGroup.get('content')?.setValue(it?.replace(/color:#.{0,6};/g, ''), {
-            emitEvent: false
-          });
-        }
-      });
   }
 
   canDeactivate(): Observable<boolean> {
@@ -350,7 +335,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
       id: this.content.id,
       title: this.formGroup.get('title')?.value,
       preView: previewValue == '' ? 'auto' : previewValue,
-      content: this.formGroup.get('content')?.value,
+      content: this.formGroup.get('content')?.value?.replace(/color:#.{0,6};/g, '') ?? '',
       tags: this.content.tags
     } as Content)
       .pipe(takeUntil(this.unSubscriber));
