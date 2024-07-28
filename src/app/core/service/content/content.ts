@@ -8,6 +8,7 @@ export interface Content {
   content: string;
   tags: Array<string>;
   authorName: string;
+  countViews: number;
   status: Status;
   publishedDate: Date;
   // todo move to actions can saveToBookmarks, can like ...

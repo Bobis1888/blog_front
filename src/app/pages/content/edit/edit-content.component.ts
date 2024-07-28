@@ -3,7 +3,7 @@ import {ContentService, Status} from "src/app/core/service/content/content.servi
 import {ActivatedRoute, Router} from "@angular/router";
 import {debounceTime, delay, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {Editor, TBItems, Toolbar, Validators} from "ngx-editor";
+import {Editor, NgxEditorModule, TBItems, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
@@ -32,6 +32,7 @@ import {ImageUploadMenuComponent} from "app/core/ngx-editor-plugins/image-upload
     CoreModule,
     ReactiveFormsModule,
     ImageUploadMenuComponent,
+    NgxEditorModule,
   ],
   templateUrl: './edit-content.component.html',
   styleUrl: './edit-content.component.less'
@@ -136,6 +137,21 @@ export class EditContentComponent extends HasErrors implements OnInit {
         }
       }
     });
+
+    this.formGroup.get("content")?.valueChanges
+      ?.pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: (it) => {
+
+          if (!it) {
+            return;
+          }
+
+          this.formGroup.get('content')?.setValue(it?.replace(/color:#.{0,6};/g, ''), {
+            emitEvent: false
+          });
+        }
+      });
   }
 
   canDeactivate(): Observable<boolean> {

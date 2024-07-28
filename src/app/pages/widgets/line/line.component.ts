@@ -133,8 +133,8 @@ export class LineComponent extends UnSubscriber implements OnInit {
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: it => {
-          this.items = it.list;
-          this.totalPages = it.totalPages;
+          this.items.push(...it.list);
+          this.totalPages = it.totalPages ?? 0;
           this.state = this.items.length > 0 ? 'data' : 'empty';
         },
         error: () => this.state = 'empty'

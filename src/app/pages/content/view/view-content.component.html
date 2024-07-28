@@ -64,45 +64,54 @@
 
   <br>
 
-  <p [innerHTML]="content.content | safeHtml"></p>
+  <p class="main-content" [innerHTML]="content.content | safeHtml"></p>
   <br>
-
   <div class="reactions" *ngIf="content.status != Status.draft">
-    <button mat-icon-button (click)="react(favoriteReaction.value)" [disabled]="!authService.isAuthorized">
-      <mat-icon matBadge="{{ favoriteReaction.count }}"
+    <div>
+      <mat-icon matBadge="{{ content.countViews }}"
                 class="accent-icon"
-                matBadgePosition="below after">{{ favoriteReaction.value || 'favorite_outline' }}
+                matBadgePosition="below after">
+        visibility
       </mat-icon>
-    </button>
+    </div>
+    <div>
+      <button mat-icon-button (click)="react(favoriteReaction.value)" [disabled]="!authService.isAuthorized">
+        <mat-icon matBadge="{{ favoriteReaction.count }}"
+                  class="accent-icon"
+                  matBadgePosition="below after">{{ favoriteReaction.value || 'favorite_outline' }}
+        </mat-icon>
+      </button>
 
-    <button *ngFor="let it of reactions" mat-icon-button
-            (click)="react(it.value)"
-            [disabled]="!authService.isAuthorized">
-      <mat-icon matBadge="{{ it.count }}"
-                class="accent-icon"
-                matBadgePosition="below after">{{ it.value }}
-      </mat-icon>
-    </button>
+      <button *ngFor="let it of reactions" mat-icon-button
+              (click)="react(it.value)"
+              [disabled]="!authService.isAuthorized">
+        <mat-icon matBadge="{{ it.count }}"
+                  class="accent-icon"
+                  matBadgePosition="below after">{{ it.value }}
+        </mat-icon>
+      </button>
 
-    <button mat-icon-button
-            [matMenuTriggerFor]="menu"
-            *ngIf="authService.isAuthorized">
-      <mat-icon>add_circle</mat-icon>
-    </button>
+      <button mat-icon-button
+              [matMenuTriggerFor]="menu"
+              *ngIf="authService.isAuthorized">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
 
-    <mat-menu #menu="matMenu" xPosition="after" yPosition="above">
-      <div class="reactions-menu">
-        <button mat-icon-button
-                *ngFor="let type of ['favorite', 'local_fire_department', 'mood', 'star']"
-                (click)="react(type)"
-                [disabled]="!authService.isAuthorized">
-          <mat-icon>{{ type }}</mat-icon>
-        </button>
-      </div>
-    </mat-menu>
+      <mat-menu #menu="matMenu" xPosition="before" yPosition="above">
+        <div class="reactions-menu">
+          <button mat-icon-button
+                  *ngFor="let type of ['favorite', 'local_fire_department', 'mood', 'star']"
+                  (click)="react(type)"
+                  [disabled]="!authService.isAuthorized">
+            <mat-icon>{{ type }}</mat-icon>
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+
 
   </div>
-
+  <br>
   <div class="buttons">
     <button mat-icon-button (click)="share()">
       <mat-icon>share</mat-icon>

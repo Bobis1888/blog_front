@@ -8,6 +8,11 @@ export class SafeHtmlPipe implements PipeTransform {
 
   transform(value: string): SafeHtml {
     let processed = this.sanitized.sanitize(SecurityContext.STYLE, value);
+
+    if (processed) {
+      processed = processed.replace(/color:#.{0,6};/g, '');
+    }
+
     return this.sanitized.bypassSecurityTrustHtml(processed ?? '');
   }
 }
