@@ -125,4 +125,12 @@
       </mat-card-footer>
     </mat-card>
   </div>
+  <div class="load-more" *ngIf="canLoadMore || loadMoreProgress">
+    <button mat-button (click)="loadMore()" *ngIf="!loadMoreProgress">
+      {{ 'searchPage.loadMore' | translate }}
+    </button>
+    <div class="progress-bar-container" *ngIf="loadMoreProgress">
+      <mat-progress-bar mode="buffer"></mat-progress-bar>
+    </div>
+  </div>
 </ng-template>

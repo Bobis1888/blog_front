@@ -32,11 +32,12 @@ export class LineComponent extends UnSubscriber implements OnInit {
   protected totalPages: number = 0;
   protected info: UserInfo = {} as UserInfo;
   protected sortBy: Array<string> = [];
-  protected max: number = 10;
+  protected max: number = 2;
   protected page: number = 0;
 
   protected readonly LineType = LineType;
   protected readonly Status = Status;
+  protected loadMoreProgress: boolean = false;
 
   constructor(
     private contentService: ContentService,
@@ -46,6 +47,10 @@ export class LineComponent extends UnSubscriber implements OnInit {
     protected deviceService: DeviceDetectorService
   ) {
     super();
+  }
+
+  get canLoadMore(): boolean {
+    return this.totalPages > 1 && !this.loadMoreProgress && this.page < this.totalPages - 1;
   }
 
   ngOnInit(): void {
@@ -127,8 +132,18 @@ export class LineComponent extends UnSubscriber implements OnInit {
     });
   }
 
+  public loadMore() {
+    this.loadMoreProgress = true;
+    this.page++;
+    this.init();
+  }
+
   private init() {
-    this.state = 'loading';
+
+    if (!this.loadMoreProgress) {
+      this.state = 'loading';
+    }
+
     this.list()
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
@@ -136,6 +151,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
           this.items.push(...it.list);
           this.totalPages = it.totalPages ?? 0;
           this.state = this.items.length > 0 ? 'data' : 'empty';
+          this.loadMoreProgress = false;
         },
         error: () => this.state = 'empty'
       });
@@ -144,7 +160,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
   private list(): Observable<ListResponse> {
     switch (this.type) {
       case 'top': {
-        return this.contentService.getSuggestions();
+        return this.contentService.getSuggestions(this.filter);
       }
       case 'my': {
         return this.contentService.all(this.filter);

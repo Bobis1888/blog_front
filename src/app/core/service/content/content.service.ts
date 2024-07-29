@@ -61,13 +61,8 @@ export class ContentService {
     return this.httpSender.send(HttpMethod.POST, '/content/list', filter);
   }
 
-  getSuggestions(): Observable<ListResponse> {
-    // TODO post
-    // return this.httpSender.send(HttpMethod.POST, '/content/list', {
-    //   max: 10,
-    //   page: 0,
-    // } as Filter);
-    return this.httpSender.send(HttpMethod.GET, '/content/suggestions');
+  getSuggestions(filter: Filter): Observable<ListResponse> {
+    return this.httpSender.send(HttpMethod.POST, '/content/suggestions', filter);
   }
 
   saveToBookmarks(id: string) {
