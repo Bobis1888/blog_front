@@ -32,7 +32,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
   protected totalPages: number = 0;
   protected info: UserInfo = {} as UserInfo;
   protected sortBy: Array<string> = [];
-  protected max: number = 2;
+  protected max: number = 10;
   protected page: number = 0;
 
   protected readonly LineType = LineType;
