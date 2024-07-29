@@ -167,12 +167,19 @@
       "private_published": "Published (private)",
       "draft": "Draft",
       "pending": "Pending"
+    },
+    "tooltip": {
+      "edit": "Edit",
+      "editPreview": "Edit preview",
+      "delete": "Delete",
+      "unpublish": "Unpublish",
+      "publish": "Publish"
     }
   },
   "searchPage": {
     "search": "Search",
     "metaTitle": "Mylog - Search",
-    "notFound": "Not found",
+    "notFound": "Content not found",
     "noDescription": "No description",
     "registrationDate": "On the platform for {{date}} days",
     "subscribers" : "Subscribers: {{count}}",

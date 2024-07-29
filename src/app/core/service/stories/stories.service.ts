@@ -48,7 +48,7 @@ export class StoriesService {
       {
         id: 1,
         title: 'Новый евент стартует осенью',
-        description: 'Пиши на заданные темы и получай призы',
+        description: 'Пиши на заданные темы и поделись с друзьями',
         link: 'event',
         lang: 'ru'
       },
