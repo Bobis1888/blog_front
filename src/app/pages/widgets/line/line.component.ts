@@ -135,10 +135,10 @@ export class LineComponent extends UnSubscriber implements OnInit {
   public loadMore() {
     this.loadMoreProgress = true;
     this.page++;
-    this.init();
+    this.init(false);
   }
 
-  private init() {
+  private init(withClear: boolean = true) {
 
     if (!this.loadMoreProgress) {
       this.state = 'loading';
@@ -148,6 +148,11 @@ export class LineComponent extends UnSubscriber implements OnInit {
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: it => {
+
+          if (withClear) {
+            this.items = [];
+          }
+
           this.items.push(...it.list);
           this.totalPages = it.totalPages ?? 0;
           this.state = this.items.length > 0 ? 'data' : 'empty';
