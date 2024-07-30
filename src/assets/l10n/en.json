@@ -214,7 +214,9 @@
     "removedFromBookmarks": "Removed from bookmarks",
     "noTags": "No tags",
     "subscribe": "Subscribe",
-    "unsubscribe": "Unsubscribe"
+    "unsubscribe": "Unsubscribe",
+    "fromSameAuthor" : "From the same author",
+    "sameTags" : "With the same tags"
   },
   "editContentPage": {
     "createTitle": "Create publication",
