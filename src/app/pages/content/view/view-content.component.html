@@ -1,4 +1,4 @@
-<div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}">
+<div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}" #header >
 
   <ng-container [ngSwitch]="state">
 
@@ -19,6 +19,41 @@
 
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="data"></ng-container>
   </ng-container>
+
+  <div class="additional-content" *ngIf="authorContents.length > 0">
+    <br>
+    <br>
+    <h2>{{ 'viewContentPage.fromSameAuthor' | translate }}</h2>
+    <mat-divider></mat-divider>
+    <br>
+    <div class="same-contents" [@opacity-2]>
+      <div *ngFor="let cont of authorContents">
+        {{ cont.title }}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="additional-content" *ngIf="tagContents.length > 0">
+    <br>
+    <br>
+    <h2>{{ 'viewContentPage.sameTags' | translate }}</h2>
+    <mat-divider></mat-divider>
+    <br>
+    <div class="same-contents" [@opacity-2]>
+      <div *ngFor="let cont of tagContents">
+        {{ cont.title }}
+      </div>
+    </div>
+  </div>
+
+  <div class="to-top" *ngIf="state === 'data'">
+    <button mat-fab (click)="scrollToElement(header)">
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+  </div>
+
+
 </div>
 
 <ng-template #data>

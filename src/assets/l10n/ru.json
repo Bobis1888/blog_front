@@ -213,7 +213,9 @@
     "removedFromBookmarks": "Удалено из закладок",
     "noTags": "Нет тегов",
     "subscribe": "Подписаться",
-    "unsubscribe": "Отписаться"
+    "unsubscribe": "Отписаться",
+    "fromSameAuthor" : "Еще от автора",
+    "sameTags" : "С такими тегами"
   },
   "editContentPage": {
     "createTitle": "Создание публикации",

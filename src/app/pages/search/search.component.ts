@@ -5,7 +5,7 @@ import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ContentService, Filter} from "app/core/service/content/content.service";
-import {catchError, map, mergeMap, of, takeUntil} from "rxjs";
+import {catchError, debounceTime, distinctUntilChanged, map, mergeMap, of, takeUntil} from "rxjs";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
 import {AdditionalInfo, UserInfo} from "app/core/service/auth/user-info";
@@ -88,7 +88,11 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.meta.updateTag({name: 'description', content: 'Результаты поиска: ' + q, lang: 'ru'});
 
     (this.formGroup.get('search') as FormControl).valueChanges
-      .pipe(takeUntil(this.unSubscriber))
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        takeUntil(this.unSubscriber)
+      )
       .subscribe((it) => {
         this.byTag = it.indexOf('#') == 0;
         this.byAuthor = it.indexOf('@') == 0;
@@ -131,7 +135,7 @@ export class SearchComponent extends HasErrors implements OnInit {
 
     this.router.navigate([], {
       queryParams: {
-        q: this.formGroup.get("search")?.value?.replaceAll(/#/g, '').replaceAll(/ /g, '')?.replace('@', '') || null,
+        q: this.formGroup.get("search")?.value?.replaceAll(/#/g, '').replaceAll(/ /g, '') || null,
         tag: this.byTag ? 'true' : null,
         author: this.byAuthor ? 'true' : null
       },

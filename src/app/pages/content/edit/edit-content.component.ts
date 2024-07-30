@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ContentService, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {debounceTime, delay, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
+import {debounceTime, delay, distinctUntilChanged, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {Editor, NgxEditorModule, TBItems, Toolbar, Validators} from "ngx-editor";
+import {Editor, NgxEditorModule, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
@@ -22,6 +22,7 @@ import {CoreModule} from "app/core/core.module";
 import hash from 'hash-it';
 import {ConfirmCloseDialog} from "app/pages/content/confirm-close-dialog/confirm-close.dialog";
 import {ImageUploadMenuComponent} from "app/core/ngx-editor-plugins/image-upload/image-upload-menu.component";
+import {SafeHtmlPipe, SafeHtmlService} from "app/core/pipe/safe-html";
 
 @Component({
   selector: 'edit-content',
@@ -81,6 +82,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
               private router: Router,
               protected authService: AuthService,
               protected matDialog: MatDialog,
+              private safeHtmlService: SafeHtmlService,
               private aRouter: ActivatedRoute) {
     super();
   }
@@ -103,7 +105,18 @@ export class EditContentComponent extends HasErrors implements OnInit {
     this.formGroup.addControl('title', new FormControl("", Validators.required()));
     this.formGroup.addControl('tagCtrl', new FormControl(""));
     this.title.setTitle(this.translate.instant('editContentPage.metaTitle'));
-
+    this.formGroup.get('content')?.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        takeUntil(this.unSubscriber)
+      )
+      .subscribe(it => {
+        let sanitized = this.safeHtmlService.sanitize(it);
+        this.formGroup.get('content')?.setValue(sanitized, {
+          emitEvent: false
+        });
+      })
     this.editor = new Editor({
       keyboardShortcuts: true,
       features: {
@@ -121,11 +134,13 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
     this.tagCtrl.valueChanges.pipe(
       debounceTime(500),
-      skipWhile(val => val == null || val.toString()?.length < 2),
+      distinctUntilChanged(),
+      skipWhile(val => val == null || val.toString()?.length < 10),
       takeUntil(this.unSubscriber),
       mergeMap(val => this.tagService.list({max: 10, query: val} as TagsFilter)),
     ).subscribe({
       next: value => {
+
         this.filteredTags = [];
 
         value.forEach((it): void => {
@@ -335,7 +350,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
       id: this.content.id,
       title: this.formGroup.get('title')?.value,
       preView: previewValue == '' ? 'auto' : previewValue,
-      content: this.formGroup.get('content')?.value?.replace(/color:#.{0,6};/g, '') ?? '',
+      content: this.safeHtmlService.sanitize(this.formGroup.get('content')?.value),
       tags: this.content.tags
     } as Content)
       .pipe(takeUntil(this.unSubscriber));

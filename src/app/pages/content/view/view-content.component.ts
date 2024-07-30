@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ContentService, Status} from "src/app/core/service/content/content.service";
+import {ContentService, Filter, ListResponse, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {delay, Observable, takeUntil} from "rxjs";
 import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
@@ -17,7 +17,7 @@ import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {Meta} from "@angular/platform-browser";
 import {Content, Reaction} from "app/core/service/content/content";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
-import {MatMenuTrigger} from "@angular/material/menu";
+import {animations} from "app/core/config/app.animations";
 
 @Component({
   selector: 'view-content',
@@ -30,12 +30,15 @@ import {MatMenuTrigger} from "@angular/material/menu";
     SafeHtmlPipe,
     CommonModule,
   ],
+  animations: animations,
   templateUrl: './view-content.component.html',
   styleUrl: './view-content.component.less'
 })
 export class ViewContentComponent extends UnSubscriber implements OnInit {
 
   protected content: Content = {} as Content;
+  protected authorContents: Array<Content> = [];
+  protected tagContents: Array<Content> = [];
   protected state: 'data' | 'loading' | 'empty' = 'loading';
   private ref: MatSnackBarRef<any> | null = null;
   protected readonly Status = Status;
@@ -182,6 +185,17 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
                 .map((it) => it.replace('#', '')).join(' ')
             });
           }
+
+          this.listByParams(this.content.authorName)
+            .pipe(takeUntil(this.unSubscriber))
+            .subscribe({
+              next: (it) => this.authorContents.push(...it.list)
+            });
+          this.listByParams('', this.content.tags)
+            .pipe(takeUntil(this.unSubscriber))
+            .subscribe({
+              next: (it) => this.tagContents.push(...it.list)
+            });
         },
         error: () => this.state = 'empty'
       });
@@ -213,5 +227,21 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
           }
         }
       });
+  }
+
+  listByParams(author: string = '', tags: string[] = []): Observable<ListResponse> {
+    return this.contentService.list({
+      max: 3,
+      page: 0,
+      search: {
+        author: author,
+        tags: tags
+      },
+      sortBy: ['countViews', 'date']
+    } as Filter);
+  }
+
+  scrollToElement($element: any): void {
+    $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 }

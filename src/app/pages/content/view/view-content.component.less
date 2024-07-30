@@ -12,11 +12,18 @@
   font-weight: bolder;
 }
 
+mat-divider {
+  margin: auto;
+  width: 85%;
+  height: 2px;
+}
+
 .content {
   padding: 20px;
   margin: auto;
   max-width: 700px;
   font-size: 16px;
+  overflow-wrap: anywhere;
 
   h1 {
     font-weight: bolder;
@@ -36,6 +43,34 @@
     font-weight: bold;
     padding-bottom: 20px;
     display: block;
+  }
+
+  .same-contents {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    div {
+      text-align: center;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 10px;
+      background-color: @secondColor;
+      cursor: pointer;
+    }
+  }
+
+  .additional-content {
+    h2 {
+      text-align: center;
+    }
+  }
+
+  .to-top {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 }
@@ -99,6 +134,10 @@
 
   img {
     max-width: 100px;
+  }
+
+  .same-contents {
+    flex-direction: column;
   }
 }
 
