@@ -105,18 +105,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
     this.formGroup.addControl('title', new FormControl("", Validators.required()));
     this.formGroup.addControl('tagCtrl', new FormControl(""));
     this.title.setTitle(this.translate.instant('editContentPage.metaTitle'));
-    this.formGroup.get('content')?.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        takeUntil(this.unSubscriber)
-      )
-      .subscribe(it => {
-        let sanitized = this.safeHtmlService.sanitize(it);
-        this.formGroup.get('content')?.setValue(sanitized, {
-          emitEvent: false
-        });
-      })
+
     this.editor = new Editor({
       keyboardShortcuts: true,
       features: {
