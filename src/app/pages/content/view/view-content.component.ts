@@ -241,7 +241,13 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
     } as Filter);
   }
 
-  scrollToElement($element: any): void {
-    $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+  scrollToElement($element: any, behavior: string = "smooth"): void {
+    $element?.scrollIntoView({behavior: behavior, block: "start", inline: "nearest"});
+  }
+
+  nav(cont: Content) {
+    this.state = this.id == cont.id ? 'data' : 'loading';
+    this.scrollToElement(document.getElementById("header"), 'auto');
+    this.router.navigate(['content', 'view', cont.id]).then();
   }
 }

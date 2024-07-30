@@ -15,7 +15,7 @@
     <mat-card *ngFor="let authorInfo of authorInfos">
 
       <div class="header" *ngIf="authorInfo">
-        <div class="title">
+        <div class="title" [ngClass]="{ 'mobile': isMobile }">
           <div class="title-avatar">
             <div class="avatar" [ngClass]="{'default-avatar': !authorInfo.hasImage}">
               <img src="{{ authorInfo.imagePath }}"

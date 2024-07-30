@@ -1,4 +1,4 @@
-<div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}" #header >
+<div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}" id="header" #header >
 
   <ng-container [ngSwitch]="state">
 
@@ -27,7 +27,7 @@
     <mat-divider></mat-divider>
     <br>
     <div class="same-contents" [@opacity-2]>
-      <div *ngFor="let cont of authorContents" [routerLink]="'/content/view/' + cont.id">
+      <div *ngFor="let cont of authorContents" (click)="nav(cont)">
         {{ cont.title }}
       </div>
     </div>
@@ -41,13 +41,13 @@
     <mat-divider></mat-divider>
     <br>
     <div class="same-contents" [@opacity-2]>
-      <div *ngFor="let cont of tagContents" [routerLink]="'/content/view/' + cont.id">
+      <div *ngFor="let cont of tagContents" (click)="nav(cont)">
         {{ cont.title }}
       </div>
     </div>
   </div>
 
-  <div class="to-top" *ngIf="state === 'data'">
+  <div class="to-top" *ngIf="state === 'data' && !isMobile">
     <button mat-fab (click)="scrollToElement(header)">
       <mat-icon>keyboard_arrow_up</mat-icon>
     </button>
