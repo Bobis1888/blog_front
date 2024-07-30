@@ -189,12 +189,12 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
           this.listByParams(this.content.authorName)
             .pipe(takeUntil(this.unSubscriber))
             .subscribe({
-              next: (it) => this.authorContents.push(...it.list)
+              next: (it) => this.authorContents = it?.list ?? []
             });
           this.listByParams('', this.content.tags)
             .pipe(takeUntil(this.unSubscriber))
             .subscribe({
-              next: (it) => this.tagContents.push(...it.list)
+              next: (it) => this.tagContents = it?.list ?? []
             });
         },
         error: () => this.state = 'empty'
