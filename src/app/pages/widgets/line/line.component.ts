@@ -171,10 +171,16 @@ export class LineComponent extends UnSubscriber implements OnInit {
         return this.contentService.all(this.filter);
       }
       case 'bookmarks': {
-        return this.contentService.bookmarks(this.filter);
+        return this.contentService.bookmarks({
+          ...this.filter,
+          sortBy: ['publishedDate']
+        });
       }
       case 'subscriptions': {
-        return this.contentService.listFromAuthors(this.filter);
+        return this.contentService.listFromAuthors({
+          ...this.filter,
+          sortBy: ['publishedDate']
+        });
       }
       default: {
         return of({list: new Array<Content>()} as ListResponse);

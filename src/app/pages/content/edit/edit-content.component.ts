@@ -64,9 +64,9 @@ export class EditContentComponent extends HasErrors implements OnInit {
   protected filteredTags: string[] = [];
   protected id: string = '';
   readonly maskitoOpt: MaskitoOptions = {
-    mask: /\w/,
+    mask: /[a-zA-Zа-яА-Я0-9_]/,
     preprocessors: [
-      ({elementState, data}) => ({data: data.replaceAll(/\W|\d/g, ''), elementState}),
+      ({elementState, data}) => ({data: data.replaceAll(/[^a-zA-Z0-9А-Яа-я_]|\d/g, ''), elementState}),
     ]
   };
   @ViewChild('tagsInput')
@@ -124,19 +124,18 @@ export class EditContentComponent extends HasErrors implements OnInit {
     this.tagCtrl.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      skipWhile(val => val == null || val.toString()?.length < 10),
+      skipWhile(val => val == null || val?.toString()?.length < 3),
       takeUntil(this.unSubscriber),
-      mergeMap(val => this.tagService.list({max: 10, query: val} as TagsFilter)),
+      mergeMap(val => val?.toString()?.length < 3 ? of([]) : this.tagService.list({max: 5, query: val} as TagsFilter)),
     ).subscribe({
       next: value => {
-
         this.filteredTags = [];
 
         value.forEach((it): void => {
           this.filteredTags.push(it.value);
         });
 
-        if (this.filteredTags.length == 0) {
+        if (this.filteredTags.length == 0 && this.tagCtrl.value) {
           this.filteredTags.push("#" + this.tagCtrl.value);
         }
       }
@@ -217,8 +216,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
     }
   }
 
-  protected selected(event: MatAutocompleteSelectedEvent): void {
-    const value: string = event.option.viewValue;
+  protected selected(value: string): void {
 
     if (!this.content.tags.includes(value)) {
       this.content.tags.push(value);
@@ -334,6 +332,10 @@ export class EditContentComponent extends HasErrors implements OnInit {
     }
 
     let previewValue = this.formGroup.get('preView')?.value ?? '';
+
+    if (this.tagCtrl.value && this.tagCtrl.value.length > 0 && this.content.tags.length == 0) {
+      this.selected(this.tagCtrl.value);
+    }
 
     return this.contentService.save({
       id: this.content.id,

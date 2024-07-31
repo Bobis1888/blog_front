@@ -87,7 +87,7 @@
           >
             help_outline
           </mat-icon>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event.option.viewValue)">
             <mat-option *ngFor="let tag of filteredTags">{{ tag }}</mat-option>
           </mat-autocomplete>
         </mat-form-field>

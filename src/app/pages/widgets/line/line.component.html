@@ -37,8 +37,8 @@
 <ng-template #data>
 
   <div *ngFor="let item of items" class="content">
-    <mat-card [@opacity-1] matRipple>
-      <mat-card-header routerLink="/content/view/{{ item.id }}" *ngIf="type == LineType.my; else view">
+    <mat-card [@opacity-1] matRipple routerLink="/content/view/{{ item.id }}">
+      <mat-card-header *ngIf="type == LineType.my; else view">
         <div class="card-title">
           <div>
             <h2>
@@ -51,13 +51,17 @@
         </div>
       </mat-card-header>
       <ng-template #view>
-        <mat-card-header routerLink="/content/view/{{ item.id }}">
-          <mat-card-title>{{ item.title }}</mat-card-title>
-          <mat-card-subtitle *ngIf="item.tags" class="tags">{{ item.tags.join(' ') }}</mat-card-subtitle>
+        <mat-card-header>
+          <mat-card-title>
+            <span style="padding: 10px">{{ item.title }}</span>
+          </mat-card-title>
+          <mat-card-subtitle *ngIf="item.tags" class="tags">
+            <span style="padding: 10px">{{ item.tags.join(' ') }}</span>
+          </mat-card-subtitle>
         </mat-card-header>
       </ng-template>
 
-      <mat-card-content routerLink="/content/view/{{ item.id }}">
+      <mat-card-content>
         <div *ngIf="type == LineType.my && item.tags" class="tags">{{ item.tags.join(' ') }}</div>
         <p class="pre-view" [innerHTML]="item.preView | safeHtml"></p>
       </mat-card-content>
@@ -73,7 +77,7 @@
               >
                 <mat-icon>delete</mat-icon>
               </button>
-              <span>{{ item.publishedDate | date : "YYYY.MM.dd" }}</span>
+              <span>{{ item.publishedDate | date : "MM d y" : "" : "en" }}</span>
             </div>
             <div class="author" [routerLink]="'/search'" [queryParams]="{q: item.authorName, author: true}">
               <span>{{ item.authorName }}</span>

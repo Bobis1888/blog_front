@@ -235,7 +235,7 @@
     "delete": "Delete",
     "draft" : "Draft",
     "tags": "Tags",
-    "tagHint": "Tags will help to find your publication. Tags added by one, press Enter to add tag"
+    "tagHint": "Tags will help to find your publication. Tags added by one, press Enter to add tag or select from list"
   },
   "badGatewayPage": {
     "title": "We are working on the update, please wait."
