@@ -1,4 +1,4 @@
-<div class="landing" [ngClass]="{ mobile: isMobile }">
+<div class="landing" [ngClass]="{ mobile: isMobile }" #top>
   <button mat-icon-button (click)="themeDataService.switchMode()">
     <mat-icon>{{ themeDataService.isDarkMode ? "wb_sunny" : "nights_stay" }}</mat-icon>
   </button>
@@ -33,19 +33,29 @@
       <p class="feature-item" [innerHTML]="'landingPage.feature2' | translate"></p>
     </div>
     <div class="sign-up-button">
-      <button mat-flat-button [routerLink]="'/content/features'">{{ 'landingPage.learn' | translate }}</button>
+      <button mat-flat-button [routerLink]="'/content/about'">{{ 'landingPage.learn' | translate }}</button>
     </div>
   </section>
   <section id="third" #third>
     <h1 [innerHTML]="'landingPage.title2' | translate"></h1>
     <p class="sub-title" [innerHTML]="'landingPage.subTitle2' | translate"></p>
     <div class="sign-up-button">
-      <button mat-flat-button [routerLink]="'/auth/login'">{{ 'landingPage.button' | translate }}</button>
+      <button mat-flat-button [routerLink]="'/auth/login'">{{ 'landingPage.join' | translate }}</button>
+    </div>
+  </section>
+  <section id="fourth" #fourth>
+    <h1 [innerHTML]="'landingPage.title3' | translate"></h1>
+    <p class="sub-title" [innerHTML]="'landingPage.subTitle3' | translate"></p>
+    <div class="sign-up-button">
+      <button mat-flat-button [routerLink]="'/auth/login'">{{ 'landingPage.read' | translate }}</button>
     </div>
     <div>
-      <button mat-fab (click)="scrollToElement(first)">
+      <button mat-fab (click)="scrollToElement(top)">
         <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
     </div>
   </section>
+  <div class="footer">
+    Mylog - 2024
+  </div>
 </div>

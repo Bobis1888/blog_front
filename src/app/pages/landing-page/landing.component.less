@@ -1,7 +1,7 @@
 @import "src/app/theme/utils";
 
 .landing {
-  margin: 40px auto;
+  margin: 40px auto 0;
   text-align: center;
 
   #first {
@@ -19,13 +19,23 @@
     background-color: @fifthColor;
     width: 100%;
     color: @firstColor;
-    height: 105vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
   }
 
   #third {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #fourth {
+    background-color: @fifthColor;
+    width: 100%;
+    color: @firstColor;
     height: 90vh;
     display: flex;
     flex-direction: column;
@@ -78,10 +88,20 @@
   }
 }
 
+.footer {
+  font-weight: bolder;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 20px;
+}
+
 .mobile {
 
   h1 {
-    font-size: 2.5em;
+    font-size: 1.8em;
   }
 
   h1.name {
@@ -99,5 +119,13 @@
   p.sub-title, div.sub-title {
     font-size: 1.3em;
     padding: 0 10px;
+  }
+
+  #second {
+    height: 140vh;
+  }
+
+  #third {
+    height: 100vh;
   }
 }

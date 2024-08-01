@@ -32,7 +32,7 @@ export class ResetPasswordComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle(this.translate.instant('resetPasswordPage.metaTitle'));
+    this.translate.get('resetPasswordPage.metaTitle').subscribe({next: (it) => this.title.setTitle(it)});
     this.formGroup = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
     });

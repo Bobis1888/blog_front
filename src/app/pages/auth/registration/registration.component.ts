@@ -68,7 +68,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle(this.translate.instant('registrationPage.metaTitle'));
+    this.translate.get('registrationPage.metaTitle').subscribe({next: (it) => this.title.setTitle(it)});
     this.formGroup.addControl('email', new FormControl('', [Validators.required, Validators.email]));
     this.formGroup.addControl('password', new FormControl('', [Validators.minLength(8)]));
     this.formGroup.addControl('passwordRepeat', new FormControl('', [
@@ -128,8 +128,8 @@ export class RegistrationComponent extends HasErrors implements OnInit {
               this.ref.onAction()
                 .pipe(takeUntil(this.unSubscriber))
                 .subscribe(() => {
-                this.router.navigate(['/auth/forgot-password']).then();
-              });
+                  this.router.navigate(['/auth/forgot-password']).then();
+                });
             }
           }
         });

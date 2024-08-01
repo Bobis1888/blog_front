@@ -26,7 +26,9 @@ export class LandingComponent extends UnSubscriber implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem('firstLaunch', 'true');
-    this.title.setTitle(this.translate.instant('landingPage.metaTitle'));
+
+    this.translate.get('landingPage.metaTitle')
+      .subscribe({next: (it) => this.title.setTitle(it)});
   }
 
   scrollToElement($element: any): void {

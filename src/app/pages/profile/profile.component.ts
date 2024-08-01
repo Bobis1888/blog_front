@@ -54,7 +54,7 @@ export class ProfileComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle(this.translate.instant('profilePage.metaTitle'));
+    this.translate.get('profilePage.metaTitle').subscribe({next: (it) => this.title.setTitle(it)});
     this.formGroup.addControl('nickname', new FormControl('', [Validators.required]));
 
     this.state = 'load';

@@ -33,7 +33,10 @@ export class LoginComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle(this.translate.instant('loginPage.metaTitle'));
+
+    this.translate.get('loginPage.metaTitle').subscribe({
+      next: (it) => this.title.setTitle(it)
+    });
 
     this.formGroup = this.formBuilder.group({
       login: new FormControl('', [Validators.required, Validators.email]),

@@ -27,8 +27,7 @@ export class BadGatewayComponent extends UnSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.title.setTitle(this.translate.instant('meta.badGateway'));
+    this.translate.get('meta.badGateway').subscribe({next: (it) => this.title.setTitle(it)});
 
     this.authService.getState()
       .pipe(

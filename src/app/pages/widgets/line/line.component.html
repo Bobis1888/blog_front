@@ -40,20 +40,21 @@
     <mat-card [@opacity-1] matRipple routerLink="/content/view/{{ item.id }}">
       <mat-card-header *ngIf="type == LineType.my; else view">
         <div class="card-title">
-          <div>
-            <h2>
-              {{ item.title }}
-            </h2>
-          </div>
           <div class="status">
             {{ ('lineWidget.status.' + item.status.toLowerCase()) | translate }}
+            <span *ngIf="item.publishedDate">
+              {{item.publishedDate | date : "d MMM y"}}
+            </span>
           </div>
+          <h2>
+            {{ item.title }}
+          </h2>
         </div>
       </mat-card-header>
       <ng-template #view>
         <mat-card-header>
           <mat-card-title>
-            <span style="padding: 10px">{{ item.title }}</span>
+            <div class="card-title">{{ item.title }}</div>
           </mat-card-title>
           <mat-card-subtitle *ngIf="item.tags" class="tags">
             <span>{{ item.tags.join(' ') }}</span>

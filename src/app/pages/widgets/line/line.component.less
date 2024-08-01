@@ -18,13 +18,9 @@
 
     .card-title {
       width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
+      padding: 0 5px;
 
       h2 {
-        display: flex;
-        align-items: center;
         margin: 0;
       }
     }
@@ -34,15 +30,21 @@
       font-size: 18px;
       color: @warningColor;
       display: flex;
-      align-items: center;
+      justify-content: end;
+      align-items: end;
+      margin-bottom: 10px;
+
+      span {
+        margin-left: 10px;
+      }
     }
   }
 
   .pre-view {
     line-break: anywhere;
     overflow: hidden;
-    max-height: 120px !important;
-    padding: 10px;
+    max-height: 130px !important;
+    padding: 5px;
   }
 
   h1 {
@@ -50,7 +52,7 @@
   }
 
   .tags {
-    padding: 10px;
+    padding: 0 5px;
     font-weight: bold;
   }
 

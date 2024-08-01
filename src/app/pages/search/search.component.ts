@@ -116,9 +116,8 @@ export class SearchComponent extends HasErrors implements OnInit {
       this.submit();
     }
 
-    setTimeout(() => {
-      let message = this.translate.instant('searchPage.metaTitle');
-      this.title.setTitle(message);
+    this.translate.get('searchPage.metaTitle').subscribe({
+      next: (it) => this.title.setTitle(it),
     });
 
     if (!q) {
@@ -206,7 +205,7 @@ export class SearchComponent extends HasErrors implements OnInit {
     if (this.authorInfos) {
       this.authorInfos.map(it => {
         it.hasImage = true;
-        it.imagePath = "/api/storage/download?type=avatar&nickname=" +  it.nickname + "&uuid=";
+        it.imagePath = "/api/storage/download?type=avatar&nickname=" + it.nickname + "&uuid=";
         return it;
       });
     }
