@@ -95,6 +95,10 @@ export class EditContentComponent extends HasErrors implements OnInit {
     return this.formGroup.get('preView')?.value?.length || 0;
   }
 
+  get titleLength(): number {
+    return this.formGroup.get('title')?.value?.length || 0;
+  }
+
   get isMobile(): boolean {
     return this.deviceService.isMobile();
   }

@@ -37,8 +37,13 @@
           <input
             matInput
             formControlName="title"
+            maxlength="255"
             [placeholder]="'editContentPage.contentTitlePlaceholder' | translate"
           />
+          <mat-hint
+            *ngIf="content.actions.canEdit"
+            align="end">{{ titleLength }}/255
+          </mat-hint>
           <mat-error
             *ngIf="hasErrors && formGroup.get('title')?.valid == false"
           >
@@ -126,7 +131,7 @@
         <ngx-editor-menu
           [editor]="editor"
           [toolbar]="toolbar"
-          [customMenuRef]="customMenu" ></ngx-editor-menu>
+          [customMenuRef]="customMenu"></ngx-editor-menu>
         <ngx-editor-floating-menu [editor]="editor">
           <ngx-editor-menu [editor]="editor" [toolbar]="shortToolbar"></ngx-editor-menu>
         </ngx-editor-floating-menu>
