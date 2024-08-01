@@ -75,7 +75,7 @@
 
 
   <span *ngIf="content.publishedDate"
-        class="date">{{ 'viewContentPage.publishedDate' | translate : {date: (content.publishedDate | date : "YYYY.MM.dd")} }}</span>
+        class="date">{{ 'viewContentPage.publishedDate' | translate : {date: (content.publishedDate | date : "d MMMM y")} }}</span>
 
   <div class="tags">
     <span class="tags-title">{{ 'viewContentPage.tags' | translate }}</span>

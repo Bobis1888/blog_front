@@ -56,7 +56,7 @@
             <span style="padding: 10px">{{ item.title }}</span>
           </mat-card-title>
           <mat-card-subtitle *ngIf="item.tags" class="tags">
-            <span style="padding: 10px">{{ item.tags.join(' ') }}</span>
+            <span>{{ item.tags.join(' ') }}</span>
           </mat-card-subtitle>
         </mat-card-header>
       </ng-template>
@@ -77,7 +77,7 @@
               >
                 <mat-icon>delete</mat-icon>
               </button>
-              <span>{{ item.publishedDate | date : "MM d y" : "" : "en" }}</span>
+              <span>{{ item.publishedDate | date : "d MMMM y" }}</span>
             </div>
             <div class="author" [routerLink]="'/search'" [queryParams]="{q: item.authorName, author: true}">
               <span>{{ item.authorName }}</span>

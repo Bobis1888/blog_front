@@ -1,4 +1,4 @@
-import {ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, LOCALE_ID} from '@angular/core';
 import {
   InMemoryScrollingFeature,
   InMemoryScrollingOptions,
@@ -8,14 +8,17 @@ import {
 } from '@angular/router';
 
 import {routes} from './app.routes';
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {provideTranslation} from "src/app/core/config/app.translate.config";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {appCoreInterceptor} from "src/app/core/config/app.core.interceptor";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {MetrikaModule} from 'ng-yandex-metrika';
 import {NgxEditorModule} from "ngx-editor";
+import {registerLocaleData} from "@angular/common";
+import localeRu from '@angular/common/locales/ru';
 
+registerLocaleData(localeRu, 'ru');
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -68,6 +71,11 @@ export const appConfig: ApplicationConfig = {
         enterValidUrl: 'Введённое значение не является ссылкой',
       }
     })),
+    {
+      provide: LOCALE_ID,
+      deps: [TranslateService],
+      useFactory: (translateService: TranslateService) => translateService.getDefaultLang()
+    },
     importProvidersFrom(TranslateModule.forRoot(provideTranslation())),
     provideAnimations(),
     provideHttpClient((withInterceptors([appCoreInterceptor]))),

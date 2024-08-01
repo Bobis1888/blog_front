@@ -219,7 +219,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
   protected selected(value: string): void {
 
     if (!this.content.tags.includes(value)) {
-      this.content.tags.push(value);
+      this.content.tags.push(value.includes('#') ? value : '#' + value);
     }
 
     if (this.tagsInput?.nativeElement.value) {

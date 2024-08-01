@@ -22,6 +22,7 @@ export interface Search {
   query: string;
   author: string;
   tags: Array<string>;
+  exclude: Array<string>;
 }
 
 export interface ListResponse {

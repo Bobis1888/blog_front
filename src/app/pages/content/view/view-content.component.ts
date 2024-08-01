@@ -6,7 +6,7 @@ import {
   Status,
 } from 'src/app/core/service/content/content.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {delay, Observable, takeUntil} from 'rxjs';
+import {delay, map, Observable, takeUntil} from 'rxjs';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {ClipboardService} from 'ngx-clipboard';
@@ -205,14 +205,14 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
           this.listByParams(this.content.authorName)
             .pipe(takeUntil(this.unSubscriber))
             .subscribe({
-              next: (it) => (this.authorContents = it?.list ?? []),
+              next: (it) => (this.authorContents = it ?? []),
             });
 
           if (this.content.tags?.length > 0) {
             this.listByParams('', this.content.tags)
               .pipe(takeUntil(this.unSubscriber))
               .subscribe({
-                next: (it) => (this.tagContents = it?.list ?? []),
+                next: (it) => (this.tagContents = it ?? []),
               });
           }
         },
@@ -251,16 +251,19 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   listByParams(
     author: string = '',
     tags: string[] = [],
-  ): Observable<ListResponse> {
+  ): Observable<Array<Content>> {
     return this.contentService.list({
       max: 3,
       page: 0,
       search: {
         author: author,
         tags: tags,
+        exclude: [this.content.id]
       },
       sortBy: ['countViews', 'date'],
-    } as Filter);
+    } as Filter).pipe(
+      map(it => it?.list ?? []),
+    );
   }
 
   scrollToElement($element: any, behavior: string = 'smooth'): void {
