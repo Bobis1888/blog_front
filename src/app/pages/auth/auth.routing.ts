@@ -16,12 +16,14 @@ export const authRoutes: Routes = [
   {
     path: '',
     children: [
-      {
-        path: 'login',
-        component: LoginComponent,
-        data: {animation: 'LoginComponent'},
-        canActivate: [nonAuthGuard],
-      },
+      ...['', 'login'].map(it => {
+        return {
+          path: it,
+          component: LoginComponent,
+          data: {animation: 'LoginComponent'},
+          canActivate: [nonAuthGuard],
+        }
+      }),
       {
         path: 'registration',
         component: RegistrationComponent,
