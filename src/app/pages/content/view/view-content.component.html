@@ -1,4 +1,4 @@
-<div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}" id="header" #header >
+<div *ngIf="content" class="content" [ngClass]="{mobile: isMobile}" id="header" #header>
 
   <ng-container [ngSwitch]="state">
 
@@ -73,6 +73,8 @@
     <h1>{{ content.title }}</h1>
   </div>
 
+  <span *ngIf="timeToRead != 0"
+        class="time-to-read">{{ 'viewContentPage.timeToRead' | translate : {time: timeToRead} }}</span>
 
   <span *ngIf="content.publishedDate"
         class="date">{{ 'viewContentPage.publishedDate' | translate : {date: (content.publishedDate | date : "d MMMM y")} }}</span>

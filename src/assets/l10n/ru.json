@@ -209,6 +209,7 @@
   },
   "viewContentPage": {
     "publishedDate": "Дата публикации {{date}}",
+    "timeToRead": "Время чтения {{time}} мин.",
     "empty": "Не найдено",
     "tags": "Теги:",
     "shareText": "Смотри публикацию на Mylog",

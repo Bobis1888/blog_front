@@ -208,6 +208,7 @@
   },
   "viewContentPage": {
     "publishedDate": "Published on {{date}}",
+    "timeToRead": "Time to read {{time}} min.",
     "empty": "Content not found",
     "tags": "Tags:",
     "pending": "This publication is pending approval",

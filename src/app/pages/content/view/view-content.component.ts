@@ -45,6 +45,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   private ref: MatSnackBarRef<any> | null = null;
   protected readonly Status = Status;
   private id: string = '';
+  protected timeToRead = 0;
 
   constructor(
     protected contentService: ContentService,
@@ -215,6 +216,10 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
                 next: (it) => (this.tagContents = it ?? []),
               });
           }
+
+          if (this.content) {
+            this.calculateTimeToRead();
+          }
         },
         error: () => (this.state = 'empty'),
       });
@@ -278,5 +283,10 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
     this.state = this.id == cont.id ? 'data' : 'loading';
     this.scrollToElement(document.getElementById('header'), 'auto');
     this.router.navigate(['content', 'view', cont.id]).then();
+  }
+
+  calculateTimeToRead(): void {
+    const wordCount = this.content.content.split(' ').length
+    this.timeToRead = Math.ceil(wordCount / 200);
   }
 }
