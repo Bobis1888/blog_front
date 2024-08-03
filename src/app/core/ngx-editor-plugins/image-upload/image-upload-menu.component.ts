@@ -83,15 +83,13 @@ export class ImageUploadMenuComponent implements OnInit {
     }
 
     if (this.file) {
-
-
       let fileReader = new FileReader();
       fileReader.readAsDataURL(this.file!);
       let me = this
 
       fileReader.onload = function () {
         let base64 = fileReader.result as string;
-        let url = 'http://localhost:4200/assets/images/dinosaur.png'; // ?? '/api/storage/download?';
+        let url = 'assets/images/dinosaur.png'; // ?? '/api/storage/download?';
         const {state, dispatch} = me.editor.view;
         const {schema} = state;
 
@@ -104,8 +102,6 @@ export class ImageUploadMenuComponent implements OnInit {
         // Apply the transaction to the editor's state
         dispatch(transaction);
       };
-
-
     }
   }
 }

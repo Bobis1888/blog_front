@@ -4,10 +4,17 @@ import {Injectable} from "@angular/core";
   providedIn: 'any'
 })
 export class ThemeDataService  {
-  public isDarkMode: boolean = true;
+  private darkMode: boolean;
+
+  constructor() {
+    this.darkMode = document.body.getAttribute("data-theme") == "dark";
+  }
+
+  public get isDarkMode(): boolean {
+    return this.darkMode;
+  }
 
   init() {
-    this.isDarkMode = document.body.getAttribute("data-theme") == "dark";
     let storageValue: string | null = localStorage.getItem('data-theme');
 
     if (storageValue == null && !this.isSystemDark() && this.isDarkMode ||
@@ -19,7 +26,7 @@ export class ThemeDataService  {
   }
 
   switchMode(): void {
-    this.isDarkMode = !this.isDarkMode;
+    this.darkMode = !this.darkMode;
 
     document.body.setAttribute(
       'data-theme',

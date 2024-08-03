@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {
   ContentService,
   Filter,
-  ListResponse,
   Status,
 } from 'src/app/core/service/content/content.service';
 import {ActivatedRoute, EventType, Router, RouterLink} from '@angular/router';

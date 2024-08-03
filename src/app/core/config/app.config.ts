@@ -36,8 +36,8 @@ export const appConfig: ApplicationConfig = {
       inMemoryScrollingFeature
     ),
     importProvidersFrom(MetrikaModule.forRoot([
-      // {id: 0},
-      {id: 97893121, webvisor: true}
+      {id: 0},
+      // {id: 97893121, webvisor: true}
     ])),
     importProvidersFrom(NgxEditorModule.forRoot({
       // todo locale

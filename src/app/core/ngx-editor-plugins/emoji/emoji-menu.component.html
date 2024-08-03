@@ -1,0 +1,15 @@
+<div class="block">
+  <span [matMenuTriggerFor]="menu">
+    <mat-icon>mood</mat-icon>
+  </span>
+  <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+    <emoji-mart
+      [showPreview]="false"
+      [enableSearch]="false"
+      [categories]="[]"
+      [perLine]="7" (emojiSelect)="click($event)">
+    </emoji-mart>
+  </mat-menu>
+</div>
+
+

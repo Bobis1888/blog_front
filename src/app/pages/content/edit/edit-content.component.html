@@ -131,9 +131,14 @@
         <ngx-editor-menu
           [editor]="editor"
           [toolbar]="toolbar"
-          [customMenuRef]="customMenu"></ngx-editor-menu>
+          [customMenuRef]="customMenu"
+        >
+        </ngx-editor-menu>
         <ngx-editor-floating-menu [editor]="editor">
-          <ngx-editor-menu [editor]="editor" [toolbar]="shortToolbar"></ngx-editor-menu>
+          <ngx-editor-menu
+            [editor]="editor"
+            [toolbar]="shortToolbar"
+          ></ngx-editor-menu>
         </ngx-editor-floating-menu>
       </div>
       <br/>
@@ -152,6 +157,7 @@
       <!-- Create template reference -->
       <ng-template #customMenu>
         <image-upload-menu [editor]="editor"></image-upload-menu>
+        <emoji-menu [editor]="editor"></emoji-menu>
       </ng-template>
 
       <div class="buttons">

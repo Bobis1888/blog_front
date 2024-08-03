@@ -7,7 +7,6 @@ import {Editor, NgxEditorModule, Toolbar, Validators} from "ngx-editor";
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {MaskitoOptions} from "@maskito/core";
 import {CommonModule} from "@angular/common";
 import {animations} from "app/core/config/app.animations";
@@ -22,7 +21,9 @@ import {CoreModule} from "app/core/core.module";
 import hash from 'hash-it';
 import {ConfirmCloseDialog} from "app/pages/content/confirm-close-dialog/confirm-close.dialog";
 import {ImageUploadMenuComponent} from "app/core/ngx-editor-plugins/image-upload/image-upload-menu.component";
-import {SafeHtmlPipe, SafeHtmlService} from "app/core/pipe/safe-html";
+import {SafeHtmlService} from "app/core/pipe/safe-html";
+import {ThemeDataService} from "app/core/service/theme-data.service";
+import {EmojiMenuComponent} from "app/core/ngx-editor-plugins/emoji/emoji-menu.component";
 
 @Component({
   selector: 'edit-content',
@@ -34,6 +35,7 @@ import {SafeHtmlPipe, SafeHtmlService} from "app/core/pipe/safe-html";
     ReactiveFormsModule,
     ImageUploadMenuComponent,
     NgxEditorModule,
+    EmojiMenuComponent,
   ],
   templateUrl: './edit-content.component.html',
   styleUrl: './edit-content.component.less'
@@ -82,6 +84,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
               private router: Router,
               protected authService: AuthService,
               protected matDialog: MatDialog,
+              protected theme: ThemeDataService,
               private safeHtmlService: SafeHtmlService,
               private aRouter: ActivatedRoute) {
     super();
