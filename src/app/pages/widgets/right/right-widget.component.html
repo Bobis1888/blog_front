@@ -16,32 +16,42 @@
           <ng-container *ngFor="let item of lineTypes(isMobile)">
             <button *ngIf="item == currentType;"
                     mat-flat-button (click)="changeType(item)">
-              <mat-icon class="light">{{resolveIcon(item)}}</mat-icon>
+              <mat-icon class="light">{{ resolveIcon(item) }}</mat-icon>
               {{ 'rightWidget.' + item | translate }}
             </button>
             <button *ngIf="item != currentType;" mat-stroked-button
                     (click)="changeType(item)">
-              <mat-icon>{{resolveIcon(item)}}</mat-icon>
+              <mat-icon>{{ resolveIcon(item) }}</mat-icon>
               {{ 'rightWidget.' + item | translate }}
             </button>
           </ng-container>
         </ng-container>
         <ng-template #nonAuth>
           <button mat-flat-button>
-            <mat-icon class="light">{{resolveIcon(LineType.top)}}</mat-icon>
+            <mat-icon class="light">{{ resolveIcon(LineType.top) }}</mat-icon>
             {{ 'rightWidget.top' | translate }}
           </button>
         </ng-template>
       </div>
     </mat-card-content>
-    <ng-container *ngIf="topics.length > 0 && !isMobile">
+    <ng-container *ngIf="lastContent.length > 0">
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="last-published">
+          <a *ngFor="let content of lastContent" routerLink="/content/view/{{ content.id }}">
+            {{ content.title }}
+          </a>
+        </div>
+      </mat-card-content>
+    </ng-container>
+    <ng-container *ngIf="tags.length > 0 && !isMobile">
       <mat-divider></mat-divider>
       <mat-card-content>
         <div class="topic">
-        <span *ngFor="let topic of topics"
+        <span *ngFor="let tag of tags"
               [routerLink]="'/search'"
-              [queryParams]="{q: topic.replace('#', ''), tag: true}">
-          {{ topic }}
+              [queryParams]="{q: tag.replace('#', ''), tag: true}">
+          {{ tag }}
         </span>
         </div>
       </mat-card-content>

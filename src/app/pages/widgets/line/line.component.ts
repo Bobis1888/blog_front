@@ -14,12 +14,11 @@ import {DeleteDialog} from "app/pages/content/delete-dialog/delete.dialog";
 import {ChangeStatusDialog} from "app/pages/content/change-status-dialog/change-status.dialog";
 import {ActivatedRoute} from "@angular/router";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {StoriesComponent} from "app/pages/widgets/stories/stories.component";
 
 @Component({
   selector: 'line',
   standalone: true,
-  imports: [CoreModule, StoriesComponent],
+  imports: [CoreModule],
   animations: animations,
   templateUrl: './line.component.html',
   styleUrl: './line.component.less',

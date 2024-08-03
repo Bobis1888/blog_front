@@ -7,18 +7,20 @@ import {LineComponent} from "app/pages/widgets/line/line.component";
 import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {animations} from "app/core/config/app.animations";
-import {Router, RouterOutlet} from "@angular/router";
+import {EventType, Router, RouterOutlet} from "@angular/router";
 import {FooterWidgetComponent} from "app/pages/widgets/footer/footer-widget.component";
+import {StoriesComponent} from "app/pages/widgets/stories/stories.component";
+import {Content} from "app/core/service/content/content";
 
 @Component({
   selector: 'summary',
   standalone: true,
   animations: animations,
-  imports: [CoreModule, FormsModule, LineComponent, RightWidgetComponent, RouterOutlet, FooterWidgetComponent],
+  imports: [CoreModule, FormsModule, LineComponent, RightWidgetComponent, RouterOutlet, FooterWidgetComponent, StoriesComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.less',
 })
-export class SummaryComponent extends UnSubscriber implements OnInit {
+export class SummaryComponent extends UnSubscriber {
   constructor(
     protected authService: AuthService,
     protected router: Router,
@@ -34,6 +36,4 @@ export class SummaryComponent extends UnSubscriber implements OnInit {
   get hideRightWidget(): boolean {
     return this.isMobile && ["my", "bookmarks"].find(it => this.router.url.includes(it)) != null;
   }
-
-  ngOnInit(): void {}
 }

@@ -8,6 +8,8 @@ import {LineType, lineTypes} from "app/core/service/line/line.service";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {Router} from "@angular/router";
 import {TagService, TagsFilter} from "app/core/service/content/tag.service";
+import {Content} from "app/core/service/content/content";
+import {ContentService, Filter} from "app/core/service/content/content.service";
 
 @Component({
   selector: 'right-widget',
@@ -25,6 +27,7 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
 
   constructor(
     protected tagService: TagService,
+    private contentService: ContentService,
     private deviceService: DeviceDetectorService,
     protected authService: AuthService,
     protected router: Router,
@@ -32,7 +35,8 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
     super();
   }
 
-  public topics: Array<string> = [];
+  public tags: Array<string> = [];
+  public lastContent: Array<Content> = [];
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
@@ -52,13 +56,24 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
       .subscribe({
         next: it => {
           it.forEach((it) => {
-            this.topics.push(it.value);
+            this.tags.push(it.value);
           });
 
           this.state = 'data';
         },
         error: () => this.state = 'data'
       });
+
+    this.contentService.list({
+      max: 3,
+      page: 0,
+      sortBy: ['publishedDate', 'countViews'],
+    } as Filter).subscribe({
+      next: (it) => {
+        this.lastContent = [];
+        this.lastContent.push(...it.list);
+      }
+    });
   }
 
   protected changeType(type: LineType) {

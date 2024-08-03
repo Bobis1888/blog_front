@@ -26,6 +26,7 @@ import {MatBadge} from "@angular/material/badge";
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {MatDivider} from "@angular/material/divider";
 import {FooterWidgetComponent} from "app/pages/widgets/footer/footer-widget.component";
+import {ScrollToTop} from "app/core/abstract/scroll-to-top";
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,7 @@ import {FooterWidgetComponent} from "app/pages/widgets/footer/footer-widget.comp
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.less'],
 })
-export class MainComponent extends UnSubscriber implements OnInit {
+export class MainComponent extends ScrollToTop implements OnInit {
 
   // todo config
   private languages: Array<string> = ['ru', 'en'];
@@ -59,18 +60,9 @@ export class MainComponent extends UnSubscriber implements OnInit {
     return this.router.url.includes('/landing') || this.router.url.includes('/update-process');
   }
 
-  @ViewChild('drawer') public drawer?: MatDrawer;
-
   ngOnInit(): void {
-    this.router.events.subscribe({
-      next: (it) => {
-
-        if (it.type == EventType.NavigationStart) {
-          this.drawer?.close().then();
-        }
-      }
-    });
     this.themeDataService.init();
+
     this.authService.getState().pipe(
       mergeMap((it: { 'logged': boolean }) => this.authService.info(it.logged))
     ).subscribe();

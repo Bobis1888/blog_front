@@ -1,4 +1,4 @@
-<div class="search" [ngClass]="{ 'mobile': isMobile }">
+<div class="search" [ngClass]="{ 'mobile': isMobile }" id="top">
 
   <div class="search-block">
     <form [formGroup]="formGroup" (ngSubmit)="submit()">
@@ -107,7 +107,7 @@
         <mat-card-footer>
           <div class="footer">
             <div class="date">
-              <span>{{ item.publishedDate | date : "YYYY.MM.dd" }}</span>
+              <span>{{ item.publishedDate | date : "d MMMM y" }}</span>
             </div>
             <div class="author">
               <span>{{ item.authorName }}</span>

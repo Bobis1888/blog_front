@@ -5,7 +5,7 @@ import {
   ListResponse,
   Status,
 } from 'src/app/core/service/content/content.service';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, EventType, Router, RouterLink} from '@angular/router';
 import {delay, map, Observable, takeUntil} from 'rxjs';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
@@ -269,20 +269,6 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
     } as Filter).pipe(
       map(it => it?.list ?? []),
     );
-  }
-
-  scrollToElement($element: any, behavior: string = 'smooth'): void {
-    $element?.scrollIntoView({
-      behavior: behavior,
-      block: 'start',
-      inline: 'nearest',
-    });
-  }
-
-  nav(cont: Content) {
-    this.state = this.id == cont.id ? 'data' : 'loading';
-    this.scrollToElement(document.getElementById('header'), 'auto');
-    this.router.navigate(['content', 'view', cont.id]).then();
   }
 
   calculateTimeToRead(): void {

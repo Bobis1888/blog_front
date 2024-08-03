@@ -1,6 +1,10 @@
-<div class="summary" [ngClass]="{ mobile: isMobile }">
+<div class="summary" [ngClass]="{ mobile: isMobile }" id="top">
   <div class="flex">
+
     <div class="line">
+      <ng-container>
+        <stories></stories>
+      </ng-container>
       <router-outlet></router-outlet>
     </div>
 

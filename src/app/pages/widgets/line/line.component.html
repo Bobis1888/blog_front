@@ -1,7 +1,4 @@
 <div class="line" [ngClass]="{mobile: isMobile}">
-  <ng-container>
-    <stories></stories>
-  </ng-container>
   <ng-container [ngSwitch]="state">
     <ng-container
       *ngSwitchCase="'data'"

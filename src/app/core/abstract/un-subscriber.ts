@@ -8,13 +8,12 @@ export abstract class UnSubscriber implements OnDestroy {
 
   protected title: Title;
   protected translate: TranslateService;
+  protected unSubscriber: Subject<any> = new Subject();
 
   protected constructor() {
     this.title = inject(Title);
     this.translate = inject(TranslateService);
   }
-
-  protected unSubscriber: Subject<any> = new Subject();
 
   ngOnDestroy(): void {
     this.translate.get('meta.title').subscribe({
