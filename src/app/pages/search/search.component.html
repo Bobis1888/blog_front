@@ -91,6 +91,13 @@
   <div class="empty">
     <h4 [innerHTML]="'searchPage.message' | translate"></h4>
   </div>
+  <div *ngIf="tags.length > 0" [@opacity-2]>
+    <mat-divider></mat-divider>
+    <br>
+    <div class="tags">
+      <span *ngFor="let tag of tags" (click)="fillTag(tag)">{{ tag.value }}</span>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #data>

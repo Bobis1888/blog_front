@@ -18,6 +18,10 @@
             <mat-icon>login</mat-icon>
             {{ "topMenu.login" | translate }}
           </button>
+          <button *ngIf="authService.isAuthorized" mat-button routerLink="/subscriptions">
+            <mat-icon>recent_actors</mat-icon>
+            {{ "topMenu.subscriptions" | translate }}
+          </button>
           <button *ngIf="authService.isAuthorized" mat-button routerLink="/my">
             <mat-icon>description</mat-icon>
             {{ "topMenu.my" | translate }}

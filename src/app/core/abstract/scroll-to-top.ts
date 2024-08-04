@@ -41,7 +41,6 @@ export abstract class ScrollToTop extends UnSubscriber implements AfterViewInit 
   }
 
   scrollToElement($element: any, behavior: string = 'smooth'): void {
-    console.log('!!!!!!!!!!!!!!!', $element);
     $element?.scrollIntoView({
       behavior: behavior,
       block: 'start',

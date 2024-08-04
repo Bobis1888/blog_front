@@ -46,6 +46,10 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   private id: string = '';
   protected timeToRead = 0;
 
+  get availableReactions() {
+    return ['favorite', 'local_fire_department', 'mood', 'mood_bad', 'thumb_up', 'thumb_down', 'star'];
+  }
+
   constructor(
     protected contentService: ContentService,
     protected deviceService: DeviceDetectorService,
@@ -264,7 +268,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
         tags: tags,
         exclude: [this.content.id]
       },
-      sortBy: ['countViews', 'date'],
+      sortBy: ['publishedDate', 'countViews'],
     } as Filter).pipe(
       map(it => it?.list ?? []),
     );

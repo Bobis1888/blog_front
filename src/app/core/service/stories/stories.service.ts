@@ -47,7 +47,7 @@ export class StoriesService {
     return of([
       {
         id: 1,
-        title: 'Новый евент стартует осенью',
+        title: 'Новый евент',
         description: 'Пиши на заданные темы и поделись с друзьями',
         link: 'event',
         lang: 'ru'

@@ -7,7 +7,7 @@ import {animations} from "src/app/core/config/app.animations";
 import {LineType, lineTypes} from "app/core/service/line/line.service";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {Router} from "@angular/router";
-import {TagService, TagsFilter} from "app/core/service/content/tag.service";
+import {TagService} from "app/core/service/content/tag.service";
 import {Content} from "app/core/service/content/content";
 import {ContentService, Filter} from "app/core/service/content/content.service";
 
@@ -58,6 +58,8 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
           it.forEach((it) => {
             this.tags.push(it.value);
           });
+
+          this.tags.sort((a, b) => a.length - b.length);
 
           this.state = 'data';
         },

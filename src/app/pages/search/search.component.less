@@ -45,6 +45,32 @@
     }
   }
 
+  .tags {
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    span {
+      font-weight: 500;
+      cursor: pointer;
+      color: @lightColor;
+      display: block;
+      background-color: @thirdColor;
+      border-radius: 20px;
+      line-break: auto;
+      overflow-wrap: anywhere;
+      margin: 5px;
+      padding: 5px 10px;
+    }
+
+    span:hover {
+      background-color: @secondColor;
+      color: @textColor;
+    }
+
+  }
+
   .author-block {
 
     mat-card {

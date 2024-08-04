@@ -32,6 +32,7 @@
     "profile": "Profile",
     "my": "Publications",
     "bookmarks": "Bookmarks",
+    "subscriptions": "Subscriptions",
     "write": "Write",
     "mode" : {
       "light": "Light",
@@ -157,7 +158,9 @@
     "top" : "Hot",
     "bookmarks": "Bookmarks",
     "my" : "Publications",
-    "subscriptions": "Subscriptions"
+    "subscriptions": "Subscriptions",
+    "last": "Lasts",
+    "tags" : "Tags"
   },
   "lineWidget": {
     "noData": {

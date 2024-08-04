@@ -10,33 +10,28 @@
 
 <ng-template #data>
   <mat-card [@opacity-1]>
-    <mat-card-content>
+    <mat-card-content *ngIf="authService.isAuthorized && !isMobile">
       <div class="buttons">
-        <ng-container *ngIf="authService.isAuthorized; else nonAuth">
-          <ng-container *ngFor="let item of lineTypes(isMobile)">
-            <button *ngIf="item == currentType;"
-                    mat-flat-button (click)="changeType(item)">
-              <mat-icon class="light">{{ resolveIcon(item) }}</mat-icon>
-              {{ 'rightWidget.' + item | translate }}
-            </button>
-            <button *ngIf="item != currentType;" mat-stroked-button
-                    (click)="changeType(item)">
-              <mat-icon>{{ resolveIcon(item) }}</mat-icon>
-              {{ 'rightWidget.' + item | translate }}
-            </button>
-          </ng-container>
-        </ng-container>
-        <ng-template #nonAuth>
-          <button mat-flat-button>
-            <mat-icon class="light">{{ resolveIcon(LineType.top) }}</mat-icon>
-            {{ 'rightWidget.top' | translate }}
+        <ng-container *ngFor="let item of lineTypes(isMobile)">
+          <button *ngIf="item == currentType;"
+                  mat-flat-button (click)="changeType(item)">
+            <mat-icon class="light">{{ resolveIcon(item) }}</mat-icon>
+            {{ 'rightWidget.' + item | translate }}
           </button>
-        </ng-template>
+          <button *ngIf="item != currentType;" mat-stroked-button
+                  (click)="changeType(item)">
+            <mat-icon>{{ resolveIcon(item) }}</mat-icon>
+            {{ 'rightWidget.' + item | translate }}
+          </button>
+        </ng-container>
       </div>
     </mat-card-content>
-    <ng-container *ngIf="lastContent.length > 0">
-      <mat-divider></mat-divider>
+    <ng-container *ngIf="lastContent.length > 0 && !isMobile">
       <mat-card-content>
+        <br>
+        <h3>{{ 'rightWidget.last' | translate }}</h3>
+        <mat-divider></mat-divider>
+        <br>
         <div class="last-published">
           <a *ngFor="let content of lastContent" routerLink="/content/view/{{ content.id }}">
             {{ content.title }}
@@ -44,9 +39,13 @@
         </div>
       </mat-card-content>
     </ng-container>
-    <ng-container *ngIf="tags.length > 0 && !isMobile">
-      <mat-divider></mat-divider>
+    <ng-container *ngIf="tags.length > 0">
+
       <mat-card-content>
+        <br>
+        <h3>{{ 'rightWidget.tags' | translate }}</h3>
+        <mat-divider></mat-divider>
+        <br>
         <div class="topic">
         <span *ngFor="let tag of tags"
               [routerLink]="'/search'"

@@ -1,14 +1,12 @@
 <div class="summary" [ngClass]="{ mobile: isMobile }" id="top">
   <div class="flex">
-
     <div class="line">
-      <ng-container>
-        <stories></stories>
-      </ng-container>
+      <stories *ngIf="!isMobile"></stories>
       <router-outlet></router-outlet>
     </div>
 
     <div class="web-widgets">
+      <stories *ngIf="isMobile"></stories>
       <right-widget [@opacity-1] *ngIf="!hideRightWidget"></right-widget>
     </div>
   </div>

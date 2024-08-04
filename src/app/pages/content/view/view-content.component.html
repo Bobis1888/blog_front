@@ -129,7 +129,7 @@
       <mat-menu #menu="matMenu" xPosition="before" yPosition="above">
         <div class="reactions-menu">
           <button mat-icon-button
-                  *ngFor="let type of ['favorite', 'local_fire_department', 'mood', 'star']"
+                  *ngFor="let type of availableReactions"
                   (click)="react(type)"
                   [disabled]="!authService.isAuthorized">
             <mat-icon>{{ type }}</mat-icon>

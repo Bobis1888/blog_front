@@ -49,8 +49,10 @@ mat-divider {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
 
     a:active, a:visited, a:link {
+      text-align: center;
       padding: 15px;
       text-decoration: none;
       font-weight: 500;
@@ -93,6 +95,8 @@ mat-divider {
 .reactions-menu {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  width: 170px;
 }
 
 .author {
@@ -139,10 +143,6 @@ mat-divider {
 
   img {
     max-width: 100px;
-  }
-
-  .same-contents {
-    flex-direction: column;
   }
 }
 

@@ -3,7 +3,7 @@ import {CoreModule} from 'app/core/core.module';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, EventType, Router} from "@angular/router";
 import {ContentService, Filter} from "app/core/service/content/content.service";
 import {catchError, debounceTime, distinctUntilChanged, map, mergeMap, of, takeUntil} from "rxjs";
 import {Meta} from "@angular/platform-browser";
@@ -14,26 +14,18 @@ import {StatisticsService} from "app/core/service/content/statistics.service";
 import {SubscriptionService} from "app/core/service/content/subscription.service";
 import {NgOptimizedImage} from "@angular/common";
 import {Statistics} from "app/core/service/content/statistics";
+import {Tag, TagService, TagsFilter} from "app/core/service/content/tag.service";
+import {animations} from "app/core/config/app.animations";
 
 @Component({
   selector: 'search',
   standalone: true,
+  animations: animations,
   imports: [CoreModule, FormsModule, ReactiveFormsModule, NgOptimizedImage],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
 })
 export class SearchComponent extends HasErrors implements OnInit {
-
-  constructor(private aRouter: ActivatedRoute,
-              private router: Router,
-              private meta: Meta,
-              private authService: AuthService,
-              private statService: StatisticsService,
-              private subsService: SubscriptionService,
-              private contentService: ContentService,
-              private deviceService: DeviceDetectorService) {
-    super();
-  }
 
   protected state: 'loading' | 'data' | 'empty' | 'init' = 'init';
   protected items: Array<Content> = [];
@@ -43,9 +35,22 @@ export class SearchComponent extends HasErrors implements OnInit {
   protected loadMoreProgress: boolean = true;
   protected totalPages: number = 1;
   protected page: number = 0;
+  protected tags: Array<Tag> = [];
 
   @ViewChild('focusField')
   protected focusField?: ElementRef<HTMLInputElement>;
+
+  constructor(private aRouter: ActivatedRoute,
+              private router: Router,
+              private meta: Meta,
+              private authService: AuthService,
+              private statService: StatisticsService,
+              private tagService: TagService,
+              private subsService: SubscriptionService,
+              private contentService: ContentService,
+              private deviceService: DeviceDetectorService) {
+    super();
+  }
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
@@ -87,6 +92,32 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.meta.updateTag({name: 'description', content: 'Search results for: ' + q, lang: 'en'});
     this.meta.updateTag({name: 'description', content: 'Результаты поиска: ' + q, lang: 'ru'});
 
+    this.router.events
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: (it) => {
+
+          if (it.type == EventType.NavigationSkipped || it.type == EventType.NavigationEnd && this.aRouter.snapshot.queryParamMap.get("q") == null) {
+            this.page = 0;
+            this.items = [];
+            this.state = 'init';
+
+            if (!this.query) {
+              this.router.navigate([], {
+                queryParams: {
+                  q: null,
+                  tag: null,
+                  author: null
+                },
+                queryParamsHandling: 'merge',
+              }).then();
+
+              this.initState();
+            }
+          }
+        }
+      });
+
     (this.formGroup.get('search') as FormControl).valueChanges
       .pipe(
         debounceTime(300),
@@ -96,6 +127,21 @@ export class SearchComponent extends HasErrors implements OnInit {
       .subscribe((it) => {
         this.byTag = it.indexOf('#') == 0;
         this.byAuthor = it.indexOf('@') == 0;
+
+        if (it.length == 0) {
+          this.page = 0;
+          this.items = [];
+          this.state = 'init';
+          this.router.navigate([], {
+            queryParams: {
+              q: null,
+              tag: null,
+              author: null
+            },
+            queryParamsHandling: 'merge',
+          }).then();
+          this.initState();
+        }
       });
 
     if (this.byTag) {
@@ -126,6 +172,22 @@ export class SearchComponent extends HasErrors implements OnInit {
           this.focusField?.nativeElement.focus()
         }
       }, 200);
+    }
+
+    this.initState();
+  }
+
+  public initState() {
+    if (!this.query) {
+      this.tagService
+        .list({
+          max: 50,
+          query: ""
+        } as TagsFilter)
+        .pipe(takeUntil(this.unSubscriber))
+        .subscribe({
+          next: (it) => this.tags = it?.sort((a, b) => a.value.length - b.value.length)
+        });
     }
   }
 
@@ -255,5 +317,11 @@ export class SearchComponent extends HasErrors implements OnInit {
       .subscribe({
         next: () => this.searchAuthors(this.query),
       });
+  }
+
+  fillTag(tag: Tag) {
+    this.formGroup.get('search')?.setValue(tag.value);
+    this.byTag = true;
+    this.submit();
   }
 }

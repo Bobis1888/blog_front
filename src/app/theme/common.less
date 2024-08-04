@@ -11,6 +11,14 @@
     mat-icon.accent-icon {
       color: @warningColor;
     }
+
+    span.accent-icon {
+      color: @warningColor;
+    }
+
+    span.light {
+      color: @lightColor;
+    }
   }
 
   .cdk-overlay-dark-backdrop {
@@ -73,6 +81,7 @@
 
   // input
   .mat-mdc-form-field {
+    --mdc-outlined-text-field-caret-color: @fifthColor;
     --mdc-outlined-text-field-error-outline-color: @errorColor;
     --mdc-outlined-text-field-focus-outline-color: @fourthColor;
     --mdc-outlined-text-field-focus-outline-width: 2px;

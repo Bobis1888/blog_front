@@ -34,6 +34,7 @@
     "profile": "Профиль",
     "my": "Публикации",
     "bookmarks": "Закладки",
+    "subscriptions": "Подписки",
     "write": "Написать",
     "mode" : {
       "light": "Светлая",
@@ -172,7 +173,9 @@
     "top" : "Популярное",
     "bookmarks": "Закладки",
     "my" : "Публикации",
-    "subscriptions": "Подписки"
+    "subscriptions": "Подписки",
+    "last": "Последнее",
+    "tags" : "Теги"
   },
   "lineWidget": {
     "noData": {
