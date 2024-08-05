@@ -10,7 +10,7 @@
 
 <ng-template #data>
   <mat-card [@opacity-1]>
-    <mat-card-content *ngIf="authService.isAuthorized && !isMobile">
+    <mat-card-content *ngIf="authService.isAuthorized">
       <div class="buttons">
         <ng-container *ngFor="let item of lineTypes(isMobile)">
           <button *ngIf="item == currentType;"
@@ -26,7 +26,7 @@
         </ng-container>
       </div>
     </mat-card-content>
-    <ng-container *ngIf="lastContent.length > 0 && !isMobile">
+    <ng-container *ngIf="lastContent.length > 0">
       <mat-card-content>
         <br>
         <h3>{{ 'rightWidget.last' | translate }}</h3>
