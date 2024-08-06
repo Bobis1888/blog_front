@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
   ContentService,
   Filter,
@@ -20,6 +20,8 @@ import {Meta} from '@angular/platform-browser';
 import {Content, Reaction} from 'app/core/service/content/content';
 import {SubscriptionService} from 'app/core/service/content/subscription.service';
 import {animations} from 'app/core/config/app.animations';
+import {MatDialog} from "@angular/material/dialog";
+import {ReportDialog} from "app/pages/content/report-dialog/report-dialog.component";
 
 @Component({
   selector: 'view-content',
@@ -37,6 +39,18 @@ import {animations} from 'app/core/config/app.animations';
   styleUrl: './view-content.component.less',
 })
 export class ViewContentComponent extends UnSubscriber implements OnInit {
+
+  protected contentService: ContentService;
+  protected deviceService: DeviceDetectorService;
+  protected matSnackBar: MatSnackBar;
+  protected meta: Meta;
+  protected dialog: MatDialog;
+  protected subsService: SubscriptionService;
+  protected authService: AuthService;
+  protected clipboardService: ClipboardService;
+  protected router: Router;
+  protected aRouter: ActivatedRoute;
+
   protected content: Content = {} as Content;
   protected authorContents: Array<Content> = [];
   protected tagContents: Array<Content> = [];
@@ -50,18 +64,18 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
     return ['favorite', 'local_fire_department', 'mood', 'mood_bad', 'thumb_up', 'thumb_down', 'star'];
   }
 
-  constructor(
-    protected contentService: ContentService,
-    protected deviceService: DeviceDetectorService,
-    protected matSnackBar: MatSnackBar,
-    protected meta: Meta,
-    protected subsService: SubscriptionService,
-    protected authService: AuthService,
-    protected clipboardService: ClipboardService,
-    protected router: Router,
-    protected aRouter: ActivatedRoute,
-  ) {
+  constructor() {
     super();
+    this.contentService = inject(ContentService);
+    this.deviceService = inject(DeviceDetectorService);
+    this.matSnackBar = inject(MatSnackBar);
+    this.meta = inject(Meta);
+    this.dialog = inject(MatDialog);
+    this.subsService = inject(SubscriptionService);
+    this.authService = inject(AuthService);
+    this.clipboardService = inject(ClipboardService);
+    this.router = inject(Router);
+    this.aRouter = inject(ActivatedRoute);
   }
 
   get isMobile(): boolean {
@@ -277,5 +291,16 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   calculateTimeToRead(): void {
     const wordCount = this.content.content.split(' ').length
     this.timeToRead = Math.ceil(wordCount / 200);
+  }
+
+  report(): void {
+    this.dialog.open(ReportDialog, {
+      data: {id: this.content.id}
+    })
+      .afterClosed()
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+      next: (it) => it ? this.content.actions.canReport = false : null
+    });
   }
 }

@@ -1,0 +1,38 @@
+<div class="dialog" [ngClass]="{ 'mobile': isMobile }">
+
+  <mat-dialog-content>
+    <h1>{{ 'reportDialog.title' | translate }}</h1>
+
+    <form [formGroup]="formGroup">
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ "reportDialog.reason" | translate }}
+        </mat-label>
+        <textarea matInput
+                  maxlength="255"
+                  [cdkTextareaAutosize]="true"
+                  formControlName="content">
+        </textarea>
+        <mat-hint align="end">{{ contentLength }}/255</mat-hint>
+        <mat-icon
+          matSuffix
+          [matTooltip]="'reportDialog.hint' | translate"
+          [matTooltipPosition]="'left'"
+        >
+          help_outline
+        </mat-icon>
+      </mat-form-field>
+    </form>
+
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-flat-button (click)="submit()">
+      {{ 'reportDialog.submit' | translate }}
+    </button>
+    <button mat-button (click)="close()">
+      {{ 'reportDialog.cancel' | translate }}
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -5,4 +5,6 @@ export interface Actions {
   canUnpublish: boolean;
   canSubscribe: boolean;
   canUnsubscribe: boolean;
+  canReport: boolean;
+  canReact: boolean;
 }

@@ -166,6 +166,13 @@
     "cancel": "Отмена",
     "submit": "Удалить"
   },
+  "reportDialog": {
+    "title": "Пожаловаться",
+    "reason" : "Причина",
+    "submit": "Сохранить",
+    "cancel": "Отмена",
+    "hint": "Опишите причину жалобы. Не более 255 символов"
+  },
   "summaryPage": {
     "title": "Mylog"
   },
@@ -188,7 +195,8 @@
       "published": "Опубликовано",
       "private_published": "Опубликовано (private)",
       "draft": "Черновик",
-      "pending": "Ожидает проверки"
+      "pending": "Ожидает проверки",
+      "blocked": "Заблокировано"
     },
     "tooltip": {
       "edit": "Редактировать",
@@ -225,7 +233,10 @@
     "subscribe": "Подписаться",
     "unsubscribe": "Отписаться",
     "fromSameAuthor" : "Еще от автора",
-    "sameTags" : "С такими тегами"
+    "sameTags" : "С такими тегами",
+    "reportHint": "Пожаловаться",
+    "bookmarkHint": "Читать позже",
+    "shareHint": "Поделиться"
   },
   "editContentPage": {
     "createTitle": "Создание публикации",
@@ -267,6 +278,7 @@
     "email.alreadyRegistered": "E-mail уже зарегистрирован",
     "emailHelp": "Забыли пароль? Перейдите по ссылке для сброса пароля",
     "emailHelpAction": "Сбросить",
+    "login.locked": "Вход заблокирован",
     "login.invalid": "Неверный логин",
     "login.block": "Вход заблокирован на {{time}} минут. Повторите попытку позже или сбросьте пароль",
     "password.invalid": "Неверный пароль",

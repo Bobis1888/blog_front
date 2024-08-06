@@ -58,7 +58,7 @@
       </span>
 
     <button
-      *ngIf="content.actions.canSubscribe && authService.isAuthorized"
+      *ngIf="content.actions.canSubscribe"
       mat-flat-button
       (click)="subscribe()"
     >
@@ -104,7 +104,7 @@
       </mat-icon>
     </div>
     <div>
-      <button mat-icon-button (click)="react(favoriteReaction.value)" [disabled]="!authService.isAuthorized">
+      <button mat-icon-button (click)="react(favoriteReaction.value)" [disabled]="!content.actions.canReact">
         <mat-icon matBadge="{{ favoriteReaction.count }}"
                   class="accent-icon"
                   matBadgePosition="below after">{{ favoriteReaction.value || 'favorite_outline' }}
@@ -113,7 +113,7 @@
 
       <button *ngFor="let it of reactions" mat-icon-button
               (click)="react(it.value)"
-              [disabled]="!authService.isAuthorized">
+              [disabled]="!content.actions.canReact">
         <mat-icon matBadge="{{ it.count }}"
                   class="accent-icon"
                   matBadgePosition="below after">{{ it.value }}
@@ -122,7 +122,7 @@
 
       <button mat-icon-button
               [matMenuTriggerFor]="menu"
-              *ngIf="authService.isAuthorized">
+              *ngIf="content.actions.canReact">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
 
@@ -131,7 +131,7 @@
           <button mat-icon-button
                   *ngFor="let type of availableReactions"
                   (click)="react(type)"
-                  [disabled]="!authService.isAuthorized">
+                  [disabled]="!content.actions.canReact">
             <mat-icon>{{ type }}</mat-icon>
           </button>
         </div>
@@ -142,12 +142,24 @@
   </div>
   <br>
   <div class="buttons">
-    <button mat-icon-button (click)="share()">
+    <button mat-icon-button
+            [matTooltip]="'viewContentPage.shareHint' | translate"
+            (click)="share()">
       <mat-icon>share</mat-icon>
     </button>
 
-    <button mat-icon-button (click)="bookmark()" *ngIf="authService.isAuthorized && !content.actions.canDelete">
+    <button mat-icon-button
+            (click)="bookmark()"
+            [matTooltip]="'viewContentPage.bookmarkHint' | translate"
+            *ngIf="!content.actions.canDelete">
       <mat-icon>{{ content.isSaved ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            (click)="report()"
+            [matTooltip]="'viewContentPage.reportHint' | translate"
+            *ngIf="content.actions.canReport">
+      <mat-icon>report</mat-icon>
     </button>
 
     <button

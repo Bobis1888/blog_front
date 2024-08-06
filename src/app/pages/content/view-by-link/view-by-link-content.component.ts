@@ -1,19 +1,12 @@
 import {Component} from '@angular/core';
-import {ContentService} from "src/app/core/service/content/content.service";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {DeviceDetectorService} from "ngx-device-detector";
-import {ClipboardService} from "ngx-clipboard";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
-import {AuthService} from "app/core/service/auth/auth.service";
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 import {MaterialModule} from "app/theme/material/material.module";
 import {
   CommonModule,
 } from "@angular/common";
 import {SafeHtmlPipe} from "app/core/pipe/safe-html";
-import {Meta} from "@angular/platform-browser";
-import {SubscriptionService} from "app/core/service/content/subscription.service";
 import {ViewContentComponent} from "app/pages/content/view/view-content.component";
 import {delay, takeUntil} from "rxjs";
 
@@ -34,26 +27,6 @@ import {delay, takeUntil} from "rxjs";
 export class ViewByLinkContentComponent extends ViewContentComponent {
 
   private link: string = '';
-
-  constructor(contentService: ContentService,
-              deviceService: DeviceDetectorService,
-              matSnackBar: MatSnackBar,
-              meta: Meta,
-              subsService: SubscriptionService,
-              authService: AuthService,
-              clipboardService: ClipboardService,
-              router: Router,
-              aRouter: ActivatedRoute) {
-    super(contentService,
-      deviceService,
-      matSnackBar,
-      meta,
-      subsService,
-      authService,
-      clipboardService,
-      router,
-      aRouter);
-  }
 
   override ngOnInit() {
 

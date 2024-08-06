@@ -151,6 +151,13 @@
     "cancel": "Cancel",
     "hint": "Write a short description of your publication. Maximum 255 characters"
   },
+  "reportDialog": {
+    "title": "Report",
+    "reason" : "Reason",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "hint": "Why do you want to report this publication?"
+  },
   "summaryPage": {
     "title": "Mylog"
   },
@@ -173,6 +180,7 @@
       "published": "Published",
       "private_published": "Published (private)",
       "draft": "Draft",
+      "blocked": "Blocked",
       "pending": "Pending"
     },
     "tooltip": {
@@ -224,7 +232,10 @@
     "subscribe": "Subscribe",
     "unsubscribe": "Unsubscribe",
     "fromSameAuthor" : "From the same author",
-    "sameTags" : "With the same tags"
+    "sameTags" : "With the same tags",
+    "reportHint": "Report",
+    "bookmarkHint": "Read later",
+    "shareHint": "Share"
   },
   "editContentPage": {
     "createTitle": "Create publication",
@@ -266,6 +277,7 @@
     "email.alreadyRegistered": "E-mail already registered",
     "emailHelp": "Forgot password? Go to link for reset password",
     "emailHelpAction": "Reset",
+    "login.locked": "Login is locked",
     "login.invalid": "Invalid login",
     "login.block": "Login is blocked for {{time}} minutes.\nTry again later or reset password",
     "password.invalid": "Invalid password",
