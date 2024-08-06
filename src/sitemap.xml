@@ -15,6 +15,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.my-log.ru/top</loc>
+    <lastmod>2024-08-12T22:02:31+01:00</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://www.my-log.ru/content/about</loc>
     <lastmod>2024-09-01T22:02:31+01:00</lastmod>
     <priority>1.0</priority>
