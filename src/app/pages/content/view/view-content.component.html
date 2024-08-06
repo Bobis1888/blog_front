@@ -151,7 +151,7 @@
     <button mat-icon-button
             (click)="bookmark()"
             [matTooltip]="'viewContentPage.bookmarkHint' | translate"
-            *ngIf="!content.actions.canDelete">
+            *ngIf="authService.isAuthorized">
       <mat-icon>{{ content.isSaved ? 'bookmark' : 'bookmark_border' }}</mat-icon>
     </button>
 
