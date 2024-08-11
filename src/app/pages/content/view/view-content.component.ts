@@ -1,10 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {
-  ContentService,
-  Filter,
+  ContentService, Filter,
   Status,
 } from 'src/app/core/service/content/content.service';
-import {ActivatedRoute, EventType, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {delay, map, Observable, takeUntil} from 'rxjs';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
@@ -22,6 +21,7 @@ import {SubscriptionService} from 'app/core/service/content/subscription.service
 import {animations} from 'app/core/config/app.animations';
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialog} from "app/pages/content/report-dialog/report-dialog.component";
+import {CommentListComponent} from "app/pages/comment-list/comment-list.component";
 
 @Component({
   selector: 'view-content',
@@ -33,6 +33,7 @@ import {ReportDialog} from "app/pages/content/report-dialog/report-dialog.compon
     RouterLink,
     SafeHtmlPipe,
     CommonModule,
+    CommentListComponent,
   ],
   animations: animations,
   templateUrl: './view-content.component.html',
@@ -52,12 +53,11 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   protected aRouter: ActivatedRoute;
 
   protected content: Content = {} as Content;
-  protected authorContents: Array<Content> = [];
-  protected tagContents: Array<Content> = [];
+  protected additionalContent: Array<Content> = [];
   protected state: 'data' | 'loading' | 'empty' = 'loading';
   private ref: MatSnackBarRef<any> | null = null;
   protected readonly Status = Status;
-  private id: string = '';
+  protected id: string = '';
   protected timeToRead = 0;
 
   get availableReactions() {
@@ -220,17 +220,11 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
             });
           }
 
-          this.listByParams(this.content.authorName)
-            .pipe(takeUntil(this.unSubscriber))
-            .subscribe({
-              next: (it) => (this.authorContents = it ?? []),
-            });
-
           if (this.content.tags?.length > 0) {
-            this.listByParams('', this.content.tags)
+            this.listAdditionalContent()
               .pipe(takeUntil(this.unSubscriber))
               .subscribe({
-                next: (it) => (this.tagContents = it ?? []),
+                next: (it) => (this.additionalContent = it ?? []),
               });
           }
 
@@ -270,16 +264,13 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
       });
   }
 
-  listByParams(
-    author: string = '',
-    tags: string[] = [],
-  ): Observable<Array<Content>> {
+  listAdditionalContent(): Observable<Array<Content>> {
     return this.contentService.list({
       max: 3,
       page: 0,
       search: {
-        author: author,
-        tags: tags,
+        author: '',
+        tags: this.content.tags,
         exclude: [this.content.id]
       },
       sortBy: ['publishedDate', 'countViews'],

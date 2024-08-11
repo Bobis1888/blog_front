@@ -9,6 +9,7 @@ import {
 import {SafeHtmlPipe} from "app/core/pipe/safe-html";
 import {ViewContentComponent} from "app/pages/content/view/view-content.component";
 import {delay, takeUntil} from "rxjs";
+import {CommentListComponent} from "app/pages/comment-list/comment-list.component";
 
 @Component({
   selector: 'view-by-link-content',
@@ -20,6 +21,7 @@ import {delay, takeUntil} from "rxjs";
     RouterLink,
     SafeHtmlPipe,
     CommonModule,
+    CommentListComponent,
   ],
   templateUrl: '../view/view-content.component.html',
   styleUrl: '../view/view-content.component.less'

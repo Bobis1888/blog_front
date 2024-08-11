@@ -1,0 +1,57 @@
+<div class="content" [ngClass]="{mobile: isMobile}">
+
+  <ng-container [ngSwitch]="state">
+
+    <ng-container
+      *ngSwitchCase="'loading'"
+      [ngTemplateOutlet]="load"
+    ></ng-container>
+
+    <ng-container
+      *ngSwitchCase="'data'"
+      [ngTemplateOutlet]="data"
+    ></ng-container>
+
+    <ng-container
+      *ngSwitchCase="'empty'"
+      [ngTemplateOutlet]="empty"
+    ></ng-container>
+
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="data"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #data>
+  <div class="comments">
+    <div class="comment"
+         *ngFor="let it of items; let i = index"
+         [ngClass]="{'odd': i % 2 == 0, 'even': i % 2 == 1}">
+      <div>
+        <h2>
+          {{ it.nickname }}
+        </h2>
+        <span>
+          {{ it.date | date }}
+        </span>
+        <p [innerHTML]="it.content | safeHtml"></p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+
+</ng-template>
+
+<ng-template #load>
+  <br>
+  <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
+  <br>
+  <br>
+  <ngx-skeleton-loader [count]="14"></ngx-skeleton-loader>
+  <br>
+  <ngx-skeleton-loader count="1" [theme]="{width: '25%'}"></ngx-skeleton-loader>
+  <br>
+</ng-template>
