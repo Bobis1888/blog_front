@@ -10,6 +10,7 @@ import {HasErrors} from "app/core/abstract/has-errors";
 import {SafeHtmlService} from "app/core/pipe/safe-html";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialog} from "app/pages/comment-list/delete-comment-dialog/delete.dialog";
+import {AuthService} from "app/core/service/auth/auth.service";
 
 @Component({
   selector: 'comment-list',
@@ -29,6 +30,7 @@ export class CommentListComponent extends HasErrors implements OnInit {
 
   protected deviceService: DeviceDetectorService;
   protected commentService: CommentService;
+  protected authService: AuthService;
   private safeHtmlService: SafeHtmlService;
   private matDialog: MatDialog;
 
@@ -60,6 +62,7 @@ export class CommentListComponent extends HasErrors implements OnInit {
     this.deviceService = inject(DeviceDetectorService);
     this.safeHtmlService = inject(SafeHtmlService);
     this.matDialog = inject(MatDialog);
+    this.authService = inject(AuthService);
   }
 
   ngOnInit(): void {

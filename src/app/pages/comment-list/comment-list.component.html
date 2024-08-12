@@ -2,13 +2,13 @@
 
   <div class="filter">
     <h2>{{ 'commentList.title' | translate : {count: totalRows} }}</h2>
-    <button mat-icon-button (click)="reorder()">
+    <button mat-icon-button (click)="reorder()" [disabled]="!authService.isAuthorized">
       <mat-icon class="filter-icon" [ngClass]="{'rotate': direction == 'ASC'}">
         filter_list
       </mat-icon>
     </button>
   </div>
-  <form [formGroup]="formGroup" (click)="textareaFocus()">
+  <form [formGroup]="formGroup" (click)="textareaFocus()" *ngIf="authService.isAuthorized">
     <mat-form-field appearance="outline">
         <textarea
           #focusField
