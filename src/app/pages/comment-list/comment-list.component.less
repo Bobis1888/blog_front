@@ -1,25 +1,124 @@
 @import "src/app/theme/utils";
 
+::ng-deep.mat-mdc-form-field {
+  --mdc-outlined-text-field-outline-color: @backgroundColor !important;
+  --mdc-outlined-text-field-hover-outline-color: @backgroundColor !important;
+  --mdc-outlined-text-field-focus-outline-color: @backgroundColor !important;
+}
+
+.content {
+
+  .filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    h2 {
+      margin-left: 15px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.filter-icon {
+  transition:.5s ease-in-out;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+
+.empty {
+  text-align: center;
+}
+
 .comments {
 
   .comment {
-    margin: 20px 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin: 20px;
+
+    .vote {
+      width: 25%;
+      min-width: 0;
+      margin: 10px;
+    }
 
     div {
       padding: 20px;
-      min-width: 50%;
+      min-width: 60%;
       background-color: @secondColor;
       border-radius: 20px;
+    }
+
+    .author-name {
+      cursor: pointer;
+      margin-left: 0;
+      line-break: anywhere;
     }
   }
 
   .odd {
-    align-items: end;
+    flex-direction: row;
   }
 
   .even {
-    align-items: start;
+    flex-direction: row-reverse;
+  }
+}
+
+form {
+  border: @thirdColor solid 2px;
+  border-radius: 20px;
+}
+
+form:hover {
+  border: @fourthColor solid 2px;
+}
+
+.comment-header {
+  padding: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.comment-content {
+  padding: 0 !important;
+}
+
+.comment-footer {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
+  span {
+    padding: 10px 20px;
+  }
+}
+
+.load-more {
+  margin-bottom: 40px;
+
+  .progress-bar-container {
+    margin-bottom: 40px;
+  }
+
+  button {
+    display: block;
+    margin: auto;
   }
 }

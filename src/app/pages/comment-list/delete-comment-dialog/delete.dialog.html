@@ -1,0 +1,11 @@
+<div class="dialog">
+
+  <mat-dialog-content>
+    <h1>{{ 'deleteDialog.title' | translate }}</h1>
+    <p>{{ 'deleteDialog.content' | translate }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-flat-button color="warn" (click)="submit()">{{ 'deleteDialog.submit' | translate }}</button>
+    <button mat-button (click)="close()">{{ 'deleteDialog.cancel' | translate }}</button>
+  </mat-dialog-actions>
+</div>

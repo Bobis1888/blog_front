@@ -7,6 +7,7 @@ export interface Filter {
   contentId: string;
   page: number;
   max: number;
+  direction: string;
 }
 
 @Injectable({
@@ -28,10 +29,14 @@ export class CommentService {
     return this.httpSender.send(HttpMethod.POST, '/content/comment/list', filter);
   }
 
-  public vote(commentId: string, value: boolean): Observable<void> {
+  public vote(commentId: number, value: boolean): Observable<void> {
     return this.httpSender.send(HttpMethod.POST, '/content/comment/vote', {
       "commentId": commentId,
       "value": value
     });
+  }
+
+  public delete(commentId: number): Observable<void> {
+    return this.httpSender.send(HttpMethod.DELETE, '/content/comment/' + commentId);
   }
 }

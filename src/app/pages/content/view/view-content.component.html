@@ -25,13 +25,14 @@
     <mat-divider></mat-divider>
     <br>
     <div class="same-contents" [@opacity-2]>
-      <a *ngFor="let cont of additionalContent" routerLink="/content/view/{{ cont.id }}">
+      <a *ngFor="let cont of additionalContent"
+         routerLink="/content/view/{{ cont.id }}">
         {{ cont.title }}
       </a>
     </div>
   </div>
 
-  <div class="comments" *ngIf="id">
+  <div class="comments" *ngIf="id && authService.isAuthorized">
     <br>
     <mat-divider></mat-divider>
     <br>

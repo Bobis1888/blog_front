@@ -10,7 +10,7 @@
     "name": "Mylog",
     "title0": "Discover a World of Stories",
     "subtitle0": "Be a part of our platform for reading and writing compelling content<br>from talented writers from around the world.",
-    "preTitle1" : "Enhance your experience",
+    "preTitle1": "Enhance your experience",
     "title1": "Platform for Reading and Writing Content",
     "features": "Features that make our platform ideal for creating and consuming content",
     "feature0": "<h1>Interface</h1>Easily navigate and access content with our intuitive interface",
@@ -18,9 +18,9 @@
     "feature2": "<h1>Tools</h1>Use our writing tools to create beautiful and easy to read content",
     "title2": "Mylog – is more than just a blog.<br>It is a community of creative people who value unique ideas and open dialogue",
     "subTitle2": "We provide all the necessary tools to create and publish quality content.<br>Join us and be part of the global community where people appreciate unique ideas and open dialogue",
-    "title3" : "Discover a world of stories waiting to be written and read",
+    "title3": "Discover a world of stories waiting to be written and read",
     "subTitle3": "Start sharing your own stories or explore the works of others on our platform.",
-    "read" : "Discover",
+    "read": "Discover",
     "join": "Become a part of our community",
     "button": "Join now",
     "learn": "Learn more"
@@ -34,7 +34,7 @@
     "bookmarks": "Bookmarks",
     "subscriptions": "Subscriptions",
     "write": "Write",
-    "mode" : {
+    "mode": {
       "light": "Light",
       "dark": "Dark"
     }
@@ -48,7 +48,7 @@
     "password": "Password",
     "forgotPassword": "Forgot password?",
     "haveNoAccount": "Don't have an account?",
-    "social" : {
+    "social": {
       "google": "Google"
     }
   },
@@ -90,7 +90,7 @@
     "email": "E-mail",
     "reset": "Reset"
   },
-  "confirmCloseDialog" : {
+  "confirmCloseDialog": {
     "title": "Exit without saving?",
     "content": "All unsaved data will be lost",
     "cancel": "Cancel",
@@ -110,7 +110,7 @@
     "editDescription": "Edit description",
     "noDescription": "No description",
     "description": "Description: {{value}}",
-    "isPremium" : "You have an premium account",
+    "isPremium": "You have an premium account",
     "ok": "Ok",
     "changeLanguage": "Change language",
     "changeLanguageTitle": "Change language",
@@ -127,12 +127,12 @@
     "language": "Language",
     "statistics": {
       "title": "Statistics",
-      "subscriptions" : "Subscriptions:",
-      "subscribers" : "Subscribers:",
-      "articles" : "Publications:",
-      "comments" : "Comments:",
-      "bookmarks" : "Bookmarks:",
-      "reactions" : "Reactions:"
+      "subscriptions": "Subscriptions:",
+      "subscribers": "Subscribers:",
+      "articles": "Publications:",
+      "comments": "Comments:",
+      "bookmarks": "Bookmarks:",
+      "reactions": "Reactions:"
     },
     "languages": {
       "en": "English",
@@ -153,7 +153,7 @@
   },
   "reportDialog": {
     "title": "Report",
-    "reason" : "Reason",
+    "reason": "Reason",
     "submit": "Submit",
     "cancel": "Cancel",
     "hint": "Why do you want to report this publication?"
@@ -162,16 +162,16 @@
     "title": "Mylog"
   },
   "rightWidget": {
-    "top" : "Hot",
+    "top": "Hot",
     "bookmarks": "Bookmarks",
-    "my" : "Publications",
+    "my": "Publications",
     "subscriptions": "Subscriptions",
     "last": "Lasts",
-    "tags" : "Tags"
+    "tags": "Tags"
   },
   "lineWidget": {
     "noData": {
-      "top" : "Nothing found, try again later!",
+      "top": "Nothing found, try again later!",
       "subscriptions": "You don't have any subscriptions",
       "my": "You don't have any publications",
       "bookmarks": "You don't have any bookmarks"
@@ -197,7 +197,7 @@
     "notFound": "Content not found",
     "noDescription": "No description",
     "registrationDate": "On the platform for {{date}} days",
-    "subscribers" : "Subscribers: {{count}}",
+    "subscribers": "Subscribers: {{count}}",
     "subscribe": "Subscribe",
     "userIsSubscribed": "You are subscribed",
     "loadMore": "Load more",
@@ -216,6 +216,13 @@
       "submit": "Unpublish",
       "cancel": "Cancel"
     }
+  },
+  "commentList": {
+    "title": "Comments: {{count}}",
+    "noComments": "No comments",
+    "placeholder": "Write a comment...",
+    "loadMore": "Load more",
+    "sendButton": "Send"
   },
   "viewContentPage": {
     "publishedDate": "Published on {{date}}",
@@ -250,14 +257,14 @@
     "publish": "Publish",
     "unpublish": "Unpublish",
     "delete": "Delete",
-    "draft" : "Draft",
+    "draft": "Draft",
     "tags": "Tags",
     "tagHint": "Tags will help to find your publication. Tags added by one, press Enter to add tag or select from list"
   },
   "badGatewayPage": {
     "title": "We are working on the update, please wait."
   },
-  "footerWidget" : {
+  "footerWidget": {
     "privacyPolicy": "Privacy Policy",
     "aboutPersonalData": "About Personal Data",
     "aboutUs": "About Us",

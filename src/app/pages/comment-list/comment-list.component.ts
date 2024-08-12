@@ -1,32 +1,46 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
-import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
+import {Component, ElementRef, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {animations} from 'app/core/config/app.animations';
 import {CommentService} from "app/core/service/comment/comment.service";
 import {Comment, CommentList} from "app/core/service/comment/comment";
 import {takeUntil} from "rxjs";
 import {CoreModule} from "app/core/core.module";
+import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HasErrors} from "app/core/abstract/has-errors";
+import {SafeHtmlService} from "app/core/pipe/safe-html";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteDialog} from "app/pages/comment-list/delete-comment-dialog/delete.dialog";
 
 @Component({
   selector: 'comment-list',
   standalone: true,
-  imports: [CoreModule],
+  imports: [CoreModule, FormsModule, ReactiveFormsModule],
   animations: animations,
   templateUrl: './comment-list.component.html',
   styleUrl: './comment-list.component.less',
 })
-export class CommentListComponent extends UnSubscriber implements OnInit {
+export class CommentListComponent extends HasErrors implements OnInit {
 
   @Input({required: true})
   contentId!: string;
+
+  @ViewChild('focusField')
+  protected focusField?: ElementRef<HTMLTextAreaElement>;
+
   protected deviceService: DeviceDetectorService;
   protected commentService: CommentService;
+  private safeHtmlService: SafeHtmlService;
+  private matDialog: MatDialog;
+
   protected max = 10;
   protected page = 0;
   protected totalPages: number = 0;
+  protected totalRows: number = 0;
   protected loadMoreProgress: boolean = false;
   protected items: Array<Comment> = [];
   protected state: 'loading' | 'data' | 'empty' = 'loading';
+  protected maxLength: number = 255;
+  protected direction: 'ASC' | 'DESC' = 'DESC';
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
@@ -36,40 +50,109 @@ export class CommentListComponent extends UnSubscriber implements OnInit {
     return this.totalPages > 1 && !this.loadMoreProgress && this.page < this.totalPages - 1;
   }
 
+  get contentLength(): number {
+    return this.formGroup.get('content')?.value?.length || 0;
+  }
+
   constructor() {
     super();
     this.commentService = inject(CommentService);
     this.deviceService = inject(DeviceDetectorService);
+    this.safeHtmlService = inject(SafeHtmlService);
+    this.matDialog = inject(MatDialog);
   }
 
   ngOnInit(): void {
+    this.formGroup.addControl("content", new FormControl(""));
     this.list();
   }
 
-  list() {
+  list(add: boolean = false) {
     this.commentService.list({
       contentId: this.contentId,
       max: this.max,
-      page: this.page
+      page: this.page,
+      direction: this.direction
     })
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: (it: CommentList) => {
 
           if (it?.list) {
+
+            if (!add) {
+              this.items = [];
+            }
+
             this.items.push(...it.list);
           }
 
           this.state = this.items.length > 0 ? 'data' : 'empty';
-          this.totalPages = it?.totalPages;
+          this.loadMoreProgress = false;
+          this.totalPages = it?.totalPages ?? 0;
+          this.totalRows = it?.totalRows ?? 0;
         },
         error: () => this.state = 'empty'
+      });
+  }
+
+  textareaFocus() {
+    this.focusField?.nativeElement.focus();
+  }
+
+  submit() {
+    this.state = 'loading';
+    let comment = this.safeHtmlService.sanitize(this.formGroup.get('content')?.value);
+    this.page = 0;
+
+    this.commentService
+      .save(this.contentId, comment)
+      .subscribe({
+        next: (it) => {
+          if (it.success) {
+            this.list();
+            this.formGroup.get('content')?.setValue('');
+          }
+        },
+        error: () => this.state = this.items.length > 0 ? 'data' : 'empty'
       });
   }
 
   loadMore() {
     this.loadMoreProgress = true;
     this.page++;
-    this.list();
+    this.list(true);
+  }
+
+  reorder() {
+    this.direction = this.direction == 'ASC' ? 'DESC' : 'ASC';
+
+    if (this.items.length > 0) {
+      this.state = 'loading';
+      this.page = 0;
+      this.list();
+    }
+  }
+
+  delete(comment: Comment) {
+    this.state = 'loading';
+    this.page = 0;
+    this.matDialog.open(DeleteDialog, {
+      data: {
+        "id": comment.id
+      }
+    })
+      .afterClosed()
+      .subscribe({
+        next: (it) => {
+
+          if (it) {
+            this.list();
+          }
+
+          this.state = this.items.length > 0 ? 'data' : 'empty'
+        },
+        error: () => this.state = this.items.length > 0 ? 'data' : 'empty'
+      });
   }
 }

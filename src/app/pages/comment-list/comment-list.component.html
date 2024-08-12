@@ -1,5 +1,46 @@
 <div class="content" [ngClass]="{mobile: isMobile}">
 
+  <div class="filter">
+    <h2>{{ 'commentList.title' | translate : {count: totalRows} }}</h2>
+    <button mat-icon-button (click)="reorder()">
+      <mat-icon class="filter-icon" [ngClass]="{'rotate': direction == 'ASC'}">
+        filter_list
+      </mat-icon>
+    </button>
+  </div>
+  <form [formGroup]="formGroup" (click)="textareaFocus()">
+    <mat-form-field appearance="outline">
+        <textarea
+          #focusField
+          matInput
+          maxlength="{{maxLength}}"
+          [placeholder]="'commentList.placeholder' | translate"
+          [cdkTextareaAutosize]="true"
+          formControlName="content">
+        </textarea>
+      <mat-error *ngIf="hasErrors">
+        {{ getErrors('content') }}
+      </mat-error>
+    </mat-form-field>
+    <div class="comment-footer">
+      <div>
+        <button mat-stroked-button
+                type="button"
+                (click)="submit()"
+                *ngIf="formGroup.get('content')?.value"
+                [@opacity-2]>
+          {{ 'commentList.sendButton' | translate }}
+        </button>
+      </div>
+
+      <span>
+          {{ contentLength }}/{{ maxLength }}
+        </span>
+    </div>
+  </form>
+
+  <br>
+
   <ng-container [ngSwitch]="state">
 
     <ng-container
@@ -17,7 +58,8 @@
       [ngTemplateOutlet]="empty"
     ></ng-container>
 
-    <ng-container *ngSwitchDefault [ngTemplateOutlet]="data"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="data">
+    </ng-container>
   </ng-container>
 </div>
 
@@ -26,32 +68,62 @@
     <div class="comment"
          *ngFor="let it of items; let i = index"
          [ngClass]="{'odd': i % 2 == 0, 'even': i % 2 == 1}">
+      <div class="vote">
+<!--        <button mat-icon-button>-->
+<!--          <mat-icon>expand_less</mat-icon>-->
+<!--        </button>-->
+<!--        <button mat-icon-button>-->
+<!--          <mat-icon>expand_more</mat-icon>-->
+<!--        </button>-->
+      </div>
       <div>
-        <h2>
-          {{ it.nickname }}
-        </h2>
-        <span>
-          {{ it.date | date }}
-        </span>
-        <p [innerHTML]="it.content | safeHtml"></p>
+        <div class="comment-header">
+          <h2 class="author-name"
+              [routerLink]="'/search'"
+              [queryParams]="{q: it.nickname, author: true}">
+            {{ it.nickname }}
+          </h2>
+          <button mat-icon-button (click)="delete(it)" *ngIf="it.actions?.canDelete">
+            <mat-icon>
+              highlight_off
+            </mat-icon>
+          </button>
+        </div>
+        <div class="comment-content">
+          <span>
+            {{ it.date | date : "d MMM y HH:mm" }}
+          </span>
+          <br>
+          <br>
+          <p [innerHTML]="it.content | safeHtml"></p>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="load-more" *ngIf="canLoadMore || loadMoreProgress">
+    <button mat-flat-button (click)="loadMore()" *ngIf="!loadMoreProgress">
+      {{ 'searchPage.loadMore' | translate }}
+    </button>
+    <br>
+    <br>
+    <div class="progress-bar-container" *ngIf="loadMoreProgress">
+      <mat-progress-bar mode="buffer"></mat-progress-bar>
+    </div>
+    <br>
+    <br>
   </div>
 </ng-template>
 
 <ng-template #empty>
-
+  <p class="empty">
+    {{ 'commentList.noComments' | translate }}
+  </p>
 </ng-template>
 
 <ng-template #load>
   <br>
-  <ngx-skeleton-loader count="1" [theme]="{width: '50%'}"></ngx-skeleton-loader>
   <br>
-  <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
+  <ngx-skeleton-loader [count]="6"></ngx-skeleton-loader>
   <br>
-  <br>
-  <ngx-skeleton-loader [count]="14"></ngx-skeleton-loader>
-  <br>
-  <ngx-skeleton-loader count="1" [theme]="{width: '25%'}"></ngx-skeleton-loader>
   <br>
 </ng-template>

@@ -4,6 +4,14 @@ export interface Comment {
   content: string;
   date: Date;
   rating: number
+  actions: Actions;
+}
+
+export interface Actions {
+  canDelete: boolean;
+  canEdit: boolean;
+  canReport: boolean;
+  canVote: boolean;
 }
 
 export interface CommentList {
