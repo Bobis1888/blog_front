@@ -7,7 +7,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {HasErrors} from "app/core/abstract/has-errors";
 import {takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'forgot-password',
@@ -20,6 +20,7 @@ export class ResetPasswordComponent extends HasErrors implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
+              private aRouter: ActivatedRoute,
               private authService: AuthService,
               private deviceService: DeviceDetectorService) {
     super();
@@ -32,9 +33,10 @@ export class ResetPasswordComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
+    let email = this.aRouter.snapshot.queryParams['email'] ?? '';
     this.translate.get('resetPasswordPage.metaTitle').subscribe({next: (it) => this.title.setTitle(it)});
     this.formGroup = this.formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl(email, [Validators.required, Validators.email]),
     });
   }
 
