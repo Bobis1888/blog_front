@@ -22,6 +22,7 @@ import {animations} from 'app/core/config/app.animations';
 import {MatDialog} from "@angular/material/dialog";
 import {ReportDialog} from "app/pages/content/report-dialog/report-dialog.component";
 import {CommentListComponent} from "app/pages/comment-list/comment-list.component";
+import {Actions} from "app/core/service/content/actions";
 
 @Component({
   selector: 'view-content',
@@ -218,6 +219,10 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
                 .map((it) => it.replace('#', ''))
                 .join(' '),
             });
+          }
+
+          if (!this.content.actions) {
+            this.content.actions = {} as Actions
           }
 
           if (this.content.tags?.length > 0) {
