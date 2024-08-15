@@ -153,10 +153,6 @@ export class LineComponent extends UnSubscriber implements OnInit {
           }
 
           this.items.push(...it.list);
-
-          it?.list.forEach(t => {
-            console.log('!!!!!!!!!!!!!', t);
-          })
           this.totalPages = it.totalPages ?? 0;
           this.state = this.items.length > 0 ? 'data' : 'empty';
           this.loadMoreProgress = false;

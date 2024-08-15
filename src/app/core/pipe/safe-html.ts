@@ -26,7 +26,7 @@ export class SafeHtmlService {
     let processed = this.sanitized.sanitize(SecurityContext.STYLE, value);
 
     if (processed) {
-      processed = processed.replace(/(background-color|color):(#.{0,6}|rgb\(.{0,10}\));/g, '');
+      processed = processed.replace(/(background-color|color):(.{0,10}|rgb\(.{0,20}\));/g, '');
     }
 
     return processed ?? '';
