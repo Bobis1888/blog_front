@@ -8,20 +8,12 @@
   mat-card {
     margin: 20px;
 
-    mat-card-footer {
-      padding: 5px 15px;
-    }
-
-    mat-card-title {
-      font-weight: bolder;
-    }
-
     .card-title {
-      width: 100%;
-      padding: 0 5px;
+      padding: 0 20px;
 
       h2 {
         margin: 0;
+        line-break: anywhere;
       }
     }
 
@@ -29,21 +21,13 @@
       font-weight: bold;
       font-size: 18px;
       color: @warningColor;
-      display: flex;
-      justify-content: end;
-      align-items: end;
-      margin-bottom: 10px;
-
-      span {
-        margin-left: 10px;
-      }
+      padding: 10px 0;
     }
   }
 
   .pre-view {
     line-break: auto;
     overflow: hidden;
-    max-height: 130px !important;
     padding: 5px;
   }
 
@@ -52,7 +36,7 @@
   }
 
   .tags {
-    padding: 0 5px;
+    padding: 5px;
     font-weight: bold;
   }
 
@@ -63,37 +47,23 @@
 
   .footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
-
-    .date {
-      align-items: center;
-      font-weight: 450;
-    }
+    margin: 10px;
   }
 
   .author {
     font-weight: bold;
-    display: flex;
-    justify-content: end;
-    max-width: 50%;
+    padding: 20px 20px 0;
 
     span {
       display: block;
       cursor: pointer;
-      padding: 10px;
-      line-break: anywhere;
     }
   }
 
   .date {
-    display: flex;
-    justify-content: end;
-
-    span {
-      display: block;
-      padding: 10px;
-    }
+    padding: 5px 20px;
   }
 
   .load-more {

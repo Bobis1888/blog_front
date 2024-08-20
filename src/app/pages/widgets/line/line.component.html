@@ -1,17 +1,24 @@
 <div class="line" [ngClass]="{mobile: isMobile}">
+
   <ng-container [ngSwitch]="state">
+
     <ng-container
       *ngSwitchCase="'data'"
-      [ngTemplateOutlet]="data"
-    ></ng-container>
+      [ngTemplateOutlet]="data">
+    </ng-container>
+
     <ng-container
       *ngSwitchCase="'empty'"
-      [ngTemplateOutlet]="empty"
-    ></ng-container>
-    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
+      [ngTemplateOutlet]="empty">
+    </ng-container>
+
+    <ng-container
+      *ngSwitchDefault
+      [ngTemplateOutlet]="load">
+    </ng-container>
+
   </ng-container>
 </div>
-
 
 <ng-template #load>
 
@@ -35,100 +42,112 @@
 
   <div *ngFor="let item of items" class="content">
     <mat-card [@opacity-1] matRipple routerLink="/content/view/{{ item.id }}">
-      <mat-card-header *ngIf="type == LineType.my; else view">
+
+      <ng-container *ngIf="type == LineType.my; else view">
         <div class="card-title">
+
           <div class="status">
             {{ ('lineWidget.status.' + item.status.toLowerCase()) | translate }}
             <span *ngIf="item.publishedDate">
-              {{item.publishedDate | date : "d MMM y"}}
+              {{ item.publishedDate | date : "d MMM y" }}
             </span>
           </div>
+
           <h2>
             {{ item.title }}
           </h2>
         </div>
-      </mat-card-header>
+      </ng-container>
+
       <ng-template #view>
-        <mat-card-header>
-          <mat-card-title>
-            <div class="card-title">{{ item.title }}</div>
-          </mat-card-title>
-          <mat-card-subtitle *ngIf="item.tags" class="tags">
-            <span>{{ item.tags.join(' ') }}</span>
-          </mat-card-subtitle>
-        </mat-card-header>
+        <div>
+          <div class="author"
+               [routerLink]="'/search'"
+               [queryParams]="{q: item.authorName, author: true}">
+            <span>{{ item.authorName }}</span>
+          </div>
+
+          <div class="date">
+            <span>{{ item.publishedDate | date : "d MMMM y" }}</span>
+          </div>
+
+          <div class="card-title">
+            <h2>{{ item.title }}</h2>
+          </div>
+        </div>
       </ng-template>
 
       <mat-card-content>
-        <div *ngIf="type == LineType.my && item.tags" class="tags">{{ item.tags.join(' ') }}</div>
+        <div *ngIf="type == LineType.my && item.tags" class="tags">
+          <span>
+            {{ item.tags.join(' ') }}
+          </span>
+        </div>
         <p class="pre-view" [innerHTML]="item.preView | safeHtml"></p>
       </mat-card-content>
+
       <mat-card-footer>
         <ng-container *ngIf="type == LineType.top || type == LineType.subscriptions || type == LineType.bookmarks">
           <div class="footer">
-            <div class="date">
-              <button
-                *ngIf="type == LineType.bookmarks"
-                mat-icon-button
-                [matTooltip]="translate.instant('lineWidget.tooltip.delete')"
-                (click)="removeFromBookmarks(item.id)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-              <span>{{ item.publishedDate | date : "d MMMM y" }}</span>
-            </div>
-            <div class="author" [routerLink]="'/search'" [queryParams]="{q: item.authorName, author: true}">
-              <span>{{ item.authorName }}</span>
-            </div>
+            <button
+              *ngIf="type == LineType.bookmarks"
+              mat-icon-button
+              [matTooltip]="translate.instant('lineWidget.tooltip.delete')"
+              (click)="removeFromBookmarks(item.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </ng-container>
 
         <ng-container *ngIf="type == LineType.my">
-          <button
-            *ngIf="item.actions?.canEdit || item.actions?.canUnpublish"
-            mat-icon-button
-            [matTooltip]="translate.instant('lineWidget.tooltip.edit')"
-            routerLink="/content/edit/{{ item.id }}"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
+          <div class="footer">
 
-          <button
-            *ngIf="item.actions?.canDelete"
-            mat-icon-button
-            [matTooltip]="translate.instant('lineWidget.tooltip.delete')"
-            (click)="delete(item.id)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
+            <button
+              *ngIf="item.actions?.canEdit || item.actions?.canUnpublish"
+              mat-icon-button
+              [matTooltip]="translate.instant('lineWidget.tooltip.edit')"
+              routerLink="/content/edit/{{ item.id }}"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
 
-          <button
-            *ngIf="item.actions?.canPublish"
-            mat-icon-button
-            [matTooltip]="translate.instant('lineWidget.tooltip.publish')"
-            (click)="changeStatus(item.id, Status.published)"
-          >
-            <mat-icon>publish</mat-icon>
-          </button>
+            <button
+              *ngIf="item.actions?.canDelete"
+              mat-icon-button
+              [matTooltip]="translate.instant('lineWidget.tooltip.delete')"
+              (click)="delete(item.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
 
-          <button
-            *ngIf="item.actions?.canUnpublish"
-            mat-icon-button
-            [matTooltip]="translate.instant('lineWidget.tooltip.unpublish')"
-            (click)="changeStatus(item.id, Status.draft)"
-          >
-            <mat-icon>remove_circle_outline</mat-icon>
-          </button>
+            <button
+              *ngIf="item.actions?.canPublish"
+              mat-icon-button
+              [matTooltip]="translate.instant('lineWidget.tooltip.publish')"
+              (click)="changeStatus(item.id, Status.published)"
+            >
+              <mat-icon>publish</mat-icon>
+            </button>
 
-          <button
-            *ngIf="item.actions?.canEdit"
-            mat-icon-button
-            [matTooltip]="translate.instant('lineWidget.tooltip.editPreview')"
-            (click)="editPreview(item.id, item.preView)"
-          >
-            <mat-icon>short_text</mat-icon>
-          </button>
+            <button
+              *ngIf="item.actions?.canUnpublish"
+              mat-icon-button
+              [matTooltip]="translate.instant('lineWidget.tooltip.unpublish')"
+              (click)="changeStatus(item.id, Status.draft)"
+            >
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
 
+            <button
+              *ngIf="item.actions?.canEdit"
+              mat-icon-button
+              [matTooltip]="translate.instant('lineWidget.tooltip.editPreview')"
+              (click)="editPreview(item.id, item.preView)"
+            >
+              <mat-icon>short_text</mat-icon>
+            </button>
+          </div>
         </ng-container>
       </mat-card-footer>
     </mat-card>

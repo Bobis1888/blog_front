@@ -181,7 +181,7 @@ export class SearchComponent extends HasErrors implements OnInit {
     if (!this.query) {
       this.tagService
         .list({
-          max: 50,
+          max: 35,
           query: ""
         } as TagsFilter)
         .pipe(takeUntil(this.unSubscriber))

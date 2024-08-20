@@ -1,22 +1,29 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CoreModule} from 'app/core/core.module';
 import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {FormsModule} from '@angular/forms';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {LineComponent} from "app/pages/widgets/line/line.component";
-import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {animations} from "app/core/config/app.animations";
-import {EventType, Router, RouterOutlet} from "@angular/router";
+import {Router, RouterOutlet} from "@angular/router";
 import {FooterWidgetComponent} from "app/pages/widgets/footer/footer-widget.component";
 import {StoriesComponent} from "app/pages/widgets/stories/stories.component";
-import {Content} from "app/core/service/content/content";
+import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
 
 @Component({
   selector: 'summary',
   standalone: true,
   animations: animations,
-  imports: [CoreModule, FormsModule, LineComponent, RightWidgetComponent, RouterOutlet, FooterWidgetComponent, StoriesComponent],
+  imports: [
+    CoreModule,
+    FormsModule,
+    LineComponent,
+    RouterOutlet,
+    FooterWidgetComponent,
+    StoriesComponent,
+    RightWidgetComponent
+  ],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.less',
 })

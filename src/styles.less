@@ -4,18 +4,27 @@
 @import "app/theme/common";
 @import '@ctrl/ngx-emoji-mart/picker';
 
-
 body {
   margin: 0;
-  padding: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  height: 100%;
+  padding: 80px 0 0;
+  font-family: Inter, Helvetica Neue, Helvetica, sans-serif !important;
+  //height: 100%;
   background-color: @backgroundColor;
 }
 
+.mat-typography {
+  font-family: Inter, Helvetica Neue, Helvetica, sans-serif !important;
+  line-height: 1.5em;
+  white-space: normal;
+  font-size: 1em;
+}
+
+.mat-icon {
+  line-height: normal;
+}
+
 html {
-  height: 100%;
-  font-size: 16px;
+  //height: 100%;
 }
 
 .emoji-mart-anchors {
@@ -27,5 +36,5 @@ html {
 }
 
 [class^="icon-"], [class*=" icon-"] {
-  font-size: 20px;
+  font-size: 1em;
 }

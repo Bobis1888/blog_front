@@ -8,6 +8,7 @@ import {ThemeDataService} from "app/core/service/theme-data.service";
 import {animations} from 'app/core/config/app.animations';
 import {UserInfo} from 'app/core/service/auth/user-info';
 import {map, of} from "rxjs";
+import {isMarkActive} from "ngx-editor/helpers";
 
 @Component({
   selector: 'top-menu',
@@ -26,6 +27,10 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     protected deviceService: DeviceDetectorService,
   ) {
     super();
+  }
+
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
   }
 
   get hasImage(): boolean {
@@ -52,4 +57,6 @@ export class MenuComponent extends UnSubscriber implements OnInit {
   get hideSearchButton(): boolean {
     return this.router.url.includes('/search');
   }
+
+  protected readonly isMarkActive = isMarkActive;
 }

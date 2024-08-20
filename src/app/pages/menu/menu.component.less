@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  width: 100%;
   max-width: 1100px;
 
   .avatar {
@@ -31,6 +31,7 @@
   .image {
     width: 150px;
     height: 100%;
+    display: flex;
     cursor: pointer;
 
     img {
@@ -39,18 +40,18 @@
       width: auto;
     }
   }
-  .buttons {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    padding: 20px;
 
-    button {
-      margin: 0 10px;
-    }
+  .image-mobile {
+    width: 100px;
   }
 
-  .menu-button {
-    margin: 6px;
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .buttons-mobile {
+    width: 100%;
   }
 }

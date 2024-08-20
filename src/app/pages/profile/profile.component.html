@@ -14,7 +14,6 @@
   </ng-container>
 </div>
 
-
 <ng-template #load>
   <mat-card class="load">
     <ngx-skeleton-loader count="1" [theme]="{width: '75%'}"></ngx-skeleton-loader>
@@ -28,7 +27,8 @@
   <mat-card>
     <mat-card-header>
       <div>
-        <div class="avatar" [@opacity-2] [ngClass]="{'default-avatar': !info.hasImage}" (click)="openEditAvatarDialog()">
+        <div class="avatar" [@opacity-2] [ngClass]="{'default-avatar': !info.hasImage}"
+             (click)="openEditAvatarDialog()">
           <img src="{{ info.imagePath }}"
                (error)="info.imagePath = 'assets/images/dinosaur.png'; info.hasImage = false"
                alt="avatar">
@@ -55,11 +55,23 @@
         {{ 'profilePage.email' | translate : {email: info.email} }}
       </h3>
       <p style="line-break: anywhere" *ngIf="info.description">
-        {{ 'profilePage.description' | translate : {value : info.description} }}
+        {{ 'profilePage.description' | translate : {value: info.description} }}
       </p>
       <p style="line-break: anywhere" *ngIf="!info.description">
         {{ 'profilePage.noDescription' | translate }}
       </p>
+    </mat-card-content>
+
+    <mat-card-content>
+      <br>
+      <div class="vertical">
+        <button mat-flat-button routerLink="/my">
+          {{ 'profilePage.myArticles' | translate }}
+        </button>
+        <button mat-flat-button routerLink="/bookmarks">
+          {{ 'profilePage.myBookmarks' | translate }}
+        </button>
+      </div>
     </mat-card-content>
 
     <mat-card-content class="stat" *ngIf="info.statistics">
@@ -113,6 +125,14 @@
     <mat-card-actions class="buttons">
       <mat-menu #menu="matMenu" xPosition="before">
         <div class="vertical">
+
+          <button
+            mat-button
+            (click)="themeDataService.switchMode()"
+          >
+            {{ 'profilePage.' + (themeDataService.isDarkMode ? 'lightMode' : 'darkMode') | translate }}
+          </button>
+
           <button
             mat-button
             (click)="openEditNicknameDialog()"
@@ -126,12 +146,14 @@
           >
             {{ 'profilePage.changeLanguage' | translate }}
           </button>
+
           <button
             mat-button
             (click)="openEditDescriptionDialog()"
           >
             {{ 'profilePage.editDescription' | translate }}
           </button>
+
           <button
             mat-button
             (click)="resetPassword()"

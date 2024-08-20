@@ -1,71 +1,9 @@
-<ng-container *ngIf="isMobile; else desktop">
-  <mat-drawer-container>
-    <mat-drawer mode="over" position="end" #drawer>
-      <div class="drawer-container">
-        <div class="buttons">
-          <div class="image" routerLink="/">
-            <img src="assets/images/logo.webp" alt="Mylog logo" height="157" width="493"/>
-          </div>
-          <div class="profile" *ngIf="authService.isAuthorized" routerLink="/profile">
-            <span class="nickname">
-              {{ authService.userInfo.nickname }}
-            </span>
-          </div>
+<ng-container>
+  <mat-toolbar class="toolbarNav" *ngIf="!hideTopMenu">
+    <top-menu></top-menu>
+  </mat-toolbar>
 
-          <mat-divider></mat-divider>
-
-          <button *ngIf="!authService.isAuthorized" mat-button routerLink="/auth/login">
-            <mat-icon>login</mat-icon>
-            {{ "topMenu.login" | translate }}
-          </button>
-          <button *ngIf="authService.isAuthorized" mat-button routerLink="/subscriptions">
-            <mat-icon>recent_actors</mat-icon>
-            {{ "topMenu.subscriptions" | translate }}
-          </button>
-          <button *ngIf="authService.isAuthorized" mat-button routerLink="/my">
-            <mat-icon>description</mat-icon>
-            {{ "topMenu.my" | translate }}
-          </button>
-          <button *ngIf="authService.isAuthorized" mat-button routerLink="/bookmarks">
-            <mat-icon>bookmarks</mat-icon>
-            {{ "topMenu.bookmarks" | translate }}
-          </button>
-        </div>
-        <div class="footer">
-          <button mat-icon-button (click)="themeDataService.switchMode()">
-            <mat-icon>{{ themeDataService.isDarkMode ? "wb_sunny" : "nights_stay" }}</mat-icon>
-          </button>
-          <footer></footer>
-        </div>
-      </div>
-    </mat-drawer>
-    <div [@routeAnimations]="getRouteAnimationData()">
-      <router-outlet></router-outlet>
-      <br>
-      <br>
-      <br>
-      <mat-toolbar class="toolbarNav" *ngIf="!hideTopMenu" [@opacity-2]>
-        <button mat-icon-button aria-label="Search" routerLink="/">
-          <mat-icon>home</mat-icon>
-        </button>
-        <button mat-icon-button aria-label="Search" routerLink="/search">
-          <mat-icon>search</mat-icon>
-        </button>
-        <button *ngIf="authService.isAuthorized" mat-icon-button aria-label="Search" routerLink="/content/edit">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button aria-label="Menu" (click)="drawer.toggle()">
-          <mat-icon>account_circle</mat-icon>
-        </button>
-      </mat-toolbar>
-    </div>
-  </mat-drawer-container>
-</ng-container>
-<ng-template #desktop>
-  <top-menu *ngIf="!hideTopMenu"></top-menu>
   <div [@routeAnimations]="getRouteAnimationData()">
     <router-outlet></router-outlet>
   </div>
-</ng-template>
-
-
+</ng-container>

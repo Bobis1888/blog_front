@@ -1,14 +1,27 @@
 <div class="top-menu">
-  <div class="image" routerLink="/">
+  <div class="image" routerLink="/" *ngIf="!isMobile">
     <img
-      src="assets/images/logo.webp"
+      src="assets/images/logo_mobile.webp"
       alt="Mylog logo"
       height="157"
       width="493"
     />
   </div>
+  <div class="buttons" [ngClass]="{ 'buttons-mobile': isMobile }">
+    <div
+      class="image"
+      [ngClass]="{ 'image-mobile': isMobile }"
+      routerLink="/"
+      *ngIf="isMobile"
+    >
+      <img
+        src="assets/images/logo_mobile.webp"
+        alt="Mylog logo"
+        height="157"
+        width="493"
+      />
+    </div>
 
-  <div class="buttons">
     <button
       mat-icon-button
       aria-label="Search"
@@ -25,7 +38,15 @@
     </div>
 
     <button
-      *ngIf="authService.isAuthorized"
+      *ngIf="authService.isAuthorized && isMobile"
+      mat-icon-button
+      routerLink="/content/edit"
+    >
+      <mat-icon class="light">edit</mat-icon>
+    </button>
+
+    <button
+      *ngIf="authService.isAuthorized && !isMobile"
       mat-flat-button
       routerLink="/content/edit"
     >
@@ -42,14 +63,17 @@
       <mat-icon>account_circle</mat-icon>
     </button>
 
-   <div class="avatar" *ngIf="authService.isAuthorized && hasImage" [@opacity-2] routerLink="/profile">
-      <img src="{{ authService.userInfo.imagePath }}" (error)="hasImage = false" alt="Avatar" />
+    <div
+      class="avatar"
+      *ngIf="authService.isAuthorized && hasImage"
+      [@opacity-2]
+      routerLink="/profile"
+    >
+      <img
+        src="{{ authService.userInfo.imagePath }}"
+        (error)="hasImage = false"
+        alt="Avatar"
+      />
     </div>
-
-    <button mat-icon-button (click)="themeDataService.switchMode()">
-      <mat-icon>{{
-        themeDataService.isDarkMode ? "wb_sunny" : "nights_stay"
-      }}</mat-icon>
-    </button>
   </div>
 </div>

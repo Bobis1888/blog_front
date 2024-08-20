@@ -124,6 +124,10 @@
     "empty": "Пусто.",
     "logout": "Выйти",
     "language": "Язык",
+    "darkMode": "Темная тема",
+    "lightMode": "Светлая тема",
+    "myArticles": "Мои публикации",
+    "myBookmarks": "Мои закладки",
     "statistics": {
       "title": "Статистика",
       "subscriptions": "Подписки:",

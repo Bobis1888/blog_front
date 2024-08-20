@@ -125,6 +125,10 @@
     "cancel": "Cancel",
     "empty": "No data.",
     "language": "Language",
+    "darkMode": "Dark theme",
+    "lightMode": "Light theme",
+    "myArticles": "My publications",
+    "myBookmarks": "My bookmarks",
     "statistics": {
       "title": "Statistics",
       "subscriptions": "Subscriptions:",

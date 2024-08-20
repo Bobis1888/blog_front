@@ -51,31 +51,35 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
       this.currentType = LineType.top;
     }
 
-    this.tagService.suggestions()
-      .pipe(takeUntil(this.unSubscriber))
-      .subscribe({
-        next: it => {
-          it.forEach((it) => {
-            this.tags.push(it.value);
-          });
+    if (!this.isMobile) {
+      this.tagService.suggestions()
+        .pipe(takeUntil(this.unSubscriber))
+        .subscribe({
+          next: it => {
+            it.forEach((it) => {
+              this.tags.push(it.value);
+            });
 
-          this.tags.sort((a, b) => a.length - b.length);
+            this.tags.sort((a, b) => a.length - b.length);
 
-          this.state = 'data';
-        },
-        error: () => this.state = 'data'
+            this.state = 'data';
+          },
+          error: () => this.state = 'data'
+        });
+
+      this.contentService.list({
+        max: 3,
+        page: 0,
+        sortBy: ['publishedDate', 'countViews'],
+      } as Filter).subscribe({
+        next: (it) => {
+          this.lastContent = [];
+          this.lastContent.push(...it.list);
+        }
       });
-
-    this.contentService.list({
-      max: 3,
-      page: 0,
-      sortBy: ['publishedDate', 'countViews'],
-    } as Filter).subscribe({
-      next: (it) => {
-        this.lastContent = [];
-        this.lastContent.push(...it.list);
-      }
-    });
+    } else {
+      this.state = 'data';
+    }
   }
 
   protected changeType(type: LineType) {

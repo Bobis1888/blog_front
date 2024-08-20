@@ -18,12 +18,19 @@ import {ChangeDescriptionDialog} from "app/pages/profile/change-description/desc
 import {ChangeAvatarDialog} from "app/pages/profile/change-avatar/avatar.dialog";
 import {NgOptimizedImage} from "@angular/common";
 import {animations} from "app/core/config/app.animations";
+import {ThemeDataService} from "app/core/service/theme-data.service";
 
 @Component({
   selector: 'profile',
   standalone: true,
   animations: animations,
-  imports: [CoreModule, ReactiveFormsModule, MatSelect, FormsModule, NgOptimizedImage,],
+  imports: [
+    CoreModule,
+    ReactiveFormsModule,
+    MatSelect,
+    FormsModule,
+    NgOptimizedImage,
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.less'
 })
@@ -33,6 +40,7 @@ export class ProfileComponent extends HasErrors implements OnInit {
               private snackBar: MatSnackBar,
               public dialog: MatDialog,
               protected statisticsService: StatisticsService,
+              protected themeDataService: ThemeDataService,
               protected router: Router,
               private deviceService: DeviceDetectorService) {
     super();

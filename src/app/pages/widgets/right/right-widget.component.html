@@ -26,7 +26,7 @@
         </ng-container>
       </div>
     </mat-card-content>
-    <ng-container *ngIf="lastContent.length > 0">
+    <ng-container *ngIf="lastContent.length > 0 && !isMobile">
       <mat-card-content>
         <br>
         <h3>{{ 'rightWidget.last' | translate }}</h3>
@@ -39,7 +39,7 @@
         </div>
       </mat-card-content>
     </ng-container>
-    <ng-container *ngIf="tags.length > 0">
+    <ng-container *ngIf="tags.length > 0 && !isMobile">
 
       <mat-card-content>
         <br>

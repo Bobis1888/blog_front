@@ -1,15 +1,13 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   ActivatedRoute,
-  ChildrenOutletContexts, EventType,
-  NavigationStart,
+  ChildrenOutletContexts,
   Router,
   RouterLink,
   RouterOutlet
 } from '@angular/router';
 import {MenuComponent} from "src/app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
-import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
 import {mergeMap, takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {NgIf} from "@angular/common";
@@ -17,11 +15,9 @@ import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.compone
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {TranslateModule} from "@ngx-translate/core";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {MatRipple} from "@angular/material/core";
 import {MatBadge} from "@angular/material/badge";
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {MatDivider} from "@angular/material/divider";
@@ -32,7 +28,7 @@ import {ScrollToTop} from "app/core/abstract/scroll-to-top";
   selector: 'app-root',
   standalone: true,
   animations: animations,
-  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatDrawerContainer, MatDrawer, MatButton, MatDrawerContent, TranslateModule, MatSidenav, MatRipple, MatBadge, MatDivider, FooterWidgetComponent, MatSidenavModule],
+  imports: [RouterOutlet, MenuComponent, NgIf, RightWidgetComponent, MatToolbar, MatIcon, MatIconButton, RouterLink, MatButton, TranslateModule, MatBadge, MatDivider, FooterWidgetComponent],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.less'],
 })
