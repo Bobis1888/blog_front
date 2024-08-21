@@ -97,6 +97,13 @@
             >
               <mat-icon>delete</mat-icon>
             </button>
+            <div class="stats">
+              <mat-icon matBadge="{{ item.countViews ?? 0 }}"
+                        class="accent-icon"
+                        matBadgePosition="below after">
+                visibility
+              </mat-icon>
+            </div>
           </div>
         </ng-container>
 
