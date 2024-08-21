@@ -44,6 +44,11 @@
       <mat-card-content *ngIf="authorInfo">
         <p class="description">{{ authorInfo.description ?? 'searchPage.noDescription' | translate }}</p>
       </mat-card-content>
+
+      <mat-card-footer>
+        <div class="footer"></div>
+      </mat-card-footer>
+
     </mat-card>
     <mat-divider *ngIf="authorInfos.length > 0"></mat-divider>
   </div>
