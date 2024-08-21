@@ -229,17 +229,14 @@
     "sendButton": "Send"
   },
   "viewContentPage": {
-    "publishedDate": "Published on {{date}}",
     "timeToRead": "Time to read {{time}} min.",
     "empty": "Content not found",
-    "tags": "Tags:",
     "pending": "This publication is pending approval",
     "pendingHint": "This publication will be published after approval",
     "sharedSuccess": "Link copied to clipboard",
     "addedToBookmarks": "Added to bookmarks",
     "shareText": "Check out this publication on Mylog",
     "removedFromBookmarks": "Removed from bookmarks",
-    "noTags": "No tags",
     "subscribe": "Subscribe",
     "unsubscribe": "Unsubscribe",
     "reportHint": "Report",

@@ -61,6 +61,9 @@
   <span *ngIf="content.status === Status.pending"
         class="status"> {{ 'viewContentPage.pending' | translate }}</span>
 
+  <span *ngIf="content.publishedDate"
+        class="date">{{ content.publishedDate | date : "d MMMM y" }}</span>
+
   <div class="title-container">
     <h1>{{ content.title }}</h1>
   </div>
@@ -68,13 +71,10 @@
   <span *ngIf="timeToRead != 0"
         class="time-to-read">{{ 'viewContentPage.timeToRead' | translate : {time: timeToRead} }}</span>
 
-  <span *ngIf="content.publishedDate"
-        class="date">{{ 'viewContentPage.publishedDate' | translate : {date: (content.publishedDate | date : "d MMMM y")} }}</span>
-
   <div class="tags">
-    <span class="tags-title">{{ 'viewContentPage.tags' | translate }}</span>
-    <span>&nbsp;</span>
-    <span *ngIf="!content.tags">{{ 'viewContentPage.noTags' | translate }}</span>
+<!--    <span class="tags-title">{{ 'viewContentPage.tags' | translate }}</span>-->
+<!--    <span>&nbsp;</span>-->
+<!--    <span *ngIf="!content.tags">{{ 'viewContentPage.noTags' | translate }}</span>-->
     <span class="tag"
           *ngFor="let tag of content.tags"
           [routerLink]="'/search'"

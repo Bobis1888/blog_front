@@ -104,26 +104,37 @@
   <div>
     <div *ngFor="let item of items" class="content">
       <mat-card routerLink="/content/view/{{ item.id }}" matRipple>
-        <mat-card-header>
-          <mat-card-title>{{ item.title }}</mat-card-title>
-          <mat-card-subtitle *ngIf="item.tags"> {{ item.tags.join(' ') }}</mat-card-subtitle>
-        </mat-card-header>
+        <ng-container>
+          <div>
+            <div class="author"
+                 [routerLink]="'/search'"
+                 [queryParams]="{q: item.authorName, author: true}">
+              <span>{{ item.authorName }}</span>
+            </div>
+
+            <div class="date">
+              <span>{{ item.publishedDate | date : "d MMMM y" }}</span>
+            </div>
+
+            <div class="card-title">
+              <h2>{{ item.title }}</h2>
+            </div>
+
+            <div class="card-tags" *ngIf="item.tags">
+              {{ item.tags.join(' ') }}
+            </div>
+          </div>
+        </ng-container>
         <mat-card-content>
           <p [innerHTML]="item.preView | safeHtml"></p>
         </mat-card-content>
         <mat-card-footer>
           <div class="footer">
-            <div class="date">
-              <span>{{ item.publishedDate | date : "d MMMM y" }}</span>
-            </div>
-            <div class="author">
-              <span>{{ item.authorName }}</span>
-            </div>
           </div>
         </mat-card-footer>
       </mat-card>
     </div>
-    <div class="load-more" *ngIf="canLoadMore || loadMoreProgress">
+    <div class="load-more" *ngIf="canLoadMore || loadMoreProgress" #end>
       <button mat-button (click)="loadMore()" *ngIf="!loadMoreProgress">
         {{ 'searchPage.loadMore' | translate }}
       </button>

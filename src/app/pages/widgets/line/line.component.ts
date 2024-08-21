@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
 import {ContentService, Filter, ListResponse, Status} from "src/app/core/service/content/content.service";
 import {Observable, of, takeUntil} from "rxjs";
@@ -37,6 +37,9 @@ export class LineComponent extends UnSubscriber implements OnInit {
   protected readonly LineType = LineType;
   protected readonly Status = Status;
   protected loadMoreProgress: boolean = false;
+
+  @ViewChild('end')
+  protected endDiv!: ElementRef;
 
   constructor(
     private contentService: ContentService,
@@ -193,5 +196,15 @@ export class LineComponent extends UnSubscriber implements OnInit {
       page: this.page,
       sortBy: this.sortBy,
     } as Filter;
+  }
+
+  @HostListener('document:scroll', ['$event'])
+  public onViewportScroll() {
+    const windowHeight = window.innerHeight;
+    const boundingRectEnd = this.endDiv.nativeElement.getBoundingClientRect();
+
+    if (boundingRectEnd.top >= 0 && boundingRectEnd.bottom <= windowHeight && this.canLoadMore) {
+      this.loadMore();
+    }
   }
 }

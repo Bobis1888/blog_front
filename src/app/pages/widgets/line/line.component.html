@@ -152,7 +152,7 @@
       </mat-card-footer>
     </mat-card>
   </div>
-  <div class="load-more" *ngIf="canLoadMore || loadMoreProgress">
+  <div class="load-more" *ngIf="canLoadMore || loadMoreProgress" #end>
     <button mat-button (click)="loadMore()" *ngIf="!loadMoreProgress">
       {{ 'searchPage.loadMore' | translate }}
     </button>

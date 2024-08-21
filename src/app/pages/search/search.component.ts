@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {CoreModule} from 'app/core/core.module';
 import {HasErrors} from "app/core/abstract/has-errors";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -36,6 +36,9 @@ export class SearchComponent extends HasErrors implements OnInit {
   protected totalPages: number = 1;
   protected page: number = 0;
   protected tags: Array<Tag> = [];
+
+  @ViewChild('end')
+  protected endDiv!: ElementRef;
 
   @ViewChild('focusField')
   protected focusField?: ElementRef<HTMLInputElement>;
@@ -323,5 +326,15 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.formGroup.get('search')?.setValue(tag.value);
     this.byTag = true;
     this.submit();
+  }
+
+  @HostListener('document:scroll', ['$event'])
+  public onViewportScroll() {
+    const windowHeight = window.innerHeight;
+    const boundingRectEnd = this.endDiv.nativeElement.getBoundingClientRect();
+
+    if (boundingRectEnd.top >= 0 && boundingRectEnd.bottom <= windowHeight && this.canLoadMore) {
+      this.loadMore();
+    }
   }
 }

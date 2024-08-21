@@ -228,17 +228,14 @@
     "sendButton": "Отправить"
   },
   "viewContentPage": {
-    "publishedDate": "Дата публикации {{date}}",
     "timeToRead": "Время чтения {{time}} мин.",
     "empty": "Не найдено",
-    "tags": "Теги:",
     "shareText": "Смотри публикацию на Mylog",
     "pending": "Эта публикация ожидает проверки",
     "pendingHint": "Контент будет опубликован после проверки",
     "sharedSuccess": "Ссылка скопирована в буфер обмена",
     "addedToBookmarks": "Добавлено в закладки",
     "removedFromBookmarks": "Удалено из закладок",
-    "noTags": "Нет тегов",
     "subscribe": "Подписаться",
     "unsubscribe": "Отписаться",
     "reportHint": "Пожаловаться",
