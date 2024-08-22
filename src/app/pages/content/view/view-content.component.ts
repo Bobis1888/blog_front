@@ -241,20 +241,6 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
       });
   }
 
-  unsubscribe() {
-    this.subsService
-      .unsubscribe(this.content.authorName)
-      .pipe(takeUntil(this.unSubscriber))
-      .subscribe({
-        next: (res) => {
-          if (res.success) {
-            this.content.actions.canUnsubscribe = false;
-            this.content.actions.canSubscribe = true;
-          }
-        },
-      });
-  }
-
   subscribe() {
     this.subsService
       .subscribe(this.content.authorName)
