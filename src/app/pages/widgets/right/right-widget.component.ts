@@ -67,11 +67,17 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
           error: () => this.state = 'data'
         });
 
+      let date = new Date();
+      date.setDate(date.getDate() - 7);
+
       this.contentService.list({
         max: 3,
         page: 0,
         type: RequestType.SEARCH,
-        sortBy: ['publishedDate', 'countViews'],
+        sortBy: ['countViews', 'publishedDate'],
+        search: {
+          startDate: date.toISOString().split('T')[0]
+        }
       } as Filter).subscribe({
         next: (it) => {
           this.lastContent = [];

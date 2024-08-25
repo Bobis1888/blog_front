@@ -87,6 +87,12 @@ export class LineComponent extends UnSubscriber implements OnInit {
 
   ngOnInit(): void {
 
+    let savedPeriod = sessionStorage.getItem('selectedPeriod');
+
+    if (savedPeriod) {
+      this.selectedPeriod = savedPeriod as Period;
+    }
+
     if (this.authService.authState == AuthState.authorized) {
       this.authService.info()
         .pipe(takeUntil(this.unSubscriber)).subscribe({
@@ -279,6 +285,8 @@ export class LineComponent extends UnSubscriber implements OnInit {
   }
 
   public reload(force: boolean = false) {
+    sessionStorage.setItem('selectedPeriod', this.selectedPeriod);
+
     if (this.items.length > 0 || force) {
       this.state = 'loading';
       this.page = 0;
