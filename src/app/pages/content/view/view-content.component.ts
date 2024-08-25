@@ -1,8 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {
-  ContentService, Filter,
-  Status,
-} from 'src/app/core/service/content/content.service';
+import {ContentService, Filter, RequestType, Status,} from 'src/app/core/service/content/content.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {delay, map, Observable, takeUntil} from 'rxjs';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
@@ -259,9 +256,9 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
     return this.contentService.list({
       max: 3,
       page: 0,
+      type: RequestType.SEARCH,
       search: {
-        author: '',
-        tags: this.content.tags,
+        query: this.content.tags?.join(','),
         exclude: [this.content.id]
       },
       sortBy: ['publishedDate', 'countViews'],

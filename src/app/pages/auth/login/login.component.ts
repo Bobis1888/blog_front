@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {CoreModule} from "app/core/core.module";
@@ -8,6 +8,9 @@ import {HasErrors} from "app/core/abstract/has-errors";
 import {mergeMap, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {UserInfo} from "app/core/service/auth/user-info";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {RegistrationComponent} from "app/pages/auth/registration/registration.component";
+import {ResetPasswordComponent} from "app/pages/auth/reset-password/reset-password.component";
 
 @Component({
   selector: 'login',
@@ -20,13 +23,20 @@ export class LoginComponent extends HasErrors implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
+
+              private dialog: MatDialog,
               private authService: AuthService,
               private deviceService: DeviceDetectorService) {
     super();
+
+    if (!this.isMobile) {
+      this.dialogRef = inject(MatDialogRef<LoginComponent>);
+    }
   }
 
   protected hide: boolean = true;
   protected loading: boolean = false;
+  private dialogRef?: MatDialogRef<LoginComponent>;
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
@@ -77,5 +87,27 @@ export class LoginComponent extends HasErrors implements OnInit {
         }
       })
     }
+  }
+
+  openRegistration() {
+
+    if (this.isMobile) {
+      this.router.navigate(['auth', 'registration']).then();
+      return;
+    }
+
+    this.dialogRef?.close();
+    this.dialog.open(RegistrationComponent, {});
+  }
+
+  openForgotPassword() {
+
+    if (this.isMobile) {
+      this.router.navigate(['auth', 'forgot-password']).then();
+      return;
+    }
+
+    this.dialogRef?.close();
+    this.dialog.open(ResetPasswordComponent, {});
   }
 }

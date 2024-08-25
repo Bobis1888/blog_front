@@ -1,4 +1,23 @@
 <div class="line" [ngClass]="{ mobile: isMobile }">
+
+  <div class="filter" *ngIf="type != LineType.bookmarks">
+
+    <mat-form-field appearance="outline">
+      <mat-select [(value)]="selectedPeriod" (selectionChange)="reload(true)">
+        <mat-option *ngFor="let i of periods" [value]="i">
+          {{ 'lineWidget.periods.' + i | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-icon-button (click)="reorder()">
+      <mat-icon class="filter-icon" [ngClass]="{'rotate': direction == 'ASC'}">
+        filter_list
+      </mat-icon>
+    </button>
+
+  </div>
+
   <ng-container [ngSwitch]="state">
     <ng-container *ngSwitchCase="'data'" [ngTemplateOutlet]="data">
     </ng-container>
@@ -6,14 +25,14 @@
     <ng-container *ngSwitchCase="'empty'" [ngTemplateOutlet]="empty">
     </ng-container>
 
-    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"> </ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
   </ng-container>
 </div>
 
 <ng-template #load>
   <mat-card *ngFor="let i of [1, 2]">
     <mat-card-content>
-      <br />
+      <br/>
       <ngx-skeleton-loader count="1" [theme]="{ width: '50%' }"></ngx-skeleton-loader>
       <ngx-skeleton-loader></ngx-skeleton-loader>
       <ngx-skeleton-loader count="1" [theme]="{ width: '75%' }"></ngx-skeleton-loader>
@@ -28,6 +47,9 @@
 </ng-template>
 
 <ng-template #data>
+
+
+
   <div *ngFor="let item of items" class="content">
     <mat-card [@opacity-1] matRipple routerLink="/content/view/{{ item.id }}">
       <ng-container *ngIf="type == LineType.my; else view">
@@ -78,22 +100,23 @@
           ">
           <div class="footer">
             <button *ngIf="type == LineType.bookmarks" mat-icon-button
-              [matTooltip]="translate.instant('lineWidget.tooltip.delete')" (click)="removeFromBookmarks(item.id)">
+                    [matTooltip]="translate.instant('lineWidget.tooltip.delete')"
+                    (click)="removeFromBookmarks(item.id)">
               <mat-icon>delete</mat-icon>
             </button>
             <div class="stats">
               <mat-icon *ngIf="item.countViews" matBadge="{{ item.countViews }}" class="accent-icon"
-                matBadgePosition="below after">
+                        matBadgePosition="below after">
                 visibility
               </mat-icon>
 
               <mat-icon *ngIf="item.countComments" matBadge="{{ item.countComments }}" class="accent-icon"
-                matBadgePosition="below after">
+                        matBadgePosition="below after">
                 comment
               </mat-icon>
 
               <mat-icon *ngIf="item.countReactions" matBadge="{{ item.countReactions }}" class="accent-icon"
-                matBadgePosition="below after">
+                        matBadgePosition="below after">
                 favorite
               </mat-icon>
             </div>
@@ -103,30 +126,31 @@
         <ng-container *ngIf="type == LineType.my">
           <div class="footer">
             <button *ngIf="item.actions?.canEdit || item.actions?.canUnpublish" mat-icon-button
-              [matTooltip]="translate.instant('lineWidget.tooltip.edit')" routerLink="/content/edit/{{ item.id }}">
+                    [matTooltip]="translate.instant('lineWidget.tooltip.edit')"
+                    routerLink="/content/edit/{{ item.id }}">
               <mat-icon>edit</mat-icon>
             </button>
 
             <button *ngIf="item.actions?.canDelete" mat-icon-button
-              [matTooltip]="translate.instant('lineWidget.tooltip.delete')" (click)="delete(item.id)">
+                    [matTooltip]="translate.instant('lineWidget.tooltip.delete')" (click)="delete(item.id)">
               <mat-icon>delete</mat-icon>
             </button>
 
             <button *ngIf="item.actions?.canPublish" mat-icon-button
-              [matTooltip]="translate.instant('lineWidget.tooltip.publish')"
-              (click)="changeStatus(item.id, Status.published)">
+                    [matTooltip]="translate.instant('lineWidget.tooltip.publish')"
+                    (click)="changeStatus(item.id, Status.published)">
               <mat-icon>publish</mat-icon>
             </button>
 
             <button *ngIf="item.actions?.canUnpublish" mat-icon-button
-              [matTooltip]="translate.instant('lineWidget.tooltip.unpublish')"
-              (click)="changeStatus(item.id, Status.draft)">
+                    [matTooltip]="translate.instant('lineWidget.tooltip.unpublish')"
+                    (click)="changeStatus(item.id, Status.draft)">
               <mat-icon>remove_circle_outline</mat-icon>
             </button>
 
             <button *ngIf="item.actions?.canEdit" mat-icon-button
-              [matTooltip]="translate.instant('lineWidget.tooltip.editPreview')"
-              (click)="editPreview(item.id, item.preView)">
+                    [matTooltip]="translate.instant('lineWidget.tooltip.editPreview')"
+                    (click)="editPreview(item.id, item.preView)">
               <mat-icon>short_text</mat-icon>
             </button>
           </div>

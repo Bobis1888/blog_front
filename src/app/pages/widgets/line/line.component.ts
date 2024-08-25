@@ -1,7 +1,14 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
-import {ContentService, Filter, ListResponse, Status} from "src/app/core/service/content/content.service";
-import {Observable, of, takeUntil} from "rxjs";
+import {
+  ContentService,
+  Filter,
+  ListResponse,
+  RequestType,
+  Search,
+  Status
+} from "src/app/core/service/content/content.service";
+import {Observable, takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {CoreModule} from "src/app/core/core.module";
 import {Content} from "app/core/service/content/content";
@@ -14,11 +21,22 @@ import {DeleteDialog} from "app/pages/content/delete-dialog/delete.dialog";
 import {ChangeStatusDialog} from "app/pages/content/change-status-dialog/change-status.dialog";
 import {ActivatedRoute} from "@angular/router";
 import {DeviceDetectorService} from "ngx-device-detector";
+import {MatSelect} from "@angular/material/select";
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {DatePipe} from "@angular/common";
+
+export enum Period {
+  day = 'day',
+  week = 'week',
+  month = 'month',
+  year = 'year',
+  all = 'all',
+}
 
 @Component({
   selector: 'line',
   standalone: true,
-  imports: [CoreModule],
+  imports: [CoreModule, MatSelect, ReactiveFormsModule],
   animations: animations,
   templateUrl: './line.component.html',
   styleUrl: './line.component.less',
@@ -31,8 +49,10 @@ export class LineComponent extends UnSubscriber implements OnInit {
   protected totalPages: number = 0;
   protected info: UserInfo = {} as UserInfo;
   protected sortBy: Array<string> = [];
+  protected direction: 'ASC' | 'DESC' = 'DESC';
   protected max: number = 10;
   protected page: number = 0;
+  protected selectedPeriod: Period = Period.all;
 
   protected readonly LineType = LineType;
   protected readonly Status = Status;
@@ -53,6 +73,16 @@ export class LineComponent extends UnSubscriber implements OnInit {
 
   get canLoadMore(): boolean {
     return this.totalPages > 1 && !this.loadMoreProgress && this.page < this.totalPages - 1;
+  }
+
+  get periods(): Array<Period> {
+    return [
+      Period.day,
+      Period.week,
+      Period.month,
+      Period.year,
+      Period.all
+    ];
   }
 
   ngOnInit(): void {
@@ -165,37 +195,71 @@ export class LineComponent extends UnSubscriber implements OnInit {
   }
 
   private list(): Observable<ListResponse> {
-    switch (this.type) {
-      case 'top': {
-        return this.contentService.getSuggestions(this.filter);
-      }
-      case 'my': {
-        return this.contentService.all(this.filter);
-      }
-      case 'bookmarks': {
-        return this.contentService.bookmarks({
-          ...this.filter,
-          sortBy: ['publishedDate']
-        });
-      }
-      case 'subscriptions': {
-        return this.contentService.listFromAuthors({
-          ...this.filter,
-          sortBy: ['publishedDate']
-        });
-      }
-      default: {
-        return of({list: new Array<Content>()} as ListResponse);
-      }
-    }
+    return this.contentService.list(this.filter);
   }
 
   private get filter(): Filter {
+    let requestType: RequestType;
+
+    switch (this.type) {
+      case 'top':
+        requestType = RequestType.TOP;
+        break;
+
+      case 'bookmarks':
+        requestType = RequestType.BOOKMARK;
+        break;
+
+      case 'subscriptions':
+        requestType = RequestType.SUBSCRIPTION;
+        break;
+
+      case 'my':
+        requestType = RequestType.MY;
+        break;
+
+      default:
+        requestType = RequestType.TOP;
+    }
+
     return {
       max: this.max,
       page: this.page,
       sortBy: this.sortBy,
+      direction: this.direction,
+      type: requestType,
+      search: this.search()
     } as Filter;
+  }
+
+  private search(): Search {
+    const datePipe = new DatePipe('en');
+    const today = new Date();
+    let subtractDays = 0;
+
+    switch (this.selectedPeriod) {
+      case Period.day:
+        subtractDays = 1;
+        break;
+      case Period.week:
+        subtractDays = 7;
+        break;
+      case Period.month:
+        subtractDays = 30;
+        break;
+      case Period.year:
+        subtractDays = 365;
+        break;
+      case Period.all:
+        return {} as Search;
+    }
+
+    let startDate = new Date().setDate(today.getDate() - subtractDays);
+
+    return {
+      endDate: datePipe.transform(today, 'yyyy-MM-dd'),
+      startDate: datePipe.transform(startDate, 'yyyy-MM-dd')
+    } as Search;
   }
 
   @HostListener('document:scroll', ['$event'])
@@ -205,6 +269,20 @@ export class LineComponent extends UnSubscriber implements OnInit {
 
     if (boundingRectEnd.top >= 0 && boundingRectEnd.bottom <= windowHeight && this.canLoadMore) {
       this.loadMore();
+    }
+  }
+
+  public reorder() {
+    this.direction = this.direction == 'ASC' ? 'DESC' : 'ASC';
+
+    this.reload();
+  }
+
+  public reload(force: boolean = false) {
+    if (this.items.length > 0 || force) {
+      this.state = 'loading';
+      this.page = 0;
+      this.init();
     }
   }
 }

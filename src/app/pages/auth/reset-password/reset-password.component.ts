@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CoreModule} from "app/core/core.module";
 import {AuthService} from "app/core/service/auth/auth.service";
@@ -8,6 +8,7 @@ import {HasErrors} from "app/core/abstract/has-errors";
 import {takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'forgot-password',
@@ -24,8 +25,13 @@ export class ResetPasswordComponent extends HasErrors implements OnInit {
               private authService: AuthService,
               private deviceService: DeviceDetectorService) {
     super();
+
+    if (!this.isMobile) {
+      this.dialogRef = inject(MatDialogRef<ResetPasswordComponent>);
+    }
   }
 
+  private dialogRef?: MatDialogRef<ResetPasswordComponent>;
   protected loading: boolean = false;
 
   get isMobile(): boolean {
@@ -61,8 +67,13 @@ export class ResetPasswordComponent extends HasErrors implements OnInit {
           this.loading = false;
 
           if (res.success) {
-            this.router.navigate(["/auth/login"]).then();
-            return;
+
+            if (this.isMobile) {
+              this.router.navigate(["/auth/login"]).then();
+              return;
+            }
+
+            this.dialogRef?.close();
           }
         },
         error: (err) => {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -15,6 +15,8 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {Metrika} from "ng-yandex-metrika";
+import {LoginComponent} from "app/pages/auth/login/login.component";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 export class PasswordIndicator {
   color: string;
@@ -38,13 +40,20 @@ export class RegistrationComponent extends HasErrors implements OnInit {
 
   constructor(protected authService: AuthService,
               protected router: Router,
+
               protected deviceService: DeviceDetectorService,
               protected metrika: Metrika,
               protected matSnackBar: MatSnackBar) {
     super();
+
+    this.matDialog = inject(MatDialog);
+
+    if (!this.isMobile) {
+      this.matRef = inject(MatDialogRef<RegistrationComponent>);
+    }
   }
-
-
+  private matDialog: MatDialog;
+  private matRef?: MatDialogRef<RegistrationComponent>;
   ref?: MatSnackBarRef<any>;
   hide: boolean = true;
   loading: boolean = false;
@@ -134,5 +143,16 @@ export class RegistrationComponent extends HasErrors implements OnInit {
           }
         });
     }
+  }
+
+  openLogin() {
+
+    if (this.isMobile) {
+      this.router.navigate(['auth', 'login']).then();
+      return;
+    }
+
+    this.matRef?.close();
+    this.matDialog.open(LoginComponent, {});
   }
 }

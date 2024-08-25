@@ -26,10 +26,6 @@
               {{ authorInfo.nickname }}
             </h2>
           </div>
-          <button mat-flat-button *ngIf="authorInfo.additionalInfo?.canSubscribe" (click)="subscribe(authorInfo)">
-            {{ 'searchPage.subscribe' | translate }}
-          </button>
-          <b *ngIf="authorInfo?.statistics?.userIsSubscribed">{{ 'searchPage.userIsSubscribed' | translate }}</b>
         </div>
         <div class="title">
           <h2>

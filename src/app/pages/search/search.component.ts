@@ -4,7 +4,7 @@ import {HasErrors} from "app/core/abstract/has-errors";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, EventType, Router} from "@angular/router";
-import {ContentService, Filter} from "app/core/service/content/content.service";
+import {ContentService, Filter, RequestType} from "app/core/service/content/content.service";
 import {catchError, debounceTime, distinctUntilChanged, map, mergeMap, of, takeUntil} from "rxjs";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
@@ -79,12 +79,6 @@ export class SearchComponent extends HasErrors implements OnInit {
   get query(): string {
     let value = this.formGroup.get("search")?.value?.toString() ?? '';
     return (this.byAuthor || this.byTag) ? value.replaceAll(/ /g, '') : value;
-  }
-
-  canSubscribe(authorInfo: UserInfo): boolean {
-    return this.authService.isAuthorized &&
-      authorInfo?.statistics?.userIsSubscribed === false &&
-      authorInfo?.nickname != this.authService.userInfo.nickname;
   }
 
   ngOnInit(): void {
@@ -240,7 +234,6 @@ export class SearchComponent extends HasErrors implements OnInit {
           if (this.authorInfos) {
             this.authorInfos.map(it => {
               it.additionalInfo = {} as AdditionalInfo;
-              it.additionalInfo.canSubscribe = this.canSubscribe(it);
               it.additionalInfo.registrationDate = this.registrationDate(it);
               return it;
             })
@@ -250,7 +243,7 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   private initStats() {
-    return this.statService.getList(this.authorInfos.map(it => it.nickname)).pipe(
+    return this.statService.getList(this.authorInfos.map(it => it.id)).pipe(
       map(stat => {
 
         if (this.authorInfos) {
@@ -286,10 +279,9 @@ export class SearchComponent extends HasErrors implements OnInit {
     this.contentService.list({
       max: 10,
       page: this.page,
+      type: RequestType.SEARCH,
       search: {
         query: query,
-        author: this.byAuthor ? query : null,
-        tags: this.byTag ? query?.split(',') : null
       }
     } as Filter)
       .pipe(takeUntil(this.unSubscriber))

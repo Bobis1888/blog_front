@@ -6,7 +6,7 @@
     <span *ngIf="content.status === Status.pending" [@opacity-1]
           class="status"> {{ 'editContentPage.pending' | translate }}</span>
     <span *ngIf="content.status === Status.published && !authService.userInfo.isPremiumUser" [@opacity-1]
-          class="status"> {{ 'editContentPage.published' | translate }}</span>
+          class="status" [innerHTML]="'editContentPage.published' | translate"></span>
   </div>
 
   <ng-container [ngSwitch]="state">
@@ -25,7 +25,7 @@
 </div>
 
 <ng-template #form>
-  <h1>{{ (content.id ? "editContentPage.editTitle" : "editContentPage.createTitle") | translate }}</h1>
+  <h1 *ngIf="content.actions?.canEdit">{{ (content.id ? "editContentPage.editTitle" : "editContentPage.createTitle") | translate }}</h1>
   <br *ngIf="!content.actions?.canEdit">
   <div class="editor" *ngIf="editor != undefined" [@opacity-1]>
 
@@ -53,10 +53,8 @@
 
 
       </div>
-      <div class="tags">
-
-
-        <div *ngIf="!content.actions?.canEdit">
+      <div class="tags" *ngIf="content.actions?.canEdit">
+        <div>
           <mat-chip-listbox>
             <mat-chip-row *ngFor="let tag of content.tags">
               {{ tag }}
@@ -64,7 +62,7 @@
           </mat-chip-listbox>
         </div>
 
-        <mat-form-field appearance="outline" *ngIf="content.actions.canEdit">
+        <mat-form-field appearance="outline">
           <mat-label>{{ 'editContentPage.tags' | translate }}</mat-label>
           <mat-chip-grid #chipGrid>
             <mat-chip-row *ngFor="let tag of content.tags" (removed)="remove(tag)">

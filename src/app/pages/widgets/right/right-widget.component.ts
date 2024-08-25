@@ -9,7 +9,7 @@ import {AuthService} from "app/core/service/auth/auth.service";
 import {Router} from "@angular/router";
 import {TagService} from "app/core/service/content/tag.service";
 import {Content} from "app/core/service/content/content";
-import {ContentService, Filter} from "app/core/service/content/content.service";
+import {ContentService, Filter, RequestType} from "app/core/service/content/content.service";
 
 @Component({
   selector: 'right-widget',
@@ -70,6 +70,7 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
       this.contentService.list({
         max: 3,
         page: 0,
+        type: RequestType.SEARCH,
         sortBy: ['publishedDate', 'countViews'],
       } as Filter).subscribe({
         next: (it) => {

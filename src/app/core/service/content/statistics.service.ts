@@ -10,13 +10,8 @@ export class StatisticsService {
 
   constructor(private httpSender: HttpSenderService) {}
 
-  get(nickname: string = ''): Observable<Statistics> {
-
-    if (nickname) {
-      nickname = '/' + nickname;
-    }
-
-    return this.httpSender.send(HttpMethod.GET, '/content/statistics' + nickname);
+  get(): Observable<Statistics> {
+    return this.httpSender.send(HttpMethod.GET, '/content/statistics');
   }
 
   getList(list: Array<string>): Observable<Array<Statistics>> {

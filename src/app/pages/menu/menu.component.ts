@@ -9,6 +9,9 @@ import {animations} from 'app/core/config/app.animations';
 import {UserInfo} from 'app/core/service/auth/user-info';
 import {map, of} from "rxjs";
 import {isMarkActive} from "ngx-editor/helpers";
+import {MatDialog} from "@angular/material/dialog";
+import {ProfileComponent} from "app/pages/profile/profile.component";
+import {LoginComponent} from "app/pages/auth/login/login.component";
 
 @Component({
   selector: 'top-menu',
@@ -25,6 +28,7 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     protected router: Router,
     protected themeDataService: ThemeDataService,
     protected deviceService: DeviceDetectorService,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -58,5 +62,18 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     return this.router.url.includes('/search');
   }
 
-  protected readonly isMarkActive = isMarkActive;
+  openLogin() {
+
+    if (this.isMobile) {
+      this.router.navigate(['auth', 'login']).then();
+      return;
+    }
+
+    this.dialog.open(LoginComponent, {});
+  }
+
+  // openDialog() {
+  //   this.dialog.open(ProfileComponent, {
+  //   });
+  // }
 }

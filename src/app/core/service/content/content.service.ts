@@ -10,9 +10,18 @@ export enum Status {
   pending = 'pending'
 }
 
+export enum RequestType {
+  TOP = 'TOP',
+  MY = 'MY',
+  BOOKMARK = 'BOOKMARK',
+  SUBSCRIPTION = 'SUBSCRIPTION',
+  SEARCH = 'SEARCH'
+}
+
 export interface Filter {
   max: number;
   page: number
+  type: RequestType;
   sortBy: Array<string>;
   direction: string;
   search: Search;
@@ -20,9 +29,9 @@ export interface Filter {
 
 export interface Search {
   query: string;
-  author: string;
-  tags: Array<string>;
   exclude: Array<string>;
+  startDate: string;
+  endDate: string;
 }
 
 export interface ListResponse {
@@ -62,10 +71,6 @@ export class ContentService {
     return this.httpSender.send(HttpMethod.POST, '/content/list', filter);
   }
 
-  getSuggestions(filter: Filter): Observable<ListResponse> {
-    return this.httpSender.send(HttpMethod.POST, '/content/suggestions', filter);
-  }
-
   saveToBookmarks(id: string) {
     return this.httpSender.send(HttpMethod.PUT, '/content/bookmark/' + id);
   }
@@ -91,19 +96,7 @@ export class ContentService {
     return this.httpSender.send(HttpMethod.POST, '/content/change-status/' + id, {status: status.toUpperCase()});
   }
 
-  bookmarks(filter: Filter): Observable<ListResponse> {
-    return this.httpSender.send(HttpMethod.POST, '/content/bookmarks', filter);
-  }
-
   changePreview(id: string, body: ChangePreviewRequest): Observable<SuccessDto> {
     return this.httpSender.send(HttpMethod.PUT, '/content/preview/' + id, body);
-  }
-
-  all(filter: Filter): Observable<ListResponse> {
-    return this.httpSender.send(HttpMethod.POST, '/content/all', filter);
-  }
-
-  listFromAuthors(filter: Filter): Observable<ListResponse> {
-    return this.httpSender.send(HttpMethod.POST, '/content/list-from-authors', filter);
   }
 }

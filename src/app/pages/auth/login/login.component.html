@@ -56,7 +56,7 @@
             {{ "loginPage.signIn" | translate }}
           </button>
 
-          <button type="button" mat-button routerLink="/auth/forgot-password">
+          <button type="button" mat-button (click)="openForgotPassword()">
             {{ "loginPage.forgotPassword" | translate }}
           </button>
         </div>
@@ -65,7 +65,7 @@
         <br>
         <span class="reg-hint" [innerHTML]="'loginPage.haveNoAccount' | translate"></span>
         <div class="social-buttons">
-          <button type="button" mat-mini-fab routerLink="/auth/registration" matTooltip="E-mail">
+          <button type="button" mat-mini-fab (click)="openRegistration()" matTooltip="E-mail">
             <mat-icon>alternate_email</mat-icon>
           </button>
           <a mat-mini-fab href="https://my-log.ru/api/auth/oauth2/authorization/google" matTooltip="Google">

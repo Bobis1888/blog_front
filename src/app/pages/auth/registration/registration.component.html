@@ -122,7 +122,7 @@
           <button mat-flat-button type="submit" (click)="submit()">
             {{ "registrationPage.signUp" | translate }}
           </button>
-          <button mat-button type="button" routerLink="/auth/login">
+          <button mat-button type="button" (click)="openLogin()">
             {{ "registrationPage.login" | translate }}
           </button>
         </div>

@@ -131,12 +131,11 @@
     "myBookmarks": "My bookmarks",
     "statistics": {
       "title": "Statistics",
-      "subscriptions": "Subscriptions:",
+      "views": "Views:",
       "subscribers": "Subscribers:",
       "articles": "Publications:",
-      "comments": "Comments:",
-      "bookmarks": "Bookmarks:",
-      "reactions": "Reactions:"
+      "comments": "Comments under publications:",
+      "reactions": "Reactions under publications:"
     },
     "languages": {
       "en": "English",
@@ -193,6 +192,13 @@
       "delete": "Delete",
       "unpublish": "Unpublish",
       "publish": "Publish"
+    },
+    "periods" : {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year",
+      "all": "All"
     }
   },
   "searchPage": {
@@ -202,8 +208,6 @@
     "noDescription": "No description",
     "registrationDate": "On the platform for {{date}} days",
     "subscribers": "Subscribers: {{count}}",
-    "subscribe": "Subscribe",
-    "userIsSubscribed": "You are subscribed",
     "loadMore": "Load more",
     "message": "To search for authors, use the prefix <b>@</b>.<br>To search for tags use prefix <b>#</b>."
   },

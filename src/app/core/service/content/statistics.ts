@@ -1,10 +1,8 @@
 export interface Statistics {
   nickname: string;
+  views: number;
   articles: number;
-  bookmarks: number;
   reactions: number;
-  subscriptions: number;
   subscribers: number;
-  isSubscriber: boolean;
-  userIsSubscribed: boolean;
+  comments: number;
 }

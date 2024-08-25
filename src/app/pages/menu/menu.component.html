@@ -32,7 +32,7 @@
     </button>
 
     <div class="menu-button" *ngIf="!authService.isAuthorized">
-      <button mat-flat-button routerLink="/auth/login">
+      <button mat-flat-button (click)="openLogin()">
         {{ "topMenu.login" | translate }}
       </button>
     </div>
