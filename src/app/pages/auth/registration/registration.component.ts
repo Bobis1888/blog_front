@@ -131,15 +131,6 @@ export class RegistrationComponent extends HasErrors implements OnInit {
             if (this.getErrors("password")) {
               this.ref = this.matSnackBar.open(this.translate.instant("errors.passwordHelp"), "OK", {duration: 20000});
             }
-
-            if (this.getErrorCodes("email")?.includes("alreadyRegistered")) {
-              this.ref = this.matSnackBar.open(this.translate.instant("errors.emailHelp"), this.translate.instant("errors.emailHelpAction"));
-              this.ref.onAction()
-                .pipe(takeUntil(this.unSubscriber))
-                .subscribe(() => {
-                  this.router.navigate(['/auth/forgot-password']).then();
-                });
-            }
           }
         });
     }

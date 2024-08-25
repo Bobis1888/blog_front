@@ -77,6 +77,7 @@ export class LoginComponent extends HasErrors implements OnInit {
           this.loading = false;
 
           if (res) {
+            this.dialogRef?.close();
             this.router.navigate(["/"]).then();
             return;
           }
