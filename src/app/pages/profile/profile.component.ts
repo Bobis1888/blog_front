@@ -86,9 +86,6 @@ export class ProfileComponent extends HasErrors implements OnInit {
   private initAvatar(uuid: string = '') {
 
     if (this.info) {
-      this.info.hasImage = true;
-      this.info.imagePath = "/api/storage/download?type=avatar&nickname=" + this.info.nickname + "&uuid=" + uuid;
-
       if (uuid) {
         this.authService.userInfo = this.info;
       }
@@ -151,13 +148,16 @@ export class ProfileComponent extends HasErrors implements OnInit {
     })
       .afterClosed()
       .pipe(
-        takeUntil(this.unSubscriber)
+        takeUntil(this.unSubscriber),
+        mergeMap(it => it ? this.authService.changeImagePath(it.uuid) : of(false)),
+        mergeMap((it) => it ? this.authService.info(true) : of(false)),
+        catchError((err) => of(err))
       )
       .subscribe({
         next: (it) => {
 
           if (it) {
-            this.initAvatar(it.uuid);
+            this.info = it;
             this.ref?.dismiss();
             let message = this.translate.instant('profilePage.successMessage');
             this.ref = this.snackBar.open(message, undefined, {duration: 3000, panelClass: 'snack-bar'});

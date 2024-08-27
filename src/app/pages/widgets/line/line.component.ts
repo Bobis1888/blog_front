@@ -8,7 +8,7 @@ import {
   Search,
   Status
 } from "src/app/core/service/content/content.service";
-import {Observable, takeUntil} from "rxjs";
+import {Observable, retry, takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {CoreModule} from "src/app/core/core.module";
 import {Content} from "app/core/service/content/content";
@@ -87,12 +87,6 @@ export class LineComponent extends UnSubscriber implements OnInit {
 
   ngOnInit(): void {
 
-    let savedPeriod = sessionStorage.getItem('selectedPeriod');
-
-    if (savedPeriod) {
-      this.selectedPeriod = savedPeriod as Period;
-    }
-
     if (this.authService.authState == AuthState.authorized) {
       this.authService.info()
         .pipe(takeUntil(this.unSubscriber)).subscribe({
@@ -107,6 +101,12 @@ export class LineComponent extends UnSubscriber implements OnInit {
       },
       error: () => this.state = 'empty'
     });
+
+    let savedPeriod = sessionStorage.getItem('selectedPeriod');
+
+    if (savedPeriod) {
+      this.selectedPeriod = savedPeriod as Period;
+    }
   }
 
   protected get isMobile(): boolean {
@@ -271,6 +271,11 @@ export class LineComponent extends UnSubscriber implements OnInit {
   @HostListener('document:scroll', ['$event'])
   public onViewportScroll() {
     const windowHeight = window.innerHeight;
+
+    if (!this.endDiv) {
+      return;
+    }
+
     const boundingRectEnd = this.endDiv.nativeElement.getBoundingClientRect();
 
     if (boundingRectEnd.top >= 0 && boundingRectEnd.bottom <= windowHeight && this.canLoadMore) {

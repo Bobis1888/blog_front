@@ -7,10 +7,8 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {animations} from 'app/core/config/app.animations';
 import {UserInfo} from 'app/core/service/auth/user-info';
-import {map, of} from "rxjs";
-import {isMarkActive} from "ngx-editor/helpers";
+import {map, mergeMap, of} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
-import {ProfileComponent} from "app/pages/profile/profile.component";
 import {LoginComponent} from "app/pages/auth/login/login.component";
 
 @Component({
@@ -22,6 +20,8 @@ import {LoginComponent} from "app/pages/auth/login/login.component";
   styleUrl: './menu.component.less',
 })
 export class MenuComponent extends UnSubscriber implements OnInit {
+
+  protected info?: UserInfo;
 
   constructor(
     protected authService: AuthService,
@@ -37,25 +37,14 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     return this.deviceService.isMobile();
   }
 
-  get hasImage(): boolean {
-    return this.authService.userInfo.hasImage ?? false;
-  }
-
-  set hasImage(value: boolean) {
-    let info: UserInfo | null = this.authService.userInfo;
-
-    if (info != null) {
-      info.hasImage = value;
-      this.authService.userInfo = info;
-    }
-  }
-
   ngOnInit(): void {
     this.themeDataService.init();
     this.authService.getState()
       .pipe(
-        map((it) => it.logged ? this.authService.info() : of({}))
-      ).subscribe();
+        mergeMap((it) => it.logged ? this.authService.info() : of({} as UserInfo))
+      ).subscribe({
+      next: (it) => this.info = it
+    });
   }
 
   get hideSearchButton(): boolean {
@@ -71,9 +60,4 @@ export class MenuComponent extends UnSubscriber implements OnInit {
 
     this.dialog.open(LoginComponent, {});
   }
-
-  // openDialog() {
-  //   this.dialog.open(ProfileComponent, {
-  //   });
-  // }
 }
