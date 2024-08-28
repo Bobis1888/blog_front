@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ContentService, Status} from "src/app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {debounceTime, delay, distinctUntilChanged, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
@@ -16,7 +16,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ChangeStatusDialog} from "app/pages/content/change-status-dialog/change-status.dialog";
 import {DeleteDialog} from "app/pages/content/delete-dialog/delete.dialog";
 import {AuthService} from "app/core/service/auth/auth.service";
-import {TagService, TagsFilter} from "app/core/service/content/tag.service";
+import {Tag, TagService, TagsFilter} from "app/core/service/content/tag.service";
 import {CoreModule} from "app/core/core.module";
 import hash from 'hash-it';
 import {ConfirmCloseDialog} from "app/pages/content/confirm-close-dialog/confirm-close.dialog";
@@ -24,6 +24,7 @@ import {ImageUploadMenuComponent} from "app/core/ngx-editor-plugins/image-upload
 import {SafeHtmlService} from "app/core/pipe/safe-html";
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {EmojiMenuComponent} from "app/core/ngx-editor-plugins/emoji/emoji-menu.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'edit-content',
@@ -55,15 +56,15 @@ export class EditContentComponent extends HasErrors implements OnInit {
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote',
       'align_left', 'align_center', 'align_right', 'align_justify',
       {heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']},
-      'link', 'image'],
+      'link'],
   ];
   shortToolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote',
-      'link', 'image'],
+      'link'],
   ];
 
   protected separatorKeysCodes: number[] = [ENTER, COMMA];
-  protected filteredTags: string[] = [];
+  protected filteredTags: Tag[] = [];
   protected id: string = '';
   readonly maskitoOpt: MaskitoOptions = {
     mask: /[a-zA-Zа-яА-Я0-9_]/,
@@ -71,6 +72,7 @@ export class EditContentComponent extends HasErrors implements OnInit {
       ({elementState, data}) => ({data: data.replaceAll(/[^a-zA-Z0-9А-Яа-я_]|\d/g, ''), elementState}),
     ]
   };
+
   @ViewChild('tagsInput')
   protected tagsInput: ElementRef<HTMLInputElement> | undefined;
 
@@ -78,24 +80,32 @@ export class EditContentComponent extends HasErrors implements OnInit {
   private hash: number = 0;
   private tagHash: number = 0;
 
-  constructor(private contentService: ContentService,
-              protected tagService: TagService,
-              protected deviceService: DeviceDetectorService,
-              private router: Router,
-              protected authService: AuthService,
-              protected matDialog: MatDialog,
-              protected theme: ThemeDataService,
-              private safeHtmlService: SafeHtmlService,
-              private aRouter: ActivatedRoute) {
+  private contentService: ContentService;
+  protected tagService: TagService;
+  protected deviceService: DeviceDetectorService;
+  private router: Router;
+  protected authService: AuthService;
+  protected matDialog: MatDialog;
+  protected theme: ThemeDataService;
+  private safeHtmlService: SafeHtmlService;
+  private aRouter: ActivatedRoute;
+
+  constructor() {
     super();
+
+    this.contentService = inject(ContentService);
+    this.tagService = inject(TagService);
+    this.deviceService = inject(DeviceDetectorService);
+    this.router = inject(Router);
+    this.authService = inject(AuthService);
+    this.matDialog = inject(MatDialog);
+    this.theme = inject(ThemeDataService);
+    this.safeHtmlService = inject(SafeHtmlService);
+    this.aRouter = inject(ActivatedRoute);
   }
 
   get tagCtrl(): FormControl {
     return this.formGroup.get("tagCtrl") as FormControl;
-  }
-
-  get contentLength(): number {
-    return this.formGroup.get('preView')?.value?.length || 0;
   }
 
   get titleLength(): number {
@@ -108,7 +118,6 @@ export class EditContentComponent extends HasErrors implements OnInit {
 
   ngOnInit(): void {
     this.formGroup.addControl('content', new FormControl('<p></p>', Validators.required()));
-    this.formGroup.addControl('preView', new FormControl(""));
     this.formGroup.addControl('title', new FormControl("", Validators.required()));
     this.formGroup.addControl('tagCtrl', new FormControl(""));
     this.translate.get('editContentPage.metaTitle').subscribe({next: (it) => this.title.setTitle(it)});
@@ -139,11 +148,11 @@ export class EditContentComponent extends HasErrors implements OnInit {
         this.filteredTags = [];
 
         value.forEach((it): void => {
-          this.filteredTags.push(it.value);
+          this.filteredTags.push(it);
         });
 
         if (this.filteredTags.length == 0 && this.tagCtrl.value) {
-          this.filteredTags.push("#" + this.tagCtrl.value);
+          this.filteredTags.push({value: "#" + this.tagCtrl.value, count: 0});
         }
       }
     });
@@ -290,10 +299,6 @@ export class EditContentComponent extends HasErrors implements OnInit {
             this.formGroup.get('content')?.setValue(this.content.content);
           }
 
-          if (this.content.preView) {
-            this.formGroup.get('preView')?.setValue(this.content.preView);
-          }
-
           if (!this.content.tags) {
             this.content.tags = [];
           }
@@ -338,8 +343,6 @@ export class EditContentComponent extends HasErrors implements OnInit {
       return of(res).pipe(delay(200));
     }
 
-    let previewValue = this.formGroup.get('preView')?.value ?? '';
-
     if (this.tagCtrl.value && this.tagCtrl.value.length > 0 && this.content.tags.length == 0) {
       this.selected(this.tagCtrl.value);
     }
@@ -347,7 +350,6 @@ export class EditContentComponent extends HasErrors implements OnInit {
     return this.contentService.save({
       id: this.content.id,
       title: this.formGroup.get('title')?.value,
-      preView: previewValue == '' ? 'auto' : previewValue,
       content: this.safeHtmlService.sanitize(this.formGroup.get('content')?.value),
       tags: this.content.tags
     } as Content)

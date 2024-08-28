@@ -7,7 +7,7 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {animations} from 'app/core/config/app.animations';
 import {UserInfo} from 'app/core/service/auth/user-info';
-import {map, mergeMap, of} from "rxjs";
+import {map, mergeMap, of, takeUntil} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {LoginComponent} from "app/pages/auth/login/login.component";
 
@@ -41,10 +41,21 @@ export class MenuComponent extends UnSubscriber implements OnInit {
     this.themeDataService.init();
     this.authService.getState()
       .pipe(
+        takeUntil(this.unSubscriber),
         mergeMap((it) => it.logged ? this.authService.info() : of({} as UserInfo))
       ).subscribe({
       next: (it) => this.info = it
     });
+
+    this.authService.infoChanged
+      .pipe(
+        takeUntil(this.unSubscriber),
+      )
+      .subscribe({
+      next: () => {
+        this.info = this.authService.userInfo;
+      }
+    })
   }
 
   get hideSearchButton(): boolean {

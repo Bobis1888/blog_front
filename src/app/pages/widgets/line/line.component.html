@@ -147,12 +147,6 @@
                     (click)="changeStatus(item.id, Status.draft)">
               <mat-icon>remove_circle_outline</mat-icon>
             </button>
-
-            <button *ngIf="item.actions?.canEdit" mat-icon-button
-                    [matTooltip]="translate.instant('lineWidget.tooltip.editPreview')"
-                    (click)="editPreview(item.id, item.preView)">
-              <mat-icon>short_text</mat-icon>
-            </button>
           </div>
         </ng-container>
       </mat-card-footer>

@@ -44,15 +44,24 @@
             {{
               "searchPage.registrationDate"
                 | translate
-                  : { date: authorInfo.additionalInfo?.registrationDate ?? 0 }
+                : {date: authorInfo.additionalInfo?.registrationDate ?? 0}
             }}
           </h2>
         </div>
         <div class="sub-title">
-          <b>{{
-            "searchPage.subscribers"
-              | translate: { count: authorInfo.statistics?.subscribers ?? 0 }
-          }}</b>
+          <b>
+            {{
+              "searchPage.articles"
+                | translate: {count: authorInfo.statistics?.articles ?? 0}
+            }}
+          </b>
+          <br>
+          <b>
+            {{
+              "searchPage.subscribers"
+                | translate: {count: authorInfo.statistics?.subscribers ?? 0}
+            }}
+          </b>
         </div>
       </div>
 
@@ -117,11 +126,11 @@
   </div>
   <div *ngIf="tags.length > 0" [@opacity-2]>
     <mat-divider></mat-divider>
-    <br />
+    <br/>
     <div class="tags">
       <span *ngFor="let tag of tags" (click)="fillTag(tag)">{{
-        tag.value
-      }}</span>
+          tag.value
+        }}</span>
     </div>
   </div>
 </ng-template>

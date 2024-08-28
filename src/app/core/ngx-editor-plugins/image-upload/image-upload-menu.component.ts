@@ -9,6 +9,8 @@ import {DragAndDropDirective} from "app/core/directive/drag-and-drop";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {MatIcon} from "@angular/material/icon";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FileType, StorageService} from "app/core/service/content/storage.service";
+import {style} from "@angular/animations";
 
 @Component({
   selector: 'image-upload-menu',
@@ -24,9 +26,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class ImageUploadMenuComponent implements OnInit {
   private file: File | null = null;
-  private maxSize: number = 1;
+  private maxSize: number = 5;
 
-  constructor(private snackBar: MatSnackBar, private translate: TranslateService) {
+  constructor(private snackBar: MatSnackBar,
+              private translate: TranslateService,
+              private storageService: StorageService) {
   }
 
   @Input() editor!: Editor;
@@ -87,21 +91,27 @@ export class ImageUploadMenuComponent implements OnInit {
       fileReader.readAsDataURL(this.file!);
       let me = this
 
-      fileReader.onload = function () {
-        let base64 = fileReader.result as string;
-        let url = 'assets/images/dinosaur.png'; // ?? '/api/storage/download?';
-        const {state, dispatch} = me.editor.view;
-        const {schema} = state;
+      this.storageService.upload(this.file!)
+        .subscribe({
+          next: (it) => {
+            let url = 'api/storage/download?type=' + FileType.TMP + '&uuid=' + it.uuid;
+            const {state, dispatch} = me.editor.view;
+            const {schema} = state;
 
-        // Create an image node
-        const imageNode = schema.nodes['image'].create({src: base64});
+            // Create an image node
+            const imageNode = schema.nodes['image'].create({src: url, alt: this.file?.name || 'image'});
 
-        // Create a transaction to insert the image at the current selection
-        const transaction = state.tr.insert(state.selection.$from.pos, imageNode);
+            // Create a transaction to insert the image at the current selection
+            const transaction = state.tr.insert(state.selection.$from.pos, imageNode);
 
-        // Apply the transaction to the editor's state
-        dispatch(transaction);
-      };
+            // Apply the transaction to the editor's state
+            dispatch(transaction);
+          },
+          error: () => {
+            let error = this.translate.instant('errors.upload')
+            this.snackBar.open(error, 'Ok', {duration: 5000})
+          }
+        });
     }
   }
 }

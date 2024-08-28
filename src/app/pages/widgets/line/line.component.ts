@@ -15,14 +15,13 @@ import {Content} from "app/core/service/content/content";
 import {LineType} from "app/core/service/line/line.service";
 import {UserInfo} from "app/core/service/auth/user-info";
 import {AuthService, AuthState} from "app/core/service/auth/auth.service";
-import {EditPreviewDialog} from "app/pages/content/edit-preview-dialog/edit-preview-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialog} from "app/pages/content/delete-dialog/delete.dialog";
 import {ChangeStatusDialog} from "app/pages/content/change-status-dialog/change-status.dialog";
 import {ActivatedRoute} from "@angular/router";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {MatSelect} from "@angular/material/select";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 
 export enum Period {
@@ -52,7 +51,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
   protected direction: 'ASC' | 'DESC' = 'DESC';
   protected max: number = 10;
   protected page: number = 0;
-  protected selectedPeriod: Period = Period.all;
+  protected selectedPeriod: Period = sessionStorage.getItem('selectedPeriod') ? sessionStorage.getItem('selectedPeriod') as Period : Period.all;
 
   protected readonly LineType = LineType;
   protected readonly Status = Status;
@@ -101,34 +100,10 @@ export class LineComponent extends UnSubscriber implements OnInit {
       },
       error: () => this.state = 'empty'
     });
-
-    let savedPeriod = sessionStorage.getItem('selectedPeriod');
-
-    if (savedPeriod) {
-      this.selectedPeriod = savedPeriod as Period;
-    }
   }
 
   protected get isMobile(): boolean {
     return this.deviceService.isMobile();
-  }
-
-  public editPreview(id: string, content: string) {
-    this.state = 'loading';
-    this.dialog.open(EditPreviewDialog, {
-      data: {id: id, content: content},
-      autoFocus: false
-    }).afterClosed().pipe(
-      takeUntil(this.unSubscriber),
-    ).subscribe({
-      next: (it) => {
-        if (it) {
-          this.init();
-        } else {
-          this.state = 'data';
-        }
-      }
-    });
   }
 
   public delete(id: string) {

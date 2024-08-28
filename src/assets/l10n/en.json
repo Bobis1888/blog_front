@@ -148,12 +148,6 @@
     "cancel": "Cancel",
     "submit": "Delete"
   },
-  "editPreviewDialog": {
-    "title": "Preview",
-    "submit": "Save",
-    "cancel": "Cancel",
-    "hint": "Write a short description of your publication. Maximum 255 characters"
-  },
   "reportDialog": {
     "title": "Report",
     "reason": "Reason",
@@ -188,7 +182,6 @@
     },
     "tooltip": {
       "edit": "Edit",
-      "editPreview": "Edit preview",
       "delete": "Delete",
       "unpublish": "Unpublish",
       "publish": "Publish"
@@ -208,6 +201,7 @@
     "noDescription": "No description",
     "registrationDate": "On the platform for {{date}} days",
     "subscribers": "Subscribers: {{count}}",
+    "articles": "Publications: {{count}}",
     "loadMore": "Load more",
     "message": "To search for authors, use the prefix <b>@</b>.<br>To search for tags use prefix <b>#</b>."
   },
@@ -278,7 +272,8 @@
   "firstLaunchAction": "Ok",
   "errors": {
     "serverError": "Server error",
-    "image.maxSize": "The maximum file size is exceeded (2 MB)",
+    "image.maxSize": "The maximum file size is exceeded ({{maxSize}} MB)",
+    "upload" : "Произошла ошибка при загрузке файла, попробуйте ещё раз или выберите другой файл",
     "nickname.invalid": "Invalid nickname",
     "nickname.equal": "Same nickname",
     "email.invalid": "Invalid e-mail",
