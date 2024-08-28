@@ -55,7 +55,7 @@
     </button>
 
     <button
-      *ngIf="authService.isAuthorized && !authService.userInfo.hasImage"
+      *ngIf="authService.isAuthorized && !info?.hasImage"
       mat-icon-button
       [@opacity-2]
       routerLink="/profile"
@@ -65,13 +65,13 @@
 
     <div
       class="avatar"
-      *ngIf="authService.isAuthorized && hasImage"
+      *ngIf="authService.isAuthorized && info?.hasImage"
       [@opacity-2]
       routerLink="/profile"
     >
       <img
-        src="{{ authService.userInfo.imagePath }}"
-        (error)="hasImage = false"
+        src="api/storage/download?uuid={{ authService.userInfo.imagePath }}"
+        (error)="info ? info.hasImage = false : null"
         alt="Avatar"
       />
     </div>

@@ -6,6 +6,7 @@ import {StorageService, UploadResponse} from "app/core/service/content/storage.s
 import {animations} from "app/core/config/app.animations";
 import {takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
+import { FileType } from "app/core/service/content/storage.service";
 
 
 interface DialogData {
@@ -41,12 +42,12 @@ export class ChangeAvatarDialog extends UnSubscriber {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   save() {
     if (this.file) {
-      this.storageService.upload(this.file, 'avatar')
+      this.storageService.upload(this.file, FileType.AVATAR)
         .pipe(takeUntil(this.unSubscriber))
         .subscribe({
           next: (it: UploadResponse) => this.dialogRef.close(it),

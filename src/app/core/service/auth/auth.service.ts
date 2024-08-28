@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {map, Observable, of, tap} from 'rxjs';
 import {SuccessDto} from 'src/app/core/dto/success-dto';
 import {
@@ -21,6 +21,7 @@ export enum AuthState {
 })
 export class AuthService extends UnSubscriber {
   private ref: MatSnackBarRef<any> | null = null;
+  infoChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   get isAuthorized(): boolean {
     let state = AuthState.unauthorized;
@@ -47,8 +48,10 @@ export class AuthService extends UnSubscriber {
   }
 
   set userInfo(it: UserInfo | null) {
+
     if (it) {
       localStorage.setItem('cachedUserInfo', JSON.stringify(it));
+      this.infoChanged.emit(true);
     }
   }
 
@@ -152,6 +155,12 @@ export class AuthService extends UnSubscriber {
     });
   }
 
+  public changeImagePath(imagePath: string): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.POST, '/auth/change-image-path', {
+      imagePath,
+    });
+  }
+
   public info(
     force: boolean = false,
     nickname: string = '',
@@ -163,12 +172,9 @@ export class AuthService extends UnSubscriber {
     if (force || this.userInfo.nickname == null || nickname) {
       return this.httpSender.send(HttpMethod.GET, '/auth/info' + nickname).pipe(
         tap((it: UserInfo) => {
+          it.hasImage = it.imagePath != null;
+
           if (!nickname) {
-            it.hasImage = true;
-            it.imagePath =
-              '/api/storage/download?type=avatar&nickname=' +
-              it.nickname +
-              '&uuid=';
             this.userInfo = it;
           }
         }),
@@ -179,7 +185,10 @@ export class AuthService extends UnSubscriber {
   }
 
   public infos(nickname: string): Observable<Array<UserInfo>> {
-    return this.httpSender.send(HttpMethod.GET, '/auth/infos/' + nickname);
+    return this.httpSender.send(HttpMethod.GET, '/auth/infos/' + nickname)
+      .pipe(
+        tap((it: Array<UserInfo>) => it.forEach((info: UserInfo) => info.hasImage = info.imagePath != null)),
+      );
   }
 
   private changeAuthState(authState: AuthState) {

@@ -224,7 +224,6 @@ export class SearchComponent extends HasErrors implements OnInit {
       .pipe(
         takeUntil(this.unSubscriber),
         map(it => this.authorInfos = it),
-        map(() => this.initAvatars()),
         mergeMap(() => this.initStats()),
         catchError((err) => of(err))
       )
@@ -256,17 +255,6 @@ export class SearchComponent extends HasErrors implements OnInit {
         return [];
       })
     )
-  }
-
-  private initAvatars(): void {
-
-    if (this.authorInfos) {
-      this.authorInfos.map(it => {
-        it.hasImage = true;
-        it.imagePath = "/api/storage/download?type=avatar&nickname=" + it.nickname + "&uuid=";
-        return it;
-      });
-    }
   }
 
   public loadMore() {
@@ -323,6 +311,11 @@ export class SearchComponent extends HasErrors implements OnInit {
   @HostListener('document:scroll', ['$event'])
   public onViewportScroll() {
     const windowHeight = window.innerHeight;
+
+    if (!this.endDiv) {
+      return;
+    }
+
     const boundingRectEnd = this.endDiv.nativeElement.getBoundingClientRect();
 
     if (boundingRectEnd.top >= 0 && boundingRectEnd.bottom <= windowHeight && this.canLoadMore) {

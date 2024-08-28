@@ -8,8 +8,6 @@ import {LineType, lineTypes} from "app/core/service/line/line.service";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {Router} from "@angular/router";
 import {TagService} from "app/core/service/content/tag.service";
-import {Content} from "app/core/service/content/content";
-import {ContentService, Filter, RequestType} from "app/core/service/content/content.service";
 
 @Component({
   selector: 'right-widget',
@@ -27,7 +25,6 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
 
   constructor(
     protected tagService: TagService,
-    private contentService: ContentService,
     private deviceService: DeviceDetectorService,
     protected authService: AuthService,
     protected router: Router,
@@ -36,7 +33,6 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
   }
 
   public tags: Array<string> = [];
-  public lastContent: Array<Content> = [];
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
@@ -69,21 +65,6 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
 
       let date = new Date();
       date.setDate(date.getDate() - 7);
-
-      this.contentService.list({
-        max: 3,
-        page: 0,
-        type: RequestType.SEARCH,
-        sortBy: ['countViews', 'publishedDate'],
-        search: {
-          startDate: date.toISOString().split('T')[0]
-        }
-      } as Filter).subscribe({
-        next: (it) => {
-          this.lastContent = [];
-          this.lastContent.push(...it.list);
-        }
-      });
     } else {
       this.state = 'data';
     }
@@ -107,6 +88,4 @@ export class RightWidgetComponent extends UnSubscriber implements OnInit {
 
     return item.toLowerCase();
   }
-
-  protected readonly LineType = LineType;
 }

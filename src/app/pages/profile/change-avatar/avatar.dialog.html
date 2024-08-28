@@ -18,7 +18,7 @@
     <br>
     <div class="avatars-preview">
       <div class="avatar" *ngIf="data.hasImage" [@opacity-2]>
-        <img src="{{ data.imagePath }}" alt="Avatar"/>
+        <img src="api/storage/download?uuid={{ data.imagePath }}" alt="Avatar"/>
       </div>
       <div *ngIf="newAvatarPreview && data.hasImage" class="arrow">
         <mat-icon>arrow_right_alt</mat-icon>

@@ -16,29 +16,6 @@
     margin: 20px;
   }
 
-  .last-published {
-    display: flex;
-    flex-direction: column;
-
-    a:active, a:visited, a:link {
-      padding: 10px 15px;
-      text-align: center;
-      text-decoration: none;
-      font-weight: 500;
-      cursor: pointer;
-      color: @lightColor;
-      display: inline-block;
-      background-color: @thirdColor;
-      border-radius: 20px;
-      margin: 5px;
-    }
-
-    a:hover {
-      background-color: @secondColor;
-      color: @textColor;
-    }
-  }
-
   .right-header {
     text-align: left;
     padding: 0 25px;
@@ -55,7 +32,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
 
-    span {
+    div {
       font-weight: 500;
       cursor: pointer;
       color: @lightColor;
@@ -66,7 +43,7 @@
       padding: 5px 10px;
     }
 
-    span:hover {
+    div:hover {
       background-color: @secondColor;
       color: @textColor;
     }

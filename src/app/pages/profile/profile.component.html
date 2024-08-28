@@ -27,11 +27,16 @@
   <mat-card>
     <mat-card-header>
       <div>
-        <div class="avatar" [@opacity-2] [ngClass]="{'default-avatar': !info.hasImage}"
+        <div class="avatar" [@opacity-2] *ngIf="info.hasImage"
              (click)="openEditAvatarDialog()">
-          <img src="{{ info.imagePath }}"
-               (error)="info.imagePath = 'assets/images/dinosaur.png'; info.hasImage = false"
+          <img src="api/storage/download?uuid={{ info.imagePath }}"
+               (error)="info.hasImage = false"
                alt="avatar">
+        </div>
+
+        <div class="avatar default-avatar" *ngIf="!info.hasImage" [@opacity-2]
+             (click)="openEditAvatarDialog()">
+          <img src="assets/images/dinosaur.png" alt="avatar">
         </div>
       </div>
       <div class="title">
@@ -64,7 +69,7 @@
 
     <mat-card-content>
       <br>
-      <div class="vertical">
+      <div class="vertical centered">
         <button mat-flat-button routerLink="/my">
           {{ 'profilePage.myArticles' | translate }}
         </button>

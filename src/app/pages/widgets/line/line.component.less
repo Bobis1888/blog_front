@@ -29,6 +29,13 @@
       color: @warningColor;
       padding: 10px 0;
     }
+
+
+  }
+
+  mat-card:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px -5px @shadowColor;
   }
 
   .pre-view {
@@ -131,6 +138,7 @@
 .content {
   mat-card-content {
     min-height: 75px;
+    max-height: 55vh;
   }
 }
 

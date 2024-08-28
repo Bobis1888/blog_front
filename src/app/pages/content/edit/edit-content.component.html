@@ -9,6 +9,8 @@
           class="status" [innerHTML]="'editContentPage.published' | translate"></span>
   </div>
 
+  <br>
+
   <ng-container [ngSwitch]="state">
     <ng-container
       *ngSwitchCase="'form'"
@@ -25,7 +27,8 @@
 </div>
 
 <ng-template #form>
-  <h1 *ngIf="content.actions?.canEdit">{{ (content.id ? "editContentPage.editTitle" : "editContentPage.createTitle") | translate }}</h1>
+  <h1
+    *ngIf="content.actions?.canEdit">{{ (content.id ? "editContentPage.editTitle" : "editContentPage.createTitle") | translate }}</h1>
   <br *ngIf="!content.actions?.canEdit">
   <div class="editor" *ngIf="editor != undefined" [@opacity-1]>
 
@@ -54,13 +57,8 @@
 
       </div>
       <div class="tags" *ngIf="content.actions?.canEdit">
-        <div>
-          <mat-chip-listbox>
-            <mat-chip-row *ngFor="let tag of content.tags">
-              {{ tag }}
-            </mat-chip-row>
-          </mat-chip-listbox>
-        </div>
+
+        <br>
 
         <mat-form-field appearance="outline">
           <mat-label>{{ 'editContentPage.tags' | translate }}</mat-label>
@@ -92,48 +90,21 @@
             help_outline
           </mat-icon>
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event.option.viewValue)">
-            <mat-option *ngFor="let tag of filteredTags">{{ tag }}</mat-option>
+            <mat-option *ngFor="let tag of filteredTags">
+              <span>{{ tag.value }}</span>
+            </mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </div>
 
-      <div class="pre-view">
-        <mat-form-field appearance="outline">
-          <mat-label>
-            {{ "editPreviewDialog.title" | translate }}
-          </mat-label>
-          <textarea matInput
-                    maxlength="255"
-                    [cdkTextareaAutosize]="true"
-                    formControlName="preView">
-        </textarea>
-          <mat-hint
-            *ngIf="content.actions.canEdit"
-            align="end">{{ contentLength }}/255
-          </mat-hint>
-          <mat-icon
-            *ngIf="content.actions.canEdit"
-            matSuffix
-            [matTooltip]="'editPreviewDialog.hint' | translate"
-            [matTooltipPosition]="'left'"
-          >
-            help_outline
-          </mat-icon>
-          <mat-error *ngIf="hasErrors">
-            {{ getErrors('content') }}
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <br/>
-
-      <div class="menu" *ngIf="content.actions.canEdit">
+      <div class="menu" *ngIf="content.actions.canEdit" [@opacity-2]>
         <ngx-editor-menu
           [editor]="editor"
           [toolbar]="toolbar"
           [customMenuRef]="customMenu"
         >
         </ngx-editor-menu>
-        <ngx-editor-floating-menu [editor]="editor">
+        <ngx-editor-floating-menu [editor]="editor" #menu>
           <ngx-editor-menu
             [editor]="editor"
             [toolbar]="shortToolbar"
