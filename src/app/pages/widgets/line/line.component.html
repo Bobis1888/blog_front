@@ -4,8 +4,8 @@
 
     <mat-form-field appearance="outline">
       <mat-select [(value)]="selectedPeriod" (selectionChange)="reload(true)">
-        <mat-option *ngFor="let i of periods" [value]="i">
-          {{ 'lineWidget.periods.' + i | translate }}
+        <mat-option *ngFor="let i of periodsFrom" [value]="i.key">
+          {{ i.value }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -47,7 +47,6 @@
 </ng-template>
 
 <ng-template #data>
-
 
 
   <div *ngFor="let item of items" class="content">

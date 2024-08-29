@@ -8,7 +8,7 @@ import {
   Search,
   Status
 } from "src/app/core/service/content/content.service";
-import {Observable, retry, takeUntil} from "rxjs";
+import {Observable, takeUntil} from "rxjs";
 import {animations} from "src/app/core/config/app.animations";
 import {CoreModule} from "src/app/core/core.module";
 import {Content} from "app/core/service/content/content";
@@ -52,7 +52,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
   protected max: number = 10;
   protected page: number = 0;
   protected selectedPeriod: Period = sessionStorage.getItem('selectedPeriod') ? sessionStorage.getItem('selectedPeriod') as Period : Period.all;
-
+  protected periodsFrom: Array<{key: Period, value: string}> = new Array<{key: Period; value: string}>();
   protected readonly LineType = LineType;
   protected readonly Status = Status;
   protected loadMoreProgress: boolean = false;
@@ -85,6 +85,18 @@ export class LineComponent extends UnSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.translate.get('lineWidget.periods').subscribe({
+
+
+      next: (it) => {
+        this.periodsFrom = [];
+
+        this.periods.forEach(period => {
+          this.periodsFrom.push({key: period, value: it[period]});
+        });
+      }
+    });
 
     if (this.authService.authState == AuthState.authorized) {
       this.authService.info()
