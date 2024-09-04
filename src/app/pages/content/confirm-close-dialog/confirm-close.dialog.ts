@@ -3,7 +3,7 @@ import {
   MatDialogActions,
   MatDialogContent, MatDialogRef,
 } from "@angular/material/dialog";
-import {CoreModule} from "src/app/core/core.module";
+import {CoreModule} from "app/core/core.module";
 import {MatButton} from "@angular/material/button";
 import {TranslateModule} from "@ngx-translate/core";
 

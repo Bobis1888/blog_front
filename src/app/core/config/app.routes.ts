@@ -50,5 +50,11 @@ export const routes: Routes = [
     data: {animation: 'LandingComponent'},
     loadComponent: () => import('app/pages/landing-page/landing.component')
       .then(m => m.LandingComponent),
+  },
+  {
+    path: 'notification',
+    data: {animation: 'NotificationComponent'},
+    loadComponent: () => import('app/pages/notification/notification.component')
+      .then(m => m.NotificationComponent),
   }
 ];

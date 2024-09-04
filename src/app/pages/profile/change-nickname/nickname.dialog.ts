@@ -5,11 +5,11 @@ import {
   MatDialogContent, MatDialogRef,
 } from "@angular/material/dialog";
 import {takeUntil} from "rxjs";
-import {SuccessDto} from "src/app/core/dto/success-dto";
-import {HasErrors} from "src/app/core/abstract/has-errors";
-import {AuthService} from "src/app/core/service/auth/auth.service";
+import {SuccessDto} from "app/core/dto/success-dto";
+import {HasErrors} from "app/core/abstract/has-errors";
+import {AuthService} from "app/core/service/auth/auth.service";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {CoreModule} from "src/app/core/core.module";
+import {CoreModule} from "app/core/core.module";
 import {MaskitoOptions} from "@maskito/core";
 
 export interface DialogData {

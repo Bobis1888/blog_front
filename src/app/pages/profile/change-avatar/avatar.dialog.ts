@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {CoreModule} from "src/app/core/core.module";
+import {CoreModule} from "app/core/core.module";
 import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {StorageService, UploadResponse} from "app/core/service/content/storage.service";
 import {animations} from "app/core/config/app.animations";

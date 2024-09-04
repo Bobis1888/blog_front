@@ -1,33 +1,13 @@
 <div class="top-menu">
   <div class="image" routerLink="/" *ngIf="!isMobile">
-    <img
-      src="assets/images/logo_mobile.webp"
-      alt="Mylog logo"
-      height="157"
-      width="493"
-    />
+    <img src="assets/images/logo_mobile.webp" alt="Mylog logo" height="157" width="493" />
   </div>
   <div class="buttons" [ngClass]="{ 'buttons-mobile': isMobile }">
-    <div
-      class="image"
-      [ngClass]="{ 'image-mobile': isMobile }"
-      routerLink="/"
-      *ngIf="isMobile"
-    >
-      <img
-        src="assets/images/logo_mobile.webp"
-        alt="Mylog logo"
-        height="157"
-        width="493"
-      />
+    <div class="image" [ngClass]="{ 'image-mobile': isMobile }" routerLink="/" *ngIf="isMobile">
+      <img src="assets/images/logo_mobile.webp" alt="Mylog logo" height="157" width="493" />
     </div>
 
-    <button
-      mat-icon-button
-      aria-label="Search"
-      routerLink="/search"
-      *ngIf="!hideSearchButton"
-    >
+    <button mat-icon-button aria-label="Search" routerLink="/search" *ngIf="!hideSearchButton">
       <mat-icon>search</mat-icon>
     </button>
 
@@ -37,43 +17,27 @@
       </button>
     </div>
 
-    <button
-      *ngIf="authService.isAuthorized && isMobile"
-      mat-icon-button
-      routerLink="/content/edit"
-    >
+    <button *ngIf="authService.isAuthorized && isMobile" mat-icon-button routerLink="/content/edit">
       <mat-icon>edit</mat-icon>
     </button>
 
-    <button
-      *ngIf="authService.isAuthorized && !isMobile"
-      mat-flat-button
-      routerLink="/content/edit"
-    >
+    <button *ngIf="authService.isAuthorized" mat-icon-button routerLink="/notification" [@opacity-2]>
+      <mat-icon matBadge="{{ countUnread > 0 ? countUnread : '' }}" [ngClass]="{ 'accent-icon': countUnread > 0 }"
+        matBadgePosition="below after">notifications</mat-icon>
+    </button>
+
+    <button *ngIf="authService.isAuthorized && !isMobile" mat-flat-button routerLink="/content/edit">
       <mat-icon class="light">edit</mat-icon>
       {{ "topMenu.write" | translate }}
     </button>
 
-    <button
-      *ngIf="authService.isAuthorized && !info?.hasImage"
-      mat-icon-button
-      [@opacity-2]
-      routerLink="/profile"
-    >
+    <button *ngIf="authService.isAuthorized && !info?.hasImage" mat-icon-button [@opacity-2] routerLink="/profile">
       <mat-icon>account_circle</mat-icon>
     </button>
 
-    <div
-      class="avatar"
-      *ngIf="authService.isAuthorized && info?.hasImage"
-      [@opacity-2]
-      routerLink="/profile"
-    >
-      <img
-        src="api/storage/download?uuid={{ authService.userInfo.imagePath }}"
-        (error)="info ? info.hasImage = false : null"
-        alt="Avatar"
-      />
+    <div class="avatar" *ngIf="authService.isAuthorized && info?.hasImage" [@opacity-2] routerLink="/profile">
+      <img src="api/storage/download?uuid={{ authService.userInfo.imagePath }}"
+        (error)="info ? (info.hasImage = false) : null" alt="Avatar" />
     </div>
   </div>
 </div>

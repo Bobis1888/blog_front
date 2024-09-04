@@ -53,6 +53,7 @@ export class ViewByLinkContentComponent extends ViewContentComponent {
         next: it => {
           this.content = it;
           this.state = 'data';
+          this.id = it.id;
 
           if (this.content.title) {
             this.title.setTitle('Mylog - ' + this.content.title);

@@ -4,8 +4,8 @@ import {
   MatDialogActions,
   MatDialogContent, MatDialogRef,
 } from "@angular/material/dialog";
-import {HasErrors} from "src/app/core/abstract/has-errors";
-import {CoreModule} from "src/app/core/core.module";
+import {HasErrors} from "app/core/abstract/has-errors";
+import {CoreModule} from "app/core/core.module";
 import {takeUntil} from "rxjs";
 import {MatButton} from "@angular/material/button";
 import {TranslateModule} from "@ngx-translate/core";

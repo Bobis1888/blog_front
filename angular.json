@@ -10,7 +10,7 @@
           "style": "less"
         }
       },
-      "root": "",
+      "root": "./",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {

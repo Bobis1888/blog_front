@@ -1,4 +1,4 @@
-import {UnSubscriber} from "src/app/core/abstract/un-subscriber";
+import {UnSubscriber} from "app/core/abstract/un-subscriber";
 import {FormGroup} from "@angular/forms";
 
 export interface Error {

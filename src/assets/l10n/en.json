@@ -270,6 +270,18 @@
   },
   "firstLaunchTitle": "We're glad you are here!\nWe use cookies for better experience.",
   "firstLaunchAction": "Ok",
+  "notificationPage" : {
+    "type" : {
+      "comment": "You have a new comment",
+      "comment_full" : "User <b>{{userName}}</b> left a comment on <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Go to the publication</a></b>",
+      "like":  "Like",
+      "subscribe": "You have a new subscriber",
+      "report": "Report"
+    },
+    "readAll" : "Read all",
+    "loadMore": "Load more",
+    "empty" : "No notifications"
+  },
   "errors": {
     "serverError": "Server error",
     "image.maxSize": "The maximum file size is exceeded ({{maxSize}} MB)",

@@ -1,0 +1,90 @@
+<div class="content" [ngClass]="{mobile: isMobile}">
+  <ng-container [ngSwitch]="state">
+
+    <ng-container
+      *ngSwitchCase="'loading'"
+      [ngTemplateOutlet]="load"
+    ></ng-container>
+
+    <ng-container
+      *ngSwitchCase="'data'"
+      [ngTemplateOutlet]="data"
+    ></ng-container>
+
+    <ng-container
+      *ngSwitchCase="'empty'"
+      [ngTemplateOutlet]="empty"
+    ></ng-container>
+
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="data">
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #data>
+  <div class="button">
+    <button mat-flat-button (click)="readAll()">
+      {{ 'notificationPage.readAll' | translate }}
+    </button>
+  </div>
+  <div class="data-container">
+    <div class="notifications">
+
+      <mat-accordion>
+
+        <div *ngFor="let it of items; let i = index">
+          <mat-expansion-panel hideToggle (opened)="read(it)">
+            <mat-expansion-panel-header>
+              <mat-panel-description>
+              <span
+                [ngClass]="{ 'read': it.isRead, 'unread': !it.isRead }"
+                [innerHTML]="'notificationPage.type.' + it.type.toString().toLowerCase() | translate: it.payload | safeHtml">
+              </span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <span>
+            {{ it.createdDate | date: "d MMMM y" }}
+          </span>
+            <br>
+            <br>
+            <span
+              [innerHTML]="'notificationPage.type.' + it.type.toString().toLowerCase() + '_full' | translate: it.payload | safeHtml"
+              (click)="processLinks($event)"
+            >
+          </span>
+          </mat-expansion-panel>
+        </div>
+
+      </mat-accordion>
+    </div>
+    <div class="load-more" *ngIf="canLoadMore || loadMoreProgress">
+      <button mat-flat-button (click)="loadMore()" *ngIf="!loadMoreProgress">
+        {{ 'notificationPage.loadMore' | translate }}
+      </button>
+      <br>
+      <br>
+      <div class="progress-bar-container" *ngIf="loadMoreProgress">
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </div>
+      <br>
+      <br>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <p class="empty">
+    {{ 'notificationPage.empty' | translate }}
+  </p>
+</ng-template>
+
+<ng-template #load>
+  <div class="load">
+    <br>
+    <br>
+    <ngx-skeleton-loader [count]="6"></ngx-skeleton-loader>
+    <br>
+    <br>
+
+  </div>
+</ng-template>

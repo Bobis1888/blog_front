@@ -1,5 +1,5 @@
 import {Component, ElementRef, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {ContentService, Status} from "src/app/core/service/content/content.service";
+import {ContentService, Status} from "app/core/service/content/content.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {debounceTime, delay, distinctUntilChanged, map, mergeMap, Observable, of, skipWhile, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";

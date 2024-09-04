@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
-import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
+import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {
   ContentService,
   Filter,
@@ -7,10 +7,10 @@ import {
   RequestType,
   Search,
   Status
-} from "src/app/core/service/content/content.service";
+} from "app/core/service/content/content.service";
 import {Observable, takeUntil} from "rxjs";
-import {animations} from "src/app/core/config/app.animations";
-import {CoreModule} from "src/app/core/core.module";
+import {animations} from "app/core/config/app.animations";
+import {CoreModule} from "app/core/core.module";
 import {Content} from "app/core/service/content/content";
 import {LineType} from "app/core/service/line/line.service";
 import {UserInfo} from "app/core/service/auth/user-info";

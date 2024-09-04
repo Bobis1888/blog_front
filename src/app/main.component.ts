@@ -6,10 +6,10 @@ import {
   RouterLink,
   RouterOutlet
 } from '@angular/router';
-import {MenuComponent} from "src/app/pages/menu/menu.component";
+import {MenuComponent} from "app/pages/menu/menu.component";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {mergeMap, takeUntil} from "rxjs";
-import {animations} from "src/app/core/config/app.animations";
+import {animations} from "app/core/config/app.animations";
 import {NgIf} from "@angular/common";
 import {RightWidgetComponent} from "app/pages/widgets/right/right-widget.component";
 import {MatToolbar} from "@angular/material/toolbar";

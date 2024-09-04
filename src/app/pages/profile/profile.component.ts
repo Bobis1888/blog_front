@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {CoreModule} from "src/app/core/core.module";
-import {AuthService} from "src/app/core/service/auth/auth.service";
-import {HasErrors} from "src/app/core/abstract/has-errors";
+import {CoreModule} from "app/core/core.module";
+import {AuthService} from "app/core/service/auth/auth.service";
+import {HasErrors} from "app/core/abstract/has-errors";
 import {catchError, map, mergeMap, of, takeUntil} from "rxjs";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {UserInfo} from "src/app/core/service/auth/user-info";
+import {UserInfo} from "app/core/service/auth/user-info";
 import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {ChangeNicknameDialog} from "app/pages/profile/change-nickname/nickname.dialog";

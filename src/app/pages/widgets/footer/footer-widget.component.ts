@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CoreModule} from 'src/app/core/core.module';
+import {CoreModule} from 'app/core/core.module';
 import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({

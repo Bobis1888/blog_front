@@ -1,0 +1,53 @@
+@import "src/app/theme/utils";
+
+.mat-expansion-panel {
+  --mat-expansion-container-background-color: @secondColor;
+  --mat-expansion-panel-header-color: @textColor;
+  --mat-expansion-container-text-color: @textColor;
+  --mat-expansion-header-description-color: @textColor;
+  --mat-expansion-container-shape: 20px;
+}
+
+.load {
+  max-width: 90%;
+  margin: auto;
+}
+
+.read {
+  font-weight: lighter;
+}
+
+.unread {
+  font-weight: bold;
+}
+
+.mat-expansion-panel-header {
+  padding: 10px 24px;
+}
+
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+}
+
+.content {
+  max-width: 600px;
+  margin: auto;
+}
+
+.button {
+  margin: 20px;
+}
+
+.data-container {
+  background-color: @secondColor;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+.notification {
+  padding: 20px;
+}
+
+.empty {
+  text-align: center;
+}

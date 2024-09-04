@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {map, Observable, of, tap} from 'rxjs';
-import {SuccessDto} from 'src/app/core/dto/success-dto';
+import {SuccessDto} from 'app/core/dto/success-dto';
 import {
   HttpMethod,
   HttpSenderService,
@@ -21,7 +21,7 @@ export enum AuthState {
 })
 export class AuthService extends UnSubscriber {
   private ref: MatSnackBarRef<any> | null = null;
-  infoChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  static infoChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   get isAuthorized(): boolean {
     let state = AuthState.unauthorized;
@@ -51,7 +51,7 @@ export class AuthService extends UnSubscriber {
 
     if (it) {
       localStorage.setItem('cachedUserInfo', JSON.stringify(it));
-      this.infoChanged.emit(true);
+      AuthService.infoChanged.emit(true);
     }
   }
 

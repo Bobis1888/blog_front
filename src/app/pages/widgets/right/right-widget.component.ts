@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {CoreModule} from 'src/app/core/core.module';
-import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
+import {CoreModule} from 'app/core/core.module';
+import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {takeUntil} from "rxjs";
-import {animations} from "src/app/core/config/app.animations";
+import {animations} from "app/core/config/app.animations";
 import {LineType, lineTypes} from "app/core/service/line/line.service";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {Router} from "@angular/router";

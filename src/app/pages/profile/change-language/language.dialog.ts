@@ -4,7 +4,7 @@ import {
   MatDialogContent, MatDialogRef,
 } from "@angular/material/dialog";
 import {ReactiveFormsModule} from "@angular/forms";
-import {CoreModule} from "src/app/core/core.module";
+import {CoreModule} from "app/core/core.module";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";

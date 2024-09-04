@@ -1,8 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ContentService, Filter, RequestType, Status,} from 'src/app/core/service/content/content.service';
+import {ContentService, Filter, RequestType, Status,} from 'app/core/service/content/content.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {delay, map, Observable, takeUntil} from 'rxjs';
-import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
+import {UnSubscriber} from 'app/core/abstract/un-subscriber';
 import {DeviceDetectorService} from 'ngx-device-detector';
 import {ClipboardService} from 'ngx-clipboard';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';

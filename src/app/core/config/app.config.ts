@@ -9,9 +9,9 @@ import {
 
 import {routes} from './app.routes';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {provideTranslation} from "src/app/core/config/app.translate.config";
+import {provideTranslation} from "app/core/config/app.translate.config";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
-import {appCoreInterceptor} from "src/app/core/config/app.core.interceptor";
+import {appCoreInterceptor} from "app/core/config/app.core.interceptor";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {MetrikaModule} from 'ng-yandex-metrika';
 import {NgxEditorModule} from "ngx-editor";
@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       routes,
-      withDebugTracing(),
+      // withDebugTracing(),
       inMemoryScrollingFeature
     ),
     importProvidersFrom(MetrikaModule.forRoot([

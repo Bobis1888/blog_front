@@ -7,9 +7,10 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 import {ThemeDataService} from "app/core/service/theme-data.service";
 import {animations} from 'app/core/config/app.animations';
 import {UserInfo} from 'app/core/service/auth/user-info';
-import {map, mergeMap, of, takeUntil} from "rxjs";
+import {mergeMap, of, takeUntil} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {LoginComponent} from "app/pages/auth/login/login.component";
+import {NotificationService} from "app/core/service/notification/notification.service";
 
 @Component({
   selector: 'top-menu',
@@ -22,11 +23,13 @@ import {LoginComponent} from "app/pages/auth/login/login.component";
 export class MenuComponent extends UnSubscriber implements OnInit {
 
   protected info?: UserInfo;
+  protected countUnread: number = 0;
 
   constructor(
     protected authService: AuthService,
     protected router: Router,
     protected themeDataService: ThemeDataService,
+    private notificationService: NotificationService,
     protected deviceService: DeviceDetectorService,
     private dialog: MatDialog
   ) {
@@ -47,13 +50,15 @@ export class MenuComponent extends UnSubscriber implements OnInit {
       next: (it) => this.info = it
     });
 
-    this.authService.infoChanged
+    AuthService.infoChanged
       .pipe(
         takeUntil(this.unSubscriber),
+        mergeMap(() => this.notificationService.countUnread()),
       )
       .subscribe({
-      next: () => {
+      next: (it) => {
         this.info = this.authService.userInfo;
+        this.countUnread = it ?? 0;
       }
     })
   }

@@ -7,7 +7,7 @@ import {
   Validators
 } from "@angular/forms";
 import {CoreModule} from "app/core/core.module";
-import {SuccessDto} from "src/app/core/dto/success-dto";
+import {SuccessDto} from "app/core/dto/success-dto";
 import {takeUntil} from "rxjs";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {HasErrors} from "app/core/abstract/has-errors";

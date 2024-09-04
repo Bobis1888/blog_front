@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {UnSubscriber} from 'src/app/core/abstract/un-subscriber';
-import {animations} from "src/app/core/config/app.animations";
-import {CoreModule} from "src/app/core/core.module";
+import {UnSubscriber} from 'app/core/abstract/un-subscriber';
+import {animations} from "app/core/config/app.animations";
+import {CoreModule} from "app/core/core.module";
 import {ActivatedRoute} from "@angular/router";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {StoriesService, Story} from "app/core/service/stories/stories.service";

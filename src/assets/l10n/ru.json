@@ -269,6 +269,18 @@
     "aboutUs": "О проекте",
     "copyright": "Mylog 2024"
   },
+  "notificationPage" : {
+    "type" : {
+      "comment": "У вас новый комментарий",
+      "comment_full" : "Пользователь <b>{{userName}}</b> оставил комментарий под публикацией <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
+      "like":  "Лайк",
+      "subscribe": "У вас новый подписчик",
+      "report": "На вас жалуются пользователи"
+    },
+    "readAll" : "Прочитать все",
+    "loadMore": "Загрузить еще",
+    "empty" : "Нет уведомлений"
+  },
   "errors": {
     "serverError": "Произошла ошибка на сервере",
     "image.maxSize": "Превышен максимальный размер файла ({{maxSize}} MB)",
