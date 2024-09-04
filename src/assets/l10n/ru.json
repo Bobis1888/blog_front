@@ -272,7 +272,7 @@
   "notificationPage" : {
     "type" : {
       "comment": "У вас новый комментарий",
-      "comment_full" : "Пользователь <b>{{userName}}</b> оставил комментарий под публикацией <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
+      "comment_full" : "Пользователь <b>{{userName}}</b> оставил комментарий под публикацией <br> <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
       "like":  "Лайк",
       "subscribe": "У вас новый подписчик",
       "report": "На вас жалуются пользователи"

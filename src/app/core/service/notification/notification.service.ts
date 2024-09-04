@@ -43,6 +43,6 @@ export class NotificationService {
   }
 
   readAll(): Observable<void> {
-    return this.httpSender.send(HttpMethod.GET, '/notification/read_all');
+    return this.httpSender.send(HttpMethod.POST, '/notification/read_all');
   }
 }

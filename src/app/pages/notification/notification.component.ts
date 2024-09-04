@@ -30,6 +30,7 @@ export class NotificationComponent extends HasErrors implements OnInit {
   protected loadMoreProgress: boolean = false;
   protected items: Array<Notification> = [];
   protected state: 'loading' | 'data' | 'empty' = 'loading';
+  protected unreadCount = 0;
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
@@ -48,6 +49,13 @@ export class NotificationComponent extends HasErrors implements OnInit {
   }
 
   ngOnInit(): void {
+    this.notificationService.countUnread()
+      .pipe(
+        takeUntil(this.unSubscriber),
+      ).subscribe({
+      next: (it) => this.unreadCount = it ?? 0
+    });
+
     this.list();
   }
 
@@ -101,10 +109,20 @@ export class NotificationComponent extends HasErrors implements OnInit {
   }
 
   readAll() {
+
+    if (this.unreadCount == 0) {
+      return;
+    }
+
     this.notificationService.readAll()
       .pipe(
         takeUntil(this.unSubscriber),
-      ).subscribe();
+      ).subscribe({
+      next: () => {
+        AuthService.infoChanged.next(true);
+        this.list();
+      }
+    });
   }
 
   processLinks(e: any) {
