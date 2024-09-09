@@ -47,18 +47,18 @@ export class StoriesService {
     return of([
       {
         id: 1,
-        title: 'Новый евент',
-        description: 'Пиши на заданные темы и поделись с друзьями',
+        title: 'Первый ивент на платформе стартовал',
+        description: 'Читай чтобы узнать подробности',
         link: 'event',
         lang: 'ru'
       },
-      {
-        id: 2,
-        title: 'Новый функционал',
-        description: 'Публикуем описание нового функционала',
-        link: 'features',
-        lang: 'ru'
-      }
+      // {
+      //   id: 2,
+      //   title: 'Функционал',
+      //   description: 'Публикуем описание нового функционала',
+      //   link: 'features',
+      //   lang: 'ru'
+      // }
     ])
     // return this.httpSender.send(HttpMethod.GET, '/stories/list?lang=' + this.lang);
   }
