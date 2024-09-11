@@ -6,7 +6,7 @@ import {
 } from "@angular/material/dialog";
 import {HasErrors} from "app/core/abstract/has-errors";
 import {CoreModule} from "app/core/core.module";
-import {takeUntil} from "rxjs";
+import {catchError, of, takeUntil} from "rxjs";
 import {MatButton} from "@angular/material/button";
 import {TranslateModule} from "@ngx-translate/core";
 import {CommentService} from "app/core/service/comment/comment.service";
@@ -34,9 +34,13 @@ export class DeleteDialog extends HasErrors {
   submit(): void {
     this.contentService
       .delete(this.data.id)
-      .pipe(takeUntil(this.unSubscriber))
+      .pipe(
+        takeUntil(this.unSubscriber),
+        catchError((err) => of(err))
+      )
       .subscribe({
-        next: () => this.dialogRef.close(true)
+        next: () => this.dialogRef.close(true),
+        error: () => this.dialogRef.close(false)
       });
   }
 

@@ -18,10 +18,11 @@ export class CommentService {
   constructor(private httpSender: HttpSenderService) {
   }
 
-  public save(contentId: string, comment: string): Observable<{ success: true }> {
+  public save(contentId: string, comment: string, parentId?: number): Observable<{ success: true }> {
     return this.httpSender.send(HttpMethod.POST, '/content/comment/save', {
       "contentId": contentId,
-      "comment": comment
+      "comment": comment,
+      "parentId": parentId
     });
   }
 

@@ -9,6 +9,9 @@
     </button>
   </div>
   <form [formGroup]="formGroup" (click)="textareaFocus()" *ngIf="authService.isAuthorized">
+    <div *ngIf="parent" class="in-response-to" [@opacity-2]>
+      <p [innerHTML]="'commentList.inResponseTo' | translate : {content: parent.content, nickname: parent.nickname}"></p>
+    </div>
     <mat-form-field appearance="outline">
         <textarea
           #focusField
@@ -24,6 +27,16 @@
     </mat-form-field>
     <div class="comment-footer">
       <div>
+        <button mat-flat-button
+
+                type="button"
+                color="warn"
+                (click)="cancel()"
+                *ngIf="parent"
+        >
+          {{ 'commentList.cancelButton' | translate }}
+        </button>
+
         <button mat-stroked-button
                 type="button"
                 (click)="submit()"
@@ -69,12 +82,12 @@
          *ngFor="let it of items; let i = index"
          [ngClass]="{'odd': i % 2 == 0, 'even': i % 2 == 1}">
       <div class="vote">
-<!--        <button mat-icon-button>-->
-<!--          <mat-icon>expand_less</mat-icon>-->
-<!--        </button>-->
-<!--        <button mat-icon-button>-->
-<!--          <mat-icon>expand_more</mat-icon>-->
-<!--        </button>-->
+        <!--        <button mat-icon-button>-->
+        <!--          <mat-icon>expand_less</mat-icon>-->
+        <!--        </button>-->
+        <!--        <button mat-icon-button>-->
+        <!--          <mat-icon>expand_more</mat-icon>-->
+        <!--        </button>-->
       </div>
       <div>
         <div class="comment-header">
@@ -83,20 +96,36 @@
               [queryParams]="{q: it.nickname, author: true}">
             {{ it.nickname }}
           </h2>
-          <button mat-icon-button (click)="delete(it)" *ngIf="it.actions?.canDelete">
-            <mat-icon>
-              highlight_off
-            </mat-icon>
-          </button>
         </div>
         <div class="comment-content">
           <span>
             {{ it.date | date : "d MMM y HH:mm" }}
           </span>
           <br>
+          <br *ngIf="it.parent">
+          <span *ngIf="it.parent"
+                [innerHTML]="'commentList.inResponseTo' | translate : {content: it.parent.content, nickname: it.parent.nickname}">
+
+          </span>
           <br>
           <p [innerHTML]="it.content | safeHtml"></p>
         </div>
+        <button mat-icon-button
+                (click)="reply(it)"
+                [matTooltip]="'commentList.replyTooltip' | translate"
+                [matTooltipShowDelay]="1500"
+                *ngIf="it.actions?.canReply">
+          <mat-icon>reply</mat-icon>
+        </button>
+        <button mat-icon-button
+                (click)="delete(it)"
+                [matTooltip]="'commentList.deleteTooltip' | translate"
+                [matTooltipShowDelay]="1500"
+                *ngIf="it.actions?.canDelete">
+          <mat-icon>
+            delete
+          </mat-icon>
+        </button>
       </div>
     </div>
   </div>

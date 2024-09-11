@@ -6,6 +6,14 @@
   --mdc-outlined-text-field-focus-outline-color: @backgroundColor !important;
 }
 
+::ng-deep.blockquote {
+  margin: auto;
+  border-radius: 20px;
+  padding: 20px;
+  border-left: 10px solid @warningColor;
+  background: @firstColor;
+}
+
 .content {
 
   .filter {
@@ -22,7 +30,7 @@
 }
 
 .filter-icon {
-  transition:.5s ease-in-out;
+  transition: .5s ease-in-out;
 }
 
 .rotate {
@@ -109,6 +117,10 @@ form:hover {
   span {
     padding: 10px 20px;
   }
+
+  button {
+    margin: 0 5px;
+  }
 }
 
 .load-more {
@@ -124,6 +136,13 @@ form:hover {
   }
 }
 
+
+.in-response-to {
+  padding: 10px 25px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: @secondColor;
+}
 
 .mobile {
   .comment {

@@ -61,8 +61,6 @@
       <button mat-flat-button (click)="loadMore()" *ngIf="!loadMoreProgress">
         {{ 'notificationPage.loadMore' | translate }}
       </button>
-      <br>
-      <br>
       <div class="progress-bar-container" *ngIf="loadMoreProgress">
         <mat-progress-bar mode="buffer"></mat-progress-bar>
       </div>

@@ -5,11 +5,17 @@ export interface Comment {
   date: Date;
   rating: number
   actions: Actions;
+  parent?: ParentComment;
+}
+
+export interface ParentComment {
+  nickname: string;
+  content: string;
 }
 
 export interface Actions {
   canDelete: boolean;
-  canEdit: boolean;
+  canReply: boolean;
   canReport: boolean;
   canVote: boolean;
 }

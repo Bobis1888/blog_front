@@ -223,7 +223,11 @@
     "noComments": "Нет комментариев",
     "placeholder": "Комментарий...",
     "loadMore": "Загрузить еще",
-    "sendButton": "Отправить"
+    "sendButton": "Отправить",
+    "cancelButton": "Отменить",
+    "replyTooltip" : "Ответить",
+    "deleteTooltip" : "Удалить",
+    "inResponseTo" : "<b>В ответ на:</b> <br><br><blockquote class=\"blockquote\"><span><i>{{nickname}}</i></span><br>{{content}}</blockquote>"
   },
   "viewContentPage": {
     "timeToRead": "Время чтения {{time}} мин.",
@@ -273,6 +277,8 @@
     "type" : {
       "comment": "У вас новый комментарий",
       "comment_full" : "Пользователь <b>{{userName}}</b> оставил комментарий под публикацией <br> <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
+      "reply_comment": "Вам ответили на комментарий",
+      "reply_comment_full" : "Пользователь <b>{{userName}}</b> ответил на комментарий под публикацией <br> <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
       "like":  "Лайк",
       "subscribe": "У вас новый подписчик",
       "report": "На вас жалуются пользователи"

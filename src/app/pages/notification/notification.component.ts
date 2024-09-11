@@ -24,7 +24,7 @@ export class NotificationComponent extends HasErrors implements OnInit {
   protected notificationService: NotificationService;
   protected router: Router;
 
-  protected max = 10;
+  protected max = 5;
   protected page = 0;
   protected totalPages: number = 0;
   protected loadMoreProgress: boolean = false;

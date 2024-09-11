@@ -224,7 +224,9 @@
     "noComments": "No comments",
     "placeholder": "Write a comment...",
     "loadMore": "Load more",
-    "sendButton": "Send"
+    "sendButton": "Send",
+    "cancelButton": "Cancel",
+    "inResponseTo" : "<b>In response to:</b> <br><blockquote class=\"blockquote\">{{content}}<br><span><i>{{nickname}}</i></span></blockquote>"
   },
   "viewContentPage": {
     "timeToRead": "Time to read {{time}} min.",
@@ -274,6 +276,8 @@
     "type" : {
       "comment": "You have a new comment",
       "comment_full" : "User <b>{{userName}}</b> left a comment on <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Go to the publication</a></b>",
+      "reply_comment": "You have a new comment",
+      "reply_comment_full" : "User <b>{{userName}}</b> left a comment on <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Go to the publication</a></b>",
       "like":  "Like",
       "subscribe": "You have a new subscriber",
       "report": "Report"

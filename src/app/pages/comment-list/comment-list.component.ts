@@ -42,7 +42,9 @@ export class CommentListComponent extends HasErrors implements OnInit {
   protected items: Array<Comment> = [];
   protected state: 'loading' | 'data' | 'empty' = 'loading';
   protected maxLength: number = 255;
-  protected direction: 'ASC' | 'DESC' = 'DESC';
+  protected direction: 'ASC' | 'DESC' = 'ASC';
+
+  protected parent?: Comment | null;
 
   get isMobile(): boolean {
     return this.deviceService.isMobile();
@@ -67,6 +69,12 @@ export class CommentListComponent extends HasErrors implements OnInit {
 
   ngOnInit(): void {
     this.formGroup.addControl("content", new FormControl(""));
+    const direction = localStorage.getItem("commentDirection");
+
+    if (direction == 'ASC' || direction == 'DESC') {
+      this.direction = direction;
+    }
+
     this.list();
   }
 
@@ -109,10 +117,11 @@ export class CommentListComponent extends HasErrors implements OnInit {
     this.page = 0;
 
     this.commentService
-      .save(this.contentId, comment)
+      .save(this.contentId, comment, this.parent?.id)
       .subscribe({
         next: (it) => {
           if (it.success) {
+            this.parent = null;
             this.list();
             this.formGroup.get('content')?.setValue('');
           }
@@ -129,6 +138,7 @@ export class CommentListComponent extends HasErrors implements OnInit {
 
   reorder() {
     this.direction = this.direction == 'ASC' ? 'DESC' : 'ASC';
+    localStorage.setItem('commentDirection', this.direction);
 
     if (this.items.length > 0) {
       this.state = 'loading';
@@ -157,5 +167,25 @@ export class CommentListComponent extends HasErrors implements OnInit {
         },
         error: () => this.state = this.items.length > 0 ? 'data' : 'empty'
       });
+  }
+
+  reply(it: Comment) {
+    this.parent = it;
+    this.formGroup.get('content')?.setValue('');
+    this.scrollToElement(this.focusField?.nativeElement);
+    setTimeout(() => this.textareaFocus(), 300);
+  }
+
+  scrollToElement($element: any): void {
+    $element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest',
+    });
+  }
+
+  cancel() {
+    this.parent = null;
+    this.formGroup.get('content')?.setValue('');
   }
 }
