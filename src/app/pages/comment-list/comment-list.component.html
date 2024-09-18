@@ -114,7 +114,7 @@
                 (click)="reply(it)"
                 [matTooltip]="'commentList.replyTooltip' | translate"
                 [matTooltipShowDelay]="1500"
-                *ngIf="it.actions?.canReply">
+                *ngIf="it.actions?.canReply && this.authService.isAuthorized">
           <mat-icon>reply</mat-icon>
         </button>
         <button mat-icon-button
