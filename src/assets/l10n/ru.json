@@ -210,12 +210,14 @@
   "searchPage": {
     "search": "Поиск",
     "metaTitle": "Mylog - Поиск",
+    "subscribe": "Подписаться",
+    "unsubscribe": "Отписаться",
     "notFound": "Публикации не найдены",
     "message": "Для поиска авторов используйте префикс <b>@</b>.<br>Для поиска по тегам используйте префикс <b>#</b>.",
     "noDescription": "Нет описания",
     "subscribers": "Подписчиков: {{count}}",
     "articles": "Публикации: {{count}}",
-    "registrationDate": "На платформе {{date}} д.",
+    "registrationDate": "На платформе: {{date}} д.",
     "loadMore": "Загрузить еще"
   },
   "commentList": {
@@ -276,9 +278,9 @@
   "notificationPage" : {
     "type" : {
       "comment": "У вас новый комментарий",
-      "comment_full" : "Пользователь <b>{{userName}}</b> оставил комментарий под публикацией <br> <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
+      "comment_full" : "Пользователь <b>{{username}}</b> оставил комментарий под публикацией <br> <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
       "reply_comment": "Вам ответили на комментарий",
-      "reply_comment_full" : "Пользователь <b>{{userName}}</b> ответил на комментарий под публикацией <br> <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
+      "reply_comment_full" : "Пользователь <b>{{username}}</b> ответил на комментарий под публикацией <br> <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Перейти к публикации</a></b>",
       "like":  "Лайк",
       "subscribe": "У вас новый подписчик",
       "report": "На вас жалуются пользователи"

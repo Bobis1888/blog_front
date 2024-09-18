@@ -33,22 +33,30 @@
                 alt="avatar"
               />
             </div>
-
-            <h2>
-              {{ authorInfo.nickname }}
-            </h2>
+            <div>
+              <button mat-flat-button type="button" (click)="subscribe(authorInfo)"
+                      *ngIf="authorInfo.additionalInfo?.canSubscribe">
+                {{ 'searchPage.subscribe' | translate }}
+              </button>
+              <button mat-flat-button type="button" (click)="unsubscribe(authorInfo)"
+                      *ngIf="authorInfo.additionalInfo?.canUnsubscribe">
+                {{ 'searchPage.unsubscribe' | translate }}
+              </button>
+            </div>
           </div>
         </div>
-        <div class="title">
+        <div class="sub-title">
           <h2>
+            {{ authorInfo.nickname }}
+          </h2>
+          <b>
             {{
               "searchPage.registrationDate"
                 | translate
                 : {date: authorInfo.additionalInfo?.registrationDate ?? 0}
             }}
-          </h2>
-        </div>
-        <div class="sub-title">
+          </b>
+          <br>
           <b>
             {{
               "searchPage.articles"

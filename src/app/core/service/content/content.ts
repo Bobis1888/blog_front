@@ -8,6 +8,7 @@ export interface Content {
   content: string;
   tags: Array<string>;
   authorName: string;
+  authorId: number;
   countViews: number;
   countReactions: number;
   countComments: number;

@@ -116,6 +116,8 @@ export class CommentListComponent extends HasErrors implements OnInit {
     let comment = this.safeHtmlService.sanitize(this.formGroup.get('content')?.value);
     this.page = 0;
 
+    comment = this.replaceLinksWithHtmlTags(comment);
+
     this.commentService
       .save(this.contentId, comment, this.parent?.id)
       .subscribe({
@@ -187,5 +189,14 @@ export class CommentListComponent extends HasErrors implements OnInit {
   cancel() {
     this.parent = null;
     this.formGroup.get('content')?.setValue('');
+  }
+
+
+  private replaceLinksWithHtmlTags(text: string): string {
+    const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+
+    return text.replace(urlRegex, (match) => {
+      return `<a href="${match}">${match}</a>`;
+    });
   }
 }

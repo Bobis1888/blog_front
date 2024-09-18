@@ -13,24 +13,26 @@
 
     img {
       clip-path: none !important;
+      object-fit: cover;
     }
   }
 
   .avatar {
     background-color: @firstColor;
     border: 3px @fifthColor solid;
-    border-radius: 50px;
+    border-radius: 99px;
     cursor: pointer;
     padding: 5px;
-    width: 60px;
-    height: 60px;
+    width: 95px;
+    height: 95px;
     transition: opacity 400ms;
 
     img {
       display: block;
       width: 100%;
       height: 100%;
-      clip-path: circle(30px at center);
+      clip-path: circle(45px at center);
+      object-fit: cover;
     }
   }
 
@@ -42,6 +44,10 @@
     padding-top: 10px;
     padding-left: 30px;
     padding-right: 30px;
+
+    h1 {
+      margin: 0;
+    }
   }
 
   .stat {

@@ -42,6 +42,7 @@
 
   .card-tags {
     padding: 5px 20px;
+    font-weight: bold;
   }
 
   .result-block, .author-block {
@@ -120,20 +121,15 @@
 
     .description {
       font-size: 18px;
-      line-break: anywhere;
+      line-break: auto;
     }
 
     .title-avatar {
       display: flex;
       flex-direction: row;
-      align-items: center;
-      align-content: center;
-
-      h2 {
-        margin-left: 10px;
-        line-break: anywhere;
-        max-width: 75%;
-      }
+      align-content: space-between;
+      justify-content: space-between;
+      width: 100%;
     }
 
     .default-avatar {
@@ -143,14 +139,15 @@
     .avatar {
       border: 2px @fifthColor solid;
       border-radius: 99px;
-      width: 50px;
-      height: 50px;
+      width: 95px;
+      height: 95px;
 
       img {
         display: block;
         width: 100%;
         height: 100%;
-        clip-path: circle(24px at center);
+        clip-path: circle(45px at center);
+        object-fit: cover;
       }
     }
   }
@@ -170,17 +167,6 @@
 
   form {
     width: 90%;
-  }
-
-  .title {
-    flex-direction: column;
-    justify-content: start !important;
-    align-items: start !important;
-    align-content: start !important;
-
-    .title-avatar {
-      margin-bottom: 20px;
-    }
   }
 }
 

@@ -1,15 +1,14 @@
-import {Component} from '@angular/core';
-import {ReactiveFormsModule} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormControl, ReactiveFormsModule, ValidationErrors, Validators} from "@angular/forms";
 import {CoreModule} from "app/core/core.module";
-import {AuthService} from "app/core/service/auth/auth.service";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {TranslateModule} from "@ngx-translate/core";
 import {takeUntil} from "rxjs";
-import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, Router} from "@angular/router";
-import {RegistrationComponent as Registration} from "app/pages/auth/registration/registration.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Metrika} from "ng-yandex-metrika";
+import {HasErrors} from "app/core/abstract/has-errors";
+import {AuthService} from "app/core/service/auth/auth.service";
+import {DeviceDetectorService} from "ngx-device-detector";
+import {MatSnackBar, MatSnackBarRef} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'change-password',
@@ -18,26 +17,39 @@ import {Metrika} from "ng-yandex-metrika";
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.less'
 })
-export class ChangePasswordComponent extends Registration {
+export class ChangePasswordComponent extends HasErrors implements OnInit {
 
-  constructor(protected aRouter: ActivatedRoute,
-              router: Router,
-              authService: AuthService,
-              deviceService: DeviceDetectorService,
-              metrika: Metrika,
-              matSnackBar: MatSnackBar) {
-    super(authService, router, deviceService, metrika, matSnackBar);
+  constructor(protected authService: AuthService,
+              protected router: Router,
+              protected aRouter: ActivatedRoute,
+              protected deviceService: DeviceDetectorService,
+              protected matSnackBar: MatSnackBar) {
+    super();
   }
 
   private uuid: string = "";
+  hide: boolean = true;
+  loading: boolean = false;
+  state: 'form' | 'message' = 'form';
+  ref?: MatSnackBarRef<any>;
 
-  override ngOnInit() {
-    super.ngOnInit();
-    this.formGroup.removeControl('email');
+  get isMobile(): boolean {
+    return this.deviceService.isMobile();
+  }
+
+  ngOnInit() {
+    this.formGroup.addControl('password', new FormControl('', [Validators.minLength(8)]));
+    this.formGroup.addControl('passwordRepeat', new FormControl('', [
+        Validators.minLength(8),
+        (control: AbstractControl): ValidationErrors | null => {
+          return control.value != this.formGroup?.get("password")?.value ? {notEqual: true} : null;
+        }
+      ]
+    ));
     this.uuid = this.aRouter.snapshot.queryParamMap.get("uuid") ?? "";
   }
 
-  override submit(): void {
+  submit(): void {
 
     if (this.loading) {
       return;
@@ -72,5 +84,11 @@ export class ChangePasswordComponent extends Registration {
         }
       })
     }
+  }
+
+  override ngOnDestroy() {
+    this.ref?.dismiss();
+    super.ngOnDestroy();
+    super.ngOnDestroy();
   }
 }

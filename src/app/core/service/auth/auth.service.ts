@@ -69,7 +69,7 @@ export class AuthService extends UnSubscriber {
 
   public login(login: string, password: string): Observable<SuccessDto> {
     return this.httpSender
-      .send(HttpMethod.POST, '/auth/login', {login, password})
+      .send(HttpMethod.POST, '/user/auth/login', {login, password})
       .pipe(
         map((it) => {
           if (it.success) {
@@ -82,14 +82,14 @@ export class AuthService extends UnSubscriber {
   }
 
   public registration(email: any, password: any): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.POST, '/auth/registration', {
+    return this.httpSender.send(HttpMethod.POST, '/user/auth/registration', {
       email,
       password,
     });
   }
 
   public getState(): Observable<{ logged: boolean }> {
-    return this.httpSender.send(HttpMethod.GET, '/auth/state').pipe(
+    return this.httpSender.send(HttpMethod.GET, '/user/state').pipe(
       map((res: { logged: boolean }) => {
         if (res.logged) {
           this.changeAuthState(AuthState.authorized);
@@ -118,7 +118,7 @@ export class AuthService extends UnSubscriber {
   }
 
   public logout(): Observable<void> {
-    return this.httpSender.send(HttpMethod.GET, '/auth/logout').pipe(
+    return this.httpSender.send(HttpMethod.GET, '/user/auth/logout').pipe(
       map(() => {
         localStorage.removeItem('cachedUserInfo');
         this.changeAuthState(AuthState.unauthorized);
@@ -129,7 +129,7 @@ export class AuthService extends UnSubscriber {
   public resetPassword(email: string): Observable<SuccessDto> {
     return this.httpSender.send(
       HttpMethod.GET,
-      '/auth/reset-password?email=' + email,
+      '/user/auth/reset-password?email=' + email,
     );
   }
 
@@ -137,46 +137,39 @@ export class AuthService extends UnSubscriber {
     password: string,
     uuid: string,
   ): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.POST, '/auth/change-password', {
+    return this.httpSender.send(HttpMethod.POST, '/user/auth/change-password', {
       uuid,
       password,
     });
   }
 
   public changeNickname(nickname: string): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.POST, '/auth/change-nickname', {
+    return this.httpSender.send(HttpMethod.POST, '/user/change-nickname', {
       nickname,
     });
   }
 
   public changeDescription(description: string): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.POST, '/auth/change-description', {
+    return this.httpSender.send(HttpMethod.POST, '/user/change-description', {
       description,
     });
   }
 
   public changeImagePath(imagePath: string): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.POST, '/auth/change-image-path', {
+    return this.httpSender.send(HttpMethod.POST, '/user/change-image-path', {
       imagePath,
     });
   }
 
   public info(
-    force: boolean = false,
-    nickname: string = '',
+    force: boolean = false
   ): Observable<UserInfo> {
-    if (nickname) {
-      nickname = '/' + nickname;
-    }
 
-    if (force || this.userInfo.nickname == null || nickname) {
-      return this.httpSender.send(HttpMethod.GET, '/auth/info' + nickname).pipe(
+    if (force || this.userInfo.nickname == null) {
+      return this.httpSender.send(HttpMethod.GET, '/user/info').pipe(
         tap((it: UserInfo) => {
           it.hasImage = it.imagePath != null;
-
-          if (!nickname) {
-            this.userInfo = it;
-          }
+          this.userInfo = it;
         }),
       );
     }
@@ -184,8 +177,8 @@ export class AuthService extends UnSubscriber {
     return of(this.userInfo);
   }
 
-  public infos(nickname: string): Observable<Array<UserInfo>> {
-    return this.httpSender.send(HttpMethod.GET, '/auth/infos/' + nickname)
+  public listInfo(nickname: string): Observable<Array<UserInfo>> {
+    return this.httpSender.send(HttpMethod.GET, '/user/info/' + nickname)
       .pipe(
         tap((it: Array<UserInfo>) => it.forEach((info: UserInfo) => info.hasImage = info.imagePath != null)),
       );

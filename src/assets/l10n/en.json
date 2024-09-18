@@ -275,9 +275,9 @@
   "notificationPage" : {
     "type" : {
       "comment": "You have a new comment",
-      "comment_full" : "User <b>{{userName}}</b> left a comment on <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Go to the publication</a></b>",
+      "comment_full" : "User <b>{{username}}</b> left a comment on <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Go to the publication</a></b>",
       "reply_comment": "You have a new comment",
-      "reply_comment_full" : "User <b>{{userName}}</b> left a comment on <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Go to the publication</a></b>",
+      "reply_comment_full" : "User <b>{{username}}</b> left a comment on <b>{{articleTitle}}</b> </br> </br> <b><a routerLink=\"/content/view/{{articleId}}\">Go to the publication</a></b>",
       "like":  "Like",
       "subscribe": "You have a new subscriber",
       "report": "Report"

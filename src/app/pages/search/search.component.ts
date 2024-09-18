@@ -5,13 +5,13 @@ import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {ActivatedRoute, EventType, Router} from "@angular/router";
 import {ContentService, Filter, RequestType} from "app/core/service/content/content.service";
-import {catchError, debounceTime, distinctUntilChanged, map, mergeMap, of, takeUntil} from "rxjs";
+import {catchError, debounceTime, distinctUntilChanged, map, mergeMap, Observable, of, takeUntil} from "rxjs";
 import {Meta} from "@angular/platform-browser";
 import {Content} from "app/core/service/content/content";
 import {AdditionalInfo, UserInfo} from "app/core/service/auth/user-info";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {StatisticsService} from "app/core/service/content/statistics.service";
-import {SubscriptionService} from "app/core/service/content/subscription.service";
+import {ActionsListResponse, SubscriptionService} from "app/core/service/content/subscription.service";
 import {NgOptimizedImage} from "@angular/common";
 import {Statistics} from "app/core/service/content/statistics";
 import {Tag, TagService, TagsFilter} from "app/core/service/content/tag.service";
@@ -220,29 +220,24 @@ export class SearchComponent extends HasErrors implements OnInit {
 
   public searchAuthors(nickname: string) {
     this.authorInfos = [];
-    this.authService.infos(nickname)
+    this.authService.listInfo(nickname)
       .pipe(
         takeUntil(this.unSubscriber),
         map(it => this.authorInfos = it),
         mergeMap(() => this.initStats()),
+        mergeMap(() => this.initAdditionalInfo()),
         catchError((err) => of(err))
       )
       .subscribe({
         next: () => {
 
-          if (this.authorInfos) {
-            this.authorInfos.map(it => {
-              it.additionalInfo = {} as AdditionalInfo;
-              it.additionalInfo.registrationDate = this.registrationDate(it);
-              return it;
-            })
-          }
+
         },
       });
   }
 
   private initStats() {
-    return this.statService.getList(this.authorInfos.map(it => it.id)).pipe(
+    return this.statService.getList(this.authorInfos.map(it => it.id.toString())).pipe(
       map(stat => {
 
         if (this.authorInfos) {
@@ -295,7 +290,16 @@ export class SearchComponent extends HasErrors implements OnInit {
 
   subscribe(authorInfo: UserInfo) {
     this.subsService
-      .subscribe(authorInfo?.nickname ?? '')
+      .subscribe(authorInfo.id)
+      .pipe(takeUntil(this.unSubscriber))
+      .subscribe({
+        next: () => this.searchAuthors(this.query),
+      });
+  }
+
+  unsubscribe(authorInfo: UserInfo) {
+    this.subsService
+      .unsubscribe(authorInfo.id)
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: () => this.searchAuthors(this.query),
@@ -321,5 +325,28 @@ export class SearchComponent extends HasErrors implements OnInit {
     if (boundingRectEnd.top >= 0 && boundingRectEnd.bottom <= windowHeight && this.canLoadMore) {
       this.loadMore();
     }
+  }
+
+  private initAdditionalInfo(): Observable<any> {
+
+    if (this.authorInfos) {
+
+      let obs = this.authService.isAuthorized ? this.subsService.actions(this.authorInfos.map(ai => ai.id)) : of({list: []} as ActionsListResponse);
+
+      obs.subscribe({
+        next: (it) => {
+          let list = it?.list ?? [];
+          this.authorInfos.map(it => {
+            it.additionalInfo = {} as AdditionalInfo;
+            it.additionalInfo.registrationDate = this.registrationDate(it);
+            it.additionalInfo.canSubscribe = list.find((a: any) => a.userId == it.id)?.canSubscribe ?? false;
+            it.additionalInfo.canUnsubscribe = list.find((a: any) => a.userId == it.id)?.canUnsubscribe ?? false;
+            return it;
+          })
+        }
+      });
+    }
+
+    return of(true);
   }
 }

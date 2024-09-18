@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {HttpMethod, HttpSenderService} from "../base/http-sender.service";
 import {Observable} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
-import {Filter} from "app/core/service/content/content.service";
 
 export interface SubscriptionListResponse {
   list: Array<Subscription>;
@@ -10,9 +9,35 @@ export interface SubscriptionListResponse {
   totalRows: number;
 }
 
+export interface ActionsListResponse {
+  list: Array<SubscriptionActions>;
+  // totalPages: number;
+  // totalRows: number;
+}
+
+export interface SubscriptionActions {
+  userId: number;
+  canSubscribe: boolean;
+  canUnsubscribe: boolean;
+}
+
 export interface Subscription {
   nickname: string;
   subscribedDate: Date;
+}
+
+export enum Type {
+  SUBSCRIPTION = 'SUBSCRIPTION',
+  SUBSCRIBERS = 'SUBSCRIBERS'
+}
+
+export interface Filter {
+  type: Type;
+  max: number;
+  page: number;
+  sortBy: Array<string>;
+  direction: "ASC" | "DESC";
+  query: string;
 }
 
 @Injectable({
@@ -20,21 +45,22 @@ export interface Subscription {
 })
 export class SubscriptionService {
 
-  constructor(private httpSender: HttpSenderService) {}
-
-  subscribe(authorName: string): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.PUT, '/content/subscribe/' + authorName);
+  constructor(private httpSender: HttpSenderService) {
   }
 
-  unsubscribe(authorName: any): Observable<SuccessDto> {
-    return this.httpSender.send(HttpMethod.DELETE, '/content/unsubscribe/' + authorName);
+  subscribe(authorName: number): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.PUT, '/subscription/subscribe/' + authorName);
   }
 
-  subscribers(filter: Filter): Observable<SubscriptionListResponse> {
-    return this.httpSender.send(HttpMethod.POST, '/content/subscribers', filter);
+  unsubscribe(authorName: number): Observable<SuccessDto> {
+    return this.httpSender.send(HttpMethod.DELETE, '/subscription/unsubscribe/' + authorName);
   }
 
-  subscriptions(filter: Filter): Observable<SubscriptionListResponse> {
-    return this.httpSender.send(HttpMethod.POST, '/content/subscriptions', filter);
+  list(filter: Filter): Observable<SubscriptionListResponse> {
+    return this.httpSender.send(HttpMethod.POST, '/subscription/list', filter);
+  }
+
+  actions(userIds: Array<number>): Observable<ActionsListResponse> {
+    return this.httpSender.send(HttpMethod.GET, '/subscription/actions?userIds=' + userIds.join(','));
   }
 }

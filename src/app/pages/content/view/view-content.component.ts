@@ -240,7 +240,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
 
   subscribe() {
     this.subsService
-      .subscribe(this.content.authorName)
+      .subscribe(this.content.authorId)
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
         next: (res) => {

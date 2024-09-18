@@ -1,7 +1,7 @@
 import {Statistics} from "app/core/service/content/statistics";
 
 export interface UserInfo {
-  id: string;
+  id: number;
   nickname: string;
   registrationDate: Date;
   enabled: boolean;
@@ -16,5 +16,6 @@ export interface UserInfo {
 
 export interface AdditionalInfo {
   canSubscribe: boolean;
+  canUnsubscribe: boolean;
   registrationDate: number;
 }

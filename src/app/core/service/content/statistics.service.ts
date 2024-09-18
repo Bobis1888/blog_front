@@ -11,10 +11,10 @@ export class StatisticsService {
   constructor(private httpSender: HttpSenderService) {}
 
   get(): Observable<Statistics> {
-    return this.httpSender.send(HttpMethod.GET, '/content/statistics');
+    return this.httpSender.send(HttpMethod.GET, '/statistic');
   }
 
   getList(list: Array<string>): Observable<Array<Statistics>> {
-    return this.httpSender.send(HttpMethod.POST, '/content/statistics/list', list);
+    return this.httpSender.send(HttpMethod.POST, '/statistic/list', list);
   }
 }

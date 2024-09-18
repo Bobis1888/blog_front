@@ -94,6 +94,7 @@ export class RegistrationComponent extends HasErrors implements OnInit {
   override ngOnDestroy() {
     this.ref?.dismiss();
     super.ngOnDestroy();
+    super.ngOnDestroy();
   }
 
   submit(): void {

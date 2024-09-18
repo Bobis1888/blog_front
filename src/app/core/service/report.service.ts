@@ -17,6 +17,6 @@ export class ReportService {
   }
 
   report(report: ReportDto): Observable<void> {
-    return this.httpSender.send(HttpMethod.POST, '/auth/report', report);
+    return this.httpSender.send(HttpMethod.POST, '/user/report', report);
   }
 }
