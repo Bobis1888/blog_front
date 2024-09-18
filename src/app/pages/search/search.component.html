@@ -49,27 +49,35 @@
           <h2>
             {{ authorInfo.nickname }}
           </h2>
-          <b>
-            {{
-              "searchPage.registrationDate"
-                | translate
-                : {date: authorInfo.additionalInfo?.registrationDate ?? 0}
-            }}
-          </b>
-          <br>
-          <b>
-            {{
-              "searchPage.articles"
-                | translate: {count: authorInfo.statistics?.articles ?? 0}
-            }}
-          </b>
-          <br>
-          <b>
-            {{
-              "searchPage.subscribers"
-                | translate: {count: authorInfo.statistics?.subscribers ?? 0}
-            }}
-          </b>
+          <ng-container *ngIf="authorInfo.statistics?.articles" [@opacity-2]>
+            <b>
+              {{
+                "searchPage.articles"
+                  | translate: {count: authorInfo.statistics?.articles}
+              }}
+            </b>
+            <br>
+          </ng-container>
+          <ng-container *ngIf="authorInfo.statistics?.subscribers" [@opacity-2]>
+
+            <b>
+              {{
+                "searchPage.subscribers"
+                  | translate: {count: authorInfo.statistics?.subscribers}
+              }}
+            </b>
+            <br>
+          </ng-container>
+          <ng-container *ngIf="authorInfo.additionalInfo?.registrationDate" [@opacity-2]>
+            <b>
+              {{
+                "searchPage.registrationDate"
+                  | translate
+                  : {date: authorInfo.additionalInfo?.registrationDate}
+              }}
+            </b>
+          </ng-container>
+
         </div>
       </div>
 

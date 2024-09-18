@@ -12,6 +12,7 @@ import {CoreModule} from "app/core/core.module";
 import {MatInput} from "@angular/material/input";
 import {HasErrors} from "app/core/abstract/has-errors";
 import {DeviceDetectorService} from "ngx-device-detector";
+import {replaceLinksWithHtmlTags} from "app/core/utils";
 
 export interface DialogData {
   description: string;
@@ -59,6 +60,8 @@ export class ChangeDescriptionDialog extends HasErrors implements OnInit {
 
   saveNickname(): void {
     let description = this.description?.value;
+
+    description = replaceLinksWithHtmlTags(description);
 
     this.authService
       .changeDescription(description)

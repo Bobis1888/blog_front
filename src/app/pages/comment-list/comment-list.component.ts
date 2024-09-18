@@ -11,6 +11,7 @@ import {SafeHtmlService} from "app/core/pipe/safe-html";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteDialog} from "app/pages/comment-list/delete-comment-dialog/delete.dialog";
 import {AuthService} from "app/core/service/auth/auth.service";
+import {replaceLinksWithHtmlTags} from "app/core/utils";
 
 @Component({
   selector: 'comment-list',
@@ -116,7 +117,7 @@ export class CommentListComponent extends HasErrors implements OnInit {
     let comment = this.safeHtmlService.sanitize(this.formGroup.get('content')?.value);
     this.page = 0;
 
-    comment = this.replaceLinksWithHtmlTags(comment);
+    comment = replaceLinksWithHtmlTags(comment);
 
     this.commentService
       .save(this.contentId, comment, this.parent?.id)
@@ -189,14 +190,5 @@ export class CommentListComponent extends HasErrors implements OnInit {
   cancel() {
     this.parent = null;
     this.formGroup.get('content')?.setValue('');
-  }
-
-
-  private replaceLinksWithHtmlTags(text: string): string {
-    const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
-
-    return text.replace(urlRegex, (match) => {
-      return `<a href="${match}">${match}</a>`;
-    });
   }
 }

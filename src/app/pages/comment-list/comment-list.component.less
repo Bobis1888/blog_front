@@ -112,7 +112,7 @@ form:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 15px 20px;
 
   span {
     padding: 10px 20px;
@@ -136,16 +136,25 @@ form:hover {
   }
 }
 
-
 .in-response-to {
-  padding: 10px 25px;
+  padding: 15px 25px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: @secondColor;
 }
 
+.in-response-to-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .mobile {
   .comment {
     margin: 20px 0;
+  }
+
+  .vote {
+    display: none;
   }
 }

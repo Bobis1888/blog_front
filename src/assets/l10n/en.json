@@ -198,6 +198,8 @@
     "search": "Search",
     "metaTitle": "Mylog - Search",
     "notFound": "Content not found",
+    "subscribe": "Subscribe",
+    "unsubscribe": "Unsubscribe",
     "noDescription": "No description",
     "registrationDate": "On the platform for {{date}} days",
     "subscribers": "Subscribers: {{count}}",
@@ -225,7 +227,7 @@
     "placeholder": "Write a comment...",
     "loadMore": "Load more",
     "sendButton": "Send",
-    "cancelButton": "Cancel",
+    "reply": "Reply",
     "inResponseTo" : "<b>In response to:</b> <br><blockquote class=\"blockquote\">{{content}}<br><span><i>{{nickname}}</i></span></blockquote>"
   },
   "viewContentPage": {

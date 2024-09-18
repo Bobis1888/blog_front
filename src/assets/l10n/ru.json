@@ -226,9 +226,9 @@
     "placeholder": "Комментарий...",
     "loadMore": "Загрузить еще",
     "sendButton": "Отправить",
-    "cancelButton": "Отменить",
     "replyTooltip" : "Ответить",
     "deleteTooltip" : "Удалить",
+    "reply": "Ответить",
     "inResponseTo" : "<b>В ответ на:</b> <br><br><blockquote class=\"blockquote\"><span><i>{{nickname}}</i></span><br>{{content}}</blockquote>"
   },
   "viewContentPage": {

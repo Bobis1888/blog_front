@@ -10,8 +10,24 @@
   </div>
   <form [formGroup]="formGroup" (click)="textareaFocus()" *ngIf="authService.isAuthorized">
     <div *ngIf="parent" class="in-response-to" [@opacity-2]>
-      <p [innerHTML]="'commentList.inResponseTo' | translate : {content: parent.content, nickname: parent.nickname}"></p>
+      <div class="in-response-to-title">
+        <span><b>{{  'commentList.reply' | translate }}</b></span>
+        <button mat-icon-button
+                (click)="cancel()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+
+      <blockquote class="blockquote">
+        <span>
+          <i>{{ parent.nickname }}</i>
+        </span>
+        <br>
+        {{ parent.content }}
+      </blockquote>
     </div>
+    <!--      <p-->
+    <!--        [innerHTML]="'commentList.inResponseTo' | translate : {content: parent.content, nickname: parent.nickname}"></p>-->
     <mat-form-field appearance="outline">
         <textarea
           #focusField
@@ -27,16 +43,6 @@
     </mat-form-field>
     <div class="comment-footer">
       <div>
-        <button mat-flat-button
-
-                type="button"
-                color="warn"
-                (click)="cancel()"
-                *ngIf="parent"
-        >
-          {{ 'commentList.cancelButton' | translate }}
-        </button>
-
         <button mat-stroked-button
                 type="button"
                 (click)="submit()"
