@@ -67,18 +67,15 @@ export class ChangeDescriptionDialog extends HasErrors implements OnInit {
       next: it => {
         it = replaceLinksWithHtmlTags(it);
 
-        if (it.length <= this.maxLength) {
+        if (it?.length <= this.maxLength) {
           this.description?.setValue(it, {emitEvent: false});
         }
       }
     });
   }
 
-  saveNickname(): void {
+  save(): void {
     let description = this.description?.value;
-
-    description = replaceLinksWithHtmlTags(description);
-
     this.authService
       .changeDescription(description)
       .pipe(
