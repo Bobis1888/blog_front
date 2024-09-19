@@ -184,6 +184,12 @@ export class AuthService extends UnSubscriber {
       );
   }
 
+  public publicInfo(id: number): Observable<UserInfo> {
+    return this.httpSender.send(HttpMethod.GET, '/user/public_info/' + id).pipe(
+      tap((info: UserInfo) => info.hasImage = info.imagePath != null)
+    );
+  }
+
   private changeAuthState(authState: AuthState) {
     localStorage.setItem('authState', authState);
   }

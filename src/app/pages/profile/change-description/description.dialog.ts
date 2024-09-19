@@ -4,7 +4,7 @@ import {
   MatDialogActions,
   MatDialogContent, MatDialogRef,
 } from "@angular/material/dialog";
-import {takeUntil} from "rxjs";
+import {debounceTime, distinctUntilChanged, takeUntil} from "rxjs";
 import {SuccessDto} from "app/core/dto/success-dto";
 import {AuthService} from "app/core/service/auth/auth.service";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -56,6 +56,22 @@ export class ChangeDescriptionDialog extends HasErrors implements OnInit {
         this.data.description,
       )
     );
+
+    this.formGroup.get('description')?.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        takeUntil(this.unSubscriber)
+      )
+      .subscribe({
+      next: it => {
+        it = replaceLinksWithHtmlTags(it);
+
+        if (it.length <= this.maxLength) {
+          this.description?.setValue(it, {emitEvent: false});
+        }
+      }
+    });
   }
 
   saveNickname(): void {
@@ -78,4 +94,11 @@ export class ChangeDescriptionDialog extends HasErrors implements OnInit {
   }
 
   protected readonly FormControl = FormControl;
+
+  onKeydown($event: KeyboardEvent) {
+
+    if ($event.key == 'Enter') {
+      this.description.setValue(this.description.value.trim() + '<br>');
+    }
+  }
 }

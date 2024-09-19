@@ -6,6 +6,7 @@
       <textarea matInput
                 maxlength="{{maxLength}}"
                 [cdkTextareaAutosize]="true"
+                (keydown)="onKeydown($event)"
                 style="{{ isMobile ? 'max-height: 50vh;' : null }}"
                 [formControl]="description">
         </textarea>

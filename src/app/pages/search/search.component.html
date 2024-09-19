@@ -49,7 +49,7 @@
           <h2>
             {{ authorInfo.nickname }}
           </h2>
-          <ng-container *ngIf="authorInfo.statistics?.articles" [@opacity-2]>
+          <ng-container *ngIf="authorInfo.statistics?.articles">
             <b>
               {{
                 "searchPage.articles"
@@ -58,7 +58,7 @@
             </b>
             <br>
           </ng-container>
-          <ng-container *ngIf="authorInfo.statistics?.subscribers" [@opacity-2]>
+          <ng-container *ngIf="authorInfo.statistics?.subscribers">
 
             <b>
               {{
@@ -68,7 +68,7 @@
             </b>
             <br>
           </ng-container>
-          <ng-container *ngIf="authorInfo.additionalInfo?.registrationDate" [@opacity-2]>
+          <ng-container *ngIf="authorInfo.additionalInfo?.registrationDate">
             <b>
               {{
                 "searchPage.registrationDate"
@@ -82,8 +82,7 @@
       </div>
 
       <mat-card-content *ngIf="authorInfo">
-        <p class="description">
-          {{ authorInfo.description ?? "searchPage.noDescription" | translate }}
+        <p class="description" [innerHTML]="authorInfo.description ?? 'searchPage.noDescription' | translate">
         </p>
       </mat-card-content>
 

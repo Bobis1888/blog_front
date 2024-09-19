@@ -55,11 +55,8 @@
       <h4 *ngIf="info.isPremiumUser" class="premium-hint">
         {{ 'profilePage.isPremium' | translate }}
       </h4>
-      <h3>
-        {{ 'profilePage.email' | translate : {email: info.email} }}
-      </h3>
-      <p style="line-break: auto" *ngIf="info.description">
-        {{ 'profilePage.description' | translate : {value: info.description} }}
+      <h3 [innerHTML]="'profilePage.email' | translate : {email: info.email}"></h3>
+      <p style="line-break: auto" *ngIf="info.description" [innerHTML]="'profilePage.description' | translate : {value: info.description}">
       </p>
       <p style="line-break: auto" *ngIf="!info.description">
         {{ 'profilePage.noDescription' | translate }}
