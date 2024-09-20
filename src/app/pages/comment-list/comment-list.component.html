@@ -104,16 +104,15 @@
           </h2>
         </div>
         <div class="comment-content">
-          <span>
+          <span class="comment-date">
             {{ it.date | date : "d MMM y HH:mm" }}
           </span>
           <br>
-          <br *ngIf="it.parent">
           <span *ngIf="it.parent"
                 [innerHTML]="'commentList.inResponseTo' | translate : {content: it.parent.content, nickname: it.parent.nickname}">
 
           </span>
-          <br>
+          <br *ngIf="it.parent">
           <p [innerHTML]="it.content | safeHtml"></p>
         </div>
         <button mat-icon-button
