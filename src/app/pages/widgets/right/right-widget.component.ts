@@ -19,7 +19,7 @@ import {TagService} from "app/core/service/content/tag.service";
 })
 export class RightWidgetComponent extends UnSubscriber implements OnInit {
 
-  protected state: 'data' | 'loading' = 'loading';
+  protected state: 'data' | 'loading' | 'empty' = 'loading';
   protected currentType: LineType = LineType.top;
   protected readonly lineTypes = lineTypes;
 

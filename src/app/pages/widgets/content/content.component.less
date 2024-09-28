@@ -1,0 +1,85 @@
+@import "src/app/theme/utils";
+@import "src/styles";
+
+:host ::ng-deep img {
+  max-width: 100%;
+  margin: 20px 0;
+  border-radius: 20px;
+}
+
+.content {
+  margin: auto;
+
+
+  mat-card {
+    margin: 20px;
+
+    .card-title {
+      padding: 0 20px;
+
+      h2 {
+        margin: 0;
+        line-break: auto;
+      }
+    }
+  }
+
+  mat-card:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px -5px @shadowColor;
+  }
+
+  mat-card-content {
+    min-height: 75px;
+  }
+
+  .pre-view {
+    line-break: auto;
+    overflow: hidden;
+    padding: 5px;
+  }
+
+  .tags {
+    padding: 5px;
+    font-weight: bold;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 10px;
+  }
+
+  .author {
+    font-weight: bold;
+    padding: 20px 20px 0;
+
+    span {
+      display: block;
+      cursor: pointer;
+    }
+  }
+
+  .date {
+    padding: 5px 20px;
+  }
+
+  .stats {
+    padding: 0 15px 10px;
+
+    mat-icon {
+      margin-right: 25px;
+    }
+  }
+}
+
+.empty {
+  margin: 20px;
+  text-align: center;
+}

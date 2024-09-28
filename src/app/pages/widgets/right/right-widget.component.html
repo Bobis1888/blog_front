@@ -1,14 +1,5 @@
 <div class="right" [ngClass]="{mobile: isMobile}">
-  <ng-container [ngSwitch]="state">
-    <ng-container
-      *ngSwitchCase="'data'"
-      [ngTemplateOutlet]="data"
-    ></ng-container>
-    <ng-container *ngSwitchDefault [ngTemplateOutlet]="load"></ng-container>
-  </ng-container>
-</div>
 
-<ng-template #data>
   <mat-card [@opacity-1]>
     <mat-card-content *ngIf="authService.isAuthorized">
       <div class="buttons">
@@ -26,30 +17,35 @@
         </ng-container>
       </div>
     </mat-card-content>
-    <ng-container *ngIf="tags.length > 0 && !isMobile">
+    <ng-container *ngIf="!isMobile">
 
       <mat-card-content>
-        <br>
-        <h3>{{ 'rightWidget.tags' | translate }}</h3>
-        <mat-divider></mat-divider>
-        <br>
-        <div class="topic">
-          <div *ngFor="let tag of tags"
-               [routerLink]="'/search'"
-               [queryParams]="{q: tag.replace('#', ''), tag: true}">
-            {{ tag }}
-          </div>
-        </div>
+        <ng-container [ngSwitch]="state">
+          <ng-container
+            *ngSwitchCase="'data'"
+            [ngTemplateOutlet]="data"
+          ></ng-container>
+          <ng-container *ngSwitchDefault [ngTemplateOutlet]="empty"></ng-container>
+        </ng-container>
+
       </mat-card-content>
     </ng-container>
   </mat-card>
+</div>
+
+<ng-template #data>
+  <br>
+  <h3>{{ 'rightWidget.tags' | translate }}</h3>
+  <mat-divider></mat-divider>
+  <br>
+  <div class="topic">
+    <div *ngFor="let tag of tags"
+         [routerLink]="'/search'"
+         [queryParams]="{q: tag.replace('#', ''), tag: true}">
+      {{ tag }}
+    </div>
+  </div>
 </ng-template>
 
-<ng-template #load>
-  <mat-card>
-    <mat-card-content>
-      <br>
-      <ngx-skeleton-loader count="2"></ngx-skeleton-loader>
-    </mat-card-content>
-  </mat-card>
-</ng-template>
+<ng-template #empty></ng-template>
+

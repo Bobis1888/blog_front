@@ -117,8 +117,9 @@
 
 <ng-template #load>
   <div>
-    <mat-card *ngFor="let i of [1, 2]">
+    <mat-card *ngFor="let i of [1, 2, 3]">
       <mat-card-content>
+        <br>
         <ngx-skeleton-loader
           [count]="1"
           [theme]="{ width: '75%' }"
@@ -139,9 +140,13 @@
   <div class="empty">
     <h4 [innerHTML]="'searchPage.message' | translate"></h4>
   </div>
+  <mat-divider></mat-divider>
+  <br/>
+  <ng-container *ngTemplateOutlet="tag"></ng-container>
+</ng-template>
+
+<ng-template #tag>
   <div *ngIf="tags.length > 0" [@opacity-2]>
-    <mat-divider></mat-divider>
-    <br/>
     <div class="tags">
       <span *ngFor="let tag of tags" (click)="fillTag(tag)">{{
           tag.value
@@ -151,39 +156,14 @@
 </ng-template>
 
 <ng-template #data>
+  <div *ngIf="byTag && tags.length > 1">
+    <ng-container *ngTemplateOutlet="tag"></ng-container>
+    <br/>
+    <mat-divider></mat-divider>
+  </div>
   <div>
     <div *ngFor="let item of items" class="content">
-      <mat-card routerLink="/content/view/{{ item.id }}" matRipple>
-        <ng-container>
-          <div>
-            <div
-              class="author"
-              [routerLink]="'/search'"
-              [queryParams]="{ q: item.authorName, author: true }"
-            >
-              <span>{{ item.authorName }}</span>
-            </div>
-
-            <div class="date">
-              <span>{{ item.publishedDate | date: "d MMMM y" }}</span>
-            </div>
-
-            <div class="card-title">
-              <h2>{{ item.title }}</h2>
-            </div>
-
-            <div class="card-tags" *ngIf="item.tags">
-              {{ item.tags.join(" ") }}
-            </div>
-          </div>
-        </ng-container>
-        <mat-card-content>
-          <p [innerHTML]="item.preView | safeHtml"></p>
-        </mat-card-content>
-        <mat-card-footer>
-          <div class="footer"></div>
-        </mat-card-footer>
-      </mat-card>
+      <content-widget [item]="item"></content-widget>
     </div>
     <div class="load-more" *ngIf="canLoadMore || loadMoreProgress" #end>
       <button mat-button (click)="loadMore()" *ngIf="!loadMoreProgress">

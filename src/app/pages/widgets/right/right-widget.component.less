@@ -1,7 +1,9 @@
 @import "src/app/theme/utils.less";
 
 .right {
-  margin: auto;
+  position: fixed;
+  width: 100%;
+  max-width: 35vh;
 
   h1 {
     margin: 10px auto;
@@ -41,6 +43,7 @@
       border-radius: 20px;
       margin: 5px;
       padding: 5px 10px;
+      word-wrap: anywhere;
     }
 
     div:hover {
@@ -70,6 +73,10 @@
 }
 
 .mobile {
+  position: unset;
+  margin: auto;
+  max-width: none;
+
   .buttons {
     display: flex;
     justify-content: space-around;

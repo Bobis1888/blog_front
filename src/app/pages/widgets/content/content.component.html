@@ -1,0 +1,43 @@
+<div class="content">
+  <mat-card [@opacity-1] matRipple routerLink="/content/view/{{ item.id }}">
+
+    <div>
+      <div class="author" [routerLink]="'/search'" [queryParams]="{ q: item.authorName, author: true }">
+        <span>{{ item.authorName }}</span>
+      </div>
+
+      <div class="date">
+        <span>{{ item.publishedDate | date: "d MMMM y" }}</span>
+      </div>
+
+      <div class="card-title">
+        <h2>{{ item.title }}</h2>
+      </div>
+    </div>
+
+    <mat-card-content>
+      <p class="pre-view" [innerHTML]="item.preView | safeHtml"></p>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <div class="footer">
+        <div class="stats">
+          <mat-icon *ngIf="item.countViews" matBadge="{{ item.countViews }}" class="accent-icon"
+                    matBadgePosition="below after">
+            visibility
+          </mat-icon>
+
+          <mat-icon *ngIf="item.countComments" matBadge="{{ item.countComments }}" class="accent-icon"
+                    matBadgePosition="below after">
+            comment
+          </mat-icon>
+
+          <mat-icon *ngIf="item.countReactions" matBadge="{{ item.countReactions }}" class="accent-icon"
+                    matBadgePosition="below after">
+            favorite
+          </mat-icon>
+        </div>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

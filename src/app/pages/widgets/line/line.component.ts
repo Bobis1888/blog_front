@@ -51,7 +51,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
   protected direction: 'ASC' | 'DESC' = 'DESC';
   protected max: number = 10;
   protected page: number = 0;
-  protected selectedPeriod: Period = sessionStorage.getItem('selectedPeriod') ? sessionStorage.getItem('selectedPeriod') as Period : Period.all;
+  protected selectedPeriod: Period = sessionStorage.getItem('selectedPeriod') ? sessionStorage.getItem('selectedPeriod') as Period : Period.month;
   protected periodsFrom: Array<{key: Period, value: string}> = new Array<{key: Period; value: string}>();
   protected readonly LineType = LineType;
   protected readonly Status = Status;

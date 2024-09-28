@@ -16,12 +16,13 @@ import {NgOptimizedImage} from "@angular/common";
 import {Statistics} from "app/core/service/content/statistics";
 import {Tag, TagService, TagsFilter} from "app/core/service/content/tag.service";
 import {animations} from "app/core/config/app.animations";
+import {ContentComponent} from "app/pages/widgets/content/content.component";
 
 @Component({
   selector: 'search',
   standalone: true,
   animations: animations,
-  imports: [CoreModule, FormsModule, ReactiveFormsModule, NgOptimizedImage],
+  imports: [CoreModule, FormsModule, ReactiveFormsModule, NgOptimizedImage, ContentComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.less',
 })
@@ -137,7 +138,6 @@ export class SearchComponent extends HasErrors implements OnInit {
             },
             queryParamsHandling: 'merge',
           }).then();
-          this.initState();
         }
       });
 
@@ -175,17 +175,17 @@ export class SearchComponent extends HasErrors implements OnInit {
   }
 
   public initState() {
-    if (!this.query) {
+    // if (!this.query) {
       this.tagService
         .list({
-          max: 35,
-          query: ""
+          max: this.isMobile ? 10 : 30,
+          query: this.query
         } as TagsFilter)
         .pipe(takeUntil(this.unSubscriber))
         .subscribe({
           next: (it) => this.tags = it?.sort((a, b) => a.value.length - b.value.length)
         });
-    }
+    // }
   }
 
   public submit(): void {
@@ -272,6 +272,8 @@ export class SearchComponent extends HasErrors implements OnInit {
         next: it => {
           this.items.push(...it.list);
           this.totalPages = it.totalPages;
+
+          this.initState();
 
           if (this.items.length == 0) {
             this.state = 'empty';
