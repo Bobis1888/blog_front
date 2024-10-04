@@ -66,6 +66,10 @@ export class ViewByLinkContentComponent extends ViewContentComponent {
             });
           }
 
+          if (this.content) {
+            this.calculateTimeToRead();
+          }
+
           this.loadAuthorInfo();
         },
         error: () => this.state = 'empty'
