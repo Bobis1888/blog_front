@@ -20,6 +20,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ReportDialog} from "app/pages/content/report-dialog/report-dialog.component";
 import {CommentListComponent} from "app/pages/comment-list/comment-list.component";
 import {Actions} from "app/core/service/content/actions";
+import {UserInfo} from "../../../core/service/auth/user-info";
 
 @Component({
   selector: 'view-content',
@@ -51,6 +52,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
   protected aRouter: ActivatedRoute;
 
   protected content: Content = {} as Content;
+  protected author: UserInfo = {} as UserInfo;
   protected additionalContent: Array<Content> = [];
   protected state: 'data' | 'loading' | 'empty' = 'loading';
   private ref: MatSnackBarRef<any> | null = null;
@@ -232,6 +234,19 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
 
           if (this.content) {
             this.calculateTimeToRead();
+          }
+
+          if (this.content.authorId) {
+            this.authService.publicInfo(this.content.authorId)
+              .pipe(takeUntil(this.unSubscriber))
+              .subscribe({
+                next: (it) => {
+                  if (it) {
+                    this.author = it;
+                    this.author.hasImage = !!it.imagePath;
+                  }
+                },
+              });
           }
         },
         error: () => (this.state = 'empty'),

@@ -105,7 +105,7 @@
     "changeNicknameTitle": "Новый никнейм",
     "changeAvatarTitle": "Изменить аватар",
     "email": "<b>Email</b><br>{{email}}",
-    "editNickname": "Поменять никнейм",
+    "editNickname": "Изменить никнейм",
     "editDescription": "Редактировать описание",
     "description": "<b>Описание</b><br>{{value}}",
     "isPremium": "У вас премиум аккаунт",
@@ -241,6 +241,7 @@
     "addedToBookmarks": "Добавлено в закладки",
     "removedFromBookmarks": "Удалено из закладок",
     "subscribe": "Подписаться",
+    "subscribed": "Вы подписаны",
     "reportHint": "Пожаловаться",
     "bookmarkHint": "Читать позже",
     "shareHint": "Поделиться"

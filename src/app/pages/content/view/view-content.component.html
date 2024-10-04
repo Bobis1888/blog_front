@@ -42,20 +42,51 @@
 
 <ng-template #data>
 
+  <div class="author" *ngIf="author.nickname" [@opacity-2]>
+    <div>
+      <div class="avatar"
+           [@opacity-2]
+           *ngIf="author.hasImage"
+           [routerLink]="'/search'"
+           [queryParams]="{q: author.nickname, author: true}"
+      >
+        <img
+          class="avatar-img"
+          src="api/storage/download?uuid={{ author.imagePath }}"
+          (error)="author.hasImage = false"
+          alt="avatar"
+        />
+      </div>
+      <div class="avatar default-avatar" *ngIf="!author.hasImage">
+        <img
+          class="avatar-img"
+          src="assets/images/default-avatar.png"
+          alt="avatar"
+        />
+      </div>
+    </div>
 
-  <div class="author">
-      <span [routerLink]="'/search'"
-            [queryParams]="{q: content.authorName, author: true}">
-        {{ content.authorName }}
+    <div class="info">
+      <span
+        class="nickname"
+        [routerLink]="'/search'"
+        [queryParams]="{q: author.nickname, author: true}">
+        {{ author.nickname }}
       </span>
-
-    <button
-      *ngIf="content.actions.canSubscribe"
-      mat-flat-button
-      (click)="subscribe()"
-    >
-      {{ 'viewContentPage.subscribe' | translate }}
-    </button>
+      <button
+        *ngIf="content.actions.canSubscribe"
+        mat-flat-button
+        (click)="subscribe()"
+      >
+        {{ 'viewContentPage.subscribe' | translate }}
+      </button>
+      <span
+        class="subscribed"
+        *ngIf="content.actions.canUnsubscribe"
+      >
+        {{ 'viewContentPage.subscribed' | translate }}
+      </span>
+    </div>
   </div>
 
   <span *ngIf="content.status === Status.pending"
@@ -64,12 +95,12 @@
   <span *ngIf="content.publishedDate"
         class="date">{{ content.publishedDate | date : "d MMMM y" }}</span>
 
+  <span *ngIf="timeToRead != 0"
+        class="time-to-read">{{ 'viewContentPage.timeToRead' | translate : {time: timeToRead} }}</span>
+
   <div class="title-container">
     <h1>{{ content.title }}</h1>
   </div>
-
-  <span *ngIf="timeToRead != 0"
-        class="time-to-read">{{ 'viewContentPage.timeToRead' | translate : {time: timeToRead} }}</span>
 
   <div class="tags">
     <!--    <span class="tags-title">{{ 'viewContentPage.tags' | translate }}</span>-->

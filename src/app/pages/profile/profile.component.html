@@ -36,7 +36,7 @@
 
         <div class="avatar default-avatar" *ngIf="!info.hasImage" [@opacity-2]
              (click)="openEditAvatarDialog()">
-          <img src="assets/images/dinosaur.png" alt="avatar">
+          <img src="assets/images/default-avatar.png" alt="avatar">
         </div>
       </div>
       <div class="title"></div>
@@ -139,6 +139,13 @@
             (click)="openEditNicknameDialog()"
           >
             {{ 'profilePage.editNickname' | translate }}
+          </button>
+
+          <button
+            mat-button
+            (click)="openEditAvatarDialog()"
+          >
+            {{ 'profilePage.changeAvatarTitle' | translate }}
           </button>
 
           <button

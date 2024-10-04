@@ -1,10 +1,9 @@
 @import "src/app/theme/utils";
 
-:host ::ng-deep .content img {
+:host ::ng-deep .content img:not([class*="avatar-img"]) {
   max-width: 100%;
   margin: 20px 0;
   border-radius: 20px;
-  //box-shadow: 0 0 5px 5px @shadowColor;
 }
 
 :host ::ng-deep .content a {
@@ -32,7 +31,6 @@ mat-divider {
   .title-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 10px;
   }
 
@@ -77,6 +75,7 @@ mat-divider {
   .time-to-read {
     margin-bottom: 10px;
     display: block;
+    color: @fourthColor;
   }
 }
 
@@ -99,13 +98,45 @@ mat-divider {
 
 .author {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-bottom: 20px;
 
-  span {
+  .nickname {
     cursor: pointer;
+    font-size: 22px;
+    padding: 10px;
     font-weight: bold;
+  }
+
+  .subscribed {
+    padding: 0 10px;
+    font-size: 16px;
+    color: @fourthColor;
+    font-weight: bold;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    align-items: start;
+
+  }
+
+  .avatar {
+    cursor: pointer;
+    border: 2px @fifthColor solid;
+    border-radius: 99px;
+    width: 95px;
+    height: 95px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      clip-path: circle(45px at center);
+      object-fit: cover;
+    }
   }
 }
 
@@ -126,6 +157,7 @@ mat-divider {
   font-weight: bolder;
   display: block;
   padding-bottom: 10px;
+  color: @fourthColor;
 }
 
 .vertical {

@@ -29,11 +29,14 @@
             </div>
             <div class="avatar default-avatar" *ngIf="!authorInfo.hasImage">
               <img
-                src="assets/images/dinosaur.png"
+                src="assets/images/default-avatar.png"
                 alt="avatar"
               />
             </div>
-            <div>
+            <div class="info">
+              <span class="nickname">
+                {{ authorInfo.nickname }}
+              </span>
               <button mat-flat-button type="button" (click)="subscribe(authorInfo)"
                       *ngIf="authorInfo.additionalInfo?.canSubscribe">
                 {{ 'searchPage.subscribe' | translate }}
@@ -46,9 +49,6 @@
           </div>
         </div>
         <div class="sub-title">
-          <h2>
-            {{ authorInfo.nickname }}
-          </h2>
           <ng-container *ngIf="authorInfo.statistics?.articles">
             <b>
               {{
