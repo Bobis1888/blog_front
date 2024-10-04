@@ -65,6 +65,8 @@ export class ViewByLinkContentComponent extends ViewContentComponent {
                 .map((it) => it.replace('#', '')).join(' ')
             });
           }
+
+          this.loadAuthorInfo();
         },
         error: () => this.state = 'empty'
       });

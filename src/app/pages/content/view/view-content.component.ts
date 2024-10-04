@@ -206,51 +206,60 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
         next: (it) => {
           this.content = it;
           this.state = 'data';
-
-          if (this.content.title) {
-            this.title.setTitle('Mylog - ' + this.content.title);
-          }
-
-          if (this.content.tags) {
-            this.meta.updateTag({
-              name: 'keywords',
-              content: this.content.tags
-                .map((it) => it.replace('#', ''))
-                .join(' '),
-            });
-          }
-
-          if (!this.content.actions) {
-            this.content.actions = {} as Actions
-          }
-
-          if (this.content.tags?.length > 0) {
-            this.listAdditionalContent()
-              .pipe(takeUntil(this.unSubscriber))
-              .subscribe({
-                next: (it) => (this.additionalContent = it ?? []),
-              });
-          }
-
-          if (this.content) {
-            this.calculateTimeToRead();
-          }
-
-          if (this.content.authorId) {
-            this.authService.publicInfo(this.content.authorId)
-              .pipe(takeUntil(this.unSubscriber))
-              .subscribe({
-                next: (it) => {
-                  if (it) {
-                    this.author = it;
-                    this.author.hasImage = !!it.imagePath;
-                  }
-                },
-              });
-          }
+          this.afterFetchInit();
         },
         error: () => (this.state = 'empty'),
       });
+  }
+
+  afterFetchInit(): void {
+
+    if (this.content.title) {
+      this.title.setTitle('Mylog - ' + this.content.title);
+    }
+
+    if (this.content.tags) {
+      this.meta.updateTag({
+        name: 'keywords',
+        content: this.content.tags
+          .map((it) => it.replace('#', ''))
+          .join(' '),
+      });
+    }
+
+    if (!this.content.actions) {
+      this.content.actions = {} as Actions
+    }
+
+    if (this.content.tags?.length > 0) {
+      this.listAdditionalContent()
+        .pipe(takeUntil(this.unSubscriber))
+        .subscribe({
+          next: (it) => (this.additionalContent = it ?? []),
+        });
+    }
+
+    if (this.content) {
+      this.calculateTimeToRead();
+    }
+
+    this.loadAuthorInfo();
+  }
+
+  loadAuthorInfo(): void {
+
+    if (this.content.authorId) {
+      this.authService.publicInfo(this.content.authorId)
+        .pipe(takeUntil(this.unSubscriber))
+        .subscribe({
+          next: (it) => {
+            if (it) {
+              this.author = it;
+              this.author.hasImage = !!it.imagePath;
+            }
+          },
+        });
+    }
   }
 
   subscribe() {
@@ -294,7 +303,7 @@ export class ViewContentComponent extends UnSubscriber implements OnInit {
       .afterClosed()
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
-      next: (it) => it ? this.content.actions.canReport = false : null
-    });
+        next: (it) => it ? this.content.actions.canReport = false : null
+      });
   }
 }
