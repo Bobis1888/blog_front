@@ -69,11 +69,13 @@ export class MainComponent extends ScrollToTop implements OnInit {
         next: (it) => {
 
           if (it["confirm-email-result"] === "true") {
+            console.log('!!!!!!!!!!!!!!!!!!', 'navigate');
             this.router.navigate(['/auth/confirm-registration']).then();
             return;
           }
 
           if (it["reset-password"]) {
+            console.log('!!!!!!!', it);
             this.router.navigate(['/auth/change-password'], {queryParams: {uuid: it["reset-password"]}}).then();
             return;
           }

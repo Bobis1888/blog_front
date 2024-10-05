@@ -33,7 +33,7 @@ export const authRoutes: Routes = [
       {
         path: 'confirm-registration',
         data: {animation: 'ConfirmRegistrationComponent'},
-        canActivate: [nonAuthGuard],
+        canActivate: [],
         loadComponent: () => import('app/pages/auth/confirm-registration/confirm-registration.component')
           .then(m => m.ConfirmRegistrationComponent)
       },
@@ -47,7 +47,7 @@ export const authRoutes: Routes = [
       {
         path: 'change-password',
         data: {animation: 'ChangePasswordComponent'},
-        canActivate: [nonAuthGuard],
+        canActivate: [],
         loadComponent: () => import('app/pages/auth/change-password/change-password.component')
           .then(m => m.ChangePasswordComponent)
       },
