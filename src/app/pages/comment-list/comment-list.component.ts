@@ -3,7 +3,7 @@ import {DeviceDetectorService} from 'ngx-device-detector';
 import {animations} from 'app/core/config/app.animations';
 import {CommentService} from "app/core/service/comment/comment.service";
 import {Comment, CommentList} from "app/core/service/comment/comment";
-import {debounceTime, distinctUntilChanged, takeUntil} from "rxjs";
+import {takeUntil} from "rxjs";
 import {CoreModule} from "app/core/core.module";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HasErrors} from "app/core/abstract/has-errors";
@@ -76,22 +76,6 @@ export class CommentListComponent extends HasErrors implements OnInit {
       this.direction = direction;
     }
 
-    this.formGroup.get('content')?.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        takeUntil(this.unSubscriber)
-      )
-      .subscribe({
-      next: it => {
-        it = replaceLinksWithHtmlTags(it);
-
-        if (it?.length <= this.maxLength) {
-          this.formGroup.get('content')?.setValue(it, {emitEvent: false});
-        }
-      }
-    });
-
     this.list();
   }
 
@@ -131,6 +115,14 @@ export class CommentListComponent extends HasErrors implements OnInit {
   submit() {
     this.state = 'loading';
     let comment = this.safeHtmlService.sanitize(this.formGroup.get('content')?.value);
+
+    // TODO
+    let replacedComment = replaceLinksWithHtmlTags(comment);
+
+    if (replacedComment?.length <= this.maxLength) {
+      comment = replacedComment;
+    }
+
     this.page = 0;
     this.commentService
       .save(this.contentId, comment, this.parent?.id)

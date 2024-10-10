@@ -26,6 +26,7 @@ export interface DialogData {
 export class ChangeNicknameDialog extends HasErrors implements OnInit {
 
   protected maxLengthNickname = 35;
+  protected minLengthNickname = 5;
 
   constructor(
     private dialogRef: MatDialogRef<ChangeNicknameDialog>,
@@ -67,14 +68,18 @@ export class ChangeNicknameDialog extends HasErrors implements OnInit {
       'nickname',
       new FormControl(
         this.data.nickname,
-        [Validators.required]
+        [
+          Validators.required,
+          Validators.minLength(this.minLengthNickname),
+          Validators.maxLength(this.maxLengthNickname)
+        ]
       )
     );
   }
 
   saveNickname(): void {
 
-    if (this.formGroup.valid) {
+    if (this.validate()) {
       let nickname = this.formGroup.get("nickname")?.value;
 
       if (nickname == this.authService.userInfo.nickname) {
