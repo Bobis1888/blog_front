@@ -43,7 +43,7 @@ export class CommentListComponent extends HasErrors implements OnInit {
   protected items: Array<Comment> = [];
   protected state: 'loading' | 'data' | 'empty' = 'loading';
   protected maxLength: number = 255;
-  protected direction: 'ASC' | 'DESC' = 'ASC';
+  protected direction: 'ASC' | 'DESC' = 'DESC';
 
   protected parent?: Comment | null;
 
