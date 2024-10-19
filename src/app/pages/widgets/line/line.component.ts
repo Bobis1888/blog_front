@@ -44,6 +44,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
 
   protected state: 'loading' | 'data' | 'empty' = 'loading';
   public items: Array<Content> = [];
+  protected authorInfos: Array<UserInfo> = [];
   protected type: LineType = LineType.top;
   protected totalPages: number = 0;
   protected info: UserInfo = {} as UserInfo;
@@ -52,7 +53,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
   protected max: number = 10;
   protected page: number = 0;
   protected selectedPeriod: Period = sessionStorage.getItem('selectedPeriod') ? sessionStorage.getItem('selectedPeriod') as Period : Period.month;
-  protected periodsFrom: Array<{key: Period, value: string}> = new Array<{key: Period; value: string}>();
+  protected periodsFrom: Array<{ key: Period, value: string }> = new Array<{ key: Period; value: string }>();
   protected readonly LineType = LineType;
   protected readonly Status = Status;
   protected loadMoreProgress: boolean = false;
@@ -108,7 +109,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
     this.router.data.subscribe({
       next: (it) => {
         this.type = it["type"];
-        this.init();
+        this.find();
       },
       error: () => this.state = 'empty'
     });
@@ -125,7 +126,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
     }).afterClosed()
       .pipe(takeUntil(this.unSubscriber))
       .subscribe({
-        next: (it) => it ? this.init() : this.state = 'data'
+        next: (it) => it ? this.find() : this.state = 'data'
       });
   }
 
@@ -139,7 +140,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
       next: (it) => {
 
         if (it) {
-          this.init();
+          this.find();
         } else {
           this.state = 'data';
         }
@@ -153,17 +154,17 @@ export class LineComponent extends UnSubscriber implements OnInit {
       .pipe(
         takeUntil(this.unSubscriber),
       ).subscribe({
-      next: () => this.init()
+      next: () => this.find()
     });
   }
 
   public loadMore() {
     this.loadMoreProgress = true;
     this.page++;
-    this.init(false);
+    this.find(false);
   }
 
-  private init(withClear: boolean = true) {
+  private find(withClear: boolean = true) {
 
     if (!this.loadMoreProgress) {
       this.state = 'loading';
@@ -182,9 +183,49 @@ export class LineComponent extends UnSubscriber implements OnInit {
           this.totalPages = it.totalPages ?? 0;
           this.state = this.items.length > 0 ? 'data' : 'empty';
           this.loadMoreProgress = false;
+          this.loadAuthorInfos();
         },
         error: () => this.state = 'empty'
       });
+  }
+
+  private loadAuthorInfos(): void {
+    let authorsId = this.authorInfos.map(it => it.id);
+    let authorsIdFromContent: Array<number> = [];
+
+    this.items.forEach(it => {
+
+      if (it.authorId && !authorsId.includes(it.authorId) && authorsIdFromContent.indexOf(it.authorId) < 0) {
+        authorsIdFromContent.push(it.authorId);
+      }
+    });
+
+    // TODO need made on server /public_info with list of ids
+    authorsIdFromContent.forEach(it => {
+      this.authService.publicInfo(it)
+        .pipe(takeUntil(this.unSubscriber))
+        .subscribe({
+          next: (ur) => {
+
+            if (ur) {
+              this.authorInfos.push(ur);
+            }
+          },
+        });
+    });
+
+    // TODO need made different way
+    setTimeout(() => {
+      this.items
+        .filter(it => !it.author)
+        .forEach(it => {
+          let author = this.authorInfos.find(a => a.id == it.authorId);
+
+          if (author) {
+            it.author = author;
+          }
+        });
+    }, 1000);
   }
 
   private list(): Observable<ListResponse> {
@@ -282,7 +323,7 @@ export class LineComponent extends UnSubscriber implements OnInit {
     if (this.items.length > 0 || force) {
       this.state = 'loading';
       this.page = 0;
-      this.init();
+      this.find();
     }
   }
 }

@@ -68,12 +68,35 @@
 
       <ng-template #view>
         <div>
-          <div class="author" [routerLink]="'/search'" [queryParams]="{ q: item.authorName, author: true }">
-            <span>{{ item.authorName }}</span>
-          </div>
+          <div class="author">
+            <div *ngIf="item.author" [@opacity-2]>
+              <div class="avatar"
+                   [@opacity-2]
+                   *ngIf="item.author.hasImage"
+                   [routerLink]="'/search'"
+                   [queryParams]="{q: item.author.nickname, author: true}"
+              >
+                <img
+                  class="avatar-img"
+                  src="api/storage/download?uuid={{ item.author.imagePath }}"
+                  (error)="item.author.hasImage = false"
+                  alt="avatar"
+                />
+              </div>
+              <div class="avatar default-avatar" *ngIf="!item.author.hasImage">
+                <img
+                  class="avatar-img"
+                  src="assets/images/default-avatar.png"
+                  alt="avatar"
+                />
+              </div>
+            </div>
+            <div class="info">
+              <span class="nickname">{{ item.authorName }}</span>
+              <span class="date">{{ item.publishedDate | date: "d MMMM y" }}</span>
+            </div>
 
-          <div class="date">
-            <span>{{ item.publishedDate | date: "d MMMM y" }}</span>
+
           </div>
 
           <div class="card-title">

@@ -1,5 +1,6 @@
 import {Status} from "./content.service";
 import {Actions} from "./actions";
+import {UserInfo} from "../auth/user-info";
 
 export interface Content {
   id: string;
@@ -18,6 +19,7 @@ export interface Content {
   isSaved: boolean;
   reactions: Array<Reaction>;
   actions: Actions;
+  author: UserInfo;
 }
 
 export interface Reaction {

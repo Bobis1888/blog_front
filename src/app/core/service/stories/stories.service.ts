@@ -47,7 +47,7 @@ export class StoriesService {
     return of([
       {
         id: 1,
-        title: 'Первый ивент стартовал!',
+        title: 'Участвуй в осеннем ивенте!',
         description: 'Нажми чтобы узнать подробности',
         link: 'event',
         lang: 'ru'

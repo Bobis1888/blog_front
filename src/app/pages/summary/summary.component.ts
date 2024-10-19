@@ -41,6 +41,6 @@ export class SummaryComponent extends UnSubscriber {
   }
 
   get hideRightWidget(): boolean {
-    return this.isMobile && ["my", "bookmarks"].find(it => this.router.url.includes(it)) != null;
+    return this.isMobile && ( !this.authService.isAuthorized || ["my", "bookmarks"].find(it => this.router.url.includes(it)) != null);
   }
 }

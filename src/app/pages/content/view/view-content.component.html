@@ -57,7 +57,11 @@
           alt="avatar"
         />
       </div>
-      <div class="avatar default-avatar" *ngIf="!author.hasImage">
+      <div class="avatar default-avatar"
+           *ngIf="!author.hasImage"
+           [routerLink]="'/search'"
+           [queryParams]="{q: author.nickname, author: true}"
+      >
         <img
           class="avatar-img"
           src="assets/images/default-avatar.png"
