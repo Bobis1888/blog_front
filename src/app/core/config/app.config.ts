@@ -21,7 +21,7 @@ import localeRu from '@angular/common/locales/ru';
 registerLocaleData(localeRu, 'ru');
 
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'top',
+  scrollPositionRestoration: 'enabled',
   anchorScrolling: 'enabled',
 };
 
